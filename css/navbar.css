@@ -1,0 +1,127 @@
+@font-face {
+  font-family: "inter";
+  src: url(/join/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(246, 247, 248);
+  font-family: "inter", sans-serif;
+}
+
+.navbar {
+  background-color: rgba(42, 54, 71, 1);
+  width: 232px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.joinIcon {
+  width: 100px;
+  padding: 64px;
+  position: absolute;
+}
+
+.navbarContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 300px;
+  width: 232px;
+}
+
+.menu p {
+  color: rgba(205, 205, 205, 1);
+}
+
+.summery {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0px 56px;
+}
+
+.addTask {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0px 56px;
+}
+
+.board {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0px 56px;
+}
+
+.conntacts {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0px 56px;
+}
+
+.summery:hover {
+  background-color: rgba(42, 61, 89, 1);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.addTask:hover {
+  background-color: rgba(42, 61, 89, 1);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.board:hover {
+  background-color: rgba(42, 61, 89, 1);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.conntacts:hover {
+  background-color: rgba(42, 61, 89, 1);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.policy {
+  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.policy a {
+  color: rgba(168, 168, 168, 1);
+  padding: 8px 8px;
+  text-decoration: none;
+  display: inline-block;
+  width: 111px;
+  transition: color 0.1s, font-weight 0.1s;
+}
+
+.policy a:hover {
+  cursor: pointer;
+  color: rgb(41, 171, 226);
+  font-weight: bold;
+}

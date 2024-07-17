@@ -1,0 +1,203 @@
+@font-face {
+  font-family: "inter";
+  src: url(/join/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(246, 247, 248);
+  font-family: "inter", sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 80px;
+  margin-bottom: 60px;
+}
+
+.joinIcon {
+  width: 100px;
+}
+
+.signUPContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-right: 40px;
+}
+
+.signUp {
+  font-size: 16px;
+  font-weight: bold;
+  margin: -10px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgb(42, 54, 71);
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.signUp:hover {
+  cursor: pointer;
+  background-color: rgb(41, 171, 226, 1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 60px;
+}
+
+footer a {
+  color: #a8a8a8;
+  text-decoration: none;
+  display: inline-block;
+  width: 111px;
+  transition: color 0.1s, font-weight 0.1s;
+}
+
+footer a:hover {
+  cursor: pointer;
+  color: rgb(41, 171, 226);
+  font-weight: bold;
+}
+
+.justifyLogInContainer {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  background-color: rgb(246, 247, 248);
+}
+
+.logInContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 115px;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 30px;
+  box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 117px;
+}
+
+.logIntText {
+  font-size: 61px;
+  margin: 0;
+  position: relative;
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.logIntText::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 150px;
+  border-bottom: 3px solid rgba(41, 171, 226, 1);
+}
+
+.logInInput {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.emailInput {
+  background-image: url("/join/source/mail.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 16px;
+  padding: 12px 21px;
+  width: 422px;
+  border-radius: 8px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  font-size: 20px;
+  outline: none;
+}
+
+.emailInput::placeholder {
+  color: rgba(209, 209, 209, 1);
+  font-size: 20px;
+}
+
+.passwordInput {
+  background-image: url("/join/source/lock.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 16px;
+  padding: 12px 21px;
+  width: 422px;
+  border-radius: 8px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  font-size: 20px;
+  outline: none;
+}
+
+.passwordInput::placeholder {
+  color: rgba(209, 209, 209, 1);
+  font-size: 20px;
+}
+
+.checkbox:hover {
+  filter: drop-shadow(0px 0px 4px #87878fbe);
+  cursor: pointer;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 42px;
+}
+
+.rememberMe p {
+    font-weight: 400;
+}
+
+.logInButtons {
+  display: flex;
+  align-items: center;
+  margin: 0 45px;
+  gap: 35px;
+}
+
+.logIn {
+  font-size: 21px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgba(42, 54, 71, 1);
+  border: none;
+  border-radius: 8px;
+  padding: 15px 24px;
+}
+
+.logIn:hover {
+  cursor: pointer;
+  background-color: rgba(41, 171, 226, 1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.GuestLogIn {
+  font-size: 21px;
+  font-weight: bold;
+  color: rgba(42, 54, 71, 1);
+  border: 2px solid rgba(42, 54, 71, 1);
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  padding: 15px 24px;
+}
+
+.GuestLogIn:hover {
+  cursor: pointer;
+  color: rgba(41, 171, 226, 1);
+  border: 2px solid rgba(41, 171, 226, 1);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}

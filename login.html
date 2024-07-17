@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="Join icon"
+      href="/join/source/joinWhite.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/login.css" />
+    <title>Log in</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img class="joinIcon" src="/join/source/joinDark.png" alt="Join Icon" />
+      </div>
+      <div class="signUPContainer">
+        <p style="font-size: 24px; margin: 0">Not a Join user?</p>
+        <button class="signUp" onclick="redirectToSignup()">Sign up</button>
+      </div>
+    </header>
+    <div class="justifyLogInContainer">
+      <div class="logInContainer">
+        <h2 class="logIntText">Log in</h2>
+        <form class="" action="">
+          <div class="logInInput">
+            <input class="emailInput" type="email" placeholder="Email" />
+            <input
+              class="passwordInput"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="rememberMe">
+            <img
+              class="checkbox"
+              src="/join/source/emptyCheckbox.png"
+              alt="Checkbox"
+            />
+            <p>Remember me</p>
+          </div>
+          <div class="logInButtons">
+            <button class="logIn">Log in</button>
+            <button class="GuestLogIn">Guest Log in</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>
+      <a href="">Privacy Policy</a>
+      <a href="">Legal notice</a>
+    </footer>
+
+    <script>
+      function redirectToSignup() {
+        window.location.href = "signUp.html";
+      }
+    </script>
+  </body>
+</html>
