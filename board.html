@@ -14,7 +14,8 @@
 <body onload="initBoard()">
     <header w3-include-html="../template/header.html"></header>
     <aside w3-include-html="../template/nav.html"></aside>
-    <div class="content">
+<main class="content">
+    <section class="headerClass">
         <h2>Board</h2>
         <div class="search-and-add">
             <div class="search-bar">
@@ -25,7 +26,14 @@
                 Add task 
                 <div class="addSymbol"><img src="./assets/img/add.png" alt=""></div>
             </button>
-        </div>
+    </section>
+    <section class="allTasks">
+        <div class="todo"><div class="tasksHeader"><span>To do</span><div><img src="./assets/img/plus button.png" alt="plus button"></div></div></div>
+        <div class="todo"><div class="tasksHeader"><span>In progress</span><div><img src="./assets/img/plus button.png" alt="plus button"></div></div></div>
+        <div class="todo"><div class="tasksHeader"><span>Await feedback</span><div><img src="./assets/img/plus button.png" alt="plus button"></div></div></div>
+        <div class="todo"><div class="tasksHeader"><span>Done</span><div><img src="./assets/img/plus button.png" alt="plus button"></div></div></div>
+    </section>
+</main>
     </div>
     <script src="./js/board.js"></script>
     <script src="./js/template.js"></script>

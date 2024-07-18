@@ -1,10 +1,17 @@
 .content {
     margin-left: 300px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin-right: 70px;
+    flex-direction: column;
+    
+}
+
+.headerClass{
+    display: flex;
+    width: 100%;
     margin-top: 96px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 h2 {
@@ -83,11 +90,11 @@ h2 {
 }
 
 .addTaskButton:hover {
-    background-color: #0d6cb8;
+    background-color: #29ABE2;
 }
 
 .addTaskButton:focus {
-    box-shadow: 0 0 3px 0 #1183d6;
+    box-shadow: 0 0 3px 0 #29ABE2;
     outline: none;
 }
 
@@ -100,4 +107,29 @@ h2 {
 .addSymbol img{
     width: 18.67px;
     height: 18.67px;
+}
+
+.allTasks{
+    display: flex;
+    justify-content: space-between;
+    gap: 26px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+
+
+}
+
+.tasksHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    
+}
+
+.todo{
+    width: 244px;
+    height: 24px;
 }
