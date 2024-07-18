@@ -7,13 +7,18 @@ function redirectToSignup() {
 }
 
 function joinImgAnimation() {
-    const animatedImageContainer = document.querySelector(".animatedImageContainer");
-    const animatedImage = document.querySelector(".animatedImage");
+  const animatedImageContainer = document.querySelector(".animatedImageContainer");
+  const animatedImage = document.querySelector(".animatedImage");
+
+  setTimeout(function () {
+    animatedImageContainer.classList.add("fadeOut");
+    animatedImage.classList.add("moveToTopLeft");
 
     setTimeout(function () {
-        animatedImageContainer.classList.add("fadeOut");
-        animatedImage.classList.add("fadeOut");
-        animatedImage.classList.add("moveToTopLeft");
-      }, 2000);
+      animatedImageContainer.classList.add("hideElements");
+      animatedImage.classList.add("hideElements");
+    }, 1500); 
+  }, 500);
 }
+
 
