@@ -2,13 +2,110 @@
     font-family: "inter";
     margin: 0px;
     padding: 0px;
+    overflow-y: hidden;
 }
 
 #contactListContent {
     background-color: rgba(255, 255, 255, 1);
     width: 456px;
     height: 90vh;
+    overflow-y: scroll;
     margin-left: 232px;
     box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
+
+
+  .letter-heading {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.6px;
+    border-bottom: solid 1px rgba(209, 209, 209, 1);
+    margin-bottom: 5px;
+  }
+
+  .contact-list {
+    padding: 90px 24px 120px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .contact {
+    display: flex;
+       flex-direction: row;
+       align-items: center;
+       width: 352px;
+       padding: 15px 24px 15px 24px;
+       gap: 35px;
+       height: 78px;
+     }
+
+
+  #contacts {
+    top: 140px;
+    left: 480px;
+    padding: 0
+}
+
+.contact-list {
+    width: auto;
+    padding: 90px 24px 170px 24px !important;
+}
+
+.oneContact {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .oneContact h2 {
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 25.8px;
+    font-family: "Inter", sans-serif;
+  }
+
+.contact-list {
+    width: 290px;
+    padding: 24px 24px 170px 24px !important;
+
+}
+
+.contact {
+    width: 300px;
+    gap: 10px;
+    justify-content: start;
+}
+
+.letter-heading {
+    width: auto;
+    height: 58px !important;
+    padding: 12px 270px 12px 44px;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: 2px solid white;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.4px;
+    font-family: "Inter", sans-serif;
+  }
