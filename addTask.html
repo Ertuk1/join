@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,38 @@
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/addTask.css">
- 
+
 </head>
+
 <body onload="addTaskInit()">
     <header w3-include-html="../template/header.html"></header>
     <aside w3-include-html="../template/nav.html"></aside>
 
+    <div class="add-task-headline">Add Task</div>
+    <form class="main-input-container">
+        <div class="left-input-container">
+            <div class="input-headlines">Title*</div>
+            <input required type="text" placeholder="Enter a title" id="task-title">
+            <div class="add-task-alert" id="add-task-alert-title">This field is required</div>
+            <div class="input-headlines">Description</div>
+            <textarea type="text" placeholder="Enter a Description" id="add-task-description"></textarea>
+            <div class="input-headlines">Assigned to</div>
+            <select id="task-assigned-selection">
+                <option class="add-task-contact-option" value="" selected disabled hidden>Select contacts to assign</option>
+                <option class="add-task-contact-option" value="">Dummy</option>
+                <option class="add-task-contact-option" value="">Dummy2</option>
+            </select>
+        </div>
+        <div class="input-border-container"></div>
+        <div class="right-input-container">
+            <div class="input-headlines">Due Date*</div>
+            <input class="add-task-input-date" required type="date" id="task-title">
+            <div class="add-task-alert" id="add-task-alert">This field is required</div>
+        </div>
+    </form>
+
     <script src="js/addTask.js"></script>
     <script src="js/template.js"></script>
 </body>
+
 </html>
