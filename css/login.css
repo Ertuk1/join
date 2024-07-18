@@ -1,6 +1,6 @@
 @font-face {
   font-family: "inter";
-  src: url(/join/fonts/Inter-VariableFont_slnt\,wght.ttf);
+  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
 }
 
 body {
@@ -18,6 +18,43 @@ header {
 
 .joinIcon {
   width: 100px;
+}
+
+.animatedImageContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(246, 247, 248);
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out 1s;
+}
+
+.animatedImage {
+  width: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  opacity: 1;
+  transition: left 0.5s ease-out 1s, top 0.5s ease-out 1s, width 0.5s ease-out 1s;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.moveToTopLeft {
+  left: 130px;
+  top: 141px;
+  width: 100px;
+}
+
+.hideElements {
+  display: none;
 }
 
 .signUPContainer {
@@ -111,7 +148,7 @@ footer a:hover {
 }
 
 .emailInput {
-  background-image: url("/join/source/mail.png");
+  background-image: url("/assets/img/mail.png");
   background-repeat: no-repeat;
   background-position: right 21px center;
   background-size: 16px;
@@ -129,7 +166,7 @@ footer a:hover {
 }
 
 .passwordInput {
-  background-image: url("/join/source/lock.png");
+  background-image: url("/assets/img/lock.png");
   background-repeat: no-repeat;
   background-position: right 21px center;
   background-size: 16px;
