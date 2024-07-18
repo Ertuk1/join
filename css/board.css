@@ -20,12 +20,12 @@ h2 {
 
 .search-bar {
     display: flex;
-    align-items: center; /* Align items vertically centered */
+    align-items: center; 
     padding: 2px;
     border: 1px solid #555;
     border-radius: 5px;
-    max-width: 300px; /* Set a max-width for the search bar */
-    margin-right: 20px; /* Space between the search bar and the add task button */
+    max-width: 300px; 
+    margin-right: 20px; 
 }
 
 .search-bar input[type="search"] {
@@ -37,7 +37,7 @@ h2 {
     color: inherit;
     border: 1px solid transparent;
     border-right: solid 1px #bbb;
-    flex: 1; /* Make input take available space within the search bar */
+    flex: 1; 
 }
 
 .search-bar input[type="search"]::placeholder {
