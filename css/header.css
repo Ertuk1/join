@@ -56,3 +56,24 @@ body {
   background-color: rgb(239, 239, 239);
   cursor: pointer;
 }
+
+.subMenu {
+  position: absolute;
+  top: 11%;
+  right: 3%;
+  transform: translate(-3%, -11%);
+  background-color: #2a3647;
+  border-radius: 20px 0 20px 20px;
+  color: #cdcdcd;
+  box-shadow: 0 0 4px 0 rgba(255, 255, 255, 1);
+  padding: 8px;
+}
+
+.menuRow {
+  padding: 8px 16px;
+}
+
+.menuRow:hover {
+  background-color: rgba(42, 61, 89, 1);
+  cursor: pointer;
+}
