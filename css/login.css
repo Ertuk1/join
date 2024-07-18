@@ -20,6 +20,38 @@ header {
   width: 100px;
 }
 
+.animatedImageContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(246, 247, 248);
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.animatedImage {
+  width: 100px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.5s ease-out 0.5s, left 0.5s ease-out 0.5s, top 0.5s ease-out 0.5s;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.moveToTopLeft {
+  left: 10px;
+  top: 10px;
+}
+
+
 .signUPContainer {
   display: flex;
   align-items: flex-start;
