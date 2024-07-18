@@ -7,8 +7,9 @@ function redirectToSignup() {
 }
 
 function joinImgAnimation() {
-  const animatedImageContainer = document.querySelector(".animatedImageContainer");
-  const animatedImage = document.querySelector(".animatedImage");
+  let animatedImageContainer = document.querySelector(".animatedImageContainer");
+  let animatedImage = document.querySelector(".animatedImage");
+  let joinIcon = document.querySelector(".joinIcon");
 
   setTimeout(function () {
     animatedImageContainer.classList.add("fadeOut");
@@ -17,6 +18,7 @@ function joinImgAnimation() {
     setTimeout(function () {
       animatedImageContainer.classList.add("hideElements");
       animatedImage.classList.add("hideElements");
+      joinIcon.classList.remove("hideElements");
     }, 1500); 
   }, 500);
 }
