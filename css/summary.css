@@ -1,6 +1,8 @@
-@font-face {
+* {
   font-family: "inter";
-  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
+  margin: 0px;
+  padding: 0px;
+  overflow-y: hidden;
 }
 
 body {
@@ -176,7 +178,6 @@ body {
 
 .greetingContainer {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-direction: column;
   flex-wrap: wrap;

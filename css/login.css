@@ -40,7 +40,8 @@ header {
   transform: translate(-50%, -50%);
   z-index: 1000;
   opacity: 1;
-  transition: left 0.5s ease-out 1s, top 0.5s ease-out 1s, width 0.5s ease-out 1s;
+  transition: left 0.5s ease-out 1s, top 0.5s ease-out 1s,
+    width 0.5s ease-out 1s;
 }
 
 .fadeOut {
@@ -64,6 +65,11 @@ header {
   margin-right: 40px;
 }
 
+.singupText {
+  font-size: 24px;
+  margin: 0;
+}
+
 .signUp {
   font-size: 16px;
   font-weight: bold;
@@ -85,8 +91,12 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 60px;
+  gap: 16px;
+  padding: 40px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
 }
 
 footer a {
@@ -108,6 +118,11 @@ footer a:hover {
   justify-content: center;
   align-self: center;
   background-color: rgb(246, 247, 248);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: 60px;
 }
 
 .logInContainer {
@@ -196,7 +211,7 @@ footer a:hover {
 }
 
 .rememberMe p {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .logInButtons {
