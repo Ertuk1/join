@@ -1,1 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summery</title>
+    <link rel="stylesheet" href="./css/navbar.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/summary.css" />
+  </head>
+  <body onload="summeryInit()">
+    <header w3-include-html="../template/header.html"></header>
+    <aside w3-include-html="../template/nav.html"></aside>
 
+    <div class="container">
+      <div class="appHeader">
+        <p class="appHeaderTitle">Join 360</p>
+        <div class="appHeaderSubtitle">
+          <img src="/assets/img/horizontalBarBlue.png" alt="Blue bar" />
+          <p class="subtitleText">Key Metrics at a Glance</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="metricsContainer">
+      <div class="metricsColumn">
+        <div class="metricsRow">
+          <div class="metricCard">
+            <div class="metricIconContainer">
+              <div class="toDoIcon"></div>
+            </div>
+            <div class="metricDetails">
+              <p class="metricValue">1</p>
+              <p class="metricLabel">To-do</p>
+            </div>
+          </div>
+          <div class="metricCard">
+            <div class="metricIconContainer">
+              <div class="checkIcon"></div>
+            </div>
+            <div class="metricDetails">
+              <p class="metricValue">1</p>
+              <p class="metricLabel">Done</p>
+            </div>
+          </div>
+        </div>
+        <div class="metricCard urgentCard">
+          <div class="urgentContent">
+            <div class="urgentIconContainer">
+              <img
+                class="urgentIcon"
+                src="/assets/img/vectorUp.png"
+                alt="Check"
+              />
+              <img
+                class="urgentIcon"
+                src="/assets/img/vectorUp.png"
+                alt="Check"
+              />
+            </div>
+            <div class="metricDetails">
+              <p class="metricValue">1</p>
+              <p class="metricLabel">Urgent</p>
+            </div>
+          </div>
+          <div class="horizontalBar"></div>
+          <div class="deadlineContainer">
+            <p class="deadlineDate">October 16, 2024</p>
+            <p class="deadlineLabel">Upcoming Deadline</p>
+          </div>
+        </div>
+        <div class="metricsRow">
+          <div class="metricCard taskContainer">
+            <p class="metricValue">1</p>
+            <p class="metricLabel taskText">Tasks in Board</p>
+          </div>
+          <div class="metricCard taskContainer">
+            <p class="metricValue">1</p>
+            <p class="metricLabel taskText">Tasks in Progress</p>
+          </div>
+          <div class="metricCard taskContainer">
+            <p class="metricValue">1</p>
+            <p class="metricLabel taskText">Awaiting Feedback</p>
+          </div>
+        </div>
+      </div>
+      <div class="greetingContainer">
+        <p class="greetingText">Good Morning,</p>
+        <p class="userName">Adrian Krynicki</p>
+      </div>
+    </div>
+
+    <script src="js/summary.js"></script>
+    <script src="js/template.js"></script>
+  </body>
+</html>

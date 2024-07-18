@@ -1,0 +1,226 @@
+@font-face {
+  font-family: "inter";
+  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(246, 247, 248);
+  font-family: "inter", sans-serif;
+}
+
+.summery {
+  background-color: rgba(9, 25, 49, 1);
+}
+
+.summery:hover {
+  cursor: auto !important;
+  background-color: rgba(9, 25, 49, 1) !important;
+  font-weight: 400 !important;
+}
+
+.container {
+  position: absolute;
+  top: 206px;
+  left: 328px;
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.appHeaderTitle {
+  font-size: 61px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.appHeaderSubtitle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.subtitleText {
+  font-size: 27px;
+}
+
+.metricsContainer {
+  position: absolute;
+  top: 335px;
+  left: 328px;
+  display: flex;
+  gap: 56px;
+}
+
+.metricsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.metricsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metricCard {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-radius: 30px;
+  padding: 30px 60px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.metricIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: rgba(42, 54, 71, 1);
+  border-radius: 35px;
+}
+
+.toDoIcon {
+  width: 32px;
+  height: 32px;
+  background: url(/assets/img/edit.png) no-repeat;
+  background-position: center;
+}
+
+.checkIcon {
+  width: 32px;
+  height: 32px;
+  background: url(/assets/img/checkOk.png) no-repeat;
+  background-position: center;
+}
+
+.metricDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metricValue {
+  font-size: 64px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.metricLabel {
+  font-size: 20px;
+  margin: 0;
+  text-align: center;
+}
+
+.urgentCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.urgentContent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.urgentIconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 61, 0, 1);
+  border-radius: 35px;
+}
+
+.urgentIcon {
+  width: 34px;
+  height: 15px;
+}
+
+.horizontalBar {
+  border-left: 2px solid rgba(209, 209, 209, 1);
+  height: 100px;
+}
+
+.deadlineContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.deadlineDate {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.deadlineLabel {
+  margin: 0;
+}
+
+.taskText {
+  width: 100px;
+}
+
+.greetingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.greetingText {
+  font-size: 47px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.userName {
+  font-size: 64px;
+  font-weight: 700;
+  color: rgba(41, 171, 226, 1);
+  margin: 0;
+}
+
+.taskContainer {
+  width: 168px;
+  height: 168px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  align-items: center;
+}
+
+.metricCard:hover {
+  cursor: pointer;
+  background-color: rgba(42, 54, 71, 1);
+  color: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.metricCard:hover .toDoIcon {
+  background: url(/assets/img/editDark.png) no-repeat;
+  background-position: center;
+}
+
+.metricCard:hover .metricIconContainer {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.metricCard:hover .checkIcon {
+  background: url(/assets/img/checkOkDark.png) no-repeat;
+  background-position: center;
+}
