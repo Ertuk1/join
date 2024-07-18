@@ -1,0 +1,14 @@
+* {
+    font-family: "inter";
+    margin: 0px;
+    padding: 0px;
+}
+
+#contactListContent {
+    background-color: rgba(255, 255, 255, 1);
+    width: 456px;
+    height: 90vh;
+    margin-left: 232px;
+    box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
+}
+
