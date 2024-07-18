@@ -65,6 +65,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 18px;
 }
 
 .metricCard {
@@ -221,6 +222,6 @@ body {
 }
 
 .metricCard:hover .checkIcon {
-  background: url(/assets/img/checkOkDark.png) no-repeat;
+  background: url(/assets/img/checkOkDarrk.png) no-repeat;
   background-position: center;
 }
