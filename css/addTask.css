@@ -103,7 +103,7 @@ body {
     font-size: 20px;
 }
 
-.add-task-input-date[type="datetime"] {
+.add-task-input-date[type="date"] {
     font-weight: 400;
     font-size: 20px;
     color: #D1D1D1 !important;
