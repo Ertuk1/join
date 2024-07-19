@@ -24,16 +24,21 @@
             <div class="input-headlines">Description</div>
             <textarea type="text" placeholder="Enter a Description" id="add-task-description"></textarea>
             <div class="input-headlines">Assigned to</div>
-            <select id="task-assigned-selection">
-                <option class="add-task-contact-option" value="" selected disabled hidden>Select contacts to assign</option>
-                <option class="add-task-contact-option" value="">Dummy</option>
-                <option class="add-task-contact-option" value="">Dummy2</option>
-            </select>
+            <div class="custom-select">
+                <div class="select-selected">
+                    Select contacts to assign
+                </div>
+                <div class="select-items">
+                    <div>Select Option 1</div>
+                    <div>Select Option 2</div>
+                    <div>Select Option 3</div>
+                </div>
+            </div>
         </div>
         <div class="input-border-container"></div>
         <div class="right-input-container">
             <div class="input-headlines">Due Date*</div>
-            <input class="add-task-input-date" required type="date" id="task-title" placeholder="JJJJ-MM-TT">
+            <input class="add-task-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
             <div class="add-task-alert" id="add-task-alert"></div>
         </div>
     </form>
