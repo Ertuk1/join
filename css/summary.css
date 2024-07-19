@@ -15,12 +15,6 @@ body {
   background-color: rgba(9, 25, 49, 1);
 }
 
-.summery:hover {
-  cursor: auto !important;
-  background-color: rgba(9, 25, 49, 1) !important;
-  font-weight: 400 !important;
-}
-
 .container {
   position: absolute;
   top: 206px;
