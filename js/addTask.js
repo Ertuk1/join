@@ -2,7 +2,9 @@ let contacts = [
     { name: "Jan Möller" },
     { name: "Max Mustermann" },
     { name: "Sabine Musterfrau" },
-]
+];
+
+let tasks = [];
 
 let contactColors = {};
 
@@ -15,23 +17,27 @@ async function addTaskInit() {
 function renderAssignedToContacts() {
     let content = document.getElementById('at-contact-container');
     for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        let initials = getInitials(contact.name);
-        content.innerHTML += /*html*/ `
-         <div class="at-contact-layout">
+        const contactName = contacts[i].name;
+        let initials = getInitials(contactName);
+        content.innerHTML += generateAssignedContactsHTML(initials, contactName, i)
+        setBackgroundColorInitials(initials, i);
+    }
+}
+
+function generateAssignedContactsHTML(initials, contactName, i) {
+    return /*html*/`
+        <div class="at-contact-layout">
             <div class="at-contact-name-container">
                 <div id="at-shortcut${i}" class="at-contact-shortcut-layout">
                     <div class="at-contact-shortcut">${initials}</div>
                 </div>
-                <div class="at-contact-name">${contact.name}</div>
-            </div>
-            <label class="at-label-checkbox">
-                <input type="checkbox">
-                <span class="at-checkmark"></span>
-            </label>
+            <div class="at-contact-name">${contactName}</div>
+        </div>
+        <label class="at-label-checkbox">
+            <input type="checkbox">
+            <span class="at-checkmark"></span>
+        </label>
         </div>`
-        setBackgroundColor(initials, i);
-    }
 }
 
 function getInitials(contact) {
@@ -43,11 +49,10 @@ function getInitials(contact) {
     return initials;
 };
 
-function setBackgroundColor(initials, i) {
+function setBackgroundColorInitials(initials, i) {
     if (!contactColors[initials]) {
         let randomColor = Math.floor(Math.random() * 16777215).toString(16);
         contactColors[initials] = "#" + randomColor;
-        console.log(contactColors[initials]);
     }
     document.getElementById(`at-shortcut${i}`).style.backgroundColor = contactColors[initials];
 }
@@ -89,4 +94,39 @@ function chooseContactFromList(options) {
     });
 }
 
+function setBackgroundColor(prio) {
+    let prioStatus = document.getElementById(prio);
+    let prioImgDeactive = document.getElementById(`${prio}-img-deactive`);
+    let prioImgActive = document.getElementById(`${prio}-img-active`);
+    resetOtherPriorities(prio);
 
+    if (prioStatus.classList.contains(`at-bg-${prio}`)) {
+        removeBackgroundColor(prio, prioStatus,  prioImgDeactive,  prioImgActive)
+    } else {
+        addBackgroundColor(prio, prioStatus,  prioImgDeactive,  prioImgActive);
+    }
+}
+
+function addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive) {
+    prioStatus.classList.add(`at-bg-${prio}`);
+    prioImgDeactive.style.display = 'none';
+    prioImgActive.style.display = 'block';
+}
+
+function removeBackgroundColor(prio, prioStatus, prioImgDeactive,  prioImgActive) {
+    prioStatus.classList.remove(`at-bg-${prio}`);
+    prioImgDeactive.style.display = 'block';
+    prioImgActive.style.display = 'none';
+}
+
+function resetOtherPriorities(selectedPrio) {
+    const priorities = ['urgent', 'medium', 'low'];
+    priorities.forEach(prio => {
+        if (prio !== selectedPrio) {
+            let prioStatus = document.getElementById(prio);
+            let prioImgDeactive = document.getElementById(`${prio}-img-deactive`);
+            let prioImgActive = document.getElementById(`${prio}-img-active`);
+            removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
+        }
+    });
+}

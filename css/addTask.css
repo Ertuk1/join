@@ -122,7 +122,7 @@ body {
     margin-right: 25px;
 }
 
-.at-contact-name-container{
+.at-contact-name-container {
     display: flex;
     justify-content: flex-start;
 }
@@ -219,4 +219,25 @@ body {
     gap: 8px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.at-prio-item:hover {
+    box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.at-bg-urgent {
+    background-color: #FF3D00;
+    color: white;
+}
+
+.at-bg-medium {
+    color: white;
+    background-color: #FFA800;
+}
+
+.at-bg-low {
+    color: white;
+    background-color: #7AE229;
 }
