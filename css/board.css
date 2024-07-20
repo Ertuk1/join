@@ -47,6 +47,7 @@ main {
     margin-top: 20px;
     justify-content: space-between;
     align-items: center;
+    margin-top: 20px;
 }
 
 h2 {
@@ -186,7 +187,7 @@ h2 {
     border-radius: 10px;
     background-color: #E7E7E7;
     box-shadow: 0px 0px 4px 0px #00000029;
-    border: 1px solid #A8A8A8;
+    border: 2px dotted #A8A8A8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -199,5 +200,70 @@ h2 {
     line-height: 19.2px;
     text-align: left;
     color: #A8A8A8;
+}
 
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 252px;
+    height: 244px;
+    border-radius: 24px;
+    padding: 16px;
+    gap: 10px;
+    box-shadow: 0px 0px 10px 3px #00000014;
+    background-color: white;
+}
+
+.cardContent {
+    width: 220px;
+    height: 212px;
+    gap: 24px;
+    align-self: center;
+}
+
+.labelUser {
+    width: 113px;
+    height: 27px;
+    padding: 4px 16px 4px 16px;
+    gap: 10px;
+    border-radius: 8px;
+    opacity: 0px;
+    background-color: #0038FF;
+    color: white;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+}
+
+.contextContent {
+    width: 220px;
+    height: 84px;
+    gap: 8px;
+    border-radius: 10px 0px 0px 0px;
+    padding-top: 20px;
+}
+
+.cardTitle {
+    width: 220px;
+    height: 38px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+    text-align: left;
+    color: #2A3647;
+}
+
+.cardContext {
+    width: 220px;
+    height: 38px;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left; 
+    color: #A8A8A8;
+   
 }
