@@ -59,6 +59,7 @@ body {
     gap: 10px;
     font-family: "inter", sans-serif !important;
     font-size: 20px;
+    max-width: 406px;
 }
 
 .left-input-container textarea::placeholder {
@@ -81,8 +82,16 @@ body {
 }
 
 .select-selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #333333;
     cursor: pointer;
+}
+
+.select-selected img {
+    height: 4.6px;
+    width: 7.2px;
 }
 
 .select-items {
@@ -184,7 +193,6 @@ body {
     display: flex;
     flex-direction: column;
     width: 440px;
-    height: 416px;
 
 }
 
@@ -255,8 +263,16 @@ body {
 }
 
 .select-category-selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #333333;
     cursor: pointer;
+}
+
+.select-category-selected img {
+    width: 7.2px;
+    height: 4.6px;
 }
 
 .select-category-items {
@@ -270,4 +286,69 @@ body {
     background-color: white;
     border: 1px solid #D1D1D1;
     display: none;
+}
+
+.at-btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 309px;
+    height: 56px;
+    margin-top: 146px;
+    margin-left: 131px;
+}
+
+.at-clear-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #2A3647;
+    gap: 12px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.at-clear-btn:hover {
+    border: 1px solid rgba(41, 171, 226, 1);
+    box-shadow: 0px 4px 4px 0px #00000040;
+    color: rgba(41, 171, 226, 1);
+    transition: all ease-in-out 100ms;
+}
+
+.at-clear-btn img {
+    height: 14px;
+    width: 14px;
+    object-fit: contain;
+}
+
+.at-clear-btn:hover svg path {
+    stroke: rgba(41, 171, 226, 1);
+}
+
+.at-create-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    gap: 12px;
+    font-size: 20px;
+    background: #2A3647;
+    color: white;
+    cursor: pointer;
+}
+
+.at-create-btn:hover {
+    background: rgba(41, 171, 226, 1);
+    box-shadow: 0px 4px 4px 0px #00000040;
+    transition: all ease-in-out 100ms;
+
+}
+
+.at-create-btn img {
+    height: 14px;
+    width: 14px;
 }

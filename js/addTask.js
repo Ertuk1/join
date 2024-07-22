@@ -71,6 +71,8 @@ function showAvailableContacts() {
         window.addEventListener('click', function (event) {
             if (!select.contains(event.target)) {
                 selectItems.style.display = 'none';
+                document.getElementById('open-contact-list').classList.remove('d-none');
+                document.getElementById('close-contact-list').classList.add('d-none');
             }
         });
     });
@@ -83,8 +85,16 @@ function showContactList(customSelects, selectSelected, selectItems) {
             s.querySelector('.select-items').style.display = 'none';
         });
         selectItems.style.display = selectItems.style.display === 'block' ? 'none' : 'block';
+        if (selectItems.style.display === 'none') {
+            document.getElementById('open-contact-list').classList.remove('d-none');
+            document.getElementById('close-contact-list').classList.add('d-none');
+        } else {
+            document.getElementById('open-contact-list').classList.add('d-none');
+            document.getElementById('close-contact-list').classList.remove('d-none');
+        }
     });
 }
+
 function chooseContactFromList(options) {
     options.forEach(function (option) {
         option.addEventListener('click', function (event) {
@@ -102,9 +112,9 @@ function setBackgroundColorPrio(prio) {
     resetOtherPriorities(prio);
 
     if (prioStatus.classList.contains(`at-bg-${prio}`)) {
-        removeBackgroundColor(prio, prioStatus,  prioImgDeactive,  prioImgActive)
+        removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive)
     } else {
-        addBackgroundColor(prio, prioStatus,  prioImgDeactive,  prioImgActive);
+        addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
     }
 }
 
@@ -114,7 +124,7 @@ function addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive) {
     prioImgActive.style.display = 'block';
 }
 
-function removeBackgroundColor(prio, prioStatus, prioImgDeactive,  prioImgActive) {
+function removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive) {
     prioStatus.classList.remove(`at-bg-${prio}`);
     prioImgDeactive.style.display = 'block';
     prioImgActive.style.display = 'none';
@@ -139,29 +149,43 @@ function showCategoryList() {
         let selectSelected = select.querySelector('.select-category-selected');
         let selectItems = select.querySelector('.select-category-items');
         let options = selectItems.querySelectorAll('.at-contact-layout');
-
-        selectSelected.addEventListener('click', function () {
-            if (selectItems.style.display === 'block') {
-                selectItems.style.display = 'none';
-            } else {
-                selectItems.style.display = 'block';
-            }
-        });
-
-        options.forEach(function (option) {
-            option.addEventListener('click', function () {
-                selectSelected.textContent = option.querySelector('.at-contact-name').textContent;
-                selectItems.style.display = 'none';
-            });
-        });
+        showCategoryDropdown(selectSelected, selectItems);
+        chooseCategoryFromList(options, selectSelected, selectItems);
 
         window.addEventListener('click', function (e) {
             if (!select.contains(e.target)) {
                 selectItems.style.display = 'none';
+                document.getElementById('open-category-list').classList.remove('d-none');
+                document.getElementById('close-category-list').classList.add('d-none');
             }
         });
     });
 }
+
+function showCategoryDropdown(selectSelected, selectItems) {
+    selectSelected.addEventListener('click', function () {
+        if (selectItems.style.display === 'block') {
+            selectItems.style.display = 'none';
+            document.getElementById('open-category-list').classList.remove('d-none');
+            document.getElementById('close-category-list').classList.add('d-none');
+
+        } else {
+            selectItems.style.display = 'block';
+            document.getElementById('open-category-list').classList.add('d-none');
+            document.getElementById('close-category-list').classList.remove('d-none');
+        }
+    });
+}
+
+function chooseCategoryFromList(options, selectSelected, selectItems) {
+    options.forEach(function (option) {
+        option.addEventListener('click', function () {
+            selectSelected.textContent = option.querySelector('.at-contact-name').textContent;
+            selectItems.style.display = 'none';
+        });
+    });
+}
+
 
 
 
