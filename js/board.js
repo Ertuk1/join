@@ -1,6 +1,7 @@
 async function initBoard() {
     await includeHTML();
     checkIfEmpty();
+    updateProgressBar(1, 2, 'progressBar1');
 }
 
 function checkIfEmpty() {
@@ -21,4 +22,10 @@ function checkIfEmpty() {
     if (done.innerHTML.trim() === "") {
         done.innerHTML = /*html*/`<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
     }
+}
+
+function updateProgressBar(subtasksCompleted, totalSubtasks, progressBarId) {
+    let progressPercentage = (subtasksCompleted / totalSubtasks) * 100;
+    let progressBar = document.getElementById(progressBarId);
+    progressBar.style.width = progressPercentage + '%';
 }
