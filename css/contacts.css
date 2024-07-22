@@ -12,7 +12,7 @@ body {
 #contactListContent {
     background-color: rgba(255, 255, 255, 1);
     width: 456px;
-    height: calc(90vh - 60px); /* Berechnet die Höhe der Ansichtshöhe abzüglich eines Headers von 60px */
+    height: calc(88.5vh - 60px); /* Berechnet die Höhe der Ansichtshöhe abzüglich eines Headers von 60px */
     overflow-y: auto; /* Scrollbar bei Überlauf */
     /* height: 83vh;
     overflow-y: scroll; */
