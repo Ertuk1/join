@@ -70,7 +70,7 @@ function renderContacts() {
 
 // Funktion zum Erstellen der Kontaktliste
 function createContactList() {
-    const contactList = document.getElementById('contactListContent');
+    const contactList = document.getElementById('contact-list');
     contactList.innerHTML = '';
     let currentLetter = null;
     const seenContacts = new Set(); // Set zum Nachverfolgen der bereits hinzugefügten Kontakte

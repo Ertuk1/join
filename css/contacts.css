@@ -13,10 +13,8 @@ body {
 #contactListContent {
     background-color: rgba(255, 255, 255, 1);
     width: 360px;
-    height: calc(88.5vh - 60px); /* Berechnet die Höhe der Ansichtshöhe abzüglich eines Headers von 60px */
-    overflow-y: auto; /* Scrollbar bei Überlauf */
-    /* height: 83vh;
-    overflow-y: scroll; */
+    height: calc(88.5vh - 60px);
+    overflow-y: scroll; 
     margin-left: 232px;
     box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
     padding-left: 52px;
@@ -24,6 +22,72 @@ body {
     padding-top: 30px;
     padding-bottom: 30px;
 }
+
+#contact-list {
+    padding-top: 42px;
+}
+
+#contactListButtonContent{
+    position: absolute;
+    top: 93px;
+    left: 232px;
+    width: 395px;
+    height:101px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding-left: 23px;
+
+}
+
+#contactListButtonContent button {
+    width: 340px;
+    height: 56px;
+    background-color: rgba(42, 54, 71, 1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-size: 21px;
+    line-height: 25.5px;
+    color: white;
+
+}
+
+#contactContent {
+    position: absolute;
+    top: 100px;
+    left: 670px;
+    width: auto;
+    height: auto;
+    padding: 60px 0 0 55px !important;
+}
+
+#contactHeadline h1 {
+    font-size: 61px;
+}
+
+#contactHeadline p {
+    font-size: 27px;
+    line-height: 32.4px;
+}
+
+#headlineLine {
+    border: 1px solid black;
+    height: 59px;
+}
+
+#contactHeadline {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
 
 
 
