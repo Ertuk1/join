@@ -12,6 +12,7 @@ async function addTaskInit() {
     await includeHTML();
     renderAssignedToContacts();
     showAvailableContacts();
+    showCategoryList();
 }
 
 function renderAssignedToContacts() {
@@ -130,3 +131,37 @@ function resetOtherPriorities(selectedPrio) {
         }
     });
 }
+
+function showCategoryList() {
+    let customSelects = document.querySelectorAll('.custom-category-select');
+
+    customSelects.forEach(function (select) {
+        let selectSelected = select.querySelector('.select-category-selected');
+        let selectItems = select.querySelector('.select-category-items');
+        let options = selectItems.querySelectorAll('.at-contact-layout');
+
+        selectSelected.addEventListener('click', function () {
+            if (selectItems.style.display === 'block') {
+                selectItems.style.display = 'none';
+            } else {
+                selectItems.style.display = 'block';
+            }
+        });
+
+        options.forEach(function (option) {
+            option.addEventListener('click', function () {
+                selectSelected.textContent = option.querySelector('.at-contact-name').textContent;
+                selectItems.style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', function (e) {
+            if (!select.contains(e.target)) {
+                selectItems.style.display = 'none';
+            }
+        });
+    });
+}
+
+
+
