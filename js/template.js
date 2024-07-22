@@ -12,3 +12,15 @@ async function includeHTML() {
         }
     }
 }
+
+function openSubMenu(){
+ // Wähle das Element anhand seiner ID aus
+let element = document.getElementById('subMenu');
+
+// Überprüfe, ob das Element die Klasse "beispielKlasse" hat
+if (element.classList.contains('d-none')) {
+    element.classList.remove('d-none');
+} else {
+    element.classList.add('d-none');
+ }
+}
