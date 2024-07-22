@@ -1,12 +1,10 @@
-* {
+
+#contactsBody {
+    height: 100%;
     font-family: "inter";
     margin: 0px;
     padding: 0px;
     overflow-y: hidden;
-}
-
-body {
-    height: 100%;
 }
 
 #contactListContent {
