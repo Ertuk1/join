@@ -5,20 +5,28 @@
     overflow-y: hidden;
 }
 
+body {
+    height: 100%;
+}
+
 #contactListContent {
     background-color: rgba(255, 255, 255, 1);
     width: 456px;
-    height: 90vh;
-    overflow-y: scroll;
+    height: calc(100vh - 60px); /* Berechnet die Höhe der Ansichtshöhe abzüglich eines Headers von 60px */
+    overflow-y: auto; /* Scrollbar bei Überlauf */
+    /* height: 83vh;
+    overflow-y: scroll; */
     margin-left: 232px;
     box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
     padding-left: 30px;
     padding-right: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 
 
-  .letter-heading {
+.letter-heading {
     display: flex;
     align-items: center;
     font-size: 18px;
@@ -28,16 +36,8 @@
     margin-bottom: 5px;
   }
 
-  .contact-list {
-    padding: 90px 24px 120px 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
-  }
-
-  .contact {
+.contact {
     display: flex;
        flex-direction: row;
        align-items: center;
@@ -48,16 +48,13 @@
      }
 
 
-  #contacts {
+ #contacts {
     top: 140px;
     left: 480px;
     padding: 0
 }
 
-.contact-list {
-    width: auto;
-    padding: 90px 24px 170px 24px !important;
-}
+
 
 .oneContact {
     display: flex;
@@ -65,18 +62,14 @@
     gap: 5px;
   }
 
-  .oneContact h2 {
+.oneContact h2 {
     font-size: 21px;
     font-weight: 400;
     line-height: 25.8px;
     font-family: "Inter", sans-serif;
   }
 
-.contact-list {
-    width: 290px;
-    padding: 24px 24px 170px 24px !important;
 
-}
 
 .contact {
     width: 300px;
