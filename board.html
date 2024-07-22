@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
+
 <body onload="initBoard()">
     <header w3-include-html="../template/header.html"></header>
     <aside w3-include-html="../template/nav.html"></aside>
@@ -24,7 +26,7 @@
                         <button type="button" id="searchButton">Search</button>
                     </div>
                     <button class="addTaskButton">
-                        Add task 
+                        Add task
                         <div class="addSymbol"><img src="./assets/img/add.png" alt="Add"></div>
                     </button>
                 </div>
@@ -35,8 +37,23 @@
                         <span>To do</span>
                         <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
-                    <div class="taskContent">
-                        
+                    <div id="toDo" class="taskContent">
+                        <div class="card">
+                            <div class="cardContent">
+                                <span class="labelUser">User Story</span>
+                                <div class="contextContent">
+                                    <span class="cardTitle">Kochwelt Page & Recipe Recommender</span>
+                                    <div><span class="cardContext">Build start page with recipe recommendation...</span>
+                                    </div>
+                                    <div class="progressbar">
+                                        <div class="progressbarContainer">
+                                            <div class="bar" id="progressBar1"></div>
+                                        </div>
+                                        <div class="subtasks">1/2 Subtasks</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="todo">
@@ -44,8 +61,8 @@
                         <span>In progress</span>
                         <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
-                    <div class="taskContent">
-    
+                    <div id="progress" class="taskContent">
+
                     </div>
                 </div>
                 <div class="todo">
@@ -53,16 +70,16 @@
                         <span>Await feedback</span>
                         <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
-                    <div class="taskContent">
-    
+                    <div id="feedback" class="taskContent">
+
                     </div>
                 </div>
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>Done</span>
                     </div>
-                    <div class="taskContent">
-                        
+                    <div id="done" class="taskContent">
+
                     </div>
                 </div>
             </section>
@@ -72,4 +89,5 @@
     <script src="./js/template.js"></script>
     <script src="./js/contacts.js"></script>
 </body>
+
 </html>

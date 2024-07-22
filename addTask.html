@@ -15,26 +15,46 @@
     <header w3-include-html="../template/header.html"></header>
     <aside w3-include-html="../template/nav.html"></aside>
 
-    <div class="add-task-headline">Add Task</div>
+    <div class="at-headline">Add Task</div>
     <form class="main-input-container">
         <div class="left-input-container">
-            <div class="input-headlines">Title*</div>
+            <div class="at-input-headlines">Title*</div>
             <input required type="text" placeholder="Enter a title" id="task-title">
-            <div class="add-task-alert" id="add-task-alert-title"></div>
-            <div class="input-headlines">Description</div>
-            <textarea type="text" placeholder="Enter a Description" id="add-task-description"></textarea>
-            <div class="input-headlines">Assigned to</div>
-            <select id="task-assigned-selection">
-                <option class="add-task-contact-option" value="" selected disabled hidden>Select contacts to assign</option>
-                <option class="add-task-contact-option" value="">Dummy</option>
-                <option class="add-task-contact-option" value="">Dummy2</option>
-            </select>
+            <div class="at-alert" id="at-alert-title"></div>
+            <div class="at-input-headlines">Description</div>
+            <textarea type="text" placeholder="Enter a Description" id="at-description"></textarea>
+            <div class="at-input-headlines">Assigned to</div>
+            <div class="custom-select">
+                <div class="select-selected">
+                    Select contacts to assign
+                </div>
+                <div id="at-contact-container" class="select-items"></div>
+            </div>
+            <div id="at-selected-contacts"></div>
         </div>
         <div class="input-border-container"></div>
         <div class="right-input-container">
-            <div class="input-headlines">Due Date*</div>
-            <input class="add-task-input-date" required type="date" id="task-title" placeholder="JJJJ-MM-TT">
-            <div class="add-task-alert" id="add-task-alert"></div>
+            <div class="at-input-headlines">Due Date*</div>
+            <input class="at-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
+            <div class="at-alert" id="at-alert"></div>
+            <div class="at-input-headlines">Prio</div>
+            <div class="at-prio-container">
+                <div onclick="setBackgroundColorPrio('urgent')" id="urgent" class="at-prio-item">
+                    <div>Urgent</div>
+                    <img id="urgent-img-deactive" src="assets/img/urgent.png">
+                    <img id="urgent-img-active" src="assets/img/urgent-white.png" style="display: none;">
+                </div>
+                <div onclick="setBackgroundColorPrio('medium')" id="medium" class="at-prio-item">
+                    <div>Medium</div>
+                    <img id="medium-img-deactive" src="assets/img/medium.png">
+                    <img id="medium-img-active" src="assets/img/medium-white.png" style="display: none;">
+                </div>
+                <div onclick="setBackgroundColorPrio('low')" id="low" class="at-prio-item">
+                    <div>Low</div>
+                    <img id="low-img-deactive" src="assets/img/low.png">
+                    <img id="low-img-active" src="assets/img/low-white.png" style="display: none;">
+                </div>
+            </div>
         </div>
     </form>
 
