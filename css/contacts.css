@@ -11,15 +11,15 @@ body {
 
 #contactListContent {
     background-color: rgba(255, 255, 255, 1);
-    width: 456px;
+    width: 360px;
     height: calc(88.5vh - 60px); /* Berechnet die Höhe der Ansichtshöhe abzüglich eines Headers von 60px */
     overflow-y: auto; /* Scrollbar bei Überlauf */
     /* height: 83vh;
     overflow-y: scroll; */
     margin-left: 232px;
     box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 52px;
+    padding-right: 24px;
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -39,13 +39,17 @@ body {
 
 .contact {
     display: flex;
-       flex-direction: row;
-       align-items: center;
-       width: 352px;
-       padding: 15px 24px 15px 24px;
-       gap: 35px;
-       height: 78px;
-     }
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 24px 5px 24px;
+    gap: 35px;
+    height: 78px;
+    border-radius: 10px;
+ }
+
+ .contact:hover {
+    background-color: rgba(249, 249, 249, 1);
+ }
 
 
  #contacts {
@@ -72,13 +76,13 @@ body {
 
 
 .contact {
-    width: 300px;
+    width: 291px;
     gap: 10px;
     justify-content: start;
 }
 
 .letter-heading {
-    width: auto;
+    width: 25px;
     height: 58px !important;
     padding: 12px 270px 12px 44px;
 }
