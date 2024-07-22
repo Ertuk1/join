@@ -94,7 +94,7 @@ function chooseContactFromList(options) {
     });
 }
 
-function setBackgroundColor(prio) {
+function setBackgroundColorPrio(prio) {
     let prioStatus = document.getElementById(prio);
     let prioImgDeactive = document.getElementById(`${prio}-img-deactive`);
     let prioImgActive = document.getElementById(`${prio}-img-active`);
