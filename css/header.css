@@ -61,19 +61,21 @@ body {
   transform: translate(-1%, -11%);
   background-color: #2a3647;
   border-radius: 20px 0 20px 20px;
-  color: #cdcdcd;
   box-shadow: 0 0 4px 0 rgba(255, 255, 255, 1);
   padding: 8px;
   transition: right 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
 }
 
 .subMenu.open {
   right: 1%;
 }
 
-
 .menuRow {
   padding: 8px 16px;
+  text-decoration: none;
+  color: #cdcdcd;
 }
 
 .menuRow:hover {
