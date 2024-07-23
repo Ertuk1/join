@@ -1,18 +1,13 @@
-* {
+@font-face {
   font-family: "inter";
-  margin: 0px;
-  padding: 0px;
-  overflow-y: hidden;
+  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
 }
 
 body {
   margin: 0;
   background-color: rgb(246, 247, 248);
   font-family: "inter", sans-serif;
-}
-
-.summery {
-  background-color: rgba(9, 25, 49, 1);
+  overflow: hidden;
 }
 
 .container {
@@ -204,7 +199,7 @@ body {
   cursor: pointer;
   background-color: rgba(42, 54, 71, 1);
   color: rgba(255, 255, 255, 1);
-  transform: scale(1.1);
+  transform: scale3d(1.1, 1.1, 1.1);
 }
 
 .metricCard:hover .toDoIcon {
