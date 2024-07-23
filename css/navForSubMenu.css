@@ -1,1 +1,39 @@
+.navbar {
+  background-color: rgba(42, 54, 71, 1);
+  width: 232px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
+.joinIcon {
+  width: 100px;
+  padding: 64px;
+}
+
+.policy {
+  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.policy a {
+  color: rgba(168, 168, 168, 1);
+  padding: 8px 8px;
+  text-decoration: none;
+  display: inline-block;
+  width: 111px;
+  transition: color 0.1s, font-weight 0.1s;
+}
+
+.policy a:hover {
+  cursor: pointer;
+  color: rgb(41, 171, 226);
+  font-weight: bold;
+}
