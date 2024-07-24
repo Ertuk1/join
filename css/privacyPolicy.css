@@ -1,0 +1,50 @@
+@font-face {
+  font-family: "inter";
+  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(246, 247, 248);
+  font-family: "inter", sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.content {
+  position: absolute;
+  top: 206px;
+  text-wrap: wrap;
+  margin: 0 96px 0 328px;
+  padding-bottom: 60px;
+}
+
+.privacyPolicyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.privacyPolicy {
+  font-size: 71px;
+  font-weight: 700;
+}
+
+ul .point {
+    list-style-type: circle;
+}
+
+h2 {
+    margin-top: 50px;
+}
+
+.email {
+    color: black;
+    text-decoration: none;
+}
+
+.email:hover {
+    font-weight: 700;
+    cursor: pointer;
+}
