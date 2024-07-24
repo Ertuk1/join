@@ -18,9 +18,9 @@
     <div class="at-headline">Add Task</div>
     <form class="main-input-container">
         <div class="left-input-container">
-            <div class="at-input-headlines">Title*</div>
-            <input required type="text" placeholder="Enter a title" id="task-title">
-            <div class="at-alert" id="at-alert-title"></div>
+            <div class="at-input-headlines">Title<div class="required-star">*</div></div>
+            <input oninput="checkIfTitleEmpty()" type="text" placeholder="Enter a title" id="task-title">
+            <div class="at-alert d-none" id="at-alert-title">This field is required</div>
             <div class="at-input-headlines">Description</div>
             <textarea type="text" placeholder="Enter a Description" id="at-description"></textarea>
             <div class="at-input-headlines">Assigned to</div>
@@ -33,12 +33,13 @@
                 <div id="at-contact-container" class="select-items"></div>
             </div>
             <div id="at-selected-contacts"></div>
+            <div class="at-alert-description"><div class="required-star">*</div>This field is required</div>
         </div>
         <div class="input-border-container"></div>
         <div class="right-input-container">
-            <div class="at-input-headlines">Due Date*</div>
+            <div oninput="checkIfDateEmpty()" class="at-input-headlines">Due Date<div class="required-star">*</div></div>
             <input class="at-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
-            <div class="at-alert" id="at-alert"></div>
+            <div class="at-alert d-none" id="at-alert-due-date">This field is required</div>
             <div class="at-input-headlines">Prio</div>
             <div class="at-prio-container">
                 <div onclick="setBackgroundColorPrio('urgent')" id="urgent" class="at-prio-item">
@@ -57,8 +58,8 @@
                     <img id="low-img-active" src="assets/img/low-white.png" style="display: none;">
                 </div>
             </div>
-            <div class="at-input-headlines">Category*</div>
-            <div class="custom-category-select">
+            <div class="at-input-headlines">Category<div class="required-star">*</div></div>
+            <div class="custom-category-select" id="category-input">
                 <div class="select-category-selected">
                     <div>Select task category</div>
                     <img id="open-category-list" src="assets/img/arrow_drop_down_open.png">
@@ -73,6 +74,7 @@
                     </div>
                 </div>
             </div>
+            <div class="at-alert d-none" id="at-alert-category">This field is required</div>
             <div class="at-input-headlines">Subcategory</div>
             <input class="at-input-date" type="text" id="add-subcategory" placeholder="Add new subtask">
             <div class="at-btn-container">
@@ -81,11 +83,9 @@
                     <svg width="14" height="14" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2 2L23 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M23 2L2 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    
-                                      
+                    </svg>                      
                 </div>
-                <div class="at-create-btn">
+                <div onclick="createTask()" class="at-create-btn">
                     <div>Create Task</div><img src="assets/img/check(ok).png">
                 </div>
             </div>

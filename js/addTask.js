@@ -2,11 +2,13 @@ let contacts = [
     { name: "Jan Möller" },
     { name: "Max Mustermann" },
     { name: "Sabine Musterfrau" },
+    { name: "Jan Möller" },
+    { name: "Max Mustermann" },
+    { name: "Sabine Musterfrau" },
 ];
-
-let tasks = [];
-
+let choosedContacts = [];
 let contactColors = {};
+let categoryChoosed = 'false'
 
 async function addTaskInit() {
     await includeHTML();
@@ -21,12 +23,14 @@ function renderAssignedToContacts() {
         const contactName = contacts[i].name;
         let initials = getInitials(contactName);
         content.innerHTML += generateAssignedContactsHTML(initials, contactName, i)
-        setBackgroundColorInitials(initials, i);
+        let color = setBackgroundColorInitials(initials);
+        document.getElementById(`at-shortcut${i}`).style.backgroundColor = color;
     }
 }
 
 function generateAssignedContactsHTML(initials, contactName, i) {
     return /*html*/`
+    <div onclick="addContactToTask('${initials}', ${i})">
         <div class="at-contact-layout">
             <div class="at-contact-name-container">
                 <div id="at-shortcut${i}" class="at-contact-shortcut-layout">
@@ -38,8 +42,36 @@ function generateAssignedContactsHTML(initials, contactName, i) {
             <input type="checkbox">
             <span class="at-checkmark"></span>
         </label>
+        </div>
         </div>`
 }
+
+function addContactToTask(initials, i) {
+    let index = choosedContacts.findIndex(contact => contact.id === i);
+    if (index === -1) {
+        choosedContacts.push({
+            id: i,
+            initial: initials,
+        });
+    } else {
+        choosedContacts.splice(index, 1);
+    }
+    showChoosedContacts(initials);
+}
+
+function showChoosedContacts(initials) {
+    let content = document.getElementById('at-selected-contacts');
+    content.innerHTML = '';
+    for (let i = 0; i < choosedContacts.length; i++) {
+        let contact = choosedContacts[i].initial;
+        let color = setBackgroundColorInitials(contact);
+        content.innerHTML += `<div id="at-choosed-shortcut${i}">${contact}</div>`;
+        let backgroundColor = document.getElementById(`at-choosed-shortcut${i}`);
+        backgroundColor.style.backgroundColor = color; 
+
+    }
+}
+
 
 function getInitials(contact) {
     let names = contact.trim().split(' ');
@@ -50,12 +82,12 @@ function getInitials(contact) {
     return initials;
 };
 
-function setBackgroundColorInitials(initials, i) {
+function setBackgroundColorInitials(initials) {
     if (!contactColors[initials]) {
         let randomColor = Math.floor(Math.random() * 16777215).toString(16);
         contactColors[initials] = "#" + randomColor;
     }
-    document.getElementById(`at-shortcut${i}`).style.backgroundColor = contactColors[initials];
+    return contactColors[initials];
 }
 
 function showAvailableContacts() {
@@ -98,7 +130,6 @@ function showContactList(customSelects, selectSelected, selectItems) {
 function chooseContactFromList(options) {
     options.forEach(function (option) {
         option.addEventListener('click', function (event) {
-            event.stopPropagation();
             let checkbox = option.querySelector('input[type="checkbox"]');
             checkbox.checked = !checkbox.checked;
         });
@@ -182,8 +213,54 @@ function chooseCategoryFromList(options, selectSelected, selectItems) {
         option.addEventListener('click', function () {
             selectSelected.textContent = option.querySelector('.at-contact-name').textContent;
             selectItems.style.display = 'none';
+            categoryChoosed = 'true';
+            checkIfCategoryEmpty();
         });
     });
+}
+
+function createTask() {
+    checkIfTitleEmpty();
+    checkIfDateEmpty();
+    checkIfCategoryEmpty();
+}
+
+function checkIfTitleEmpty() {
+    let title = document.getElementById('task-title');
+    if (title.value === '') {
+        document.getElementById('at-alert-title').classList.remove('d-none');
+        title.style.borderColor = '#FF8190';
+        return
+    }
+    else {
+        document.getElementById('at-alert-title').classList.add('d-none');
+        title.style.borderColor = '';
+    }
+}
+
+function checkIfDateEmpty() {
+    let date = document.getElementById('task-due-date');
+
+    if (date.value === '') {
+        document.getElementById('at-alert-due-date').classList.remove('d-none');
+        date.style.borderColor = '#FF8190';
+    }
+    else {
+        document.getElementById('at-alert-due-date').classList.add('d-none');
+        date.style.borderColor = '';
+    }
+}
+
+function checkIfCategoryEmpty() {
+    let category = document.getElementById('category-input');
+    if (categoryChoosed === 'false') {
+        document.getElementById('at-alert-category').classList.remove('d-none');
+        category.style.borderColor = '#FF8190';
+    }
+    else {
+        document.getElementById('at-alert-category').classList.add('d-none');
+        category.style.borderColor = '';
+    }
 }
 
 
