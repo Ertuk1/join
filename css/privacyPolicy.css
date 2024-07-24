@@ -32,19 +32,39 @@ body {
 }
 
 ul .point {
-    list-style-type: circle;
+  list-style-type: circle;
 }
 
 h2 {
-    margin-top: 50px;
+  margin-top: 50px;
 }
 
 .email {
-    color: black;
-    text-decoration: none;
+  color: rgb(41, 171, 226, 1);
+  text-decoration: none;
 }
 
 .email:hover {
-    font-weight: 700;
-    cursor: pointer;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.backTOLogin {
+  width: 37px;
+  height: 37px;
+  border-radius: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backTOLogin img {
+  width: 29px;
+  height: 28px;
+}
+
+.backTOLogin:hover {
+  cursor: pointer;
+  transform: scale3d(1.1, 1.1, 1.1);
+  background-color: rgb(239, 239, 239);
 }
