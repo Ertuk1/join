@@ -1,5 +1,6 @@
 body {
     font-family: "inter", sans-serif;
+    overflow: hidden;
 }
 
 .at-headline {
@@ -191,7 +192,24 @@ body {
     transform: rotate(45deg);
 }
 
+#at-selected-contacts {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
 
+.at-choosed-contact-shortcut {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: 1px solid white;
+    border-radius: 100px;
+    margin-right: 8px;
+    margin-top: 8px;
+}
 
 .input-border-container {
     height: 424px;
@@ -204,7 +222,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 440px;
-
+    position: relative;
 }
 
 .right-input-container input {
@@ -297,6 +315,27 @@ body {
     background-color: white;
     border: 1px solid #D1D1D1;
     display: none;
+}
+
+.at-subcategory-btn-container {
+    position: absolute;
+    display: flex;
+    top: 365px;
+    right: 12px;
+}
+
+.at-subcategory-btn-container img {
+    height: 14px;
+    width: 14px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.small-border-container {
+    height: 14px;
+    width: 0px;
+    border: 1px solid #D1D1D1;
+    margin-left: 6px;
 }
 
 .at-btn-container {

@@ -65,9 +65,9 @@ function showChoosedContacts(initials) {
     for (let i = 0; i < choosedContacts.length; i++) {
         let contact = choosedContacts[i].initial;
         let color = setBackgroundColorInitials(contact);
-        content.innerHTML += `<div id="at-choosed-shortcut${i}">${contact}</div>`;
+        content.innerHTML += `<div class="at-choosed-contact-shortcut" id="at-choosed-shortcut${i}"><div class="at-contact-shortcut">${contact}</div></div>`;
         let backgroundColor = document.getElementById(`at-choosed-shortcut${i}`);
-        backgroundColor.style.backgroundColor = color; 
+        backgroundColor.style.backgroundColor = color;
 
     }
 }
@@ -263,6 +263,29 @@ function checkIfCategoryEmpty() {
     }
 }
 
+function activateSubcategory() {
+    let inputField = document.getElementById('add-subcategory');
+    if (document.getElementById('at-subcategory-clear').classList.contains('d-none')) {
+        document.getElementById('at-subcategory-clear').classList.remove('d-none');
+        document.getElementById('at-subcategory-border').classList.remove('d-none');
+        document.getElementById('at-subcategory-confirm').classList.remove('d-none');
+        document.getElementById('at-subcategory-open').classList.add('d-none');
+    }
+    window.addEventListener('click', function (event) {
+        if (!inputField.contains(event.target)) {
+            document.getElementById('at-subcategory-clear').classList.add('d-none');
+            document.getElementById('at-subcategory-border').classList.add('d-none');
+            document.getElementById('at-subcategory-confirm').classList.add('d-none');
+            document.getElementById('at-subcategory-open').classList.remove('d-none');
+        }
+    });
+}
+
+function clearInputSubcategory(event) {
+    let inputField = document.getElementById('add-subcategory');
+    event.stopPropagation();
+    inputField.value = '';
+}
 
 
 
