@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "inter";
+  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(246, 247, 248);
+  font-family: "inter", sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.content {
+  position: absolute;
+  top: 206px;
+  text-wrap: wrap;
+  margin: 0 96px 0 328px;
+  padding-bottom: 60px;
+}
+
+.legalNoticeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.legalNotice {
+  font-size: 71px;
+  font-weight: 700;
+}
+
+ol {
+  padding: 0 0 0 30px;
+  list-style-position: outside;
+}
+
+ol li {
+  font-size: 27px;
+  font-weight: 700;
+  padding: 0 0 0 28px;
+}
+
+h2 {
+  margin: 50px 0 8px 0;
+}
+
+h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 16px 0px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.turquoise {
+  color: rgb(41, 171, 226, 1);
+}
+
+.backTOLogin {
+  width: 37px;
+  height: 37px;
+  border-radius: 37px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.email {
+  color: rgb(41, 171, 226, 1);
+  text-decoration: none;
+}
+
+.email:hover {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.backTOLogin img {
+  width: 29px;
+  height: 28px;
+}
+
+.backTOLogin:hover {
+  cursor: pointer;
+  transform: scale3d(1.1, 1.1, 1.1);
+  background-color: rgb(239, 239, 239);
+}
