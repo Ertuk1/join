@@ -315,6 +315,7 @@ h2 {
     position: relative; 
     gap: 0px; 
     padding-top: 24px;
+    justify-content: space-between;
 }
 
 .contactCard {
@@ -349,4 +350,9 @@ h2 {
 .contactCard:nth-child(3) {
     left: -8px;
     z-index: 1; 
+}
+
+.urgentSymbol{
+    width: 17px;
+    height: 12px;
 }
