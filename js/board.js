@@ -29,3 +29,29 @@ function updateProgressBar(subtasksCompleted, totalSubtasks, progressBarId) {
     let progressBar = document.getElementById(progressBarId);
     progressBar.style.width = progressPercentage + '%';
 }
+
+function on() {
+    document.getElementById("overlay").style.display = "flex";
+    const overlayContent = document.querySelector(".overlayContent");
+    overlayContent.style.transform = "translateX(0)";
+    overlayContent.style.opacity = "1";
+  }
+
+  function off() {
+    const overlay = document.getElementById("overlay");
+    const overlayContent = document.querySelector(".overlayContent");
+    
+    overlayContent.classList.add("slide-out-content"); // Add the slide-out animation class
+    overlay.classList.add("fade-out-overlay"); // Add the fade-out animation class
+    
+    // Wait for the animation to finish before hiding the overlay
+    overlay.addEventListener("animationend", function() {
+        overlay.style.display = "none"; // Hide the overlay
+        overlay.classList.remove("fade-out-overlay"); // Remove the fade-out animation class
+        overlayContent.classList.remove("slide-out-content"); // Remove the slide-out animation class
+    }, { once: true }); // Ensure the event listener is only triggered once
+}
+
+  function stopPropagation(event) {
+    event.stopPropagation();
+}

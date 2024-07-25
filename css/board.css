@@ -4,6 +4,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 body {
@@ -355,4 +356,95 @@ h2 {
 .urgentSymbol{
     width: 17px;
     height: 12px;
+}
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+    align-items: center;
+    justify-content: center;
+  }
+
+.overlayContent{
+margin: auto;
+width: 525px;
+height: 700px;
+padding: 48px 40px;
+gap: 24px;
+border-radius: 30px;
+background-color: white;
+cursor: auto;
+
+}
+
+.overlayTitle{
+justify-content: space-between;
+ display: flex;
+}
+
+.overlayUser{
+    width: 116px;
+    height: 28px;
+    padding: 4px 24px;
+    gap: 10px;
+    border-radius: 8px;
+    background-color: #0038FF;
+    color: white;
+    font-family: Inter;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27.6px;
+    text-align: center;
+}
+
+.closeButton{
+    width: 24px;
+    height: 24px;
+    top: 4px;
+    left: 4px;
+}
+
+.closeButton:hover{
+    cursor: pointer;
+  background-color: rgb(214, 214, 214);
+  border-radius: 50%;
+}
+
+@keyframes slideOut {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.slide-out {
+    animation: slideOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.slide-out-content {
+    animation: slideOut 0.5s forwards;
+}
+
+.fade-out-overlay {
+    animation: fadeOut 0.5s forwards;
 }

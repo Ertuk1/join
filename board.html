@@ -14,6 +14,7 @@
 </head>
 
 <body onload="initBoard()">
+
     <body onload="initBoard()">
         <header w3-include-html="../template/header.html"></header>
         <aside w3-include-html="../template/nav.html"></aside>
@@ -39,12 +40,13 @@
                             <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                         </div>
                         <div id="toDo" class="taskContent">
-                            <div draggable="true" class="card">
+                            <div draggable="true" class="card" onclick="on()">
                                 <div class="cardContent">
                                     <span class="labelUser">User Story</span>
                                     <div class="contextContent">
                                         <span class="cardTitle">Kochwelt Page & Recipe Recommender</span>
-                                        <div><span class="cardContext">Build start page with recipe recommendation...</span>
+                                        <div><span class="cardContext">Build start page with recipe
+                                                recommendation...</span>
                                         </div>
                                         <div class="progressbar">
                                             <div class="progressbarContainer">
@@ -53,10 +55,13 @@
                                             <div class="subtasks">1/2 Subtasks</div>
                                         </div>
                                         <div class="contactContainer">
-                                            <div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">HP</div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">KP</div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">RP</div>
+                                            <div style="display: flex;">
+                                                <div class="contactCard" style="background-color: rgb(232, 58, 133);">HP
+                                                </div>
+                                                <div class="contactCard" style="background-color: rgb(232, 58, 133);">KP
+                                                </div>
+                                                <div class="contactCard" style="background-color: rgb(232, 58, 133);">RP
+                                                </div>
                                             </div>
                                             <div><img class="urgentSymbol" src="./assets/img/urgent.png" alt=""></div>
                                         </div>
@@ -71,7 +76,7 @@
                             <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                         </div>
                         <div id="progress" class="taskContent">
-    
+
                         </div>
                     </div>
                     <div class="todo">
@@ -80,7 +85,7 @@
                             <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                         </div>
                         <div id="feedback" class="taskContent">
-    
+
                         </div>
                     </div>
                     <div class="todo">
@@ -88,14 +93,20 @@
                             <span>Done</span>
                         </div>
                         <div id="done" class="taskContent">
-    
+
                         </div>
                     </div>
                 </section>
             </main>
-    <script src="./js/board.js"></script>
-    <script src="./js/template.js"></script>
-    <script src="./js/contacts.js"></script>
-</body>
+            <div onclick="off()" id="overlay">
+                <div class="overlayContent" onclick="stopPropagation(event)">
+                    <div class="overlayTitle"><span class="overlayUser">User Story</span> <img class="closeButton"
+                            onclick="off()" src="./assets/img/Close.png" alt=""></div>
+                </div>
+            </div>
+            <script src="./js/board.js"></script>
+            <script src="./js/template.js"></script>
+            <script src="./js/contacts.js"></script>
+    </body>
 
 </html>
