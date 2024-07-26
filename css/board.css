@@ -386,9 +386,10 @@ cursor: auto;
 
 }
 
-.overlayTitle{
+.overlayUserTitle{
 justify-content: space-between;
  display: flex;
+ padding-bottom: 24px;
 }
 
 .overlayUser{
@@ -409,8 +410,8 @@ justify-content: space-between;
 .closeButton{
     width: 24px;
     height: 24px;
-    top: 4px;
-    left: 4px;
+    margin-top: 4px;
+    margin-left: 4px;
 }
 
 .closeButton:hover{
@@ -447,4 +448,78 @@ justify-content: space-between;
 
 .fade-out-overlay {
     animation: fadeOut 0.5s forwards;
+}
+
+.overlayTitle{
+font-family: Inter;
+font-size: 61px;
+font-weight: 700;
+line-height: 73.2px;
+text-align: left;
+}
+
+.overlayContext{
+font-family: Inter;
+font-size: 20px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+margin-top: 24px;
+margin-bottom: 24px;
+}
+
+.dueDate{
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #2A3647;
+}
+
+.date{
+font-family: Inter;
+font-size: 20px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color: #000000;
+}
+
+.dateDiv{
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.prioOverlay{
+font-family: Inter;
+font-size: 20px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color: #2A3647;
+}
+
+.urgencyText{
+font-family: Inter;
+font-size: 20px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color:#000000;
+}
+
+.overlayUrgencyImg{
+    width: 17px;
+    height: 12px;
+    margin-top: 12px;
+    margin-left: 17px;
+    
+}
+
+.prioDiv{
+    display: flex;
+    gap: 41px;
+    margin-bottom: 25px;
 }

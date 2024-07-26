@@ -100,8 +100,22 @@
             </main>
             <div onclick="off()" id="overlay">
                 <div class="overlayContent" onclick="stopPropagation(event)">
-                    <div class="overlayTitle"><span class="overlayUser">User Story</span> <img class="closeButton"
-                            onclick="off()" src="./assets/img/Close.png" alt=""></div>
+                    <section class="overlayUserTitle">
+                        <span class="overlayUser">User Story</span>
+                        <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
+                    </section>
+                    <section>
+                        <span class="overlayTitle">Kochwelt Page & Recipe Recommender</span>
+                    </section>
+                    <section class="overlayContext"><span>Build start page with recipe recommendation.</span></section>
+                    <section class="dateDiv"><span class="dueDate">Due date:</span> <span class="date">10/05/2023</span>
+                    </section>
+                    <section class="prioDiv"><span class="prioOverlay">Priority:</span><span class="urgencyText">Urgent
+                            <img class="overlayUrgencyImg" src="./assets/img/urgent.png" alt=""></span></section>
+                    <section>
+                        <span class="prioOverlay">Assigned To:</span>
+                        <div>a</div>
+                    </section>
                 </div>
             </div>
             <script src="./js/board.js"></script>
