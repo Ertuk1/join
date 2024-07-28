@@ -73,7 +73,6 @@ function showChoosedContacts(initials) {
     }
 }
 
-
 function getInitials(contact) {
     let names = contact.trim().split(' ');
     initials = names[0].substring(0, 1).toUpperCase();
@@ -198,7 +197,6 @@ function showCategoryList() {
     });
 }
 
-
 function showCategoryDropdown(selectSelected, selectItems) {
     selectSelected.addEventListener('click', function () {
         if (selectItems.style.display === 'block') {
@@ -220,7 +218,6 @@ function showCategoryDropdown(selectSelected, selectItems) {
         }
     });
 }
-
 
 function chooseCategoryFromList(options, selectSelected, selectItems) {
     options.forEach(function (option) {
@@ -302,22 +299,63 @@ function clearInputSubcategory(event) {
 }
 
 function addSubcategory() {
-    let content = document.getElementById('added-subcategories')
+    let content = document.getElementById('added-subcategories');
     content.innerHTML = '';
     let subcategory = document.getElementById('add-subcategory');
-    let newCategory = subcategory.value; 
-    subcategoriesChoosed.push(newCategory);
-
-    for (let i = 0; i < subcategoriesChoosed.length; i++) {
-        let choosedSubcategorie = subcategoriesChoosed[i];
-        content.innerHTML += /*html*/`
+    let newCategory = subcategory.value;
+    if (newCategory !== '') {
+        subcategoriesChoosed.push(newCategory);
+        for (let i = 0; i < subcategoriesChoosed.length; i++) {
+            let choosedSubcategorie = subcategoriesChoosed[i];
+            content.innerHTML += /*html*/`
         <div class="choosed-subcategorie-container">
-        <input value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
+            <input class="choosed-subcategory-input" value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
+            <div class="choosed-subcategorie-btn-container">
+                <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit-${i}">
+                <div class="small-border-container"></div>
+                <img onclick="clearInputAddedSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
+            </div>
+            <div class="choosed-subcategorie-btn-container-active-field">
+                <img onclick="clearInputAddedSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
+                <div class="small-border-container-gray"></div>
+                <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
+            </div>
         </div>
         `
+        }
+        subcategory.value = '';
     }
-    subcategory.value = '';
+    else {
+        for (let i = 0; i < subcategoriesChoosed.length; i++) {
+            let choosedSubcategorie = subcategoriesChoosed[i];
+            content.innerHTML += /*html*/`
+        <div class="choosed-subcategorie-container">
+            <input class="choosed-subcategory-input" value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
+            <div class="choosed-subcategorie-btn-container">
+                <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit">
+                <div class="small-border-container"></div>
+                <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete">
+            </div>
+            <div class="choosed-subcategorie-btn-container-active-field">
+                <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active">
+                <div class="small-border-container-gray"></div>
+                <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active">
+            </div>
+        </div>
+        `
+        }
+    }
 }
+
+function focusInput(inputId) {
+    document.getElementById(inputId).focus();
+}
+
+function removeSubcategory(i) {
+    subcategoriesChoosed.splice(i, 1);
+    addSubcategory();
+}
+
 
 
 

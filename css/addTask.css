@@ -212,14 +212,14 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 16px; 
-    background-color: white; 
+    width: 16px;
+    background-color: white;
 }
 
 ::-webkit-scrollbar-button {
     background-color: #ddd;
-    height: 8px; 
-    border: none; 
+    height: 8px;
+    border: none;
 }
 
 ::-webkit-scrollbar-button:vertical:increment {
@@ -231,8 +231,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: lightgray; 
-    border-radius: 8px; 
+    background: lightgray;
+    border-radius: 8px;
     border: 4px solid white;
 }
 
@@ -359,27 +359,91 @@ body {
 .small-border-container {
     height: 14px;
     width: 0px;
+    border: 1px solid white;
+    margin-left: 6px;
+}
+
+.small-border-container-gray{
+    height: 14px;
+    width: 0px;
     border: 1px solid #D1D1D1;
     margin-left: 6px;
 }
 
 .choosed-subcategorie-container {
     position: relative;
-    margin-top: 8px; 
+    margin-top: 8px;
     width: 440px;
+    cursor: pointer;
 }
 
 .choosed-subcategorie-container input {
     background-color: rgb(246, 247, 248);
-    border: none; 
+    border: none;
     font-size: 16px;
     padding: 6px 16px 6px 16px !important;
-    width: 400px;
+    width: 406px;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .choosed-subcategorie-container input:focus {
-   outline: none;
-   background-color: white;
+    outline: none;
+    background-color: white;
+}
+
+.choosed-subcategorie-btn-container {
+    position: absolute;
+    display: flex;
+    top: 10px;
+    right: 12px;
+    z-index: 10;
+}
+
+.choosed-subcategorie-btn-container img {
+    height: 14px;
+    width: 14px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.choosed-subcategorie-btn-container {
+    display: none;
+}
+
+.choosed-subcategorie-container:hover>.choosed-subcategorie-btn-container {
+    display: flex;
+}
+
+.choosed-subcategorie-container:hover>.choosed-subcategory-input {
+    background-color: #EEEEEE;
+
+}
+
+.choosed-subcategorie-btn-container-active-field {
+    position: absolute;
+    display: none;
+    top: 10px;
+    right: 12px;
+}
+
+.choosed-subcategorie-btn-container-active-field img {
+    height: 14px;
+    width: 14px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.choosed-subcategory-input:focus~.choosed-subcategorie-btn-container-active-field {
+    display: flex;
+}
+
+.choosed-subcategory-input:focus~.choosed-subcategorie-btn-container{
+display: none;
+}
+
+.choosed-subcategorie-container:hover > .choosed-subcategory-input:focus {
+    background-color: white;
 }
 
 .at-btn-container {
