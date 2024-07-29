@@ -1,4 +1,4 @@
-const BASE_URL = 'https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/'; 
+const BASE_URL = 'https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/';
 
 let contacts = [
     { name: "Jan Möller" },
@@ -227,6 +227,24 @@ function showCategoryDropdown(selectSelected, selectItems) {
     });
 }
 
+function clearCategoryDropdown() {
+    let customSelects = document.querySelectorAll('.custom-category-select');
+    customSelects.forEach(function (select) {
+        let selectSelected = select.querySelector('.select-category-selected');
+        let selectItems = select.querySelector('.select-category-items');
+        selectSelected.textContent = 'Select task category';
+        selectItems.style.display = 'none';
+        categoryChoosedIndex = 'false';
+        categoryChoosed = '';
+        let openIcon = document.getElementById('open-category-list');
+        let closeIcon = document.getElementById('close-category-list');
+        if (openIcon && closeIcon) {
+            openIcon.classList.remove('d-none');
+            closeIcon.classList.add('d-none');
+        }
+    });
+}
+
 function chooseCategoryFromList(options, selectSelected, selectItems) {
     options.forEach(function (option) {
         option.addEventListener('click', function () {
@@ -240,10 +258,11 @@ function chooseCategoryFromList(options, selectSelected, selectItems) {
 }
 
 function checkRequiredInput() {
-    checkIfTitleEmpty();
-    checkIfDateEmpty();
-    checkIfCategoryEmpty();
+    let isTitleValid = checkIfTitleEmpty();
+    let isDateValid = checkIfDateEmpty();
+    let isCategoryValid = checkIfCategoryEmpty();
 
+    return isTitleValid && isDateValid && isCategoryValid;
 }
 
 function checkIfTitleEmpty() {
@@ -251,11 +270,12 @@ function checkIfTitleEmpty() {
     if (title.value === '') {
         document.getElementById('at-alert-title').classList.remove('d-none');
         title.style.borderColor = '#FF8190';
-        return
+        return false;
     }
     else {
         document.getElementById('at-alert-title').classList.add('d-none');
         title.style.borderColor = '';
+        return true;
     }
 }
 
@@ -265,10 +285,12 @@ function checkIfDateEmpty() {
     if (date.value === '') {
         document.getElementById('at-alert-due-date').classList.remove('d-none');
         date.style.borderColor = '#FF8190';
+        return false;
     }
     else {
         document.getElementById('at-alert-due-date').classList.add('d-none');
         date.style.borderColor = '';
+        return true;
     }
 }
 
@@ -277,10 +299,13 @@ function checkIfCategoryEmpty() {
     if (categoryChoosedIndex === 'false') {
         document.getElementById('at-alert-category').classList.remove('d-none');
         category.style.borderColor = '#FF8190';
+        return false;
     }
     else {
         document.getElementById('at-alert-category').classList.add('d-none');
         category.style.borderColor = '';
+        return true;
+
     }
 }
 
@@ -308,7 +333,7 @@ function clearInputSubcategory(event) {
     inputField.value = '';
 }
 
-function addSubcategory() {
+function renderSubcategory() {
     let content = document.getElementById('added-subcategories');
     content.innerHTML = '';
     let subcategory = document.getElementById('add-subcategory');
@@ -357,17 +382,44 @@ function addSubcategory() {
     }
 }
 
+function removeAllSubcategory() {
+    subcategoriesChoosed.splice(subcategoriesChoosed.length);
+    renderSubcategory();
+}
+
 function focusInput(inputId) {
     document.getElementById(inputId).focus();
 }
 
 function removeSubcategory(i) {
     subcategoriesChoosed.splice(i, 1);
-    addSubcategory();
+    renderSubcategory();
+}
+
+function clearTask() {
+    let title = document.getElementById('task-title');
+    let description = document.getElementById('at-description');
+    let date = document.getElementById('task-due-date');
+
+    title.value = '';
+    description.value = '';
+    choosedContacts = [];
+    date.value = '';
+    taskPrio = '';
+    categoryChoosed = '';
+    subcategoriesChoosed = [];
+    renderAssignedToContacts();
+    showChoosedContacts();
+    showAvailableContacts();
+    clearCategoryDropdown();
+    renderSubcategory();
+    resetOtherPriorities('reset');
 }
 
 async function addTask() {
-    checkRequiredInput()
+    if (!checkRequiredInput()) {
+        return;
+    }
     let title = document.getElementById('task-title');
     let description = document.getElementById('at-description');
     let assignedTo = choosedContacts;
@@ -382,18 +434,17 @@ async function addTask() {
         'category': categoryChoosed,
         'subcategory': subcategoriesChoosed
     }
-    console.log(task)
     await postTask("/task", task);
 }
 
-async function postTask(path, task){
-let response = await fetch(BASE_URL + path + '.json', {
-method: 'POST',
+async function postTask(path, task) {
+    let response = await fetch(BASE_URL + path + '.json', {
+        method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(task)
-})
-return responseToJson = await response.json();
+    })
+    return responseToJson = await response.json();
 }
 
