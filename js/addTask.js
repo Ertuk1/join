@@ -1,3 +1,5 @@
+const BASE_URL = 'https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/'; 
+
 let contacts = [
     { name: "Jan Möller" },
     { name: "Max Mustermann" },
@@ -6,10 +8,14 @@ let contacts = [
     { name: "Max Mustermann" },
     { name: "Sabine Musterfrau" },
 ];
-let choosedContacts = [];
+
 let contactColors = {};
-let categoryChoosed = 'false'
+let categoryChoosedIndex = 'false';
+let categoryChoosed = '';
 let subcategoriesChoosed = [];
+let choosedContacts = [];
+let taskPrio = '';
+let task = {};
 
 async function addTaskInit() {
     await includeHTML();
@@ -143,9 +149,13 @@ function setBackgroundColorPrio(prio) {
     resetOtherPriorities(prio);
 
     if (prioStatus.classList.contains(`at-bg-${prio}`)) {
-        removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive)
+        removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
+        taskPrio = '';
+        console.log(taskPrio);
     } else {
         addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
+        taskPrio = prio;
+        console.log(taskPrio);
     }
 }
 
@@ -175,14 +185,12 @@ function resetOtherPriorities(selectedPrio) {
 
 function showCategoryList() {
     let customSelects = document.querySelectorAll('.custom-category-select');
-
     customSelects.forEach(function (select) {
         let selectSelected = select.querySelector('.select-category-selected');
         let selectItems = select.querySelector('.select-category-items');
         let options = selectItems.querySelectorAll('.at-contact-layout');
         showCategoryDropdown(selectSelected, selectItems);
         chooseCategoryFromList(options, selectSelected, selectItems);
-
         window.addEventListener('click', function (e) {
             if (!select.contains(e.target)) {
                 selectItems.style.display = 'none';
@@ -224,16 +232,18 @@ function chooseCategoryFromList(options, selectSelected, selectItems) {
         option.addEventListener('click', function () {
             selectSelected.textContent = option.querySelector('.at-contact-name').textContent;
             selectItems.style.display = 'none';
-            categoryChoosed = 'true';
+            categoryChoosedIndex = 'true';
+            categoryChoosed = selectSelected.textContent;
             checkIfCategoryEmpty();
         });
     });
 }
 
-function createTask() {
+function checkRequiredInput() {
     checkIfTitleEmpty();
     checkIfDateEmpty();
     checkIfCategoryEmpty();
+
 }
 
 function checkIfTitleEmpty() {
@@ -264,7 +274,7 @@ function checkIfDateEmpty() {
 
 function checkIfCategoryEmpty() {
     let category = document.getElementById('category-input');
-    if (categoryChoosed === 'false') {
+    if (categoryChoosedIndex === 'false') {
         document.getElementById('at-alert-category').classList.remove('d-none');
         category.style.borderColor = '#FF8190';
     }
@@ -313,10 +323,10 @@ function addSubcategory() {
             <div class="choosed-subcategorie-btn-container">
                 <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit-${i}">
                 <div class="small-border-container"></div>
-                <img onclick="clearInputAddedSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
+                <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
             </div>
             <div class="choosed-subcategorie-btn-container-active-field">
-                <img onclick="clearInputAddedSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
+                <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
                 <div class="small-border-container-gray"></div>
                 <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
             </div>
@@ -356,6 +366,34 @@ function removeSubcategory(i) {
     addSubcategory();
 }
 
+async function addTask() {
+    checkRequiredInput()
+    let title = document.getElementById('task-title');
+    let description = document.getElementById('at-description');
+    let assignedTo = choosedContacts;
+    let date = document.getElementById('task-due-date');
+    let prio = taskPrio;
+    task = {
+        'title': title.value,
+        'description': description.value,
+        'assignedTo': assignedTo,
+        'date': date.value,
+        'prio': prio,
+        'category': categoryChoosed,
+        'subcategory': subcategoriesChoosed
+    }
+    console.log(task)
+    await postTask("/task", task);
+}
 
-
+async function postTask(path, task){
+let response = await fetch(BASE_URL + path + '.json', {
+method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task)
+})
+return responseToJson = await response.json();
+}
 
