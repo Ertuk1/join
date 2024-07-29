@@ -8,6 +8,7 @@ body {
     height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
+    transition: 250ms;
     
 }
 
@@ -328,4 +329,19 @@ gap: 54px;;
     font-weight: 400;
     line-height: 14.4px;
     font-family: "Inter", sans-serif;
-  }
+}
+
+.d-none {
+    display: none;
+}
+.blurBackground {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    background-color: rgba(20, 20, 20, 0.111);
+    z-index: 1;
+}

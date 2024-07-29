@@ -126,3 +126,9 @@ function createContactList() {
       }
     }
   }
+
+  function showAddContact() {
+    document.getElementById('blurBackground').classList.remove('d-none');
+    document.getElementById('buttonActiveImg').classList.add('buttonActiveImg');
+    document.getElementById('addContactButton').classList.add('buttonActive');
+  }
