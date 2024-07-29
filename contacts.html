@@ -18,7 +18,8 @@
     <aside w3-include-html="../template/nav.html"></aside>
 
     <div id="contactListContent">
-        <div id="contactListButtonContent"><button>Add new Contact <img src="./assets/img/person_add.png" alt=""></button></div>
+        <div id="contactListButtonContent"><button>Add new Contact <img src="./assets/img/person_add.png"
+                    alt=""></button></div>
         <div id="contact-list" class="contact-list"></div>
     </div>
 
@@ -28,9 +29,43 @@
             <div id="headlineLine"></div>
             <p>Better with a team</p>
         </div>
+        <div id="viewContact">
+            <div class="profileName">
+                <div class="profilePictureContact" id="pictureViewContact">TW</div>
+                <div class="nameEditBox">
+                    <div class="nameBox">
+                        <h2>Tatjana Wolf</h2>
+                    </div>
+                    <div class="editDivContact">
+                        <div class="editBox" id="editDiv"><img src="assets/img/edit_contact.png" alt="edit">
+                            <p>Edit</p>
+                        </div>
+                        <div class="editBox" id=deleteDiv><img src="assets/img/delete_contact.png" alt="">
+                            <p>Delete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contactInformation">
+                <p>Contact Information</p>
+            </div>
+            <div>
+                <div class="showOneContact">
+                    <div class="showOneContactInfo">
+                        <h3>Email</h3>
+                        <p id="emailFromContact">wolf@gmail.com</p>
+                    </div>
+                    <div class="showOneContactInfo">
+                        <h3>Phone</h3>
+                        <p id="phoneFromContact">+49 2222 222 22 2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="../js/template.js"></script>
     <script src="../js/contacts.js"></script>
 </body>
+
 </html>
