@@ -1,6 +1,7 @@
 body {
     font-family: "inter", sans-serif;
-    overflow-x: hidden;
+    overflow: hidden;
+    position: relative;
 }
 
 .at-headline {
@@ -513,4 +514,35 @@ display: none;
 
 .required-star {
     color: #FF8190;
+}
+
+.bg-confirmation-task-creation-hidden{
+    height: 75vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-left: 100px;
+    transform: translateY(1000px); 
+    transition: transform 1000ms ease-in-out;
+    z-index: 50; 
+}
+
+.bg-confirmation-task-creation-shown{
+    transform: translateY(0) !important;
+    transition: transform 1000ms ease-in-out;
+}
+
+
+.confirmation-task-creation {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px; 
+    background-color: #2A3647;
+    color: white;
+    height: 70px;
+    width: 300px;
+    border-radius: 10px;
 }

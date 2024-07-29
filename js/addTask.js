@@ -435,6 +435,7 @@ async function addTask() {
         'subcategory': subcategoriesChoosed
     }
     await postTask("/task", task);
+    goToBoard();
 }
 
 async function postTask(path, task) {
@@ -446,5 +447,10 @@ async function postTask(path, task) {
         body: JSON.stringify(task)
     })
     return responseToJson = await response.json();
+}
+
+function goToBoard() {
+    let addedNote = document.getElementById('task-added-note');
+    addedNote.classList.add('bg-confirmation-task-creation-shown');
 }
 
