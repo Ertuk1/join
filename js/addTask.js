@@ -450,7 +450,9 @@ async function postTask(path, task) {
 }
 
 function goToBoard() {
+    let bgAddedNote = document.getElementById('bg-task-added-note');
+    bgAddedNote.style.zIndex = 100;
     let addedNote = document.getElementById('task-added-note');
-    addedNote.classList.add('bg-confirmation-task-creation-shown');
+    addedNote.classList.add('confirmation-task-creation-shown');
 }
 

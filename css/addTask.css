@@ -1,6 +1,6 @@
 body {
     font-family: "inter", sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -516,7 +516,7 @@ display: none;
     color: #FF8190;
 }
 
-.bg-confirmation-task-creation-hidden{
+.bg-confirmation-task-creation{
     height: 75vh;
     width: 100vw;
     display: flex;
@@ -524,18 +524,17 @@ display: none;
     justify-content: center;
     position: absolute;
     margin-left: 100px;
-    transform: translateY(1000px); 
-    transition: transform 1000ms ease-in-out;
-    z-index: 50; 
+    z-index: -10; 
+    overflow-y: hidden;
 }
 
-.bg-confirmation-task-creation-shown{
+.confirmation-task-creation-shown{
     transform: translateY(0) !important;
-    transition: transform 1000ms ease-in-out;
+    transition: transform 800ms ease-in-out;
 }
 
 
-.confirmation-task-creation {
+.confirmation-task-creation-hidden {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -545,4 +544,6 @@ display: none;
     height: 70px;
     width: 300px;
     border-radius: 10px;
+    transform: translateY(1000px); 
+    transition: transform 800ms ease-in-out;
 }
