@@ -11,16 +11,16 @@ function checkIfEmpty() {
     let done = document.getElementById('done');
 
     if (progress.innerHTML.trim() === "") {
-        progress.innerHTML = /*html*/`<div class="noTasks"><span class="noTaskText">Nothing in progress</span></div>`;
+        progress.innerHTML = `<div class="noTasks"><span class="noTaskText">Nothing in progress</span></div>`;
     }
     if (toDo.innerHTML.trim() === "") {
-        toDo.innerHTML = /*html*/`<div class="noTasks"><span class="noTaskText">No tasks To do</span></div>`;
+        toDo.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks To do</span></div>`;
     }
     if (feedback.innerHTML.trim() === "") {
-        feedback.innerHTML = /*html*/`<div class="noTasks"><span class="noTaskText">No tasks awaiting feedback</span></div>`;
+        feedback.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks awaiting feedback</span></div>`;
     }
     if (done.innerHTML.trim() === "") {
-        done.innerHTML = /*html*/`<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
+        done.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
     }
 }
 

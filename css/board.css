@@ -48,7 +48,7 @@ main {
     justify-content: space-between;
     align-items: center;
     margin-top: 79.5px;
-    
+
 }
 
 h2 {
@@ -313,8 +313,8 @@ h2 {
 .contactContainer {
     display: flex;
     align-items: center;
-    position: relative; 
-    gap: 0px; 
+    position: relative;
+    gap: 0px;
     padding-top: 24px;
     justify-content: space-between;
 }
@@ -332,67 +332,79 @@ h2 {
     font-weight: 400;
     line-height: 14.4px;
     font-family: "Inter", sans-serif;
-    margin-left: -8px; 
+    margin-left: -8px;
 }
 
 .contactCard:first-child {
-    margin-left: 0; 
+    margin-left: 0;
 }
+
 .contactCard:nth-child(1) {
     left: 0;
-    z-index: 0; 
+    z-index: 0;
 }
 
 .contactCard:nth-child(2) {
     left: -4px;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .contactCard:nth-child(3) {
     left: -8px;
-    z-index: 1; 
+    z-index: 1;
 }
 
-.urgentSymbol{
+.urgentSymbol {
     width: 17px;
     height: 12px;
 }
 
 #overlay {
-    position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
+    position: fixed;
+    /* Sit on top of the page content */
+    display: none;
+    /* Hidden by default */
+    width: 100%;
+    /* Full width (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    z-index: 2;
+    /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer;
+    /* Add a pointer on hover */
     align-items: center;
     justify-content: center;
-  }
+}
 
-.overlayContent{
-margin: auto;
-width: 525px;
-height: 700px;
-padding: 48px 40px;
-gap: 24px;
-border-radius: 30px;
-background-color: white;
-cursor: auto;
+.overlayContent {
+    margin: auto;
+    width: 525px;
+    max-height: 931px;
+    height: 931px;
+    padding: 48px 40px;
+    gap: 24px;
+    border-radius: 30px;
+    background-color: white;
+    cursor: auto;
+    box-shadow: 0px 0px 4px 0px #00000029;
+    overflow-y: auto;
+
 
 }
 
-.overlayUserTitle{
-justify-content: space-between;
- display: flex;
- padding-bottom: 24px;
+.overlayUserTitle {
+    justify-content: space-between;
+    display: flex;
+    padding-bottom: 24px;
 }
 
-.overlayUser{
+.overlayUser {
     width: 116px;
     height: 28px;
     padding: 4px 24px;
@@ -407,23 +419,24 @@ justify-content: space-between;
     text-align: center;
 }
 
-.closeButton{
+.closeButton {
     width: 24px;
     height: 24px;
     margin-top: 4px;
     margin-left: 4px;
 }
 
-.closeButton:hover{
+.closeButton:hover {
     cursor: pointer;
-  background-color: rgb(214, 214, 214);
-  border-radius: 50%;
+    background-color: rgb(214, 214, 214);
+    border-radius: 50%;
 }
 
 @keyframes slideOut {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(100%);
     }
@@ -437,6 +450,7 @@ justify-content: space-between;
     0% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
     }
@@ -450,25 +464,25 @@ justify-content: space-between;
     animation: fadeOut 0.5s forwards;
 }
 
-.overlayTitle{
-font-family: Inter;
-font-size: 61px;
-font-weight: 700;
-line-height: 73.2px;
-text-align: left;
+.overlayTitle {
+    font-family: Inter;
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    text-align: left;
 }
 
-.overlayContext{
-font-family: Inter;
-font-size: 20px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
-margin-top: 24px;
-margin-bottom: 24px;
+.overlayContext {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
-.dueDate{
+.dueDate {
     font-family: Inter;
     font-size: 20px;
     font-weight: 400;
@@ -477,49 +491,127 @@ margin-bottom: 24px;
     color: #2A3647;
 }
 
-.date{
-font-family: Inter;
-font-size: 20px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
-color: #000000;
+.date {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #000000;
 }
 
-.dateDiv{
+.dateDiv {
     display: flex;
     gap: 24px;
     margin-bottom: 24px;
 }
 
-.prioOverlay{
-font-family: Inter;
-font-size: 20px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
-color: #2A3647;
+.contactOverlay {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #2A3647;
 }
 
-.urgencyText{
-font-family: Inter;
-font-size: 20px;
-font-weight: 400;
-line-height: 24px;
-text-align: left;
-color:#000000;
+.urgencyText {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #000000;
 }
 
-.overlayUrgencyImg{
+.overlayUrgencyImg {
     width: 17px;
     height: 12px;
     margin-top: 12px;
     margin-left: 17px;
-    
+
 }
 
-.prioDiv{
+.prioDiv {
     display: flex;
     gap: 41px;
     margin-bottom: 25px;
+}
+
+.contactDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 216px;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.contactName {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22.8px;
+    text-align: left;
+
+}
+
+.subtasksOverlay {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #2A3647;
+    margin-top: 24px;
+    margin-bottom: 8px;
+
+}
+
+
+input[type="checkbox"] {
+    appearance: none;
+    /* Remove default checkbox */
+    width: 20px;
+    height: 20px;
+    border: 2px solid #2A3647;
+    /* Border color */
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: none;
+    /* No background */
+    position: relative;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "✔";
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    /* Adjust as needed */
+    color: #2A3647;
+    /* Check mark color */
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkBoxText {
+
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.2px;
+    text-align: left;
+}
+
+.checkBoxDiv {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
