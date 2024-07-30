@@ -615,3 +615,38 @@ input[type="checkbox"]:checked::after {
     align-items: center;
     gap: 16px;
 }
+
+.editDiv {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+.deletePng {
+    width: 16px;
+    height: 18px;
+    top: 3px;
+    left: 4px;
+
+}
+
+.deleteDiv{
+font-family: Inter;
+font-size: 16px;
+font-weight: 400;
+line-height: 19.2px;
+text-align: left;
+color: #2A3647;
+gap: 8px;
+display: flex;
+align-items: center;
+
+}
+
+.vector{
+    width: 0px;
+    height: 24px;
+    border: 1px solid #D1D1D1;
+    margin-right: 8px;
+    margin-left: 8px;
+}
