@@ -55,3 +55,40 @@ function on() {
   function stopPropagation(event) {
     event.stopPropagation();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const addTaskButton = document.querySelector('.addTaskButton');
+    const plussButtons = document.querySelectorAll('.plussButton');
+    const addTaskOverlay = document.getElementById('addTaskOverlay');
+    const closeButton = addTaskOverlay.querySelector('.closeButton');
+    const overlayContent = addTaskOverlay.querySelector('.overlayContent');
+
+    function showOverlay(event) {
+        event.stopPropagation();
+        addTaskOverlay.style.display = 'block';
+    }
+
+    function hideOverlay(event) {
+        if (event.target === addTaskOverlay) {
+            addTaskOverlay.style.display = 'none';
+        }
+    }
+
+    addTaskButton.addEventListener('click', showOverlay);
+
+    plussButtons.forEach(button => {
+        button.addEventListener('click', showOverlay);
+    });
+
+    closeButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        addTaskOverlay.style.display = 'none';
+    });
+
+    // Ensure clicking outside the overlay content hides the overlay
+    addTaskOverlay.addEventListener('click', hideOverlay);
+
+    overlayContent.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+});
