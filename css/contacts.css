@@ -333,15 +333,20 @@ gap: 54px;;
 
 .d-none {
     display: none;
+    transition: width 0.3s ease;
 }
 .blurBackground {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
+    position: fixed;
+    width: 100%;
+    height: 100%;
     top: 0;
-    bottom: 0;
     left: 0;
-    top: 0;
-    background-color: rgba(20, 20, 20, 0.111);
-    z-index: 1;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.3s ease;
 }

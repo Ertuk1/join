@@ -112,7 +112,7 @@ body {
 
 .policy a {
   color: rgba(168, 168, 168, 1);
-  padding: 8px 8px;
+  padding: 8px 60px;
   text-decoration: none;
   display: inline-block;
   width: 111px;
@@ -123,4 +123,17 @@ body {
   cursor: pointer;
   color: rgb(41, 171, 226);
   font-weight: bold;
+}
+
+.currentPage {
+  background-color: rgba(9, 25, 49, 1) !important;
+}
+
+.currentPagePolicy {
+  background-color: rgba(9, 25, 49, 1) !important;
+}
+
+.currentPagePolicy:hover {
+  color: rgba(168, 168, 168, 1) !important;
+  font-weight: 400 !important;
 }
