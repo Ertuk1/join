@@ -44,7 +44,7 @@ function currentPage() {
     else if(cP.includes('legalNoticeNoLogin.html')){
         document.getElementById('legalNoticeNoLoginMenu').classList.add('currentPagePolicy');
     }
-    else if(cP.includes('privacyPolicyNoLigin.html')){
+    else if(cP.includes('privacyPolicyNoLogin.html')){
         document.getElementById('privacyPolicyNoLoginMenu').classList.add('currentPagePolicy');
     }
     }
