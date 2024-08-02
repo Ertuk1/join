@@ -1,6 +1,6 @@
 @font-face {
   font-family: "inter";
-  src: url(/join/fonts/Inter-VariableFont_slnt\,wght.ttf);
+  src: url(/assets/fonts/Inter-VariableFont_slnt\,wght.ttf);
 }
 
 body {
@@ -112,7 +112,7 @@ footer a:hover {
 }
 
 .nameInput {
-  background-image: url("/join/source/person.png");
+  background-image: url("/assets/img/person.png");
   background-repeat: no-repeat;
   background-position: right 21px center;
   background-size: 16px;
@@ -130,7 +130,7 @@ footer a:hover {
 }
 
 .emailInput {
-  background-image: url("/join/source/mail.png");
+  background-image: url("/assets/img/mail.png");
   background-repeat: no-repeat;
   background-position: right 21px center;
   background-size: 16px;
@@ -148,7 +148,7 @@ footer a:hover {
 }
 
 .passwordInput {
-  background-image: url("/join/source/lock.png");
+  background-image: url("/assets/img/lock.png");
   background-repeat: no-repeat;
   background-position: right 21px center;
   background-size: 16px;
@@ -166,7 +166,7 @@ footer a:hover {
 }
 
 .confirmPasswordInput {
-  background-image: url("/join/source/lock.png");
+  background-image: url("/assets/img/lock.png");
   background-repeat: no-repeat;
   background-position: right 21px center;
   background-size: 16px;
