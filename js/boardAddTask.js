@@ -426,7 +426,7 @@ async function addTask() {
         'subcategory': subcategoriesChoosed
     }
     await postTask("/task", task);
-    goToBoard();
+    ;
 }
 
 async function postTask(path, task) {
@@ -438,13 +438,6 @@ async function postTask(path, task) {
         body: JSON.stringify(task)
     })
     return responseToJson = await response.json();
-}
-
-function goToBoard() {
-    let bgAddedNote = document.getElementById('bg-task-added-note');
-    bgAddedNote.style.zIndex = 100;
-    let addedNote = document.getElementById('task-added-note');
-    addedNote.classList.add('confirmation-task-creation-shown');
 }
 
 // Update the task type displayed in the overlay
@@ -582,4 +575,19 @@ function getPriorityIcon(priority) {
         default:
             return './assets/img/default.png'; // Fallback icon
     }
+}
+
+function offAddTask() {
+    const overlay = document.getElementById("addTaskOverlay");
+    const overlayContent = document.querySelector(".overlayContentAddTask");
+
+    overlayContent.classList.add("slide-out-content"); // Add the slide-out animation class
+    overlay.classList.add("fade-out-overlay"); // Add the fade-out animation class
+
+    // Wait for the animation to finish before hiding the overlay
+    overlay.addEventListener("animationend", function() {
+        overlay.style.display = "none"; // Hide the overlay
+        overlay.classList.remove("fade-out-overlay"); // Remove the fade-out animation class
+        overlayContent.classList.remove("slide-out-content"); // Remove the slide-out animation class
+    }, { once: true }); // Ensure the event listener is only triggered once
 }

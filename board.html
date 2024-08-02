@@ -40,7 +40,7 @@
                         <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="toDo" class="taskContent">
-                        <div draggable="true" class="card" onclick="on()">
+                        <div draggable="true" class="card" onclick="on();stopPropagation(event)">
                             <div class="cardContent">
                                 <span class="labelUser">User Story</span>
                                 <div class="contextContent">
@@ -145,7 +145,7 @@
         </div>
         <div id="addTaskOverlay" class="overlay">
             <div class="overlayContentAddTask">
-                <div class="closeButtonDiv"><img class="closeButton" src="./assets/img/Close.png" alt=""></div>
+                <div onclick="offAddTask()" class="closeButtonDiv"><img  class="closeButtonAdd" src="./assets/img/Close.png" alt=""></div>
                 <div class="at-headline">Add Task</div>
                 <form class="main-input-container">
                     <div class="left-input-container">
@@ -235,7 +235,7 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </div>
-                            <div onclick="addTask();createTask()" class="at-create-btn">
+                            <div onclick="addTask();createTask();off();" class="at-create-btn">
                                 <div>Create Task</div><img src="assets/img/check(ok).png">
                             </div>
                         </div>
