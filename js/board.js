@@ -88,7 +88,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ensure clicking outside the overlay content hides the overlay
     addTaskOverlay.addEventListener('click', hideOverlay);
 
-    overlayContent.addEventListener('click', (event) => {
-        event.stopPropagation();
-    });
+
 });

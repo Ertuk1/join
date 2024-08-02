@@ -55,9 +55,12 @@
                                     </div>
                                     <div class="contactContainer">
                                         <div style="display: flex;">
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">HP</div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">KP</div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">RP</div>
+                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">HP
+                                            </div>
+                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">KP
+                                            </div>
+                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">RP
+                                            </div>
                                         </div>
                                         <div><img class="urgentSymbol" src="./assets/img/urgent.png" alt=""></div>
                                     </div>
@@ -130,21 +133,24 @@
                         class="checkBoxText">Start Page Layout</span></div>
                 <section>
                     <div class="editDiv">
-                        <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""> <span>Delete</span></div>
+                        <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt="">
+                            <span>Delete</span></div>
                         <div class="vector"></div>
-                        <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+                        <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png"
+                                alt=""><span>Edit</span></div>
                     </div>
-                    
+
                 </section>
             </div>
         </div>
         <div id="addTaskOverlay" class="overlay">
             <div class="overlayContentAddTask">
-                <img class="closeButton" src="./assets/img/Close.png" alt="">
+                <div class="closeButtonDiv"><img class="closeButton" src="./assets/img/Close.png" alt=""></div>
                 <div class="at-headline">Add Task</div>
                 <form class="main-input-container">
                     <div class="left-input-container">
-                        <div class="at-input-headlines">Title<div class="required-star">*</div></div>
+                        <div class="at-input-headlines">Title<div class="required-star">*</div>
+                        </div>
                         <input oninput="checkIfTitleEmpty()" type="text" placeholder="Enter a title" id="task-title">
                         <div class="at-alert d-none" id="at-alert-title">This field is required</div>
                         <div class="at-input-headlines">Description</div>
@@ -165,7 +171,9 @@
                     </div>
                     <div class="input-border-container"></div>
                     <div class="right-input-container">
-                        <div oninput="checkIfDateEmpty()" class="at-input-headlines">Due Date<div class="required-star">*</div></div>
+                        <div oninput="checkIfDateEmpty()" id="taskDueDate" class="at-input-headlines">Due Date<div class="required-star">
+                                *</div>
+                        </div>
                         <input class="at-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
                         <div class="at-alert d-none" id="at-alert-due-date">This field is required</div>
                         <div class="at-input-headlines">Prio</div>
@@ -186,7 +194,8 @@
                                 <img id="low-img-active" src="assets/img/low-white.png" style="display: none;">
                             </div>
                         </div>
-                        <div class="at-input-headlines">Category<div class="required-star">*</div></div>
+                        <div class="at-input-headlines">Category<div class="required-star">*</div>
+                        </div>
                         <div class="custom-category-select" id="category-input">
                             <div class="select-category-selected">
                                 <div>Select task category</div>
@@ -194,33 +203,39 @@
                                 <img id="close-category-list" class="d-none" src="assets/img/arrow_drop_down_close.png">
                             </div>
                             <div id="at-category-container" class="select-category-items">
-                                <div class="at-contact-layout">
+                                <div id="technical" class="at-contact-layout" onclick="selectTaskType('technical')">
                                     <div class="at-contact-name">Technical Task</div>
                                 </div>
-                                <div class="at-contact-layout">
+                                <div id="user-story" class="at-contact-layout" onclick="selectTaskType('user-story')">
                                     <div class="at-contact-name">User Story</div>
                                 </div>
                             </div>
                         </div>
                         <div class="at-alert d-none" id="at-alert-category">This field is required</div>
                         <div class="at-input-headlines">Subcategory</div>
-                        <input onclick="activateSubcategory()" class="at-input-date" type="text" id="add-subcategory" placeholder="Add new subtask">
+                        <input onclick="activateSubcategory()" class="at-input-date" type="text" id="add-subcategory"
+                            placeholder="Add new subtask">
                         <div class="at-subcategory-btn-container">
-                            <img onclick="clearInputSubcategory(event)" class="d-none" src="assets/img/clear.png" id="at-subcategory-clear">
+                            <img onclick="clearInputSubcategory(event)" class="d-none" src="assets/img/clear.png"
+                                id="at-subcategory-clear">
                             <div class="small-border-container d-none" id="at-subcategory-border"></div>
-                            <img onclick="renderSubcategory()" class="d-none" src="assets/img/checkOkDarrk.png" id="at-subcategory-confirm">
+                            <img onclick="renderSubcategory()" class="d-none" src="assets/img/checkOkDarrk.png"
+                                id="at-subcategory-confirm">
                             <img src="assets/img/add-black.png" id="at-subcategory-open">
                         </div>
                         <div id="added-subcategories"></div>
                         <div class="at-btn-container">
                             <div onclick="clearTask()" class="at-clear-btn">
                                 <div>Clear</div>
-                                <svg width="14" height="14" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 2L23 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M23 2L2 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <svg width="14" height="14" viewBox="0 0 25 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 2L23 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M23 2L2 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </div>
-                            <div onclick="addTask()" class="at-create-btn">
+                            <div onclick="addTask();createTask()" class="at-create-btn">
                                 <div>Create Task</div><img src="assets/img/check(ok).png">
                             </div>
                         </div>
@@ -231,7 +246,7 @@
         <script src="./js/board.js"></script>
         <script src="./js/template.js"></script>
         <script src="./js/contacts.js"></script>
-        <script src="./js/addTask.js"></script>
-    </body>
+        <script src="./js/boardAddTask.js" defer></script>
+</body>
 
 </html>
