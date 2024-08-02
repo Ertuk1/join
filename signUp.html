@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="Join icon"
-      href="assets/img/joinWhite.png"
+      href="/assets/img/joinWhite.png"
       type="image/x-icon"
     />
     <link rel="stylesheet" href="/css/signUp.css" />
     <title>Sign up</title>
   </head>
-  <body>
+  <body onload="initSignUp()">
     <img class="joinIcon" src="/assets/img/joinDark.png" alt="Join Icon" />
     <div class="justifySignUpContainer">
       <div class="signUpContainer">
@@ -53,10 +53,7 @@
       <a href="/legalNoticeNoLogin.html" target="_blank">Legal notice</a>
     </footer>
 
-    <script>
-      function redirectToLogIn() {
-        window.location.href = "index.html";
-      }
+    <script src="/js/signUp.js"></script>
     </script>
   </body>
 </html>
