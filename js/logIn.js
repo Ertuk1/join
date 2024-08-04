@@ -1,5 +1,7 @@
-function logInInit() {
+async function logInInit() {
   joinImgAnimation();
+  await loadData();
+  await findUser();
 }
 
 function redirectToSignup() {
@@ -23,4 +25,9 @@ function joinImgAnimation() {
   }, 500);
 }
 
+async function findUser() {
+  let email = document.getElementById('logInEmailInput').value;
+  console.log(users);
+  
+}
 

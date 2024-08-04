@@ -10,7 +10,11 @@
   <body onload="logInInit()">
     <header>
       <div>
-        <img class="joinIcon hideElements" src="/assets/img/joinDark.png" alt="Join Icon" />
+        <img
+          class="joinIcon hideElements"
+          src="/assets/img/joinDark.png"
+          alt="Join Icon"
+        />
         <img
           class="animatedImage"
           src="/assets/img/joinDark.png"
@@ -29,8 +33,14 @@
         <h2 class="logIntText">Log in</h2>
         <form class="" action="">
           <div class="logInInput">
-            <input class="emailInput" type="email" placeholder="Email" />
             <input
+              id="logInEmailInput"
+              class="emailInput"
+              type="email"
+              placeholder="Email"
+            />
+            <input
+              id="logInPasswordInput"
               class="passwordInput"
               type="password"
               placeholder="Password"
@@ -58,5 +68,6 @@
     </footer>
 
     <script src="/js/logIn.js"></script>
+    <script src="/js/signUp.js"></script>
   </body>
 </html>
