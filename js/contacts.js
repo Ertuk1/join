@@ -1,55 +1,3 @@
-let contacts = [
-    {
-        "name": "Julia Schäffer",
-        "email": "julia.sch@hotmail.de",
-        "phone": "+491778965144",
-        "profileColor": "rgb(255, 161, 46)",
-        "initialien": "JS"
-    },
-    {
-        "name": "Philipp Peter",
-        "email": "philipp@gmx.com",
-        "phone": "+48328420128",
-        "profileColor": "rgb(42, 115, 224)",
-        "initialien": "PP"
-    },
-    {
-        "name": "Jan Moller",
-        "email": "Hello@gmail.com",
-        "phone": "+982393403",
-        "profileColor": "rgb(232, 58, 58)",
-        "initialien": "JM"
-    },
-    {
-        "name": "Nathalie Strauchmann",
-        "email": "strauchmann89@yahoo.de",
-        "phone": "+49151338395",
-        "profileColor": "rgb(139, 42, 224)",
-        "initialien": "NS"
-    },
-    {
-        "name": "Melanie Müller",
-        "email": "m.muellerstreich@gmail.com",
-        "phone": "+491760152757",
-        "profileColor": "rgb(255, 46, 46)",
-        "initialien": "MM"
-    },
-    {
-        "name": "Herbert Peter",
-        "email": "Petermann@hotmail.de",
-        "phone": "+491723687234",
-        "profileColor": "rgb(232, 58, 133)",
-        "initialien": "HP"
-    },
-    {
-        "name": "Heiko Lee",
-        "email": "h.lee99@home.com",
-        "phone": "",
-        "profileColor": "rgb(232, 58, 58)",
-        "initialien": "HL"
-    },
-];
-
 
 let beautifulColors = [
     'rgb(255, 46, 46)', 'rgb(255, 161, 46)', 'rgb(255, 238, 46)', 'rgb(51, 224, 42)', 'rgb(42, 203, 224)',
@@ -59,6 +7,7 @@ let beautifulColors = [
 let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 async function contactInit() {
+    await loadDataContacts();
     await includeHTML();
     renderContacts();
 }
