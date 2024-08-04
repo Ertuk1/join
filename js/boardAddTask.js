@@ -455,14 +455,15 @@ function createTask() {
     let taskAssignee = choosedContacts.map(contact => contact.initial); // Get the initials of the selected contacts
     let taskType = getTaskType(); // Retrieve the selected task type
 
-    let taskContainer = document.getElementById('toDo'); // Assuming the tasks are added to 'To Do' column
+    let taskContainer = document.getElementById('toDo'); 
 
     let newTask = document.createElement('div');
     newTask.classList.add('card');
     newTask.setAttribute('draggable', 'true');
-    newTask.setAttribute('onclick', 'on()'); // Assuming `on()` is a function to show task details or edit
+    newTask.setAttribute('onclick', 'on()'); 
+    newTask.setAttribute('onclick', 'stopPropagation(event)'); 
     newTask.innerHTML = `
-        <div class="cardContent">
+        <div class="cardContent>
             <span class="labelUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
             <div class="contextContent">
                 <span class="cardTitle">${taskTitle}</span>
@@ -485,18 +486,57 @@ function createTask() {
                 </div>
             </div>
         </div>
+          <div>
+            <div id="overlay" onclick="off()">
+                <div class="overlayContent" onclick="stopPropagation(event)">
+                    <section class="overlayUserTitle">
+                        <span class="overlayUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
+                        <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
+                    </section>
+                    <section>
+                        <span class="overlayTitle">${taskTitle}</span>
+                    </section>
+                    <section class="overlayContext"><span>${taskDescription}</span></section>
+                    <section class="dateDiv">
+                        <span class="dueDate">Due date:</span> 
+                        <span class="date">${taskDueDate}</span>
+                    </section>
+                    <section class="prioDiv">
+                        <span class="prioOverlay">Priority:</span>
+                        <span class="urgencyText">${taskPriority}
+                            <img class="overlayUrgencyImg" src="${getPriorityIcon(taskPriority)}" alt="">
+                        </span>
+                    </section>
+                    <section>
+                        <span class="contactOverlay">Assigned To:</span>
+                        ${taskAssignee.map(assignee => `
+                            <div class="contactDiv">
+                                <span class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee.initial}</span>
+                                <span class="contactName">${assignee.name}</span>
+                            </div>
+                        `).join('')}
+                    </section>
+                    <div class="subtasksOverlay"><span>Subtasks</span></div>
+                    <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Implement Recipe Recommendation </span></div>
+                    <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
+                    <section>
+                        <div class="editDiv">
+                            <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
+                            <div class="vector"></div>
+                            <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+        
     `;
 
-    if (taskContainer.children.length > 0) {
-        taskContainer.insertBefore(newTask, taskContainer.children[0]);
 
-        // Move this loop inside the `if` statement
-        taskAssignee.forEach(assignee => {
-            // Do something with each assignee
-        });
-    } else {
         taskContainer.appendChild(newTask);
-    }
+        newTask.addEventListener('click', on);
+    
 }
 
 function createContactContainer(name) {
@@ -549,7 +589,6 @@ let selectedTaskType = '';
 function selectTaskType(type) {
     selectedTaskType = type;
 
-    // Update UI to reflect the selected task type (optional)
     // Example: Highlight the selected task type
     let types = ['technical', 'user-story'];
     types.forEach(t => {
