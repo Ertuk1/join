@@ -48,3 +48,7 @@ async function postContact(path, contact) {
     return responseToJson = await response.json();
 }
 
+async function loadDataContacts(path = "/contacts") {
+    let response = await fetch(BASE_URL + path + ".json");
+    contacts = await response.json();
+  }
