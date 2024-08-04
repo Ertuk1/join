@@ -32,3 +32,18 @@ async function postTask(path, task) {
     })
     return responseToJson = await response.json();
 }
+
+async function addContact() {
+    await postContact("/contacts", contact);
+}
+
+async function postContact(path, contact) {
+    let response = await fetch(BASE_URL + path + '.json', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact)
+    })
+    return responseToJson = await response.json();
+}
