@@ -15,17 +15,21 @@
     <img class="joinIcon" src="/assets/img/joinDark.png" alt="Join Icon" />
     <div class="justifySignUpContainer">
       <div class="signUpContainer">
+        <div class="vectorLeft">
+          <img src="/assets/img/vectorLeft.png" alt="Arrow back" onclick="redirectToLogIn()">
+        </div>
         <div class="signUptTextContainer">
-          <div class="vectorLeft">
-            <img src="/assets/img/vectorLeft.png" alt="Arrow back" onclick="redirectToLogIn()">
-          </div>
+
           <h2 class="signUptText">Sign up</h2>
         </div>
         <form class="" action="">
           <div class="signUpInput">
-            <input class="nameInput" type="text" placeholder="Name" />
-            <input class="emailInput" type="email" placeholder="Email" />
             <input
+            id="signUpNameInput" class="nameInput" type="text" placeholder="Name" />
+            <input
+            id="signUpEmailInput" class="emailInput" type="email" placeholder="Email" />
+            <input
+            id="signUpPasswordInput"
               class="passwordInput"
               type="password"
               placeholder="Password"
@@ -43,7 +47,7 @@
               />
               <p>I accept the <a class="privacyPolicy" href="">Privacy Policy</a></p>
             </div>
-            <button class="signUp">Sign up</button>
+            <button onclick="addUser()" class="signUp">Sign up</button>
           </div>
         </form>
       </div>

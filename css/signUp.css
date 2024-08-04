@@ -45,7 +45,8 @@ body {
   width: 32px;
   height: 32px;
   position: relative;
-  right: 115px;
+  right: 263px;
+  top: 50px;
   bottom: 8px;
   display: flex;
   align-items: center;
@@ -67,7 +68,7 @@ body {
 
 .signUptText {
   font-size: 61px;
-  margin: 32px 32px;
+  margin: 0px 32px 32px 32px;
   position: relative;
   padding-bottom: 16px;
 }
