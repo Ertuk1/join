@@ -66,6 +66,43 @@
     </div>
     <div id="blurBackground" onclick="cancelAddContact(), cancelEditContact()" onclick="cancelEditContact()"
         class="blurBackground d-none">
+        <div id="addNewContact" onclick="event.stopPropagation()" class="slide-right">
+            <div id="addNewContactFirstSection">
+                <div>
+                    <img src="/assets/img/joinWhite.png" alt="logo">
+                    <h1>Add contact</h1>
+                    <h3>Tasks are better with a team!</h3>
+                    <div class="blueLineAddContact"></div>
+                </div>
+            </div>
+            <div id="addNewContactSecondSection">
+                <div id="closeAddContactDiv"><img onclick="cancelAddContact()" id="addNewContactCloseButton"
+                    src="/assets/img/Close.png" alt="close"></div>
+                <div class="profileDivContact">
+                    <img class="addContactProfilePicture" src="/assets/img/profile_picture.png"
+                            alt="profilpicture">
+                    <div id="contactInput">
+                        <div id="inputDiv" onclick="writeContact(event.stopPropagation())">
+                            <div id="inputBox1" class="inputBox inputBox1"><input id="fullName" required type="text"
+                                    placeholder="Name">
+                                <img src="/assets/img/addNewContact/person.png">
+                            </div>
+                            <div class="inputBox"><input id="emailAdress" type="email" required placeholder="Email">
+                                <img src="/assets/img/addNewContact/mail.png"></div>
+                            <div class="inputBox"><input id="phoneNumber" type="number" pattern="[0-9]"
+                                    placeholder="Phone"> <img src="/assets/img/addNewContact/call.png"></div>
+                            <div id="addNewContactAlert"></div>
+                        </div>
+                        <div id="btnDiv">
+                            <button onclick="cancelAddContact()" id="cancelButtonContact">Cancel <img id="cancelIcon"
+                                    src="../assets/img/addNewContact/cancel_black.png" alt=""> </button>
+                            <button onclick="getNewContact()" id="createContactButton">Create contact <img
+                                    src="../assets/img/addNewContact/check_whitepng.png" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- <div id="addNewContact" class="slide-right">

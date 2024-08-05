@@ -74,8 +74,28 @@ function createContactList() {
     }
 }
 
+// Hilfsfunktion zum Extrahieren des ersten Buchstabens des Vornamens und Nachnamens
+function extractInitials(name) {
+    const names = name.split(' ');
+    let initials = '';
+    for (let i = 0; i < names.length; i++) {
+        initials += names[i].charAt(0).toUpperCase();
+    }
+    return initials;
+}
+
+// Öffnet die Box 'Add new Contact'
 function showAddContact() {
+    document.getElementById('addNewContactAlert').innerHTML = '';
+    document.getElementById('addNewContact').classList.add('addnewContactActive');
     document.getElementById('blurBackground').classList.remove('d-none');
     document.getElementById('buttonActiveImg').classList.add('buttonActiveImg');
     document.getElementById('addContactButton').classList.add('buttonActive');
+}
+
+function cancelAddContact() {
+    document.getElementById('addNewContact').classList.remove('addnewContactActive');
+    document.getElementById('blurBackground').classList.add('d-none');
+    document.getElementById('buttonActiveImg').classList.remove('buttonActiveImg');
+    document.getElementById('addContactButton').classList.remove('buttonActive');
 }
