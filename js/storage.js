@@ -1,4 +1,5 @@
 const BASE_URL = 'https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/';
+let contacts = [];
 
 async function addTask() {
     if (!checkRequiredInput()) {
@@ -50,5 +51,20 @@ async function postContact(path, contact) {
 
 async function loadDataContacts(path = "/contacts") {
     let response = await fetch(BASE_URL + path + ".json");
-    contacts = await response.json();
+    responseToJson = await response.json();
+
+    let contactsKeysArray = Object.keys(responseToJson);
+    for (let i = 0; i < contactsKeysArray.length; i++) {
+        contacts.push(
+            {
+                id: contactsKeysArray[i],
+                mail: responseToJson[contactsKeysArray[i]].email,
+                name: responseToJson[contactsKeysArray[i]].name,
+                initials: responseToJson[contactsKeysArray[i]].initialien,
+                phone: responseToJson[contactsKeysArray[i]].phone,
+                profileColor: responseToJson[contactsKeysArray[i]].profileColor,
+                
+            }
+        )
+    }
   }

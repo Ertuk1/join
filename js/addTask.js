@@ -46,7 +46,7 @@ function generateAssignedContactsHTML(initials, contactName, i) {
             <div class="at-contact-name">${contactName}</div>
         </div>
         <label class="at-label-checkbox">
-            <input type="checkbox">
+            <input onclick="addContactToTask('${initials}', ${i})" type="checkbox">
             <span class="at-checkmark"></span>
         </label>
         </div>

@@ -346,14 +346,13 @@ body {
 .at-subcategory-btn-container {
     position: absolute;
     display: flex;
-    top: 365px;
+    top: 370px;
     right: 12px;
 }
 
 .at-subcategory-btn-container img {
     height: 14px;
     width: 14px;
-    margin-left: 6px;
     cursor: pointer;
 }
 
