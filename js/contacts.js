@@ -29,7 +29,7 @@ function createContactList() {
 
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
-            const initials = contact.initialien;
+            const initials = contact.initials;
             const firstLetter = initials.charAt(0).toUpperCase();
 
             if (firstLetter === letter && !seenContacts.has(contact.name)) {
@@ -54,7 +54,7 @@ function createContactList() {
                 contactDetails.classList.add('oneContact');
                 contactDetails.innerHTML = `
                       <h2>${contact.name}</h2>
-                      <p class="blueColor">${contact.email}</p>
+                      <p class="blueColor">${contact.mail}</p>
                   `;
                 contactItem.appendChild(contactDetails);
                 contactList.appendChild(contactItem);
