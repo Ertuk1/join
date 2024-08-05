@@ -322,6 +322,9 @@ body {
 
 .blurBackground {
     position: fixed;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
     width: 100%;
     height: 100%;
     top: 0;
@@ -330,8 +333,273 @@ body {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
-    cursor: pointer;
+    transition: width 0.3s ease;
+}
+
+#addNewContact {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    width: 1212px !important;
+    height: 592px !important;
+    border-radius: 30px 30px 30px 30px !important;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+    transition: 250ms;
+    z-index: 2;
+    background-color: white;
+}
+
+
+.slide-right {
+    -webkit-animation: slide-right 250ms ease-in-out;
+    animation: slide-right 250ms ease-in-out;
+}
+
+.profileDivContact {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+#addNewContactFirstSection {
+    height: -webkit-fill-available;
+    background-color: rgba(42, 54, 71, 1);
+    width: 100%;
+    border-radius: 30px 0 0 30px;
+    position: relative;
+    display: flex;
     align-items: center;
     justify-content: center;
-    transition: width 0.3s ease;
+}
+
+
+#addNewContactFirstSection div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 12px;
+}
+
+.blueLineAddContact {
+    width: 90px;
+    border: solid rgba(41, 171, 226, 1) 2px;
+    border-radius: 30px;
+}
+
+#addNewContactFirstSection img {
+    width: 55.6px;
+    height: 66.48px;
+    object-fit: cover;
+}
+
+#addNewContactFirstSection h1 {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 57.6px;
+    color: white;
+}
+
+#addNewContactCloseButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+}
+
+
+#addNewContactCloseButton:hover {
+    background-color: rgba(217, 217, 217, 0.4);
+    cursor: pointer;
+    
+}
+
+#addNewContactFirstSection h3 {
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32.4px;
+    color: white;
+}
+
+#closeAddContactDiv {
+    width: 510px;
+    display: flex;
+    justify-content: end;
+}
+
+#addNewContactSecondSection {
+    padding: 48px !important;
+    border-radius: 0 30px 30px 0;
+    height: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    width: -webkit-fill-available;
+}
+
+#contactInput {
+    width: 422px;
+    height: 438px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+}
+
+
+.addContactProfilePicture {
+    width: 120px;
+    height: 120px;
+}
+
+#inputDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.inputBox {
+    height: 49px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(209, 209, 209, 1);
+
+}
+
+.inputBox input {
+    font-family: "Open Sans", sans-serif;
+    border: none;
+    width: 355px;
+    height: 35px;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 22.8px;
+    color: black;
+    outline: none;
+    padding: 3px;
+    background-color: white !important;
+}
+
+.inputBox input::placeholder {
+    color: rgba(209, 209, 209, 1);
+}
+
+#addNewContactAlert p {
+    color: rgba(255, 129, 144, 1);
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 8px;
+
+}
+
+.addnewContactActive {
+    right: none !important;
+}
+
+#btnDiv {
+    width: 365px;
+    height: 61px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+#cancelButtonContact img {
+    transition: 100ms ease-in-out;
+}
+
+
+#cancelButtonContact:hover img {
+    content: url(/assets/img/buttonIcons/cancel_blue.png);
+}
+
+#cancelButtonContact:active img {
+    content: url(/assets/img/buttonIcons/cancel_blue.png);
+}
+
+#cancelButtonContact {
+    border: solid 1px rgba(100, 113, 136, 1);
+    border-radius: 10px;
+    color: rgba(100, 113, 136, 1);
+    background-color: white;
+    padding: 16px 10px;
+    width: 136px;
+    height: 61px;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27.6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: 100ms ease-in-out;
+}
+
+#cancelButtonContact:hover {
+    border: solid 3px rgba(69, 137, 255, 1);
+    color: rgba(69, 137, 255, 1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+#cancelButtonContact:active {
+    border: solid 1px rgba(0, 93, 255, 1);
+    color: rgba(0, 93, 255, 1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#createContactButton {
+    border: solid 1px rgba(69, 137, 255, 1);
+    border-radius: 10px;
+    background-color: rgba(69, 137, 255, 1);
+    padding: 16px 10px;
+    color: white;
+    width: 204px;
+    height: 61px;
+    text-wrap: nowrap;
+    font-size: 23px;
+    font-weight: 400;
+    line-height: 27.6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    transition: 100ms ease-in-out;
+}
+
+#createContactButton:hover {
+    cursor: pointer;
+    background-color: rgba(0, 93, 255, 1);
+    border: solid 3px rgba(0, 93, 255, 1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#createContactButton:active img {
+    content: url(../img/check_blue.png);
+}
+
+#createContactButton:active {
+    background-color: white;
+    border: none;
+    color: rgba(69, 137, 255, 1);
+}
+
+.buttonActiveImg {
+    content: url(/assets/img/buttonIcons/personaddblue.png) !important;
+}
+
+.buttonActive {
+    border: solid 1px white !important;
+    background-color: white !important;
+    color: rgba(69, 137, 255, 1) !important;
+    box-Shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
 }
