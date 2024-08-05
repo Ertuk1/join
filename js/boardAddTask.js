@@ -1,4 +1,4 @@
-const BASE_URL = 'https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/';
+//const BASE_URL = 'https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/';
 
 
 let contactColors = {};
@@ -9,7 +9,8 @@ let choosedContacts = [];
 let taskPrio = '';
 let task = {};
 
-function addTaskInit() {
+async function addTaskInit() {
+    await loadDataContacts();
     renderAssignedToContacts();
     showAvailableContacts();
     showCategoryList();
@@ -447,7 +448,7 @@ function updateTaskType() {
 }
 
 // Create a new task and add it to the "To Do" column
-function createTask() {
+window.createTask = function createTask() {
     let taskTitle = document.getElementById('task-title').value;
     let taskDescription = document.getElementById('at-description').value;
     let taskDueDate = document.getElementById('task-due-date').value;
@@ -533,9 +534,12 @@ function createTask() {
         
     `;
 
+    newTask.addEventListener('click', function(event) {
+        event.stopPropagation();
+        on();
+    });
 
         taskContainer.appendChild(newTask);
-        newTask.addEventListener('click', on);
     
 }
 

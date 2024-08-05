@@ -1,4 +1,5 @@
 async function initBoard() {
+    await loadDataContacts();
     await includeHTML();
     checkIfEmpty();
     updateProgressBar(1, 2, 'progressBar1');
@@ -73,6 +74,8 @@ function off() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById("overlay");
+    const overlayContent = document.querySelector(".overlayContent");
     const addTaskButton = document.querySelector('.addTaskButton');
     const plussButtons = document.querySelectorAll('.plussButton');
     const addTaskOverlay = document.getElementById('addTaskOverlay');
@@ -98,3 +101,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 });
+
