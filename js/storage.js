@@ -53,6 +53,8 @@ async function loadDataContacts(path = "/contacts") {
     let response = await fetch(BASE_URL + path + ".json");
     responseToJson = await response.json();
 
+
+    contacts = [];
     let contactsKeysArray = Object.keys(responseToJson);
     for (let i = 0; i < contactsKeysArray.length; i++) {
         contacts.push(
@@ -63,8 +65,8 @@ async function loadDataContacts(path = "/contacts") {
                 initials: responseToJson[contactsKeysArray[i]].initialien,
                 phone: responseToJson[contactsKeysArray[i]].phone,
                 profileColor: responseToJson[contactsKeysArray[i]].profileColor,
-                
+
             }
         )
     }
-  }
+}
