@@ -1,14 +1,3 @@
-
-
-let contacts = [
-    { name: "Jan Möller" },
-    { name: "Max Mustermann" },
-    { name: "Sabine Musterfrau" },
-    { name: "Jan Möller" },
-    { name: "Max Mustermann" },
-    { name: "Sabine Musterfrau" },
-];
-
 let contactColors = {};
 let categoryChoosedIndex = 'false';
 let categoryChoosed = '';
@@ -19,6 +8,7 @@ let task = {};
 
 async function addTaskInit() {
     await includeHTML();
+    await loadDataContacts();
     renderAssignedToContacts();
     showAvailableContacts();
     showCategoryList();
@@ -26,18 +16,19 @@ async function addTaskInit() {
 
 function renderAssignedToContacts() {
     let content = document.getElementById('at-contact-container');
+    content.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
         const contactName = contacts[i].name;
-        let initials = getInitials(contactName);
-        content.innerHTML += generateAssignedContactsHTML(initials, contactName, i)
-        let color = setBackgroundColorInitials(initials);
+        let initials = contacts[i].initials; 
+        let color = contacts[i].profileColor;
+        content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color)
         document.getElementById(`at-shortcut${i}`).style.backgroundColor = color;
     }
 }
 
-function generateAssignedContactsHTML(initials, contactName, i) {
+function generateAssignedContactsHTML(initials, contactName, i, color) {
     return /*html*/`
-    <div onclick="addContactToTask('${initials}', ${i})">
+    <div onclick="addContactToTask('${initials}', ${i}, '${color}')">
         <div class="at-contact-layout">
             <div class="at-contact-name-container">
                 <div id="at-shortcut${i}" class="at-contact-shortcut-layout">
@@ -46,54 +37,38 @@ function generateAssignedContactsHTML(initials, contactName, i) {
             <div class="at-contact-name">${contactName}</div>
         </div>
         <label class="at-label-checkbox">
-            <input onclick="addContactToTask('${initials}', ${i})" type="checkbox">
+            <input onclick="addContactToTask('${initials}', ${i}, '${color}')" type="checkbox">
             <span class="at-checkmark"></span>
         </label>
         </div>
         </div>`
 }
 
-function addContactToTask(initials, i) {
+function addContactToTask(initials, i, colors) {
     let index = choosedContacts.findIndex(contact => contact.id === i);
     if (index === -1) {
         choosedContacts.push({
             id: i,
             initial: initials,
+            color: colors, 
         });
     } else {
         choosedContacts.splice(index, 1);
     }
-    showChoosedContacts(initials);
+    showChoosedContacts();
 }
 
-function showChoosedContacts(initials) {
+function showChoosedContacts() {
     let content = document.getElementById('at-selected-contacts');
     content.innerHTML = '';
     for (let i = 0; i < choosedContacts.length; i++) {
         let contact = choosedContacts[i].initial;
-        let color = setBackgroundColorInitials(contact);
+        let color = choosedContacts[i].color;
         content.innerHTML += `<div class="at-choosed-contact-shortcut" id="at-choosed-shortcut${i}"><div class="at-contact-shortcut">${contact}</div></div>`;
         let backgroundColor = document.getElementById(`at-choosed-shortcut${i}`);
         backgroundColor.style.backgroundColor = color;
 
     }
-}
-
-function getInitials(contact) {
-    let names = contact.trim().split(' ');
-    initials = names[0].substring(0, 1).toUpperCase();
-    if (names.length > 1) {
-        initials += names[names.length - 1].substring(0, 1).toUpperCase();
-    }
-    return initials;
-};
-
-function setBackgroundColorInitials(initials) {
-    if (!contactColors[initials]) {
-        let randomColor = Math.floor(Math.random() * 16777215).toString(16);
-        contactColors[initials] = "#" + randomColor;
-    }
-    return contactColors[initials];
 }
 
 function showAvailableContacts() {
