@@ -104,3 +104,37 @@ async function loadDataContacts(path = "/contacts") {
         )
     }
 }
+
+async function fetchUserData(path) {
+    let response = await fetch(BASE_URL + path + ".json");
+    return responseToJson = await response.json();
+  }
+  
+  async function loadUserData() {
+    let userResponse = await fetchUserData("users");
+    let userKeysArray = Object.keys(userResponse);
+  
+    for (let index = 0; index < userKeysArray.length; index++) {
+      users.push(
+        {
+          id : userKeysArray[index],
+          name : userResponse[userKeysArray[index]].name,
+          email : userResponse[userKeysArray[index]].email,
+          password : userResponse[userKeysArray[index]].password,
+        }
+      )
+    }
+    console.log(users);
+   
+  }
+
+  async function postUserData(path, newUser) {
+    let response = await fetch(BASE_URL + path + ".json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+    return (responseToJson = await response.json());
+  }
