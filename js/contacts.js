@@ -84,18 +84,94 @@ function extractInitials(name) {
     return initials;
 }
 
+async function getNewContact() {
+    let name = document.getElementById('fullName');
+    let mail = document.getElementById('emailAdress');
+    let phone = document.getElementById('phoneNumber');
+    if (name.value == '' || mail.value == '' || phone.value == '') {
+      document.getElementById('addNewContactAlert').innerHTML = '';
+      document.getElementById('addNewContactAlert').innerHTML = '<p>the fields must be filled</p>';
+    } else {
+      const colorIndx = Math.floor(Math.random() * beautifulColors.length); // Zufälliger Index für Farbe
+      const color = beautifulColors[colorIndx];
+      const initial = extractInitials(name.value);
+      const newContact = {
+        email: mail.value,
+        name: name.value,
+        initialien: initial,
+        phone: phone.value,
+        profileColor: color,
+      };
+      await postContact("/contacts", newContact);
+      await loadDataContacts();
+    //   contactClickHandler(newContact, contacts.length - 1);
+    createContactList();
+    name.value = '';
+    mail.value = '';
+    phone.value = '';
+    cancelAddContact();
+    slideSuccessfullyContact();
+    }
+}
+
+// Funktion, die beim Klicken auf den Kontakt oder Kontaktinformationen aufgerufen wird
+function contactClickHandler(contact, i) {
+    if (window.innerWidth < 1000) {
+      editContactResponsive(contact, i);
+    }
+    else {
+      let contactSection = document.getElementById('contacts');
+      contactSection.innerHTML = '';
+      contactSection.innerHTML = ` <div id="contactInfo">
+      <div id="whiteCircle">
+        <div id="initials" style="background-color: ${contact.profileColor}">
+          <h1>${contact.initialien}</h1>
+        </div>
+      </div>
+      <div id="nameAndEditButton">
+        <h1>${contact.name}</h1>
+        <div id="editDiv">
+          <img id="edit" onclick="showeditContact(${i})" src="../assets/img/buttonIcons/edit_normal.png" alt="edit">
+          <img id="delete" onclick="deleteContact(${i})" src="../assets/img/buttonIcons/delete_normal.png" alt="delete" > 
+        </div>
+      </div>
+    </div>
+    <div id="contactInformation">
+      <h2>Contact Information</h2>
+    </div>
+    <div id="contactContent">
+      <div id="emailBox">
+        <h3>Email</h3>
+        <a href="mailto:julia.sch@hotmail.de">${contact.email}</a>
+      </div>
+      <div id="phoneBox">
+        <h3>Phone</h3>
+        <p>${contact.phone}</p>
+      </div>
+    </div>`;
+    }
+  }
+
+function slideSuccessfullyContact() {
+    let container = document.getElementById('successfullyContainer');
+    let successfully = document.getElementById('successfully');
+    container.style.display = 'flex';
+    successfully.classList.add('slide-in-bottom');
+    setTimeout(() => {
+      successfully.classList.remove('slide-in-bottom');
+      container.style.display = 'none';
+  
+    }, 1000);
+}
+
 // Öffnet die Box 'Add new Contact'
 function showAddContact() {
     document.getElementById('addNewContactAlert').innerHTML = '';
     document.getElementById('addNewContact').classList.add('addnewContactActive');
     document.getElementById('blurBackground').classList.remove('d-none');
-    document.getElementById('buttonActiveImg').classList.add('buttonActiveImg');
-    document.getElementById('addContactButton').classList.add('buttonActive');
 }
 
 function cancelAddContact() {
     document.getElementById('addNewContact').classList.remove('addnewContactActive');
     document.getElementById('blurBackground').classList.add('d-none');
-    document.getElementById('buttonActiveImg').classList.remove('buttonActiveImg');
-    document.getElementById('addContactButton').classList.remove('buttonActive');
 }

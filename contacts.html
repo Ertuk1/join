@@ -77,34 +77,39 @@
             </div>
             <div id="addNewContactSecondSection">
                 <div id="closeAddContactDiv"><img onclick="cancelAddContact()" id="addNewContactCloseButton"
-                    src="/assets/img/Close.png" alt="close"></div>
+                        src="/assets/img/Close.png" alt="close"></div>
                 <div class="profileDivContact">
-                    <img class="addContactProfilePicture" src="/assets/img/profile_picture.png"
-                            alt="profilpicture">
+                    <div class="profilPictureDivContent">
+                        <img class="addContactProfilePicture" src="/assets/img/profile_picture.png" alt="profilpicture">
+                    </div>
                     <div id="contactInput">
-                        <div id="inputDiv" onclick="writeContact(event.stopPropagation())">
+                        <div id="inputDiv">
                             <div id="inputBox1" class="inputBox inputBox1"><input id="fullName" required type="text"
                                     placeholder="Name">
-                                <img src="/assets/img/addNewContact/person.png">
+                                <img src="/assets/img/person.png">
                             </div>
                             <div class="inputBox"><input id="emailAdress" type="email" required placeholder="Email">
-                                <img src="/assets/img/addNewContact/mail.png"></div>
+                                <img src="/assets/img/mail.png">
+                            </div>
                             <div class="inputBox"><input id="phoneNumber" type="number" pattern="[0-9]"
-                                    placeholder="Phone"> <img src="/assets/img/addNewContact/call.png"></div>
-                            <div id="addNewContactAlert"></div>
+                                    placeholder="Phone"> <img src="/assets/img/call.png">
+                                </div>
                         </div>
+                        <div id="addNewContactAlert"></div>
                         <div id="btnDiv">
                             <button onclick="cancelAddContact()" id="cancelButtonContact">Cancel <img id="cancelIcon"
-                                    src="../assets/img/addNewContact/cancel_black.png" alt=""> </button>
+                                    src="./assets/img/cancel(x).png" alt=""> </button>
                             <button onclick="getNewContact()" id="createContactButton">Create contact <img
-                                    src="../assets/img/addNewContact/check_whitepng.png" alt=""></button>
+                                    src="./assets/img/check.png" alt=""></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="successfullyContainer">
+        <div id="successfully">Contact succesfully created</div>
+    </div>
     <!-- <div id="addNewContact" class="slide-right">
         <div id="addNewContactFirstSection">
           <img onclick="cancelAddContact()" id="addNewContactCloseButton" src="/assets/img/addNewContact/close.png" alt="close">

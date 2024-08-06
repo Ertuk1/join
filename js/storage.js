@@ -57,14 +57,26 @@ async function postTask(path, task) {
     return responseToJson = await response.json();
 }
 
+async function changeContact(path = "", data = {}) {
+    let response = await fetch(BASE_URL + path + '.json', {
+        method: "PUT",
+        header: {
+            "Contact": "application/json",
+        },
+        body: JSON.stringify(data)
+    });
+    return response.json();
+}
 
-async function postContact(path, contact) {
+
+
+async function postContact(path, newContact) {
     let response = await fetch(BASE_URL + path + '.json', {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(contact)
+        body: JSON.stringify(newContact)
     })
     return responseToJson = await response.json();
 }
