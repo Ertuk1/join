@@ -359,13 +359,14 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 72px;
 }
 
 #addNewContactFirstSection {
     height: -webkit-fill-available;
     background-color: rgba(42, 54, 71, 1);
-    width: 100%;
+    width: 467px;
+    padding: 66px 48px;
     border-radius: 30px 0 0 30px;
     position: relative;
     display: flex;
@@ -422,7 +423,7 @@ body {
 }
 
 #closeAddContactDiv {
-    width: 510px;
+    width: 585px;
     display: flex;
     justify-content: end;
 }
@@ -431,6 +432,7 @@ body {
     padding: 48px !important;
     border-radius: 0 30px 30px 0;
     height: -webkit-fill-available;
+    gap: 61px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -456,6 +458,7 @@ body {
 }
 
 #inputDiv {
+    width: 422px;
     display: flex;
     flex-direction: column;
     align-items: center;
