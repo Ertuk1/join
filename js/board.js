@@ -18,6 +18,7 @@ function renderTasks() {
         let toDo = task[i];
         let initial = getAssignedToContact(i);
         taskToDo.innerHTML += /*html*/`
+        <div class="card">
             <div class="cardContent">
                 <span class="labelUser">${toDo.category}</span>
                 <div class="contextContent">
@@ -41,6 +42,7 @@ function renderTasks() {
                     </div>
                 </div>
             </div>
+        </div>
         `
     }
 }
