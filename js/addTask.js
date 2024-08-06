@@ -9,17 +9,17 @@ let task = [];
 async function addTaskInit() {
     await includeHTML();
     await loadDataContacts();
-    renderAssignedToContacts();
+    await renderAssignedToContacts();
     showAvailableContacts();
     showCategoryList();
 }
 
-function renderAssignedToContacts() {
+async function renderAssignedToContacts() {
     let content = document.getElementById('at-contact-container');
     content.innerHTML = '';
     for (let i = 0; i < contacts.length; i++) {
         const contactName = contacts[i].name;
-        let initials = contacts[i].initials; 
+        let initials = contacts[i].initials;
         let color = contacts[i].profileColor;
         content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color)
         document.getElementById(`at-shortcut${i}`).style.backgroundColor = color;
@@ -50,7 +50,7 @@ function addContactToTask(initials, i, colors) {
         choosedContacts.push({
             id: i,
             initial: initials,
-            color: colors, 
+            color: colors,
         });
     } else {
         choosedContacts.splice(index, 1);
@@ -396,9 +396,9 @@ function goToBoard() {
     bgAddedNote.style.zIndex = 100;
     let addedNote = document.getElementById('task-added-note');
     addedNote.classList.add('confirmation-task-creation-shown');
-    setTimeout(function() {
+    setTimeout(function () {
         window.location.href = 'board.html';
-    }, 2000); 
+    }, 2000);
 }
 
 

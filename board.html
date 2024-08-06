@@ -27,10 +27,8 @@
                         <input type="search" placeholder="Search..." id="searchInput">
                         <button type="button" id="searchButton">Search</button>
                     </div>
-                    <button class="addTaskButton">
-                        Add task
-                        <div class="addSymbol"><img src="./assets/img/add.png" alt="Add"></div>
-                    </button>
+                    <button onclick="showOverlay()" class="addTaskButton">Add task<div class="addSymbol"><img
+                                src="./assets/img/add.png" alt="Add"></div></button>
                 </div>
             </section>
             <section class="allTasks">
@@ -40,7 +38,7 @@
                         <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="toDo" class="taskContent">
-                               
+
                     </div>
                 </div>
                 <div class="todo">
@@ -72,15 +70,20 @@
             </section>
         </main>
         <div onclick="off()" id="overlay">
-            <div class="overlayContent" onclick="stopPropagation(event)">
-
-            </div>
+            <div class="overlayContent" onclick="stopPropagation(event)"></div>
         </div>
         <div id="addTaskOverlay" class="overlay">
             <div class="overlayContentAddTask">
-                <div onclick="offAddTask()" class="closeButtonDiv"><img  class="closeButtonAdd" src="./assets/img/Close.png" alt=""></div>
+                <div onclick="offAddTask()" class="closeButtonDiv"><img class="closeButtonAdd"
+                        src="./assets/img/Close.png" alt=""></div>
                 <div class="at-headline input-container-bordHTML-headline">Add Task</div>
-                <form class="main-input-container input-container-bordHTML" w3-include-html="template/addTaskTemplate.html"></form>
+                <form class="main-input-container input-container-bordHTML"
+                    w3-include-html="template/addTaskTemplate.html"></form>
+            </div>
+        </div>
+        <div class="bg-confirmation-task-creation" id="bg-task-added-note">
+            <div class="confirmation-task-creation-hidden" id="task-added-note">
+                <div>Task added to Board</div><img src="assets/img/boardIcon.png" alt="">
             </div>
         </div>
         <script src="./js/board.js" defer></script>

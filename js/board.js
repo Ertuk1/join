@@ -11,7 +11,7 @@ function stopPropagation(event) {
     event.stopPropagation();
 }
 
-function renderTasks(){
+function renderTasks() {
     let taskToDo = document.getElementById('toDo');
     taskToDo.innerHTML = '';
     for (let i = 0; i < task.length; i++) {
@@ -42,16 +42,17 @@ function renderTasks(){
                 </div>
             </div>
         `
-    }}
-
-    function getAssignedToContact(i) {
-        let contactHTML = '';
-        for (let y = 0; y < task[i].assignedTo.length; y++) {
-            let contact = task[i].assignedTo[y].initial;
-            contactHTML += `<div>${contact}</div>`
-        }
-        return contactHTML; 
     }
+}
+
+function getAssignedToContact(i) {
+    let contactHTML = '';
+    for (let y = 0; y < task[i].assignedTo.length; y++) {
+        let contact = task[i].assignedTo[y].initial;
+        contactHTML += `<div>${contact}</div>`
+    }
+    return contactHTML;
+}
 
 
 function checkIfEmpty() {
@@ -117,36 +118,10 @@ function off() {
     overlay.classList.add("fade-out-overlay");
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.getElementById("overlay");
-    const overlayContent = document.querySelector(".overlayContent");
-    const addTaskButton = document.querySelector('.addTaskButton');
-    const plussButtons = document.querySelectorAll('.plussButton');
-    const addTaskOverlay = document.getElementById('addTaskOverlay');
-
-    function showOverlay() {
-        addTaskOverlay.style.display = 'block';
-        
-        showAvailableContacts();
-        showCategoryList();
-    }
-
-    function hideOverlay(event) {
-        if (event.target === addTaskOverlay) {
-            addTaskOverlay.style.display = 'none';
-        }
-    }
-
-    addTaskButton.addEventListener('click', showOverlay);
-
-    plussButtons.forEach(button => {
-        button.addEventListener('click', showOverlay);
-    });
- 
-    addTaskOverlay.addEventListener('click', hideOverlay);
-
-
-});
+async function showOverlay() {
+    await addTaskInit();
+    addTaskOverlay.style.display = 'block';
+}
 
 function offAddTask() {
     const overlay = document.getElementById("addTaskOverlay");
@@ -156,7 +131,7 @@ function offAddTask() {
     overlay.classList.add("fade-out-overlay"); // Add the fade-out animation class
 
     // Wait for the animation to finish before hiding the overlay
-    overlay.addEventListener("animationend", function() {
+    overlay.addEventListener("animationend", function () {
         overlay.style.display = "none"; // Hide the overlay
         overlay.classList.remove("fade-out-overlay"); // Remove the fade-out animation class
         overlayContent.classList.remove("slide-out-content"); // Remove the slide-out animation class
