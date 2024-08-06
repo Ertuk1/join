@@ -23,6 +23,29 @@ async function addTask() {
     goToBoard();
 }
 
+async function loadDataTask(path = "/task") {
+    let response = await fetch(BASE_URL + path + ".json");
+    responseToJson = await response.json();
+
+
+    task = [];
+    let taskKeysArray = Object.keys(responseToJson);
+    for (let i = 0; i < taskKeysArray.length; i++) {
+        task.push(
+            {
+                id: taskKeysArray[i],
+                title: responseToJson[taskKeysArray[i]].title,
+                description: responseToJson[taskKeysArray[i]].description,
+                assignedTo: responseToJson[taskKeysArray[i]].assignedTo,
+                date: responseToJson[taskKeysArray[i]].date,
+                prio: responseToJson[taskKeysArray[i]].prio,
+                category: responseToJson[taskKeysArray[i]].category,
+                subcategory: responseToJson[taskKeysArray[i]].subcategory,
+            }
+        )
+    }
+}
+
 async function postTask(path, task) {
     let response = await fetch(BASE_URL + path + '.json', {
         method: 'POST',
@@ -49,7 +72,6 @@ async function postContact(path, contact) {
 async function loadDataContacts(path = "/contacts") {
     let response = await fetch(BASE_URL + path + ".json");
     responseToJson = await response.json();
-
 
     contacts = [];
     let contactsKeysArray = Object.keys(responseToJson);

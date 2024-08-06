@@ -1,4 +1,5 @@
 async function initBoard() {
+    await loadDataTask();
     await loadDataContacts();
     await includeHTML();
     checkIfEmpty();
