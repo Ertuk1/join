@@ -3,25 +3,100 @@ const BASE_URL =
 let users = [];
 
 async function initSignUp() {
-  await loadData();
+  await loadUserData();
 }
 
-async function loadData(path = "/users") {
+async function fetchUserData(path) {
   let response = await fetch(BASE_URL + path + ".json");
-  users = await response.json();
+  return responseToJson = await response.json();
 }
 
-async function addUser() {
-  let name = document.getElementById("signUpNameInput");
-  let email = document.getElementById("signUpEmailInput");
-  let password = document.getElementById("signUpPasswordInput");
-  newUser = {
+async function loadUserData() {
+  let userResponse = await fetchUserData("users");
+  let userKeysArray = Object.keys(userResponse);
+
+  for (let index = 0; index < userKeysArray.length; index++) {
+    users.push(
+      {
+        id : userKeysArray[index],
+        name : userResponse[userKeysArray[index]].name,
+        email : userResponse[userKeysArray[index]].email,
+        password : userResponse[userKeysArray[index]].password,
+      }
+    )
+  }
+  console.log(users);
+  
+}
+
+async function addUser(event) {
+  event.preventDefault();
+  const name = document.getElementById("signUpNameInput");
+  const email = document.getElementById("signUpEmailInput");
+  const password = document.getElementById("signUpPasswordInput");
+  const confirmPassword = document.querySelector(".confirmPasswordInput");
+
+  resetInputBorders(name, email, password, confirmPassword);
+
+  if (!isValidInput(name, email, password, confirmPassword)) {
+    handleInvalidInput(name, email, password, confirmPassword);
+    return false;
+  }
+
+  const newUser = createNewUser(name, email, password);
+
+  try {
+    await postUserData("/users", newUser);
+    redirectToIndex();
+  } catch (error) {
+    console.error("Fehler beim Senden der Daten:", error);
+    // Behandeln Sie den Fehler entsprechend
+  }
+
+  return false;
+}
+
+function resetInputBorders(name, email, password, confirmPassword) {
+  name.style.borderColor = '';
+  email.style.borderColor = '';
+  password.style.borderColor = '';
+  confirmPassword.style.borderColor = '';
+}
+
+function isValidInput(name, email, password, confirmPassword) {
+  return (
+    name.value !== "" &&
+    email.value !== "" &&
+    password.value !== "" &&
+    confirmPassword.value !== "" &&
+    password.value === confirmPassword.value
+  );
+}
+
+function handleInvalidInput(name, email, password, confirmPassword) {
+  if (name.value === '') name.style.borderColor = 'red';
+  if (email.value === '') email.style.borderColor = 'red';
+  if (password.value === '') password.style.borderColor = 'red';
+  if (confirmPassword.value === '') confirmPassword.style.borderColor = 'red';
+  if (password.value !== confirmPassword.value) {
+    password.style.borderColor = 'red';
+    confirmPassword.style.borderColor = 'red';
+  }
+}
+
+function createNewUser(name, email, password) {
+  return {
     name: name.value,
     email: email.value,
     password: password.value,
   };
-  await postUserData("/users", newUser);
 }
+
+function redirectToIndex() {
+  window.location.href = "/index.html";
+}
+
+
 
 async function postUserData(path, newUser) {
   let response = await fetch(BASE_URL + path + ".json", {

@@ -206,6 +206,8 @@ footer a:hover {
 .rememberMe {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  width: 333px;
   gap: 8px;
   margin: 24px 42px;
 }

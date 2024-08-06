@@ -14,6 +14,12 @@ async function includeHTML() {
     currentPage();
 }
 
+// Funktion, um zur vorherigen Seite zurückzukehren
+function goBack() {
+  window.history.back();
+}
+
+
 function toggleSubMenu() {
   let element = document.getElementById('subMenu');
   element.classList.toggle('open');

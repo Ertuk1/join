@@ -22,7 +22,7 @@
 
           <h2 class="signUptText">Sign up</h2>
         </div>
-        <form class="" action="">
+        <form class="" action="" onsubmit="return addUser(event)">
           <div class="signUpInput">
             <input
             id="signUpNameInput" class="nameInput" type="text" placeholder="Name" />
@@ -45,9 +45,9 @@
                 src="/assets/img/emptyCheckbox.png"
                 alt="Checkbox"
               />
-              <p>I accept the <a class="privacyPolicy" href="">Privacy Policy</a></p>
+              <p>I accept the <a class="privacyPolicy" href="/privacyPolicyNoLogin.html" target="_blank">Privacy Policy</a></p>
             </div>
-            <button onclick="addUser()" class="signUp">Sign up</button>
+            <button type="submit" class="signUp">Sign up</button>
           </div>
         </form>
       </div>

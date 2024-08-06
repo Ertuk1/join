@@ -1,7 +1,6 @@
 async function logInInit() {
   joinImgAnimation();
-  await loadData();
-  await findUser();
+  await loadUserData();
 }
 
 function redirectToSignup() {
@@ -25,9 +24,48 @@ function joinImgAnimation() {
   }, 500);
 }
 
-async function findUser() {
-  let email = document.getElementById('logInEmailInput').value;
-  console.log(users);
-  
+function findUser(event) {
+  event.preventDefault();
+  const emailInput = document.getElementById("logInEmailInput");
+  const passwordInput = document.getElementById("logInPasswordInput");
+  const email = emailInput.value;
+  const password = passwordInput.value;
+  const user = users.find(userEmail => userEmail.email === email);
+
+  resetInputBorders(emailInput, passwordInput);
+
+  if (isValidUser(user, password)) {
+    redirectToSummary();
+  } else {
+    handleInvalidUser(user, emailInput, passwordInput, password);
+  }
 }
+
+function resetInputBorders(emailInput, passwordInput) {
+  emailInput.style.borderColor = '';
+  passwordInput.style.borderColor = '';
+}
+
+function isValidUser(user, password) {
+  return user && user.password === password;
+}
+
+function redirectToSummary() {
+  window.location.href = "/summary.html";
+}
+
+function handleInvalidUser(user, emailInput, passwordInput, password) {
+  if (!user) {
+    emailInput.style.borderColor = 'red';
+  }
+
+  if (user && user.password !== password) {
+    passwordInput.style.borderColor = 'red';
+  }
+
+  return false;
+}
+
+
+
 
