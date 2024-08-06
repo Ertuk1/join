@@ -391,12 +391,14 @@ function clearTask() {
     resetOtherPriorities('reset');
 }
 
-
-
 function goToBoard() {
     let bgAddedNote = document.getElementById('bg-task-added-note');
     bgAddedNote.style.zIndex = 100;
     let addedNote = document.getElementById('task-added-note');
     addedNote.classList.add('confirmation-task-creation-shown');
+    setTimeout(function() {
+        window.location.href = 'board.html';
+    }, 2000); 
 }
+
 

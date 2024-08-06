@@ -58,7 +58,7 @@ body {
 .at-alert-description {
     display: flex;
     font-size: 20px;
-    margin-top: 145px;
+    margin-top: 100px;
 }
 
 .left-input-container textarea {
@@ -197,6 +197,7 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    height: 45px;
 }
 
 .at-choosed-contact-shortcut {
