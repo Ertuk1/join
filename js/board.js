@@ -3,12 +3,55 @@ async function initBoard() {
     await loadDataContacts();
     await includeHTML();
     checkIfEmpty();
-    updateProgressBar(1, 2, 'progressBar1');
+    //updateProgressBar(1, 2, 'progressBar1');
+    renderTasks();
 }
 
 function stopPropagation(event) {
     event.stopPropagation();
 }
+
+function renderTasks(){
+    let taskToDo = document.getElementById('toDo');
+    taskToDo.innerHTML = '';
+    for (let i = 0; i < task.length; i++) {
+        let toDo = task[i];
+        let initial = getAssignedToContact(i);
+        taskToDo.innerHTML += /*html*/`
+            <div class="cardContent">
+                <span class="labelUser">${toDo.category}</span>
+                <div class="contextContent">
+                    <span class="cardTitle">${toDo.title}</span>
+                    <div>
+                        <span class="cardContext">${toDo.description}</span>
+                    </div>
+                    <div class="progressbar">
+                        <div class="progressbarContainer">
+                            <div class="bar" id="progressBar1"></div>
+                        </div>
+                        <div class="subtasks">0/0 Subtasks</div>
+                    </div>
+                    <div class="contactContainer">
+                        <div style="display: flex;">
+                            ${initial}
+                        </div>
+                        <div>
+                            <img class="urgentSymbol" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+    }}
+
+    function getAssignedToContact(i) {
+        let contactHTML = '';
+        for (let y = 0; y < task[i].assignedTo.length; y++) {
+            let contact = task[i].assignedTo[y].initial;
+            contactHTML += `<div>${contact}</div>`
+        }
+        return contactHTML; 
+    }
 
 
 function checkIfEmpty() {
@@ -31,11 +74,11 @@ function checkIfEmpty() {
     }
 }
 
-function updateProgressBar(subtasksCompleted, totalSubtasks, progressBarId) {
+/*function updateProgressBar(subtasksCompleted, totalSubtasks, progressBarId) {
     let progressPercentage = (subtasksCompleted / totalSubtasks) * 100;
     let progressBar = document.getElementById(progressBarId);
     progressBar.style.width = progressPercentage + '%';
-}
+}*/
 
 function on() {
     const overlay = document.getElementById("overlay");
@@ -81,9 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const plussButtons = document.querySelectorAll('.plussButton');
     const addTaskOverlay = document.getElementById('addTaskOverlay');
 
-    function showOverlay(event) {
-        event.stopPropagation();
+    function showOverlay() {
         addTaskOverlay.style.display = 'block';
+        
+        showAvailableContacts();
+        showCategoryList();
     }
 
     function hideOverlay(event) {
@@ -103,3 +148,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+function offAddTask() {
+    const overlay = document.getElementById("addTaskOverlay");
+    const overlayContent = document.querySelector(".overlayContentAddTask");
+
+    overlayContent.classList.add("slide-out-content"); // Add the slide-out animation class
+    overlay.classList.add("fade-out-overlay"); // Add the fade-out animation class
+
+    // Wait for the animation to finish before hiding the overlay
+    overlay.addEventListener("animationend", function() {
+        overlay.style.display = "none"; // Hide the overlay
+        overlay.classList.remove("fade-out-overlay"); // Remove the fade-out animation class
+        overlayContent.classList.remove("slide-out-content"); // Remove the slide-out animation class
+    }, { once: true }); // Ensure the event listener is only triggered once
+}

@@ -7,9 +7,10 @@ async function addTask() {
     }
     let title = document.getElementById('task-title');
     let description = document.getElementById('at-description');
-    let assignedTo = choosedContacts;
+    let assignedTo = choosedContacts && choosedContacts.length > 0 ? choosedContacts : [];
     let date = document.getElementById('task-due-date');
     let prio = taskPrio;
+
     task = {
         'title': title.value,
         'description': description.value,
@@ -26,8 +27,8 @@ async function addTask() {
 async function loadDataTask(path = "/task") {
     let response = await fetch(BASE_URL + path + ".json");
     responseToJson = await response.json();
-
-
+    if (responseToJson) {
+        
     task = [];
     let taskKeysArray = Object.keys(responseToJson);
     for (let i = 0; i < taskKeysArray.length; i++) {
@@ -36,7 +37,7 @@ async function loadDataTask(path = "/task") {
                 id: taskKeysArray[i],
                 title: responseToJson[taskKeysArray[i]].title,
                 description: responseToJson[taskKeysArray[i]].description,
-                assignedTo: responseToJson[taskKeysArray[i]].assignedTo,
+                assignedTo: responseToJson[taskKeysArray[i]].assignedTo || [],
                 date: responseToJson[taskKeysArray[i]].date,
                 prio: responseToJson[taskKeysArray[i]].prio,
                 category: responseToJson[taskKeysArray[i]].category,
@@ -44,6 +45,8 @@ async function loadDataTask(path = "/task") {
             }
         )
     }
+}
+else {return}
 }
 
 async function postTask(path, task) {

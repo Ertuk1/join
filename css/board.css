@@ -360,3 +360,13 @@ h2 {
     height: 12px;
 }
 
+.input-container-bordHTML{
+    margin-left: 0 !important;
+    justify-content: center !important;
+}
+
+.input-container-bordHTML-headline {
+    margin-top: 20px !important;
+    margin-left: 70px !important; 
+}
+

@@ -4,7 +4,7 @@ let categoryChoosed = '';
 let subcategoriesChoosed = [];
 let choosedContacts = [];
 let taskPrio = '';
-let task = {};
+let task = [];
 
 async function addTaskInit() {
     await includeHTML();

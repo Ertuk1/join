@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/board.css">
+    <link rel="stylesheet" href="./css/addTask.css">
     <link rel="stylesheet" href="./css/boardOverlay.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/boardAddTask.css">
 </head>
 
 <body onload="initBoard(); addTaskInit()">
@@ -79,108 +79,15 @@
         <div id="addTaskOverlay" class="overlay">
             <div class="overlayContentAddTask">
                 <div onclick="offAddTask()" class="closeButtonDiv"><img  class="closeButtonAdd" src="./assets/img/Close.png" alt=""></div>
-                <div class="at-headline">Add Task</div>
-                <form class="main-input-container">
-                    <div class="left-input-container">
-                        <div class="at-input-headlines">Title<div class="required-star">*</div>
-                        </div>
-                        <input oninput="checkIfTitleEmpty()" type="text" placeholder="Enter a title" id="task-title">
-                        <div class="at-alert d-none" id="at-alert-title">This field is required</div>
-                        <div class="at-input-headlines">Description</div>
-                        <textarea type="text" placeholder="Enter a Description" id="at-description"></textarea>
-                        <div class="at-input-headlines">Assigned to</div>
-                        <div class="custom-select">
-                            <div class="select-selected">
-                                <div>Select contacts to assign</div>
-                                <img id="open-contact-list" src="assets/img/arrow_drop_down_open.png">
-                                <img id="close-contact-list" class="d-none" src="assets/img/arrow_drop_down_close.png">
-                            </div>
-                            <div id="at-contact-container" class="select-items"></div>
-                        </div>
-                        <div id="at-selected-contacts"></div>
-                        <div class="at-alert-description">
-                            <div class="required-star">*</div>This field is required
-                        </div>
-                    </div>
-                    <div class="input-border-container"></div>
-                    <div class="right-input-container">
-                        <div oninput="checkIfDateEmpty()" id="taskDueDate" class="at-input-headlines">Due Date<div class="required-star">
-                                *</div>
-                        </div>
-                        <input class="at-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
-                        <div class="at-alert d-none" id="at-alert-due-date">This field is required</div>
-                        <div class="at-input-headlines">Prio</div>
-                        <div class="at-prio-container">
-                            <div onclick="setBackgroundColorPrio('urgent')" id="urgent" class="at-prio-item">
-                                <div>Urgent</div>
-                                <img id="urgent-img-deactive" src="assets/img/urgent.png">
-                                <img id="urgent-img-active" src="assets/img/urgent-white.png" style="display: none;">
-                            </div>
-                            <div onclick="setBackgroundColorPrio('medium')" id="medium" class="at-prio-item">
-                                <div>Medium</div>
-                                <img id="medium-img-deactive" src="assets/img/medium.png">
-                                <img id="medium-img-active" src="assets/img/medium-white.png" style="display: none;">
-                            </div>
-                            <div onclick="setBackgroundColorPrio('low')" id="low" class="at-prio-item">
-                                <div>Low</div>
-                                <img id="low-img-deactive" src="assets/img/low.png">
-                                <img id="low-img-active" src="assets/img/low-white.png" style="display: none;">
-                            </div>
-                        </div>
-                        <div class="at-input-headlines">Category<div class="required-star">*</div>
-                        </div>
-                        <div class="custom-category-select" id="category-input">
-                            <div class="select-category-selected">
-                                <div>Select task category</div>
-                                <img id="open-category-list" src="assets/img/arrow_drop_down_open.png">
-                                <img id="close-category-list" class="d-none" src="assets/img/arrow_drop_down_close.png">
-                            </div>
-                            <div id="at-category-container" class="select-category-items">
-                                <div id="technical" class="at-contact-layout" onclick="selectTaskType('technical')">
-                                    <div class="at-contact-name">Technical Task</div>
-                                </div>
-                                <div id="user-story" class="at-contact-layout" onclick="selectTaskType('user-story')">
-                                    <div class="at-contact-name">User Story</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="at-alert d-none" id="at-alert-category">This field is required</div>
-                        <div class="at-input-headlines">Subcategory</div>
-                        <input onclick="activateSubcategory()" class="at-input-date" type="text" id="add-subcategory"
-                            placeholder="Add new subtask">
-                        <div class="at-subcategory-btn-container">
-                            <img onclick="clearInputSubcategory(event)" class="d-none" src="assets/img/clear.png"
-                                id="at-subcategory-clear">
-                            <div class="small-border-container d-none" id="at-subcategory-border"></div>
-                            <img onclick="renderSubcategory()" class="d-none" src="assets/img/checkOkDarrk.png"
-                                id="at-subcategory-confirm">
-                            <img src="assets/img/add-black.png" id="at-subcategory-open">
-                        </div>
-                        <div id="added-subcategories"></div>
-                        <div class="at-btn-container">
-                            <div onclick="clearTask()" class="at-clear-btn">
-                                <div>Clear</div>
-                                <svg width="14" height="14" viewBox="0 0 25 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M2 2L23 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M23 2L2 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </div>
-                            <div onclick="addTask();createTask();offAddTask();checkIfEmpty();" class="at-create-btn">
-                                <div>Create Task</div><img src="assets/img/check(ok).png">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <div class="at-headline input-container-bordHTML-headline">Add Task</div>
+                <form class="main-input-container input-container-bordHTML" w3-include-html="template/addTaskTemplate.html"></form>
             </div>
         </div>
         <script src="./js/board.js" defer></script>
         <script src="./js/template.js"></script>
         <script src="./js/contacts.js"></script>
-        <script src="./js/boardAddTask.js" defer></script>
         <script src="js/storage.js"></script>
+        <script src="js/addTask.js"></script>
 </body>
 
 </html>
