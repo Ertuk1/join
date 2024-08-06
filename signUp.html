@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="Join icon"
-      href="/assets/img/joinWhite.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="/assets/img/joinWhite.png" type="image/x-icon" />
     <link rel="stylesheet" href="/css/signUp.css" />
     <title>Sign up</title>
   </head>
@@ -16,36 +12,66 @@
     <div class="justifySignUpContainer">
       <div class="signUpContainer">
         <div class="vectorLeft">
-          <img src="/assets/img/vectorLeft.png" alt="Arrow back" onclick="redirectToLogIn()">
+          <img
+            src="/assets/img/vectorLeft.png"
+            alt="Arrow back"
+            onclick="redirectToLogIn()"
+          />
         </div>
         <div class="signUptTextContainer">
-
           <h2 class="signUptText">Sign up</h2>
         </div>
-        <form class="" action="" onsubmit="return addUser(event)">
+        <form action="" onsubmit="return addUser(event)">
           <div class="signUpInput">
             <input
-            id="signUpNameInput" class="nameInput" type="text" placeholder="Name" />
+              id="signUpNameInput"
+              class="nameInput"
+              type="text"
+              placeholder="Name"
+            />
             <input
-            id="signUpEmailInput" class="emailInput" type="email" placeholder="Email" />
+              id="signUpEmailInput"
+              class="emailInput"
+              type="email"
+              placeholder="Email"
+            />
             <input
-            id="signUpPasswordInput"
+              id="signUpPasswordInput"
               class="passwordInput"
               type="password"
               placeholder="Password"
             />
             <input
+              id="confirmPasswordInput"
               class="confirmPasswordInput"
               type="password"
               placeholder="Confirm Password"
             />
             <div class="acceptCheckbox">
-              <img
-                class="checkbox"
-                src="/assets/img/emptyCheckbox.png"
-                alt="Checkbox"
-              />
-              <p>I accept the <a class="privacyPolicy" href="/privacyPolicyNoLogin.html" target="_blank">Privacy Policy</a></p>
+              <div class="checkboxContainer">
+                <img
+                  id="checkbox"
+                  class="checkbox"
+                  src="/assets/img/emptyCheckbox.png"
+                  alt="Checkbox"
+                  onclick="toggleCheckbox(this)"
+                />
+                <img
+                  id="checkmark"
+                  src="/assets/img/okBlack.png"
+                  alt="check"
+                  style="display: none"
+                />
+              </div>
+              <p>
+                I accept the
+                <a
+                  class="privacyPolicy"
+                  href="/privacyPolicyNoLogin.html"
+                  target="_blank"
+                  >Privacy Policy</a
+                >
+              </p>
             </div>
             <button type="submit" class="signUp">Sign up</button>
           </div>
@@ -56,8 +82,7 @@
       <a href="/privacyPolicyNoLogin.html" target="_blank">Privacy Policy</a>
       <a href="/legalNoticeNoLogin.html" target="_blank">Legal notice</a>
     </footer>
-
+    <script src="/js/storage.js"></script>
     <script src="/js/signUp.js"></script>
-    </script>
   </body>
 </html>
