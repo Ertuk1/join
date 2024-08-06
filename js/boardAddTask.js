@@ -134,22 +134,7 @@ function chooseContactFromList(options) {
     });
 }
 
-function setBackgroundColorPrio(prio) {
-    let prioStatus = document.getElementById(prio);
-    let prioImgDeactive = document.getElementById(`${prio}-img-deactive`);
-    let prioImgActive = document.getElementById(`${prio}-img-active`);
-    resetOtherPriorities(prio);
 
-    if (prioStatus.classList.contains(`at-bg-${prio}`)) {
-        removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
-        taskPrio = '';
-        console.log(taskPrio);
-    } else {
-        addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
-        taskPrio = prio;
-        console.log(taskPrio);
-    }
-}
 
 function addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive) {
     prioStatus.classList.add(`at-bg-${prio}`);
@@ -447,24 +432,21 @@ function updateTaskType() {
     document.getElementById('taskType').textContent = taskType;
 }
 
-// Create a new task and add it to the "To Do" column
-window.createTask = function createTask() {
+function createTask() {
     let taskTitle = document.getElementById('task-title').value;
     let taskDescription = document.getElementById('at-description').value;
     let taskDueDate = document.getElementById('task-due-date').value;
     let taskPriority = getTaskPriority();
-    let taskAssignee = choosedContacts.map(contact => contact.initial); // Get the initials of the selected contacts
-    let taskType = getTaskType(); // Retrieve the selected task type
+    let taskAssignee = choosedContacts.map(contact => contact.initial);
+    let taskType = getTaskType();
 
-    let taskContainer = document.getElementById('toDo'); 
+    let taskContainer = document.getElementById('toDo');
 
     let newTask = document.createElement('div');
     newTask.classList.add('card');
     newTask.setAttribute('draggable', 'true');
-    newTask.setAttribute('onclick', 'on()'); 
-    newTask.setAttribute('onclick', 'stopPropagation(event)'); 
     newTask.innerHTML = `
-        <div class="cardContent>
+        <div class="cardContent">
             <span class="labelUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
             <div class="contextContent">
                 <span class="cardTitle">${taskTitle}</span>
@@ -475,7 +457,7 @@ window.createTask = function createTask() {
                     <div class="progressbarContainer">
                         <div class="bar" id="progressBar1"></div>
                     </div>
-                    <div class="subtasks">0/0 Subtasks</div> <!-- Update dynamically if you have subtasks data -->
+                    <div class="subtasks">0/0 Subtasks</div>
                 </div>
                 <div class="contactContainer">
                     <div style="display: flex;">
@@ -487,61 +469,64 @@ window.createTask = function createTask() {
                 </div>
             </div>
         </div>
-          <div>
-            <div id="overlay" onclick="off()">
-                <div class="overlayContent" onclick="stopPropagation(event)">
-                    <section class="overlayUserTitle">
-                        <span class="overlayUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
-                        <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-                    </section>
-                    <section>
-                        <span class="overlayTitle">${taskTitle}</span>
-                    </section>
-                    <section class="overlayContext"><span>${taskDescription}</span></section>
-                    <section class="dateDiv">
-                        <span class="dueDate">Due date:</span> 
-                        <span class="date">${taskDueDate}</span>
-                    </section>
-                    <section class="prioDiv">
-                        <span class="prioOverlay">Priority:</span>
-                        <span class="urgencyText">${taskPriority}
-                            <img class="overlayUrgencyImg" src="${getPriorityIcon(taskPriority)}" alt="">
-                        </span>
-                    </section>
-                    <section>
-                        <span class="contactOverlay">Assigned To:</span>
-                        ${taskAssignee.map(assignee => `
-                            <div class="contactDiv">
-                                <span class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee.initial}</span>
-                                <span class="contactName">${assignee.name}</span>
-                            </div>
-                        `).join('')}
-                    </section>
-                    <div class="subtasksOverlay"><span>Subtasks</span></div>
-                    <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Implement Recipe Recommendation </span></div>
-                    <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
-                    <section>
-                        <div class="editDiv">
-                            <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
-                            <div class="vector"></div>
-                            <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </div>
-        
     `;
 
     newTask.addEventListener('click', function(event) {
         event.stopPropagation();
-        on();
+        showOverlay(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignee, taskType);
     });
 
-        taskContainer.appendChild(newTask);
-    
+    taskContainer.appendChild(newTask);
 }
+
+function showOverlay(title, description, dueDate, priority, assignees, type) {
+    const overlay = document.getElementById("overlay");
+    const overlayContent = document.querySelector(".overlayContent");
+
+    overlayContent.innerHTML = `
+        <section class="overlayUserTitle">
+            <span class="overlayUser">${type === 'user-story' ? 'User Story' : 'Technical Task'}</span>
+            <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
+        </section>
+        <section>
+            <span class="overlayTitle">${title}</span>
+        </section>
+        <section class="overlayContext"><span>${description}</span></section>
+        <section class="dateDiv">
+            <span class="dueDate">Due date:</span>
+            <span class="date">${dueDate}</span>
+        </section>
+        <section class="prioDiv">
+            <span class="prioOverlay">Priority:</span>
+            <span class="urgencyText">${priority}
+                <img class="overlayUrgencyImg" src="${getPriorityIcon(priority)}" alt="">
+            </span>
+        </section>
+        <section>
+            <span class="contactOverlay">Assigned To:</span>
+            ${assignees.map(assignee => `
+                <div class="contactDiv">
+                    <span class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee}</span>
+                </div>
+            `).join('')}
+        </section>
+        <div class="subtasksOverlay"><span>Subtasks</span></div>
+        <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Implement Recipe Recommendation</span></div>
+        <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
+        <section>
+            <div class="editDiv">
+                <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
+                <div class="vector"></div>
+                <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+            </div>
+        </section>
+    `;
+
+    overlay.style.display = "flex";
+    overlayContent.style.transform = "translateX(0)";
+    overlayContent.style.opacity = "1";
+}
+
 
 function createContactContainer(name) {
 

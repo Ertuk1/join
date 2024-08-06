@@ -40,33 +40,7 @@
                         <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="toDo" class="taskContent">
-                        <div draggable="true" class="card" onclick="on();stopPropagation(event)">
-                            <div class="cardContent">
-                                <span class="labelUser">User Story</span>
-                                <div class="contextContent">
-                                    <span class="cardTitle">Kochwelt Page & Recipe Recommender</span>
-                                    <div><span class="cardContext">Build start page with recipe recommendation...</span>
-                                    </div>
-                                    <div class="progressbar">
-                                        <div class="progressbarContainer">
-                                            <div class="bar" id="progressBar1"></div>
-                                        </div>
-                                        <div class="subtasks">1/2 Subtasks</div>
-                                    </div>
-                                    <div class="contactContainer">
-                                        <div style="display: flex;">
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">HP
-                                            </div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">KP
-                                            </div>
-                                            <div class="contactCard" style="background-color: rgb(232, 58, 133);">RP
-                                            </div>
-                                        </div>
-                                        <div><img class="urgentSymbol" src="./assets/img/urgent.png" alt=""></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                               
                     </div>
                 </div>
                 <div class="todo">
@@ -99,48 +73,7 @@
         </main>
         <div onclick="off()" id="overlay">
             <div class="overlayContent" onclick="stopPropagation(event)">
-                <section class="overlayUserTitle">
-                    <span class="overlayUser">User Story</span>
-                    <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-                </section>
-                <section>
-                    <span class="overlayTitle">Kochwelt Page & Recipe Recommender</span>
-                </section>
-                <section class="overlayContext"><span>Build start page with recipe recommendation.</span></section>
-                <section class="dateDiv"><span class="dueDate">Due date:</span> <span class="date">10/05/2023</span>
-                </section>
-                <section class="prioDiv"><span class="prioOverlay">Priority:</span><span class="urgencyText">Urgent
-                        <img class="overlayUrgencyImg" src="./assets/img/urgent.png" alt=""></span></section>
-                <section>
-                    <span class="contactOverlay">Assigned To:</span>
-                    <div class="contactDiv">
-                        <span class="contactCard" style="background-color: rgb(232, 58, 133);">KP</span>
-                        <span class="contactName">Harlos Pelo</span>
-                    </div>
-                    <div class="contactDiv">
-                        <span class="contactCard" style="background-color: rgb(232, 58, 133);">KP</span>
-                        <span class="contactName">Karlos Pelo</span>
-                    </div>
-                    <div class="contactDiv">
-                        <span class="contactCard" style="background-color: rgb(232, 58, 133);">KP</span>
-                        <span class="contactName">Rarlos Pelo</span>
-                    </div>
-                </section>
-                <div class="subtasksOverlay"><span>Subtasks</span></div>
-                <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span
-                        class="checkBoxText">Implement Recipe Recommendation </span></div>
-                <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span
-                        class="checkBoxText">Start Page Layout</span></div>
-                <section>
-                    <div class="editDiv">
-                        <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt="">
-                            <span>Delete</span></div>
-                        <div class="vector"></div>
-                        <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png"
-                                alt=""><span>Edit</span></div>
-                    </div>
 
-                </section>
             </div>
         </div>
         <div id="addTaskOverlay" class="overlay">
@@ -235,7 +168,7 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </div>
-                            <div onclick="addTask();createTask();offAddTask();" class="at-create-btn">
+                            <div onclick="addTask();createTask();offAddTask();checkIfEmpty();" class="at-create-btn">
                                 <div>Create Task</div><img src="assets/img/check(ok).png">
                             </div>
                         </div>
