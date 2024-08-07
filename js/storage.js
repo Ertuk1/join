@@ -4,16 +4,6 @@ let contacts = [];
 let users = [];
 
 async function addTask() {
-<<<<<<< HEAD
-    if (!checkRequiredInput()) {
-        return;
-    }
-    let title = document.getElementById('task-title');
-    let description = document.getElementById('at-description');
-    let assignedTo = choosedContacts && choosedContacts.length > 0 ? choosedContacts.map(contact => ({ name: contact.name, id: contact.id })) : [];
-    let date = document.getElementById('task-due-date');
-    let prio = taskPrio;
-=======
   if (!checkRequiredInput()) {
     return;
   }
@@ -23,7 +13,6 @@ async function addTask() {
     choosedContacts && choosedContacts.length > 0 ? choosedContacts : [];
   let date = document.getElementById("task-due-date");
   let prio = taskPrio;
->>>>>>> f81c3c0d9c10d7d10cfd5204d479cbb37f9d29b5
 
   task = {
     title: title.value,

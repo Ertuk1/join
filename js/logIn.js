@@ -1,8 +1,10 @@
 let passwordInputClicks = 0;
+let isChecked = false;
 
 async function logInInit() {
   joinImgAnimation();
   await loadUserData();
+  getSavedUser();
 }
 
 function redirectToSignup() {
@@ -30,13 +32,23 @@ function findUser(event) {
   event.preventDefault();
   const emailInput = document.getElementById("logInEmailInput");
   const passwordInput = document.getElementById("logInPasswordInput");
+
   const email = emailInput.value;
   const password = passwordInput.value;
+  const rememberMe = isChecked;
+
   const user = users.find(userEmail => userEmail.email === email);
 
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
+    if (rememberMe) {
+      const userToSave = { email: user.email, password: user.password };
+      localStorage.setItem('savedUser', JSON.stringify(userToSave));
+    } else {
+      localStorage.removeItem('savedUser');
+    }
+
     redirectToSummary();
   } else {
     handleInvalidUser(user, emailInput, passwordInput, password);
@@ -102,6 +114,15 @@ function toggleCheckbox(img) {
   } else {
     img.src = "/assets/img/chackBox.png";
     isChecked = true;
+  }
+}
+
+function getSavedUser() {
+  const savedUser = localStorage.getItem('savedUser');
+  if (savedUser) {
+    const user = JSON.parse(savedUser);
+    document.getElementById('logInEmailInput').value = user.email;
+    document.getElementById('logInPasswordInput').value = user.password;
   }
 }
 
