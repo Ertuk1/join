@@ -20,7 +20,7 @@ function renderTasks() {
         let initial = getAssignedToContact(i);
         let taskAssignee = Array.isArray(toDo.assignees) ? toDo.assignees.map(assignee => `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee}</div>`).join('') : '';
         let taskType = toDo.category === 'user-story' ? 'User Story' : 'Technical Task';
-        let taskPriorityIcon = getPriorityIcon(toDo.priority);
+        let taskPriorityIcon = getPriorityIcon(toDo.prio);
 
         let newTask = document.createElement('div');
         newTask.classList.add('card');
@@ -212,5 +212,7 @@ function getPriorityIcon(priority) {
             return './assets/img/medium.png';
         case 'low':
             return './assets/img/low.png';
+        default:
+            return ''; // or return a default icon path
     }
 }
