@@ -21,7 +21,7 @@ async function addUser(event) {
   }
 
   if (!isChecked) {
-    return false; // Beende die Funktion, ohne Daten zu senden
+    return false;
   }
 
   let newUser = createNewUser(name, email, password);
@@ -41,6 +41,8 @@ function resetInputBorders(name, email, password, confirmPassword) {
   email.style.borderColor = "";
   password.style.borderColor = "";
   confirmPassword.style.borderColor = "";
+  document.querySelector('.passwordAlert').classList.add('dNone');
+  document.querySelector('.acceptCheckbox').style.marginTop = "14px";
 }
 
 function isValidInput(name, email, password, confirmPassword) {
@@ -62,6 +64,8 @@ function handleInvalidInput(name, email, password, confirmPassword) {
   if (password.value !== confirmPassword.value) {
     password.style.borderColor = "#FF8190";
     confirmPassword.style.borderColor = "#FF8190";
+    document.querySelector('.passwordAlert').classList.remove('dNone');
+    document.querySelector('.acceptCheckbox').style.marginTop = "0px";
   }
 }
 
@@ -92,3 +96,44 @@ function toggleCheckbox(img) {
     isChecked = false;
   }
 }
+
+let passwordInputClicks = 0;
+let confirmPasswordInputClicks = 0;
+
+function handlePasswordInputClick() {
+  let passwordInput = document.getElementById('signUpPasswordInput');
+  passwordInputClicks++;
+
+  if (passwordInputClicks === 1) {
+    passwordInput.classList.add('passwordInputFocus');
+  } else if (passwordInputClicks === 2) {
+    passwordInput.type = 'text';
+    passwordInput.classList.add('passwordInputVisible');
+  } else if (passwordInputClicks === 3) {
+    passwordInput.classList.remove('passwordInputFocus');
+    passwordInput.classList.remove('passwordInputVisible');
+    passwordInput.type = 'password';
+    passwordInputClicks = 0;
+  }
+}
+
+function handleConfirmPasswordInputClick() {
+  let confirmPasswordInput = document.getElementById('confirmPasswordInput');
+  confirmPasswordInputClicks++;
+
+  if (confirmPasswordInputClicks === 1) {
+    confirmPasswordInput.classList.add('confirmPasswordInputFocus');
+  } else if (confirmPasswordInputClicks === 2) {
+    confirmPasswordInput.type = 'text';
+    confirmPasswordInput.classList.add('confirmPasswordInputVisible');
+  } else if (confirmPasswordInputClicks === 3) {
+    confirmPasswordInput.classList.remove('confirmPasswordInputFocus');
+    confirmPasswordInput.classList.remove('confirmPasswordInputVisible');
+    confirmPasswordInput.type = 'password';
+    confirmPasswordInputClicks = 0;
+  }
+}
+
+
+
+
