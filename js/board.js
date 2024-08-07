@@ -18,7 +18,7 @@ function renderTasks() {
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
         let initial = getAssignedToContact(i);
-        let taskAssignee = Array.isArray(toDo.assignees) ? toDo.assignees.map(assignee => `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee}</div>`).join('') : '';
+        let taskAssignee = Array.isArray(toDo.assignedTo) ? toDo.assignedTo.map(assignedTo => `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${assignedTo}</div>`).join('') : '';
         let taskType = toDo.category === 'user-story' ? 'User Story' : 'Technical Task';
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
 
@@ -113,15 +113,17 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
 }
 
 
-function getAssignedToContact(i) {
-    let contactHTML = '';
-    for (let y = 0; y < task[i].assignedTo.length; y++) {
-        let contact = task[i].assignedTo[y].initial;
-        contactHTML += `<div>${contact}</div>`
-    }
-    return contactHTML;
+function getAssignedToContact(index) {
+    const assignedIds = task[index].assignedTo; // Annahme: `assignedTo` ist eine Liste von IDs
+    let contactHtml = '';
+    assignedIds.forEach(id => {
+        const contact = contacts.find(c => c.id === id);
+        if (contact) {
+            contactHtml += `<div class="contactCard" style="background-color: ${contact.profileColor};">${contact.name}</div>`;
+        }
+    });
+    return contactHtml;
 }
-
 
 function checkIfEmpty() {
     let toDo = document.getElementById('toDo');
