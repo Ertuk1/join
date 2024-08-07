@@ -558,7 +558,6 @@ body {
     content: url(/assets/img/cancel\(x\).png);
 }
 
-
 #cancelButtonContact:active {
     border: solid 1px rgba(100, 113, 136, 1);
     border-radius: 10px;
