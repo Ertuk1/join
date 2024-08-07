@@ -36,18 +36,24 @@
               placeholder="Email"
             />
             <input
+              onclick="handlePasswordInputClick()"
               id="signUpPasswordInput"
-              class="passwordInput"
+              class="passwordInput passwordInputImg"
               type="password"
               placeholder="Password"
             />
-            <input
+            <div class="confirmPasswordContainer">
+              <input
+              onclick="handleConfirmPasswordInputClick()"
               id="confirmPasswordInput"
-              class="confirmPasswordInput"
+              class="confirmPasswordInput confirmPasswordInputImg"
               type="password"
               placeholder="Confirm Password"
             />
+            <span class="passwordAlert dNone">Your passwords don't match. Please try again.</span>
+            </div>
             <div class="acceptCheckbox">
+
               <div class="checkboxContainer">
                 <img
                   id="checkbox"
