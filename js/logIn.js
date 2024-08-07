@@ -43,20 +43,23 @@ function hideElements(animatedImageContainer, animatedImage, joinIcon) {
   joinIcon.classList.remove("hideElements");
 }
 
+let currentUser = [];
+
 function findUser(event) {
   event.preventDefault();
+
   let emailInput = document.getElementById("logInEmailInput");
   let passwordInput = document.getElementById("logInPasswordInput");
-
   let email = emailInput.value;
   let password = passwordInput.value;
   let rememberMe = isChecked;
-
   let user = users.find((userEmail) => userEmail.email === email);
 
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
+    currentUser = [user];
+
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
       localStorage.setItem("savedUser", JSON.stringify(userToSave));
@@ -87,11 +90,11 @@ function handleInvalidUser(user, emailInput, passwordInput, password) {
   if (!user) {
     emailInput.style.borderColor = "#FF8190";
     passwordInput.style.borderColor = "#FF8190";
-    document.querySelector(".passwordAlert").classList.remove("dNone");
     document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
+    document.querySelector(".passwordAlert").classList.remove("dNone");
   }
 
-  if (user && user.password !== password) {
+  if (user.password !== password) {
     emailInput.style.borderColor = "#FF8190";
     passwordInput.style.borderColor = "#FF8190";
     document.querySelector(".passwordAlert").classList.remove("dNone");
@@ -100,6 +103,7 @@ function handleInvalidUser(user, emailInput, passwordInput, password) {
 
   return false;
 }
+
 
 function handlePasswordInputClick() {
   let passwordInput = document.getElementById("logInPasswordInput");

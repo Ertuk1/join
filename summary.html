@@ -25,7 +25,7 @@
     <div class="metricsContainer">
       <div class="metricsColumn">
         <div class="metricsRow">
-          <div class="metricCard">
+          <div onclick="redirectToBoard()" class="metricCard">
             <div class="metricIconContainer">
               <div class="toDoIcon"></div>
             </div>
@@ -34,7 +34,7 @@
               <p class="metricLabel">To-do</p>
             </div>
           </div>
-          <div class="metricCard">
+          <div onclick="redirectToBoard()" class="metricCard">
             <div class="metricIconContainer">
               <div class="checkIcon"></div>
             </div>
@@ -44,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class="metricCard urgentCard">
+        <div onclick="redirectToBoard()" class="metricCard urgentCard">
           <div class="urgentContent">
             <div class="urgentIconContainer">
               <img
@@ -70,15 +70,15 @@
           </div>
         </div>
         <div class="metricsRow">
-          <div class="metricCard taskContainer">
+          <div onclick="redirectToBoard()" class="metricCard taskContainer">
             <p class="metricValue">1</p>
             <p class="metricLabel taskText">Tasks in Board</p>
           </div>
-          <div class="metricCard taskContainer">
+          <div onclick="redirectToBoard()" class="metricCard taskContainer">
             <p class="metricValue">1</p>
             <p class="metricLabel taskText">Tasks in Progress</p>
           </div>
-          <div class="metricCard taskContainer">
+          <div onclick="redirectToBoard()" class="metricCard taskContainer">
             <p class="metricValue">1</p>
             <p class="metricLabel taskText">Awaiting Feedback</p>
           </div>
@@ -90,7 +90,8 @@
       </div>
     </div>
 
-    <script src="js/summary.js"></script>
-    <script src="js/template.js"></script>
+    <script src="/js/summary.js"></script>
+    <script src="/js/template.js"></script>
+    <script src="/js/storage.js"></script>
   </body>
 </html>
