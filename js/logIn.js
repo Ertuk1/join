@@ -16,26 +16,31 @@ function joinImgAnimation() {
   let animatedImage = document.querySelector(".animatedImage");
   let joinIcon = document.querySelector(".joinIcon");
 
-  const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
+  const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
 
   if (!hasVisitedBefore) {
-    setTimeout(function () {
-      animatedImageContainer.classList.add("fadeOut");
-      animatedImage.classList.add("moveToTopLeft");
-
-      setTimeout(function () {
-        animatedImageContainer.classList.add("hideElements");
-        animatedImage.classList.add("hideElements");
-        joinIcon.classList.remove("hideElements");
-
-        localStorage.setItem('hasVisitedBefore', true);
-      }, 1500);
-    }, 500);
+    startAnimation(animatedImageContainer, animatedImage, joinIcon);
   } else {
-    animatedImageContainer.classList.add("hideElements");
-    animatedImage.classList.add("hideElements");
-    joinIcon.classList.remove("hideElements"); 
+    hideElements(animatedImageContainer, animatedImage, joinIcon);
   }
+}
+
+function startAnimation(animatedImageContainer, animatedImage, joinIcon) {
+  setTimeout(function () {
+    animatedImageContainer.classList.add("fadeOut");
+    animatedImage.classList.add("moveToTopLeft");
+
+    setTimeout(function () {
+      hideElements(animatedImageContainer, animatedImage, joinIcon);
+      localStorage.setItem("hasVisitedBefore", true);
+    }, 1500);
+  }, 500);
+}
+
+function hideElements(animatedImageContainer, animatedImage, joinIcon) {
+  animatedImageContainer.classList.add("hideElements");
+  animatedImage.classList.add("hideElements");
+  joinIcon.classList.remove("hideElements");
 }
 
 function findUser(event) {
@@ -47,16 +52,16 @@ function findUser(event) {
   let password = passwordInput.value;
   let rememberMe = isChecked;
 
-  let user = users.find(userEmail => userEmail.email === email);
+  let user = users.find((userEmail) => userEmail.email === email);
 
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
-      localStorage.setItem('savedUser', JSON.stringify(userToSave));
+      localStorage.setItem("savedUser", JSON.stringify(userToSave));
     } else {
-      localStorage.removeItem('savedUser');
+      localStorage.removeItem("savedUser");
     }
 
     redirectToSummary();
@@ -66,8 +71,8 @@ function findUser(event) {
 }
 
 function resetInputBorders(emailInput, passwordInput) {
-  emailInput.style.borderColor = '';
-  passwordInput.style.borderColor = '';
+  emailInput.style.borderColor = "";
+  passwordInput.style.borderColor = "";
 }
 
 function isValidUser(user, password) {
@@ -80,15 +85,15 @@ function redirectToSummary() {
 
 function handleInvalidUser(user, emailInput, passwordInput, password) {
   if (!user) {
-    emailInput.style.borderColor = '#FF8190';
-    passwordInput.style.borderColor = '#FF8190';
+    emailInput.style.borderColor = "#FF8190";
+    passwordInput.style.borderColor = "#FF8190";
     document.querySelector(".passwordAlert").classList.remove("dNone");
     document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
   }
 
   if (user && user.password !== password) {
-    emailInput.style.borderColor = '#FF8190';
-    passwordInput.style.borderColor = '#FF8190';
+    emailInput.style.borderColor = "#FF8190";
+    passwordInput.style.borderColor = "#FF8190";
     document.querySelector(".passwordAlert").classList.remove("dNone");
     document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
   }
@@ -128,12 +133,10 @@ function toggleCheckbox(img) {
 }
 
 function getSavedUser() {
-  let savedUser = localStorage.getItem('savedUser');
+  let savedUser = localStorage.getItem("savedUser");
   if (savedUser) {
     const user = JSON.parse(savedUser);
-    document.getElementById('logInEmailInput').value = user.email;
-    document.getElementById('logInPasswordInput').value = user.password;
+    document.getElementById("logInEmailInput").value = user.email;
+    document.getElementById("logInPasswordInput").value = user.password;
   }
 }
-
-
