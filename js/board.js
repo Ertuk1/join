@@ -14,13 +14,21 @@ function stopPropagation(event) {
 function renderTasks() {
     let taskToDo = document.getElementById('toDo');
     taskToDo.innerHTML = '';
+
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
         let initial = getAssignedToContact(i);
-        taskToDo.innerHTML += /*html*/`
-        <div class="card">
+        let taskAssignee = Array.isArray(toDo.assignees) ? toDo.assignees.map(assignee => `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee}</div>`).join('') : '';
+        let taskType = toDo.category === 'user-story' ? 'User Story' : 'Technical Task';
+        let taskPriorityIcon = getPriorityIcon(toDo.priority);
+
+        let newTask = document.createElement('div');
+        newTask.classList.add('card');
+        newTask.setAttribute('draggable', 'true');
+        newTask.setAttribute('data-index', i);
+        newTask.innerHTML = `
             <div class="cardContent">
-                <span class="labelUser">${toDo.category}</span>
+                <span class="labelUser">${taskType}</span>
                 <div class="contextContent">
                     <span class="cardTitle">${toDo.title}</span>
                     <div>
@@ -34,17 +42,73 @@ function renderTasks() {
                     </div>
                     <div class="contactContainer">
                         <div style="display: flex;">
-                            ${initial}
+                            ${taskAssignee}
                         </div>
                         <div>
-                            <img class="urgentSymbol" src="" alt="">
+                            <img class="urgentSymbol" src="${taskPriorityIcon}" alt="${toDo.priority}">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        `
+        `;
+
+        newTask.addEventListener('click', function(event) {
+            event.stopPropagation();
+            showOverlay1(toDo.title, toDo.description, toDo.dueDate, toDo.priority, toDo.assignees, toDo.category);
+        });
+
+        taskToDo.appendChild(newTask);
     }
+}
+
+function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType) {
+    const overlay = document.getElementById("overlay");
+    const overlayContent = document.querySelector(".overlayContent");
+
+    taskAssignees = taskAssignees || [];
+
+    overlayContent.innerHTML = `
+        <section class="overlayUserTitle">
+            <span class="overlayUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
+            <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
+        </section>
+        <section>
+            <span class="overlayTitle">${taskTitle}</span>
+        </section>
+        <section class="overlayContext"><span>${taskDescription}</span></section>
+        <section class="dateDiv">
+            <span class="dueDate">Due date:</span>
+            <span class="date">${taskDueDate}</span>
+        </section>
+        <section class="prioDiv">
+            <span class="prioOverlay">Priority:</span>
+            <span class="urgencyText">${taskPriority}
+                <img class="overlayUrgencyImg" src="${getPriorityIcon(taskPriority)}" alt="">
+            </span>
+        </section>
+        <section>
+            <span class="contactOverlay">Assigned To:</span>
+            ${taskAssignees.map(assignee => `
+                <div class="contactDiv">
+                    <span class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee.name}</span>
+                </div>
+            `).join('')}
+        </section>
+        <div class="subtasksOverlay"><span>Subtasks</span></div>
+        <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Implement Recipe Recommendation</span></div>
+        <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
+        <section>
+            <div class="editDiv">
+                <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
+                <div class="vector"></div>
+                <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+            </div>
+        </section>
+    `;
+
+    overlay.style.display = "flex";
+    overlayContent.style.transform = "translateX(0)";
+    overlayContent.style.opacity = "1";
 }
 
 function getAssignedToContact(i) {
@@ -138,4 +202,15 @@ function offAddTask() {
         overlay.classList.remove("fade-out-overlay"); // Remove the fade-out animation class
         overlayContent.classList.remove("slide-out-content"); // Remove the slide-out animation class
     }, { once: true }); // Ensure the event listener is only triggered once
+}
+
+function getPriorityIcon(priority) {
+    switch (priority) {
+        case 'urgent':
+            return './assets/img/urgent.png';
+        case 'medium':
+            return './assets/img/medium.png';
+        case 'low':
+            return './assets/img/low.png';
+    }
 }

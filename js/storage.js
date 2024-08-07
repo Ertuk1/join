@@ -7,7 +7,7 @@ async function addTask() {
     }
     let title = document.getElementById('task-title');
     let description = document.getElementById('at-description');
-    let assignedTo = choosedContacts && choosedContacts.length > 0 ? choosedContacts : [];
+    let assignedTo = choosedContacts && choosedContacts.length > 0 ? choosedContacts.map(contact => ({ name: contact.name, id: contact.id })) : [];
     let date = document.getElementById('task-due-date');
     let prio = taskPrio;
 
