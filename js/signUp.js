@@ -1,4 +1,3 @@
-let users = [];
 let isChecked = false;
 let passwordInputClicks = 0;
 let confirmPasswordInputClicks = 0;

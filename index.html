@@ -39,19 +39,33 @@
               type="email"
               placeholder="Email"
             />
-            <input
+            <div class="logInPasswordContainer">
+              <input
+              onclick="handlePasswordInputClick()"
               id="logInPasswordInput"
               class="passwordInput"
               type="password"
               placeholder="Password"
             />
+            <span class="passwordAlert dNone">Check your email and password. Please try again.</span>
+            </div>
           </div>
           <div class="rememberMe">
-            <img
-              class="checkbox"
-              src="/assets/img/emptyCheckbox.png"
-              alt="Checkbox"
-            />
+            <div class="checkboxContainer">
+              <img
+                id="checkbox"
+                class="checkbox"
+                src="/assets/img/emptyCheckbox.png"
+                alt="Checkbox"
+                onclick="toggleCheckbox(this)"
+              />
+              <img
+                class="dNone"
+                id="checkmark"
+                src="/assets/img/okBlack.png"
+                alt="check"
+              />
+            </div>
             <p>Remember me</p>
           </div>
           <div class="logInButtons">
@@ -68,6 +82,6 @@
     </footer>
 
     <script src="/js/logIn.js"></script>
-    <script src="/js/signUp.js"></script>
+    <script src="/js/storage.js"></script>
   </body>
 </html>

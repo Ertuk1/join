@@ -1,3 +1,5 @@
+let passwordInputClicks = 0;
+
 async function logInInit() {
   joinImgAnimation();
   await loadUserData();
@@ -56,16 +58,51 @@ function redirectToSummary() {
 
 function handleInvalidUser(user, emailInput, passwordInput, password) {
   if (!user) {
-    emailInput.style.borderColor = 'red';
+    emailInput.style.borderColor = '#FF8190';
+    passwordInput.style.borderColor = '#FF8190';
+    document.querySelector(".passwordAlert").classList.remove("dNone");
+    document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
   }
 
   if (user && user.password !== password) {
-    passwordInput.style.borderColor = 'red';
+    emailInput.style.borderColor = '#FF8190';
+    passwordInput.style.borderColor = '#FF8190';
+    document.querySelector(".passwordAlert").classList.remove("dNone");
+    document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
   }
 
   return false;
 }
 
+function handlePasswordInputClick() {
+  let passwordInput = document.getElementById("logInPasswordInput");
+  passwordInputClicks++;
 
+  if (passwordInputClicks === 1) {
+    passwordInput.classList.add("passwordInputFocus");
+  } else if (passwordInputClicks === 2) {
+    passwordInput.type = "text";
+    passwordInput.classList.add("passwordInputVisible");
+  } else if (passwordInputClicks === 3) {
+    passwordInput.classList.remove("passwordInputFocus");
+    passwordInput.classList.remove("passwordInputVisible");
+    passwordInput.type = "password";
+    passwordInputClicks = 0;
+  }
+}
+
+function toggleCheckbox(img) {
+  let checkmark = document.getElementById("checkmark");
+
+  checkmark.classList.toggle("dNone");
+
+  if (checkmark.classList.contains("dNone")) {
+    img.src = "/assets/img/emptyCheckbox.png";
+    isChecked = false;
+  } else {
+    img.src = "/assets/img/chackBox.png";
+    isChecked = true;
+  }
+}
 
 

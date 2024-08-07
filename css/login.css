@@ -180,6 +180,11 @@ footer a:hover {
   font-size: 20px;
 }
 
+.logInPasswordContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .passwordInput {
   background-image: url("/assets/img/lock.png");
   background-repeat: no-repeat;
@@ -196,6 +201,25 @@ footer a:hover {
 .passwordInput::placeholder {
   color: rgba(209, 209, 209, 1);
   font-size: 20px;
+}
+
+.emailInput:focus,
+.passwordInput:focus {
+  border: 2px solid rgba(41, 171, 226, 1); /* Grüner Border beim Fokussieren */
+}
+
+.passwordInputFocus {
+  background-image: url("/assets/img/visibilityOff.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 19px;
+}
+
+.passwordInputVisible {
+  background-image: url("/assets/img/visibility.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 19px;
 }
 
 .checkbox:hover {
@@ -254,4 +278,30 @@ footer a:hover {
   color: rgba(41, 171, 226, 1);
   border: 2px solid rgba(41, 171, 226, 1);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.passwordAlert {
+  font-size: 12px;
+  color: #ff8190;
+}
+
+.dNone {
+  display: none;
+}
+
+.checkboxContainer {
+  position: relative;
+  margin-top: 5px;
+}
+
+.checkbox {
+  position: relative;
+  z-index: 1;
+}
+
+#checkmark {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  z-index: 0;
 }
