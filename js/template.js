@@ -14,6 +14,7 @@ async function includeHTML() {
     currentPage();
 }
 
+
 function goBack() {
   window.history.back();
 }

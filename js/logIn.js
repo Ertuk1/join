@@ -1,6 +1,7 @@
 let passwordInputClicks = 0;
 let isChecked = false;
 
+
 async function logInInit() {
   joinImgAnimation();
   await loadUserData();
@@ -43,8 +44,6 @@ function hideElements(animatedImageContainer, animatedImage, joinIcon) {
   joinIcon.classList.remove("hideElements");
 }
 
-let currentUser = [];
-
 function findUser(event) {
   event.preventDefault();
 
@@ -58,7 +57,7 @@ function findUser(event) {
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
-    currentUser = [user];
+    currentUser = [user]; 
 
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
@@ -71,6 +70,8 @@ function findUser(event) {
   } else {
     handleInvalidUser(user, emailInput, passwordInput, password);
   }
+  console.log(currentUser);
+  
 }
 
 function resetInputBorders(emailInput, passwordInput) {

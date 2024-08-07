@@ -5,3 +5,5 @@ async function summeryInit() {
 function redirectToBoard() {
     window.location.href = "board.html";
   }
+
+  
