@@ -16,34 +16,44 @@ function joinImgAnimation() {
   let animatedImage = document.querySelector(".animatedImage");
   let joinIcon = document.querySelector(".joinIcon");
 
-  setTimeout(function () {
-    animatedImageContainer.classList.add("fadeOut");
-    animatedImage.classList.add("moveToTopLeft");
+  const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
 
+  if (!hasVisitedBefore) {
     setTimeout(function () {
-      animatedImageContainer.classList.add("hideElements");
-      animatedImage.classList.add("hideElements");
-      joinIcon.classList.remove("hideElements");
-    }, 1500); 
-  }, 500);
+      animatedImageContainer.classList.add("fadeOut");
+      animatedImage.classList.add("moveToTopLeft");
+
+      setTimeout(function () {
+        animatedImageContainer.classList.add("hideElements");
+        animatedImage.classList.add("hideElements");
+        joinIcon.classList.remove("hideElements");
+
+        localStorage.setItem('hasVisitedBefore', true);
+      }, 1500);
+    }, 500);
+  } else {
+    animatedImageContainer.classList.add("hideElements");
+    animatedImage.classList.add("hideElements");
+    joinIcon.classList.remove("hideElements"); 
+  }
 }
 
 function findUser(event) {
   event.preventDefault();
-  const emailInput = document.getElementById("logInEmailInput");
-  const passwordInput = document.getElementById("logInPasswordInput");
+  let emailInput = document.getElementById("logInEmailInput");
+  let passwordInput = document.getElementById("logInPasswordInput");
 
-  const email = emailInput.value;
-  const password = passwordInput.value;
-  const rememberMe = isChecked;
+  let email = emailInput.value;
+  let password = passwordInput.value;
+  let rememberMe = isChecked;
 
-  const user = users.find(userEmail => userEmail.email === email);
+  let user = users.find(userEmail => userEmail.email === email);
 
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
     if (rememberMe) {
-      const userToSave = { email: user.email, password: user.password };
+      let userToSave = { email: user.email, password: user.password };
       localStorage.setItem('savedUser', JSON.stringify(userToSave));
     } else {
       localStorage.removeItem('savedUser');
@@ -118,7 +128,7 @@ function toggleCheckbox(img) {
 }
 
 function getSavedUser() {
-  const savedUser = localStorage.getItem('savedUser');
+  let savedUser = localStorage.getItem('savedUser');
   if (savedUser) {
     const user = JSON.parse(savedUser);
     document.getElementById('logInEmailInput').value = user.email;
