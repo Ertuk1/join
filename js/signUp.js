@@ -1,40 +1,18 @@
-const BASE_URL =
-  "https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/";
-let users = [];
+let isChecked = false;
+let passwordInputClicks = 0;
+let confirmPasswordInputClicks = 0;
 
 async function initSignUp() {
   await loadUserData();
 }
 
-async function fetchUserData(path) {
-  let response = await fetch(BASE_URL + path + ".json");
-  return responseToJson = await response.json();
-}
-
-async function loadUserData() {
-  let userResponse = await fetchUserData("users");
-  let userKeysArray = Object.keys(userResponse);
-
-  for (let index = 0; index < userKeysArray.length; index++) {
-    users.push(
-      {
-        id : userKeysArray[index],
-        name : userResponse[userKeysArray[index]].name,
-        email : userResponse[userKeysArray[index]].email,
-        password : userResponse[userKeysArray[index]].password,
-      }
-    )
-  }
-  console.log(users);
-  
-}
-
 async function addUser(event) {
   event.preventDefault();
-  const name = document.getElementById("signUpNameInput");
-  const email = document.getElementById("signUpEmailInput");
-  const password = document.getElementById("signUpPasswordInput");
-  const confirmPassword = document.querySelector(".confirmPasswordInput");
+
+  let name = document.getElementById("signUpNameInput");
+  let email = document.getElementById("signUpEmailInput");
+  let password = document.getElementById("signUpPasswordInput");
+  let confirmPassword = document.getElementById("confirmPasswordInput");
 
   resetInputBorders(name, email, password, confirmPassword);
 
@@ -43,24 +21,29 @@ async function addUser(event) {
     return false;
   }
 
-  const newUser = createNewUser(name, email, password);
+  if (!isChecked) {
+    return false;
+  }
+
+  let newUser = createNewUser(name, email, password);
 
   try {
     await postUserData("/users", newUser);
-    redirectToIndex();
+    redirectToLogIn();
   } catch (error) {
     console.error("Fehler beim Senden der Daten:", error);
-    // Behandeln Sie den Fehler entsprechend
   }
 
   return false;
 }
 
 function resetInputBorders(name, email, password, confirmPassword) {
-  name.style.borderColor = '';
-  email.style.borderColor = '';
-  password.style.borderColor = '';
-  confirmPassword.style.borderColor = '';
+  name.style.borderColor = "";
+  email.style.borderColor = "";
+  password.style.borderColor = "";
+  confirmPassword.style.borderColor = "";
+  document.querySelector(".passwordAlert").classList.add("dNone");
+  document.querySelector(".acceptCheckbox").style.marginTop = "14px";
 }
 
 function isValidInput(name, email, password, confirmPassword) {
@@ -74,13 +57,16 @@ function isValidInput(name, email, password, confirmPassword) {
 }
 
 function handleInvalidInput(name, email, password, confirmPassword) {
-  if (name.value === '') name.style.borderColor = 'red';
-  if (email.value === '') email.style.borderColor = 'red';
-  if (password.value === '') password.style.borderColor = 'red';
-  if (confirmPassword.value === '') confirmPassword.style.borderColor = 'red';
+  if (name.value === "") name.style.borderColor = "#FF8190";
+  if (email.value === "") email.style.borderColor = "#FF8190";
+  if (password.value === "") password.style.borderColor = "#FF8190";
+  if (confirmPassword.value === "")
+    confirmPassword.style.borderColor = "#FF8190";
   if (password.value !== confirmPassword.value) {
-    password.style.borderColor = 'red';
-    confirmPassword.style.borderColor = 'red';
+    password.style.borderColor = "#FF8190";
+    confirmPassword.style.borderColor = "#FF8190";
+    document.querySelector(".passwordAlert").classList.remove("dNone");
+    document.querySelector(".acceptCheckbox").style.marginTop = "0px";
   }
 }
 
@@ -92,23 +78,56 @@ function createNewUser(name, email, password) {
   };
 }
 
-function redirectToIndex() {
-  window.location.href = "/index.html";
-}
-
-
-
-async function postUserData(path, newUser) {
-  let response = await fetch(BASE_URL + path + ".json", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newUser),
-  });
-  return (responseToJson = await response.json());
-}
-
 function redirectToLogIn() {
   window.location.href = "index.html";
+}
+
+function toggleCheckbox(img) {
+  let checkmark = document.getElementById("checkmark");
+  let signUpButton = document.querySelector(".signUp");
+  if (checkmark.style.display === "none") {
+    checkmark.style.display = "block";
+    img.src = "/assets/img/chackBox.png";
+    signUpButton.classList.add("signUpHover");
+    isChecked = true;
+  } else {
+    checkmark.style.display = "none";
+    img.src = "/assets/img/emptyCheckbox.png";
+    signUpButton.classList.remove("signUpHover");
+    isChecked = false;
+  }
+}
+
+function handlePasswordInputClick() {
+  let passwordInput = document.getElementById("signUpPasswordInput");
+  passwordInputClicks++;
+
+  if (passwordInputClicks === 1) {
+    passwordInput.classList.add("passwordInputFocus");
+  } else if (passwordInputClicks === 2) {
+    passwordInput.type = "text";
+    passwordInput.classList.add("passwordInputVisible");
+  } else if (passwordInputClicks === 3) {
+    passwordInput.classList.remove("passwordInputFocus");
+    passwordInput.classList.remove("passwordInputVisible");
+    passwordInput.type = "password";
+    passwordInputClicks = 0;
+  }
+}
+
+function handleConfirmPasswordInputClick() {
+  let confirmPasswordInput = document.getElementById("confirmPasswordInput");
+  confirmPasswordInputClicks++;
+
+  if (confirmPasswordInputClicks === 1) {
+    confirmPasswordInput.classList.add("confirmPasswordInputFocus");
+  } else if (confirmPasswordInputClicks === 2) {
+    confirmPasswordInput.type = "text";
+    confirmPasswordInput.classList.add("confirmPasswordInputVisible");
+  } else if (confirmPasswordInputClicks === 3) {
+    confirmPasswordInput.classList.remove("confirmPasswordInputFocus");
+    confirmPasswordInput.classList.remove("confirmPasswordInputVisible");
+    confirmPasswordInput.type = "password";
+    confirmPasswordInputClicks = 0;
+  }
 }
