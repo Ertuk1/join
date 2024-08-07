@@ -54,7 +54,7 @@ function renderTasks() {
 
         newTask.addEventListener('click', function(event) {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.dueDate, toDo.priority, toDo.assignees, toDo.category);
+            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category);;
         });
 
         taskToDo.appendChild(newTask);
@@ -64,6 +64,7 @@ function renderTasks() {
 function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
+    let taskPriorityIcon = getPriorityIcon(taskPriority);
 
     taskAssignees = taskAssignees || [];
 
@@ -83,7 +84,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
         <section class="prioDiv">
             <span class="prioOverlay">Priority:</span>
             <span class="urgencyText">${taskPriority}
-                <img class="overlayUrgencyImg" src="${getPriorityIcon(taskPriority)}" alt="">
+                <img class="overlayUrgencyImg" src="${taskPriorityIcon}" alt="${taskPriority}">
             </span>
         </section>
         <section>
@@ -110,6 +111,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
     overlayContent.style.transform = "translateX(0)";
     overlayContent.style.opacity = "1";
 }
+
 
 function getAssignedToContact(i) {
     let contactHTML = '';
