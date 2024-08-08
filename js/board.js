@@ -24,7 +24,7 @@ function renderTasks() {
             return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
         }).join('')
         : '';
-        let taskType = toDo.category === 'user-story' ? 'User Story' : 'Technical Task';
+        let taskType = toDo.category 
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
 
         let newTask = document.createElement('div');
@@ -122,18 +122,6 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
     overlayContent.style.opacity = "1";
 }
 
-
-function getAssignedToContact(index) {
-    const assignedIds = task[index].assignedTo; // Annahme: `assignedTo` ist eine Liste von IDs
-    let contactHtml = '';
-    assignedIds.forEach(id => {
-        const contact = contacts.find(c => c.id === id);
-        if (contact) {
-            contactHtml += `<div class="contactCard" style="background-color: ${contact.profileColor};">${contact.name}</div>`;
-        }
-    });
-    return contactHtml;
-}
 
 function checkIfEmpty() {
     let toDo = document.getElementById('toDo');

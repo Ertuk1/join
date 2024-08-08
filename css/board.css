@@ -267,6 +267,13 @@ h2 {
     line-height: 19.2px;
     text-align: left;
     color: #A8A8A8;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
 
 }
 
