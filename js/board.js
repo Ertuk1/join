@@ -17,8 +17,13 @@ function renderTasks() {
 
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
-        let initial = getAssignedToContact(i);
-        let taskAssignee = Array.isArray(toDo.assignedTo) ? toDo.assignedTo.map(assignedTo => `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${assignedTo}</div>`).join('') : '';
+        console.log(toDo.assignedTo);
+        let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
+        ? toDo.assignedTo.map((assignee, index) => {
+            let contact = contacts[index];
+            return contact ? `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${contact.initials}</div>` : '';
+        }).join('')
+        : '';
         let taskType = toDo.category === 'user-story' ? 'User Story' : 'Technical Task';
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
 
@@ -66,7 +71,17 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
 
-    taskAssignees = taskAssignees || [];
+    let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
+    ? taskAssignees.map((assignee, index) => {
+        let contact = contacts[index];
+        return contact ? `
+        <div class="contactDiv">
+            <span class="contactCard" style="background-color: rgb(232, 58, 133);"> ${contact.initials}</span>
+            <span class="contactName">${contact.name}</span>
+        </div>
+        ` : '';
+    }).join('')
+    : '';
 
     overlayContent.innerHTML = `
         <section class="overlayUserTitle">
@@ -82,19 +97,14 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
             <span class="date">${taskDueDate}</span>
         </section>
         <section class="prioDiv">
-            <span class="prioOverlay">Priority:</span>
+            <span class="dueDate">Priority:</span>
             <span class="urgencyText">${taskPriority}
                 <img class="overlayUrgencyImg" src="${taskPriorityIcon}" alt="${taskPriority}">
             </span>
         </section>
         <section>
             <span class="contactOverlay">Assigned To:</span>
-            ${taskAssignees.map(assignee => `
-                <div class="contactDiv">
-                    <span class="contactCard" style="background-color: rgb(232, 58, 133);">${assignee.name}</span>
-                </div>
-            `).join('')}
-        </section>
+                ${assigneeOverlayContent}
         <div class="subtasksOverlay"><span>Subtasks</span></div>
         <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Implement Recipe Recommendation</span></div>
         <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
