@@ -84,6 +84,20 @@ async function postContact(path, newContact) {
   return (responseToJson = await response.json());
 }
 
+async function deleteDataContact(path = "") {
+  let response = await fetch(BASE_URL + path + ".json", {
+      method: "DELETE",
+  });
+  return responseToJson = await response.json();
+}
+
+async function deleteContact(contact) {
+  await deleteDataContact(contact);
+  await loadDataContacts();
+  renderContacts();
+  document.getElementById('viewContact').innerHTML = '';
+}
+
 async function loadDataContacts(path = "/contacts") {
   let response = await fetch(BASE_URL + path + ".json");
   responseToJson = await response.json();
@@ -93,9 +107,9 @@ async function loadDataContacts(path = "/contacts") {
   for (let i = 0; i < contactsKeysArray.length; i++) {
     contacts.push({
       id: contactsKeysArray[i],
-      mail: responseToJson[contactsKeysArray[i]].email,
+      mail: responseToJson[contactsKeysArray[i]].mail,
       name: responseToJson[contactsKeysArray[i]].name,
-      initials: responseToJson[contactsKeysArray[i]].initialien,
+      initials: responseToJson[contactsKeysArray[i]].initials,
       phone: responseToJson[contactsKeysArray[i]].phone,
       profileColor: responseToJson[contactsKeysArray[i]].profileColor,
     });

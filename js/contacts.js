@@ -77,80 +77,85 @@ function createContactList() {
 // Hilfsfunktion zum Extrahieren des ersten Buchstabens des Vornamens und Nachnamens
 function extractInitials(name) {
     const names = name.split(' ');
-    let initials = '';
+    let initial = '';
     for (let i = 0; i < names.length; i++) {
-        initials += names[i].charAt(0).toUpperCase();
+        initial += names[i].charAt(0).toUpperCase();
     }
-    return initials;
+    return initial;
 }
 
 async function getNewContact() {
     let name = document.getElementById('fullName');
-    let mail = document.getElementById('emailAdress');
+    let email = document.getElementById('emailAdress');
     let phone = document.getElementById('phoneNumber');
-    if (name.value == '' || mail.value == '' || phone.value == '') {
-      document.getElementById('addNewContactAlert').innerHTML = '';
-      document.getElementById('addNewContactAlert').innerHTML = '<p>the fields must be filled</p>';
+    if (name.value == '' || email.value == '' || phone.value == '') {
+        document.getElementById('addNewContactAlert').innerHTML = '';
+        document.getElementById('addNewContactAlert').innerHTML = '<p>the fields must be filled</p>';
     } else {
-      const colorIndx = Math.floor(Math.random() * beautifulColors.length); // Zufälliger Index für Farbe
-      const color = beautifulColors[colorIndx];
-      const initial = extractInitials(name.value);
-      const newContact = {
-        email: mail.value,
-        name: name.value,
-        initialien: initial,
-        phone: phone.value,
-        profileColor: color,
-      };
-      await postContact("/contacts", newContact);
-      await loadDataContacts();
-    //   contactClickHandler(newContact, contacts.length - 1);
-    createContactList();
-    name.value = '';
-    mail.value = '';
-    phone.value = '';
-    cancelAddContact();
-    slideSuccessfullyContact();
+        const colorIndx = Math.floor(Math.random() * beautifulColors.length); // Zufälliger Index für Farbe
+        const color = beautifulColors[colorIndx];
+        const initialien = extractInitials(name.value);
+        const newContact = {
+            mail: email.value,
+            name: name.value,
+            initials: initialien,
+            phone: phone.value,
+            profileColor: color,
+        };
+        await postContact("/contacts", newContact);
+        await loadDataContacts();
+        contactClickHandler(newContact, contacts.length - 1);
+        createContactList();
+        name.value = '';
+        email.value = '';
+        phone.value = '';
+        cancelAddContact();
+        slideSuccessfullyContact();
     }
 }
 
 // Funktion, die beim Klicken auf den Kontakt oder Kontaktinformationen aufgerufen wird
 function contactClickHandler(contact, i) {
     if (window.innerWidth < 1000) {
-      editContactResponsive(contact, i);
+        editContactResponsive(contact, i);
     }
     else {
-      let contactSection = document.getElementById('contacts');
-      contactSection.innerHTML = '';
-      contactSection.innerHTML = ` <div id="contactInfo">
-      <div id="whiteCircle">
-        <div id="initials" style="background-color: ${contact.profileColor}">
-          <h1>${contact.initialien}</h1>
-        </div>
-      </div>
-      <div id="nameAndEditButton">
-        <h1>${contact.name}</h1>
-        <div id="editDiv">
-          <img id="edit" onclick="showeditContact(${i})" src="../assets/img/buttonIcons/edit_normal.png" alt="edit">
-          <img id="delete" onclick="deleteContact(${i})" src="../assets/img/buttonIcons/delete_normal.png" alt="delete" > 
-        </div>
+        let contactSection = document.getElementById('viewContact');
+        contactSection.innerHTML = '';
+        contactSection.innerHTML =
+            `<div class="profileName">
+      <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
+      <div class="nameEditBox">
+          <div class="nameBox">
+              <h2>${contact.name}</h2>
+          </div>
+          <div class="editDivContact">
+              <div class="editBox" id="editDiv"><img src="assets/img/edit_contact.png" alt="edit">
+                  <p>Edit</p>
+              </div>
+              <div class="editBox" id=deleteDiv onclick="deleteContact('/contacts/${contact.id}')"><img src="assets/img/delete_contact.png" alt="">
+                  <p>Delete</p>
+              </div>
+          </div>
       </div>
     </div>
-    <div id="contactInformation">
-      <h2>Contact Information</h2>
+    <div class="contactInformation">
+      <p>Contact Information</p>
     </div>
-    <div id="contactContent">
-      <div id="emailBox">
-        <h3>Email</h3>
-        <a href="mailto:julia.sch@hotmail.de">${contact.email}</a>
+    <div>
+      <div class="showOneContact">
+          <div class="showOneContactInfo">
+              <h3>Email</h3>
+              <p id="emailFromContact">${contact.mail}</p>
+          </div>
+          <div class="showOneContactInfo">
+              <h3>Phone</h3>
+              <p id="phoneFromContact">${contact.phone}</p>
+          </div>
       </div>
-      <div id="phoneBox">
-        <h3>Phone</h3>
-        <p>${contact.phone}</p>
-      </div>
-    </div>`;
+  </div>`;
     }
-  }
+}
 
 function slideSuccessfullyContact() {
     let container = document.getElementById('successfullyContainer');
@@ -158,9 +163,9 @@ function slideSuccessfullyContact() {
     container.style.display = 'flex';
     successfully.classList.add('slide-in-bottom');
     setTimeout(() => {
-      successfully.classList.remove('slide-in-bottom');
-      container.style.display = 'none';
-  
+        successfully.classList.remove('slide-in-bottom');
+        container.style.display = 'none';
+
     }, 1000);
 }
 
