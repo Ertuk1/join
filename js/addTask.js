@@ -22,14 +22,15 @@ async function renderAssignedToContacts() {
         const contactName = contacts[i].name;
         let initials = contacts[i].initials;
         let color = contacts[i].profileColor;
-        content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color)
+        let id = contacts[i].id
+        content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color, id)
         document.getElementById(`at-shortcut${i}`).style.backgroundColor = color;
     }
 }
 
-function generateAssignedContactsHTML(initials, contactName, i, color) {
+function generateAssignedContactsHTML(initials, contactName, i, color, id) {
     return /*html*/`
-    <div onclick="addContactToTask('${initials}', ${i}, '${color}')">
+    <div onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')">
         <div class="at-contact-layout">
             <div class="at-contact-name-container">
                 <div id="at-shortcut${i}" class="at-contact-shortcut-layout">
@@ -38,18 +39,19 @@ function generateAssignedContactsHTML(initials, contactName, i, color) {
             <div class="at-contact-name">${contactName}</div>
         </div>
         <label class="at-label-checkbox">
-            <input onclick="addContactToTask('${initials}', ${i}, '${color}')" type="checkbox">
+            <input onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')" type="checkbox">
             <span class="at-checkmark"></span>
         </label>
         </div>
         </div>`
 }
 
-function addContactToTask(initials, i, colors) {
-    let index = choosedContacts.findIndex(contact => contact.id === i);
+function addContactToTask(initials, i, colors, id) {
+    console.log(id);
+    let index = choosedContacts.findIndex(contact => contact.id === id);
     if (index === -1) {
         choosedContacts.push({
-            id: i,
+            id: id,
             initial: initials,
             color: colors,
         });
