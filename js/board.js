@@ -21,7 +21,7 @@ function renderTasks() {
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
         ? toDo.assignedTo.map((assignee, index) => {
             let contact = contacts[index];
-            return contact ? `<div class="contactCard" style="background-color: rgb(232, 58, 133);">${contact.initials}</div>` : '';
+            return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
         }).join('')
         : '';
         let taskType = toDo.category === 'user-story' ? 'User Story' : 'Technical Task';
@@ -76,7 +76,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
         let contact = contacts[index];
         return contact ? `
         <div class="contactDiv">
-            <span class="contactCard" style="background-color: rgb(232, 58, 133);"> ${contact.initials}</span>
+            <span class="contactCard" style="background-color: ${assignee.color};"> ${contact.initials}</span>
             <span class="contactName">${contact.name}</span>
         </div>
         ` : '';
