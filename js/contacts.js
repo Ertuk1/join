@@ -146,7 +146,7 @@ function contactClickHandler(contact, i) {
       <div class="showOneContact">
           <div class="showOneContactInfo">
               <h3>Email</h3>
-              <p id="emailFromContact">${contact.mail}</p>
+              <a id="emailFromContact" href="mailto:${contact.mail}" >${contact.mail}</a>
           </div>
           <div class="showOneContactInfo">
               <h3>Phone</h3>
