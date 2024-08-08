@@ -18,6 +18,7 @@ function renderTasks() {
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
         console.log(toDo.assignedTo);
+        let subcategory = getSubcategory(toDo);
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
         ? toDo.assignedTo.map((assignee, index) => {
             let contact = contacts[index];
@@ -59,14 +60,14 @@ function renderTasks() {
 
         newTask.addEventListener('click', function(event) {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category);;
+            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subcategory);;
         });
 
         taskToDo.appendChild(newTask);
     }
 }
 
-function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType) {
+function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subcategoryHTML) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
@@ -106,7 +107,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
             <span class="contactOverlay">Assigned To:</span>
                 ${assigneeOverlayContent}
         <div class="subtasksOverlay"><span>Subtasks</span></div>
-        <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Implement Recipe Recommendation</span></div>
+        ${subcategoryHTML}
         <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
         <section>
             <div class="editDiv">
@@ -120,6 +121,19 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
     overlay.style.display = "flex";
     overlayContent.style.transform = "translateX(0)";
     overlayContent.style.opacity = "1";
+}
+
+function getSubcategory(toDo) {
+    let subCategoryHTML = '';
+
+    for (let i = 0; i < toDo.subcategory.length; i++) {
+        let category = toDo.subcategory[i];
+
+        subCategoryHTML += /*html*/ `
+         <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">${category}</span></div>
+        `
+    }
+    return subCategoryHTML; 
 }
 
 

@@ -43,7 +43,7 @@ async function loadDataTask(path = "/task") {
         date: responseToJson[taskKeysArray[i]].date,
         prio: responseToJson[taskKeysArray[i]].prio,
         category: responseToJson[taskKeysArray[i]].category,
-        subcategory: responseToJson[taskKeysArray[i]].subcategory,
+        subcategory: responseToJson[taskKeysArray[i]].subcategory || [],
       });
     }
   } else {
