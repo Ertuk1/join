@@ -1,3 +1,5 @@
+
+
 let passwordInputClicks = 0;
 let isChecked = false;
 
@@ -57,8 +59,8 @@ function findUser(event) {
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
-    currentUser = [user]; 
-
+    sessionStorage.setItem('currentUser', JSON.stringify(user)); 
+    
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
       localStorage.setItem("savedUser", JSON.stringify(userToSave));
@@ -70,8 +72,6 @@ function findUser(event) {
   } else {
     handleInvalidUser(user, emailInput, passwordInput, password);
   }
-  console.log(currentUser);
-  
 }
 
 function resetInputBorders(emailInput, passwordInput) {
@@ -145,3 +145,4 @@ function getSavedUser() {
     document.getElementById("logInPasswordInput").value = user.password;
   }
 }
+

@@ -2,7 +2,6 @@ const BASE_URL =
   "https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/";
 let contacts = [];
 let users = [];
-let currentUser = [];
 
 async function addTask() {
   if (!checkRequiredInput()) {

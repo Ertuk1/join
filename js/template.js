@@ -52,3 +52,28 @@ function currentPage() {
         document.getElementById('privacyPolicyNoLoginMenu').classList.add('currentPagePolicy');
     }
     }
+
+const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+function showInitials() {
+  const userIcon = document.getElementById('userIcon');
+
+  if (currentUser && typeof currentUser === 'object') {
+    if (userIcon) {
+      const userName = currentUser.name;
+      const nameArray = userName.split(' ');
+      let initials = '';
+
+      if (nameArray.length > 0) {
+        initials = `${nameArray[0].charAt(0)}${nameArray[nameArray.length - 1].charAt(nameArray[Array.length - 1].length - 1)}`;
+      }
+
+      userIcon.innerHTML = `<div>${initials}</div>`;
+    } 
+  } 
+}
+
+
+
+
+
