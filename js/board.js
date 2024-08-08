@@ -17,17 +17,16 @@ function renderTasks() {
 
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
-        console.log(toDo.assignedTo);
-        let subcategory = getSubcategory(toDo);
+        let subtask = getSubtask(toDo);
+        let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
-        ? toDo.assignedTo.map((assignee, index) => {
-            let contact = contacts[index];
-            return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
-        }).join('')
-        : '';
-        let taskType = toDo.category 
+            ? toDo.assignedTo.map((assignee, index) => {
+                let contact = contacts[index];
+                return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
+            }).join('')
+            : '';
+        let taskType = toDo.category
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
-
         let newTask = document.createElement('div');
         newTask.classList.add('card');
         newTask.setAttribute('draggable', 'true');
@@ -42,9 +41,9 @@ function renderTasks() {
                     </div>
                     <div class="progressbar">
                         <div class="progressbarContainer">
-                            <div class="bar" id="progressBar1"></div>
+                            <div class="bar" id="progressBarId${i}"></div>
                         </div>
-                        <div class="subtasks">0/0 Subtasks</div>
+                        <div class="subtasks">${completedSubtasks}/${toDo.subcategory.length} Subtasks</div>
                     </div>
                     <div class="contactContainer">
                         <div style="display: flex;">
@@ -58,31 +57,33 @@ function renderTasks() {
             </div>
         `;
 
-        newTask.addEventListener('click', function(event) {
+        newTask.addEventListener('click', function (event) {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subcategory);;
+            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtask);;
         });
 
         taskToDo.appendChild(newTask);
+        updateProgressBar(completedSubtasks, toDo.subcategory.length, i); 
     }
+   
 }
 
-function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subcategoryHTML) {
+function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
 
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
-    ? taskAssignees.map((assignee, index) => {
-        let contact = contacts[index];
-        return contact ? `
+        ? taskAssignees.map((assignee, index) => {
+            let contact = contacts[index];
+            return contact ? `
         <div class="contactDiv">
             <span class="contactCard" style="background-color: ${assignee.color};"> ${contact.initials}</span>
             <span class="contactName">${contact.name}</span>
         </div>
         ` : '';
-    }).join('')
-    : '';
+        }).join('')
+        : '';
 
     overlayContent.innerHTML = `
         <section class="overlayUserTitle">
@@ -107,8 +108,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
             <span class="contactOverlay">Assigned To:</span>
                 ${assigneeOverlayContent}
         <div class="subtasksOverlay"><span>Subtasks</span></div>
-        ${subcategoryHTML}
-        <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">Start Page Layout</span></div>
+        ${subtaskHTML}
         <section>
             <div class="editDiv">
                 <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
@@ -123,17 +123,33 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
     overlayContent.style.opacity = "1";
 }
 
-function getSubcategory(toDo) {
-    let subCategoryHTML = '';
+function getSubtask(toDo) {
+    let subtaskHTML = '';
 
     for (let i = 0; i < toDo.subcategory.length; i++) {
-        let category = toDo.subcategory[i];
-
-        subCategoryHTML += /*html*/ `
-         <div class="checkBoxDiv"><input type="checkbox" id="simpleCheckbox" class="checkBox"> <span class="checkBoxText">${category}</span></div>
-        `
+        let subtask = toDo.subcategory[i];
+        let isChecked = toDo.completedSubtasks[i] === 'true' ? 'checked' : 'false';
+        subtaskHTML += /*html*/ `
+         <div class="checkBoxDiv">
+             <input type="checkbox" id="simpleCheckbox${i}" class="checkBox" onclick="addCompletedSubtasks(${i}, '${toDo.id}')" ${isChecked}>
+             <span class="checkBoxText">${subtask}</span>
+         </div>
+        `;
     }
-    return subCategoryHTML; 
+    return subtaskHTML;
+}
+
+async function addCompletedSubtasks(i, id) {
+    await loadDataTask();
+    let taskItem = task.find(taskItem => taskItem.id === id);
+    if (taskItem.completedSubtasks[i] == 'false') {
+        taskItem.completedSubtasks[i] = 'true';
+    }
+    else {
+        taskItem.completedSubtasks[i] = 'false';
+    }
+    await changeTask(`/task/${id}/completedSubtasks`, taskItem.completedSubtasks)
+    renderTasks();
 }
 
 
@@ -157,11 +173,11 @@ function checkIfEmpty() {
     }
 }
 
-/*function updateProgressBar(subtasksCompleted, totalSubtasks, progressBarId) {
+function updateProgressBar(subtasksCompleted, totalSubtasks, i) {
     let progressPercentage = (subtasksCompleted / totalSubtasks) * 100;
-    let progressBar = document.getElementById(progressBarId);
+    let progressBar = document.getElementById(`progressBarId${i}`);
     progressBar.style.width = progressPercentage + '%';
-}*/
+}
 
 function on() {
     const overlay = document.getElementById("overlay");

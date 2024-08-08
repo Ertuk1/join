@@ -2,6 +2,7 @@ let contactColors = {};
 let categoryChoosedIndex = 'false';
 let categoryChoosed = '';
 let subcategoriesChoosed = [];
+let subtaskCompleted = [];
 let choosedContacts = [];
 let taskPrio = '';
 let task = [];
@@ -315,6 +316,7 @@ function renderSubcategory() {
     let newCategory = subcategory.value;
     if (newCategory !== '') {
         subcategoriesChoosed.push(newCategory);
+        subtaskCompleted.push('false');
         for (let i = 0; i < subcategoriesChoosed.length; i++) {
             let choosedSubcategorie = subcategoriesChoosed[i];
             content.innerHTML += /*html*/`
@@ -368,6 +370,7 @@ function focusInput(inputId) {
 
 function removeSubcategory(i) {
     subcategoriesChoosed.splice(i, 1);
+    subtaskCompleted.splice(i, 1);
     renderSubcategory();
 }
 

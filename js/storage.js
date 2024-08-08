@@ -23,6 +23,7 @@ async function addTask() {
     prio: prio,
     category: categoryChoosed,
     subcategory: subcategoriesChoosed,
+    completedSubtasks: subtaskCompleted,
   };
   await postTask("/task", task);
   goToBoard();
@@ -44,6 +45,7 @@ async function loadDataTask(path = "/task") {
         prio: responseToJson[taskKeysArray[i]].prio,
         category: responseToJson[taskKeysArray[i]].category,
         subcategory: responseToJson[taskKeysArray[i]].subcategory || [],
+        completedSubtasks: responseToJson[taskKeysArray[i]].completedSubtasks || [],
       });
     }
   } else {
@@ -61,6 +63,19 @@ async function postTask(path, task) {
   });
   return (responseToJson = await response.json());
 }
+
+async function changeTask(path, task) {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(task),
+  });
+  return (responseToJson = await response.json());
+}
+
+
 
 async function changeContact(path = "", data = {}) {
   let response = await fetch(BASE_URL + path + ".json", {
