@@ -41,7 +41,7 @@ async function addUser(event) {
   try {
     await postUserData('/users', newUser);
     showSignUpPopup();
-    setTimeout(hideSignUpPopupAndRedirect, 9000);
+    setTimeout(hideSignUpPopupAndRedirect, 3000);
   } catch (error) {
     console.error("Fehler beim Senden der Daten:", error);
   }

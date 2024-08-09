@@ -321,7 +321,7 @@ footer a:hover {
   background-color: #2A3647;
   border-radius: 20px;
   left: 50%;
-  transform: translate(-50%, 350%);
+  transform: translate(-50%, 250%);
   filter: drop-shadow(0 0 4 0 #0000);
   transition: transform 0.5s ease-out 1s;
   position: absolute;
@@ -330,12 +330,13 @@ footer a:hover {
 }
 
 .moveToCenter {
-  transform: translate(-50%, -650%);
+  transform: translate(-50%, -500%);
 }
 
 .signUpPopup p {
   font-weight: 400;
   font-size: 24px;
   color: white;
+  padding: 0 25px;
 }
 
