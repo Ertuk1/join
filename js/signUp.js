@@ -6,6 +6,17 @@ async function initSignUp() {
   await loadUserData();
 }
 
+function getSignUpPopupContainer() {
+  let signUpPopupContainer = document.getElementById('signUpPopupContainer');
+  return signUpPopupContainer;
+}
+
+function getSignUpPopup() {
+  let signUpPopup = document.getElementById('signUpPopup');
+  return signUpPopup;
+}
+
+
 async function addUser(event) {
   event.preventDefault();
 
@@ -28,8 +39,9 @@ async function addUser(event) {
   let newUser = createNewUser(name, email, password);
 
   try {
-    await postUserData("/users", newUser);
-    redirectToLogIn();
+    await postUserData('/users', newUser);
+    showSignUpPopup();
+    setTimeout(hideSignUpPopupAndRedirect, 9000);
   } catch (error) {
     console.error("Fehler beim Senden der Daten:", error);
   }
@@ -76,6 +88,27 @@ function createNewUser(name, email, password) {
     email: email.value,
     password: password.value,
   };
+}
+
+function showSignUpPopup() {
+  let signUpPopupContainer = getSignUpPopupContainer();
+  let signUpPopup = getSignUpPopup();
+
+  signUpPopupContainer.classList.add('show');
+  signUpPopup.classList.add('moveToCenter');
+}
+
+function hideSignUpPopup() {
+  let signUpPopupContainer = getSignUpPopupContainer();
+  let signUpPopup = getSignUpPopup();
+
+  signUpPopupContainer.classList.remove('show');
+  signUpPopup.classList.remove('moveToCenter');
+} 
+
+function hideSignUpPopupAndRedirect() {
+  hideSignUpPopup();
+  redirectToLogIn();
 }
 
 function redirectToLogIn() {

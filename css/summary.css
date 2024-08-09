@@ -19,7 +19,7 @@ body {
 .appHeader {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 30px;
 }
 
 .appHeaderTitle {
@@ -31,7 +31,7 @@ body {
 .appHeaderSubtitle {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 30px;
 }
 
 .subtitleText {
@@ -49,14 +49,14 @@ body {
 .metricsColumn {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 28px;
 }
 
 .metricsRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 28px;
 }
 
 .metricCard {
