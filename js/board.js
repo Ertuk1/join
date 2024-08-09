@@ -28,13 +28,14 @@ function renderTasks() {
             : '';
         let taskType = toDo.category
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
+        let taskTypeBackgroundColor  = taskType === 'User Story' ? '#1FD7C1' : '';
         let newTask = document.createElement('div');
         newTask.classList.add('card');
         newTask.setAttribute('draggable', 'true');
         newTask.setAttribute('data-index', i);
         newTask.innerHTML = `
             <div class="cardContent">
-                <span class="labelUser">${taskType}</span>
+                <span class="labelUser" style="background-color: ${taskTypeBackgroundColor};">${taskType}</span>
                 <div class="contextContent">
                     <span class="cardTitle">${toDo.title}</span>
                     <div>
@@ -73,7 +74,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
-
+    let taskTypeBackgroundColor  = taskType === 'User Story' ? '#1FD7C1' : '';
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
         ? taskAssignees.map((assignee, index) => {
             let contact = contacts[index];
@@ -100,7 +101,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
         </div>
         </section>
         <section class="overlayUserTitle">
-            <span class="overlayUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
+            <span style="background-color: ${taskTypeBackgroundColor};" class="overlayUser">${taskType}</span>
             <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
         </section>
         <section>
