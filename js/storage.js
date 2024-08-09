@@ -160,3 +160,21 @@ async function postUserData(path, newUser) {
   });
   return (responseToJson = await response.json());
 }
+
+async function deleteTask(id) {
+    
+    await deleteDataTask(`/task/${id}`);
+
+    
+    await loadDataTask();
+
+    
+    renderTasks();
+}
+
+async function deleteDataTask(path) {
+    let response = await fetch(BASE_URL + path + ".json", {
+        method: "DELETE"
+    });
+    return response.json();
+}

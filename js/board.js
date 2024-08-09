@@ -124,7 +124,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
         ${subtaskHTML}
         <section>
             <div class="editDiv">
-                <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
+                <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
                 <div class="vector"></div>
                 <div class="deleteDiv" onclick="ShowEditOverlay('${id}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
             </div>
