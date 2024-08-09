@@ -197,10 +197,8 @@ function on() {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
 
-    // Get all task elements, including the hard-coded ones
     const tasks = document.querySelectorAll(".card");
 
-    // Add a click event listener to each task element
     tasks.forEach(task => {
         task.addEventListener("click", () => {
             overlay.style.display = "flex";
@@ -272,4 +270,20 @@ function ShowEditOverlay(id) {
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
+}
+
+function searchTasks() {
+    let searchInput = document.getElementById('searchInput').value.toLowerCase();
+    let taskCards = document.querySelectorAll('.card');
+
+    taskCards.forEach(card => {
+        let taskTitle = card.querySelector('.cardTitle').textContent.toLowerCase();
+        let taskDescription = card.querySelector('.cardContext').textContent.toLowerCase();
+
+        if (taskTitle.includes(searchInput) || taskDescription.includes(searchInput)) {
+            card.style.display = 'block'; // Zeige die Karte an, wenn sie mit der Suche übereinstimmt
+        } else {
+            card.style.display = 'none'; // Verstecke die Karte, wenn sie nicht mit der Suche übereinstimmt
+        }
+    });
 }

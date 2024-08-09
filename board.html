@@ -24,7 +24,7 @@
                 <h2>Board</h2>
                 <div class="search-and-add">
                     <div class="search-bar">
-                        <input type="search" placeholder="Search..." id="searchInput">
+                        <input oninput="searchTasks()" type="search" placeholder="Search..." id="searchInput">
                         <button type="button" id="searchButton">Search</button>
                     </div>
                     <button onclick="showOverlay();stopPropagation(event)" class="addTaskButton">Add task<div class="addSymbol"><img
