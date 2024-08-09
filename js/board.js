@@ -127,7 +127,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
             <div class="editDiv">
                 <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
                 <div class="vector"></div>
-                <div class="deleteDiv" onclick="ShowEditOverlay('${id}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+                <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
             </div>
         </section>
     `;
@@ -262,7 +262,7 @@ function getPriorityIcon(priority) {
     }
 }
 
-function ShowEditOverlay(id) {
+function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate) {
     document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
     document.getElementById(`edit-main-input-container${id}`).classList.remove('main-input-container');
     document.getElementById(`edit-main-input-container${id}`).classList.add('edit-main-input-container');
@@ -271,6 +271,15 @@ function ShowEditOverlay(id) {
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
+
+    renderEditTaskData(id, taskTitle, taskDescription, taskDueDate);
+}
+
+function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate){
+    document.getElementById('task-title').value = taskTitle;
+    document.getElementById('at-description').value = taskDescription;  
+
+    document.getElementById('task-due-date').value = taskDueDate;
 }
 
 function searchTasks() {

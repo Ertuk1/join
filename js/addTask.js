@@ -111,6 +111,7 @@ function showContactList(customSelects, selectSelected, selectItems) {
     });
 }
 
+
 function chooseContactFromList(options) {
     options.forEach(function (option) {
         option.addEventListener('click', function (event) {
