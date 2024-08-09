@@ -17,6 +17,7 @@ function renderTasks() {
 
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
+        let id = task[i].id; 
         let subtask = getSubtask(toDo);
         let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
@@ -59,7 +60,7 @@ function renderTasks() {
 
         newTask.addEventListener('click', function (event) {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtask);;
+            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtask, id);;
         });
 
         taskToDo.appendChild(newTask);
@@ -68,7 +69,7 @@ function renderTasks() {
    
 }
 
-function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML) {
+async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML, id) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
@@ -85,7 +86,19 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
         }).join('')
         : '';
 
-    overlayContent.innerHTML = `
+    overlayContent.innerHTML = /*html*/`
+    <section id="edit-task-overlay${id}" class="edit-task-overlay d-none">
+    <section class="edit-close-btn-container">
+            <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
+        </section>
+            <form id="edit-main-input-container${id}" class="main-input-container" w3-include-html="template/addTaskTemplate.html"></form>
+            <div class="edit-btn-position-container">
+                <div onclick="addTask()" class="board-task-edit-btn">
+                    <div>Ok</div><img src="assets/img/check(ok).png">
+                </div>
+            </div>
+        </div>
+        </section>
         <section class="overlayUserTitle">
             <span class="overlayUser">${taskType === 'user-story' ? 'User Story' : 'Technical Task'}</span>
             <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
@@ -113,7 +126,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
             <div class="editDiv">
                 <div class="deleteDiv"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
                 <div class="vector"></div>
-                <div class="deleteDiv"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+                <div class="deleteDiv" onclick="ShowEditOverlay('${id}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
             </div>
         </section>
     `;
@@ -121,6 +134,7 @@ function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, tas
     overlay.style.display = "flex";
     overlayContent.style.transform = "translateX(0)";
     overlayContent.style.opacity = "1";
+    await includeHTML();
 }
 
 function getSubtask(toDo) {
@@ -247,4 +261,15 @@ function getPriorityIcon(priority) {
         default:
             return ''; // or return a default icon path
     }
+}
+
+function ShowEditOverlay(id) {
+    document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
+    document.getElementById(`edit-main-input-container${id}`).classList.remove('main-input-container');
+    document.getElementById(`edit-main-input-container${id}`).classList.add('edit-main-input-container');
+    document.getElementById('input-border-container').classList.add('d-none');
+    document.getElementById('at-alert-description').classList.add('d-none');
+    document.getElementById('at-btn-container').classList.add('d-none');
+    document.getElementById('category-headline').classList.add('d-none');
+    document.getElementById('category-input').classList.add('d-none');
 }

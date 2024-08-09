@@ -32,7 +32,8 @@
     background-color: white;
     cursor: auto;
     box-shadow: 0px 0px 4px 0px #00000029;
-    overflow-y: auto;
+    overflow-y: hidden;
+    position: relative;
     
 
 
@@ -293,6 +294,7 @@ color: #2A3647;
 gap: 8px;
 display: flex;
 align-items: center;
+cursor: pointer;
 
 }
 
@@ -302,5 +304,61 @@ align-items: center;
     border: 1px solid #D1D1D1;
     margin-right: 8px;
     margin-left: 8px;
+}
+
+.edit-close-btn-container{
+    justify-content: flex-end;
+    display: flex;
+    padding-bottom: 24px;
+    margin-right: 80px;
+    margin-top: 40px;
+
+}
+
+.edit-task-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    background-color: white;
+    height: 100%;
+    width: 99%;
+}
+
+.board-task-edit-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    gap: 12px;
+    font-size: 20px;
+    background: #2A3647;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    margin-right: 75px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+
+.board-task-edit-btn:hover {
+    background: rgba(41, 171, 226, 1);
+    box-shadow: 0px 4px 4px 0px #00000040;
+    transition: all ease-in-out 100ms;
+
+}
+
+.board-task-edit-btn img {
+    height: 14px;
+    width: 14px;
+}
+
+.edit-btn-position-container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
