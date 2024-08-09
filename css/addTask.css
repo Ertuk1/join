@@ -264,6 +264,19 @@ body {
     background-color: white;
 }
 
+.select-hide {
+    display: none;
+}
+
+.select-arrow-active {
+    border-color: #aaa transparent transparent transparent;
+}
+
+.select-selected {
+    cursor: pointer;
+}
+
+
 .select-selected {
     display: flex;
     justify-content: space-between;

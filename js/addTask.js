@@ -11,8 +11,26 @@ async function addTaskInit() {
     await includeHTML();
     await loadDataContacts();
     await renderAssignedToContacts();
+    setupDropdownToggle(); 
     showAvailableContacts();
     showCategoryList();
+}
+
+function setupDropdownToggle() {
+    const selectedElement = document.querySelector('.select-selected');
+    const dropdownContainer = document.getElementById('at-contact-container');
+
+    selectedElement.addEventListener('click', function () {
+        this.classList.toggle('select-arrow-active');
+        dropdownContainer.classList.toggle('select-hide');
+    });
+    
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.custom-select')) {
+            dropdownContainer.classList.add('select-hide');
+            selectedElement.classList.remove('select-arrow-active');
+        }
+    });
 }
 
 async function renderAssignedToContacts() {
@@ -74,7 +92,7 @@ function showChoosedContacts() {
     }
 }
 
-function showAvailableContacts() {
+async function showAvailableContacts() {
     let customSelects = document.querySelectorAll('.custom-select');
     customSelects.forEach(function (select) {
         let selectSelected = select.querySelector('.select-selected');
@@ -130,11 +148,9 @@ function setBackgroundColorPrio(prio) {
     if (prioStatus.classList.contains(`at-bg-${prio}`)) {
         removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
         taskPrio = '';
-        console.log(taskPrio);
     } else {
         addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive);
         taskPrio = prio;
-        console.log(taskPrio);
     }
 }
 

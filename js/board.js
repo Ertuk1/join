@@ -3,7 +3,6 @@ async function initBoard() {
     await loadDataContacts();
     await includeHTML();
     checkIfEmpty();
-    //updateProgressBar(1, 2, 'progressBar1');
     renderTasks();
 }
 
@@ -18,7 +17,8 @@ function renderTasks() {
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
         let id = task[i].id; 
-        let subtask = getSubtask(toDo);
+        let subtaskHTML = getSubtask(toDo);
+        let editSubtask = getEditSubtaskHTML(toDo.subcategory);        
         let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
             ? toDo.assignedTo.map((assignee, index) => {
@@ -61,7 +61,7 @@ function renderTasks() {
 
         newTask.addEventListener('click', function (event) {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtask, id);;
+            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtaskHTML, id, editSubtask);;
         });
 
         taskToDo.appendChild(newTask);
@@ -70,7 +70,7 @@ function renderTasks() {
    
 }
 
-async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML, id) {
+async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML, id, editSubtask) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
@@ -127,7 +127,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
             <div class="editDiv">
                 <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
                 <div class="vector"></div>
-                <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
+                <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}', '${taskPriority}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
             </div>
         </section>
     `;
@@ -262,7 +262,8 @@ function getPriorityIcon(priority) {
     }
 }
 
-function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate) {
+async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask) {
+    await addTaskInit();
     document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
     document.getElementById(`edit-main-input-container${id}`).classList.remove('main-input-container');
     document.getElementById(`edit-main-input-container${id}`).classList.add('edit-main-input-container');
@@ -271,16 +272,38 @@ function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate) {
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
-
-    renderEditTaskData(id, taskTitle, taskDescription, taskDueDate);
+   
+    renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask);
 }
 
-function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate){
+function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask){
     document.getElementById('task-title').value = taskTitle;
     document.getElementById('at-description').value = taskDescription;  
-
     document.getElementById('task-due-date').value = taskDueDate;
+    setBackgroundColorPrio(taskPriority);
+    document.getElementById('added-subcategories').innerHTML = editSubtask; 
 }
+
+function getEditSubtaskHTML(editSubtask) {
+    let subtaskHTML = ''
+    for (let i = 0; i < editSubtask.length; i++) {
+        let choosedSubcategorie = editSubtask[i];
+        subtaskHTML += /*html*/`
+    <div class="choosed-subcategorie-container">
+        <input class="choosed-subcategory-input" value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
+        <div class="choosed-subcategorie-btn-container">
+            <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit-${i}">
+            <div class="small-border-container"></div>
+            <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
+        </div>
+        <div class="choosed-subcategorie-btn-container-active-field">
+            <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
+            <div class="small-border-container-gray"></div>
+            <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
+        </div>
+    </div>`
+}
+return subtaskHTML}
 
 function searchTasks() {
     let searchInput = document.getElementById('searchInput').value.toLowerCase();
