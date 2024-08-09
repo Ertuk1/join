@@ -1,5 +1,3 @@
-
-
 let passwordInputClicks = 0;
 let isChecked = false;
 

@@ -1,3 +1,9 @@
+let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+async function initTemplate() {
+    await includeHTML();
+    showInitials();
+}
 
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -53,8 +59,6 @@ function currentPage() {
     }
     }
 
-const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-
 function showInitials() {
   const userIcon = document.getElementById('userIcon');
 
@@ -73,6 +77,14 @@ function showInitials() {
   } 
 }
 
+function clearSessionStorage() {
+  sessionStorage.clear();
+}
+  
+function logout() {
+  clearSessionStorage();
+  window.location.href = "/index.html";
+}
 
 
 
