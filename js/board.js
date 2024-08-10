@@ -6,13 +6,62 @@ async function initBoard() {
     renderTasks();
 }
 
+let currentDraggedElement = null;
+
 function stopPropagation(event) {
     event.stopPropagation();
 }
 
+function startDragging(taskId) {
+    currentDraggedElement = taskId;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+async function drop(event) {
+    event.preventDefault(); // Verhindert die Standardbehandlung
+
+    let dropZone = event.target.closest('.taskContent'); // Bestimmt die Drop-Zone
+    if (!dropZone) return;
+
+    let taskElement = document.querySelector(`[data-id="${currentDraggedElement}"]`);
+    if (!taskElement) {
+        console.error('Task element not found with id:', currentDraggedElement);
+        return; // Bricht ab, falls das Element nicht gefunden wird
+    }
+
+    dropZone.appendChild(taskElement); // Fügt die Karte in die neue Spalte ein
+
+    // Aktualisiere die Daten und speichere sie
+    let task = tasks.find(t => t.id === currentDraggedElement);
+    if (task) {
+        if (dropZone.id === 'toDo') {
+            task.status = 'toDo';
+        } else if (dropZone.id === 'progress') {
+            task.status = 'progress';
+        } else if (dropZone.id === 'feedback') {
+            task.status = 'feedback';
+        } else if (dropZone.id === 'done') {
+            task.status = 'done';
+        }
+        await changeTask(`/task/${currentDraggedElement}/status`, task.status);
+    } else {
+        console.error('Task data not found for id:', currentDraggedElement);
+    }
+}
+
 function renderTasks() {
     let taskToDo = document.getElementById('toDo');
+    let taskInProgress = document.getElementById('progress');
+    let taskFeedback = document.getElementById('feedback');
+    let taskDone = document.getElementById('done');
+
     taskToDo.innerHTML = '';
+    taskInProgress.innerHTML = '';
+    taskFeedback.innerHTML = '';
+    taskDone.innerHTML = '';
 
     for (let i = 0; i < task.length; i++) {
         let toDo = task[i];
@@ -32,7 +81,8 @@ function renderTasks() {
         let newTask = document.createElement('div');
         newTask.classList.add('card');
         newTask.setAttribute('draggable', 'true');
-        newTask.setAttribute('data-index', i);
+        newTask.setAttribute('ondragstart', `startDragging('${id}')`);
+        newTask.setAttribute('data-id', id);
         newTask.innerHTML = `
             <div class="cardContent">
                 <span class="labelUser" style="background-color: ${taskTypeBackgroundColor};">${taskType}</span>
@@ -64,7 +114,23 @@ function renderTasks() {
             showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtaskHTML, id, editSubtask);;
         });
 
-        taskToDo.appendChild(newTask);
+        switch (toDo.status) {
+            case 'toDo':
+                taskToDo.appendChild(newTask);
+                break;
+            case 'progress':
+                taskInProgress.appendChild(newTask);
+                break;
+            case 'feedback':
+                taskFeedback.appendChild(newTask);
+                break;
+            case 'done':
+                taskDone.appendChild(newTask);
+                break;
+            default:
+                taskToDo.appendChild(newTask);
+                break;
+        }
         updateProgressBar(completedSubtasks, toDo.subcategory.length, i); 
     }
    
