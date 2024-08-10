@@ -6,11 +6,14 @@ async function logInInit() {
   joinImgAnimation();
   await loadUserData();
   getSavedUser();
+  addHoverForLogin();
 }
+
 
 function redirectToSignup() {
   window.location.href = "signUp.html";
 }
+
 
 function joinImgAnimation() {
   let animatedImageContainer = document.querySelector(".animatedImageContainer");
@@ -26,6 +29,7 @@ function joinImgAnimation() {
   }
 }
 
+
 function startAnimation(animatedImageContainer, animatedImage, joinIcon) {
   setTimeout(function () {
     animatedImageContainer.classList.add("fadeOut");
@@ -38,11 +42,34 @@ function startAnimation(animatedImageContainer, animatedImage, joinIcon) {
   }, 500);
 }
 
+
 function hideElements(animatedImageContainer, animatedImage, joinIcon) {
   animatedImageContainer.classList.add("hideElements");
   animatedImage.classList.add("hideElements");
   joinIcon.classList.remove("hideElements");
 }
+
+
+function checkInputs() {
+  let logInButton = document.getElementById("logIn");
+  let emailInput = document.getElementById("logInEmailInput");
+  let passwordInput = document.getElementById("logInPasswordInput");
+
+  if (emailInput.value.trim() !== "" && passwordInput.value.trim() !== "") {
+    logInButton.classList.add("logInValid");
+  } else {
+    logInButton.classList.remove("logInValid");
+  }
+}
+
+
+function addHoverForLogin() {
+  let emailInput = document.getElementById("logInEmailInput");
+  let passwordInput = document.getElementById("logInPasswordInput");
+  emailInput.addEventListener("input", checkInputs);
+  passwordInput.addEventListener("input", checkInputs);
+}
+
 
 function findUser(event) {
   event.preventDefault();
@@ -57,8 +84,7 @@ function findUser(event) {
   resetInputBorders(emailInput, passwordInput);
 
   if (isValidUser(user, password)) {
-    sessionStorage.setItem('currentUser', JSON.stringify(user)); 
-    
+    sessionStorage.setItem('currentUser', JSON.stringify(user));  
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
       localStorage.setItem("savedUser", JSON.stringify(userToSave));
@@ -72,18 +98,22 @@ function findUser(event) {
   }
 }
 
+
 function resetInputBorders(emailInput, passwordInput) {
   emailInput.style.borderColor = "";
   passwordInput.style.borderColor = "";
 }
 
+
 function isValidUser(user, password) {
   return user && user.password === password;
 }
 
+
 function redirectToSummary() {
   window.location.href = "/summary.html";
 }
+
 
 function handleInvalidUser(user, emailInput, passwordInput, password) {
   if (!user) {
@@ -121,9 +151,9 @@ function handlePasswordInputClick() {
   }
 }
 
+
 function toggleCheckbox(img) {
   let checkmark = document.getElementById("checkmark");
-
   checkmark.classList.toggle("dNone");
 
   if (checkmark.classList.contains("dNone")) {
@@ -134,6 +164,7 @@ function toggleCheckbox(img) {
     isChecked = true;
   }
 }
+
 
 function getSavedUser() {
   let savedUser = localStorage.getItem("savedUser");

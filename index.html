@@ -38,6 +38,7 @@
               class="emailInput"
               type="email"
               placeholder="Email"
+              required
             />
             <div class="logInPasswordContainer">
               <input
@@ -46,6 +47,7 @@
               class="passwordInput"
               type="password"
               placeholder="Password"
+              required
             />
             <span class="passwordAlert dNone">Check your email and password. Please try again.</span>
             </div>
@@ -69,7 +71,7 @@
             <p>Remember me</p>
           </div>
           <div class="logInButtons">
-            <button type="submit" class="logIn">Log in</button>
+            <button id="logIn" type="submit" class="logIn">Log in</button>
             <button class="GuestLogIn" onclick="redirectToSummary()">Guest Log in</button>
           </div>
         </form>
