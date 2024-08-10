@@ -305,3 +305,115 @@ footer a:hover {
   left: 4px;
   z-index: 0;
 }
+
+.resposivSignup {
+  display: none;
+}
+
+@media (max-width: 730px) {
+  .logInContainer {
+    padding: 48px 16px;
+  }
+  .joinIcon {
+    width: 64px;
+  }
+  .signUPContainer {
+    display: none;
+  }
+  .resposivSignup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 600px;
+    position: relative;
+  }
+  .signUPContainerResposiv {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-right: 40px;
+  }
+  .singupTextResposiv {
+    font-size: 24px;
+    margin: 0;
+  }
+  .signUpResposiv {
+    font-size: 16px;
+    font-weight: bold;
+    margin: -10px;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgb(42, 54, 71);
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .signUpResposiv:hover {
+    cursor: pointer;
+    background-color: rgb(41, 171, 226, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (max-width: 530px) {
+  header {
+    margin: 38px 38px;
+  }
+  .resposivSignup {
+    margin-top: 642px;
+  }
+  .logIntText {
+    font-size: 47px;
+  }
+  .emailInput {
+    width: 364px;
+  }
+  .passwordInput {
+    width: 364px;
+  }
+}
+
+@media (max-width: 530px) {
+  .emailInput {
+    width: 240px;
+  }
+  .passwordInput {
+    width: 240px;
+  }
+  .logInInput {
+    align-items: center;
+  }
+  .rememberMe {
+    width: 250px;
+    margin: 24px 16px;
+  }
+  .logInButtons {
+    flex-direction: column;
+    margin: 0;
+    gap: 21px;
+  }
+  .resposivSignup {
+    margin-top: 677px;
+  }
+  .signUPContainerResposiv {
+    margin: 0;
+  }
+  .logIn {
+    padding: 15px 57px;
+  } 
+  .signUPContainerResposiv {
+    gap: 35px;
+  }
+  .singupTextResposiv {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 415px) {
+  .resposivSignup {
+    margin-top: 646px;
+}
+}
+
+@media (max-width: 375px) {
+  
+}
