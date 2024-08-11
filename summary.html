@@ -30,7 +30,7 @@
               <div class="toDoIcon"></div>
             </div>
             <div class="metricDetails">
-              <p class="metricValue">1</p>
+              <p id="toDo" class="metricValue">1</p>
               <p class="metricLabel">To-do</p>
             </div>
           </div>
@@ -39,7 +39,7 @@
               <div class="checkIcon"></div>
             </div>
             <div class="metricDetails">
-              <p class="metricValue">1</p>
+              <p id="done" class="metricValue">1</p>
               <p class="metricLabel">Done</p>
             </div>
           </div>
@@ -59,27 +59,27 @@
               />
             </div>
             <div class="metricDetails">
-              <p class="metricValue">1</p>
+              <p id="urgent" class="metricValue">1</p>
               <p class="metricLabel">Urgent</p>
             </div>
           </div>
           <div class="horizontalBar"></div>
           <div class="deadlineContainer">
-            <p class="deadlineDate">October 16, 2024</p>
+            <p id="upcomingDeadline" class="deadlineDate">October 16, 2024</p>
             <p class="deadlineLabel">Upcoming Deadline</p>
           </div>
         </div>
         <div class="metricsRow">
           <div onclick="redirectToBoard()" class="metricCard taskContainer">
-            <p class="metricValue">1</p>
+            <p id="tasksInBoard" class="metricValue">1</p>
             <p class="metricLabel taskText">Tasks in Board</p>
           </div>
           <div onclick="redirectToBoard()" class="metricCard taskContainer">
-            <p class="metricValue">1</p>
+            <p id="tasksInProgress" class="metricValue">1</p>
             <p class="metricLabel taskText">Tasks in Progress</p>
           </div>
           <div onclick="redirectToBoard()" class="metricCard taskContainer">
-            <p class="metricValue">1</p>
+            <p id="awaitingFeedback" class="metricValue">1</p>
             <p class="metricLabel taskText">Awaiting Feedback</p>
           </div>
         </div>

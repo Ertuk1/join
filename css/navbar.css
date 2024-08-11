@@ -48,6 +48,10 @@ body {
   color: rgba(205, 205, 205, 1);
 }
 
+.menu a {
+  text-decoration: none;
+}
+
 .summery {
   display: flex;
   align-items: center;
