@@ -23,6 +23,7 @@ async function addTask() {
     category: categoryChoosed,
     subcategory: subcategoriesChoosed,
     completedSubtasks: subtaskCompleted,
+    status: 'toDo',
   };
   await postTask("/task", task);
   goToBoard();
@@ -45,6 +46,7 @@ async function loadDataTask(path = "/task") {
         category: responseToJson[taskKeysArray[i]].category,
         subcategory: responseToJson[taskKeysArray[i]].subcategory || [],
         completedSubtasks: responseToJson[taskKeysArray[i]].completedSubtasks || [],
+        status: responseToJson[taskKeysArray[i]].status,
       });
     }
   } else {
