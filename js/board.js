@@ -21,32 +21,29 @@ function allowDrop(event) {
 }
 
 async function drop(event) {
-    event.preventDefault(); // Verhindert die Standardbehandlung
+    event.preventDefault(); // Prevent default drop behavior
 
-    let dropZone = event.target.closest('.taskContent'); // Bestimmt die Drop-Zone
+    let dropZone = event.target.closest('.taskContent'); // Identify the drop zone
     if (!dropZone) return;
 
     let taskElement = document.querySelector(`[data-id="${currentDraggedElement}"]`);
     if (!taskElement) {
         console.error('Task element not found with id:', currentDraggedElement);
-        return; // Bricht ab, falls das Element nicht gefunden wird
+        return;
     }
 
-    dropZone.appendChild(taskElement); // Fügt die Karte in die neue Spalte ein
+    // Append the task to the drop zone
+    dropZone.appendChild(taskElement);
 
-    // Aktualisiere die Daten und speichere sie
+    // Update the task's status based on the drop zone ID
+    let newStatus = dropZone.id;
     let task = tasks.find(t => t.id === currentDraggedElement);
+
     if (task) {
-        if (dropZone.id === 'toDo') {
-            task.status = 'toDo';
-        } else if (dropZone.id === 'progress') {
-            task.status = 'progress';
-        } else if (dropZone.id === 'feedback') {
-            task.status = 'feedback';
-        } else if (dropZone.id === 'done') {
-            task.status = 'done';
-        }
+        task.status = newStatus;
         await changeTask(`/task/${currentDraggedElement}/status`, task.status);
+        await loadDataTask(); // Reload tasks from backend
+        renderTasks(); // Re-render tasks to reflect changes
     } else {
         console.error('Task data not found for id:', currentDraggedElement);
     }
@@ -58,16 +55,16 @@ function renderTasks() {
     let taskFeedback = document.getElementById('feedback');
     let taskDone = document.getElementById('done');
 
+    // Clear all columns
     taskToDo.innerHTML = '';
     taskInProgress.innerHTML = '';
     taskFeedback.innerHTML = '';
     taskDone.innerHTML = '';
 
-    for (let i = 0; i < task.length; i++) {
-        let toDo = task[i];
-        let id = task[i].id; 
+    tasks.forEach((toDo, i) => {
+        let id = toDo.id;
         let subtaskHTML = getSubtask(toDo);
-        let editSubtask = getEditSubtaskHTML(toDo.subcategory);        
+        let editSubtask = getEditSubtaskHTML(toDo.subcategory);
         let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
             ? toDo.assignedTo.map((assignee, index) => {
@@ -75,9 +72,9 @@ function renderTasks() {
                 return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
             }).join('')
             : '';
-        let taskType = toDo.category
+        let taskType = toDo.category;
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
-        let taskTypeBackgroundColor  = taskType === 'User Story' ? '#1FD7C1' : '';
+        let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
         let newTask = document.createElement('div');
         newTask.classList.add('card');
         newTask.setAttribute('draggable', 'true');
@@ -102,7 +99,7 @@ function renderTasks() {
                             ${taskAssignee}
                         </div>
                         <div>
-                            <img class="urgentSymbol" src="${taskPriorityIcon}" alt="${toDo.priority}">
+                            <img class="urgentSymbol" src="${taskPriorityIcon}" alt="${toDo.prio}">
                         </div>
                     </div>
                 </div>
@@ -111,9 +108,10 @@ function renderTasks() {
 
         newTask.addEventListener('click', function (event) {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtaskHTML, id, editSubtask);;
+            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtaskHTML, id, editSubtask);
         });
 
+        // Append the task to the appropriate column based on its status
         switch (toDo.status) {
             case 'toDo':
                 taskToDo.appendChild(newTask);
@@ -128,13 +126,16 @@ function renderTasks() {
                 taskDone.appendChild(newTask);
                 break;
             default:
-                taskToDo.appendChild(newTask);
+                taskToDo.appendChild(newTask); // Default fallback
                 break;
         }
-        updateProgressBar(completedSubtasks, toDo.subcategory.length, i); 
-    }
-   
+
+        updateProgressBar(completedSubtasks, toDo.subcategory.length, i);
+    });
+
+    checkIfEmpty(); // Ensure columns display empty messages if needed
 }
+
 
 async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML, id, editSubtask) {
     const overlay = document.getElementById("overlay");

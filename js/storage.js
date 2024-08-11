@@ -2,6 +2,7 @@ const BASE_URL =
   "https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/";
 let contacts = [];
 let users = [];
+let tasks = [];
 
 async function addTask() {
   if (!checkRequiredInput()) {
@@ -31,28 +32,30 @@ async function addTask() {
 
 async function loadDataTask(path = "/task") {
   let response = await fetch(BASE_URL + path + ".json");
-  responseToJson = await response.json();
+  let responseToJson = await response.json();
+
   if (responseToJson) {
-    task = [];
-    let taskKeysArray = Object.keys(responseToJson);
-    for (let i = 0; i < taskKeysArray.length; i++) {
-      task.push({
-        id: taskKeysArray[i],
-        title: responseToJson[taskKeysArray[i]].title,
-        description: responseToJson[taskKeysArray[i]].description,
-        assignedTo: responseToJson[taskKeysArray[i]].assignedTo || [],
-        date: responseToJson[taskKeysArray[i]].date,
-        prio: responseToJson[taskKeysArray[i]].prio,
-        category: responseToJson[taskKeysArray[i]].category,
-        subcategory: responseToJson[taskKeysArray[i]].subcategory || [],
-        completedSubtasks: responseToJson[taskKeysArray[i]].completedSubtasks || [],
-        status: responseToJson[taskKeysArray[i]].status,
-      });
-    }
-  } else {
-    return;
+      tasks = []; // Clear existing tasks
+      let taskKeysArray = Object.keys(responseToJson);
+
+      for (let i = 0; i < taskKeysArray.length; i++) {
+          let taskData = responseToJson[taskKeysArray[i]];
+          tasks.push({
+              id: taskKeysArray[i],
+              title: taskData.title,
+              description: taskData.description,
+              assignedTo: taskData.assignedTo || [],
+              date: taskData.date,
+              prio: taskData.prio,
+              category: taskData.category,
+              subcategory: taskData.subcategory || [],
+              completedSubtasks: taskData.completedSubtasks || [],
+              status: taskData.status
+          });
+      }
   }
 }
+
 
 async function postTask(path, task) {
   let response = await fetch(BASE_URL + path + ".json", {
