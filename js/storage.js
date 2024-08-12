@@ -31,6 +31,33 @@ async function addTask() {
   goToBoard();
 }
 
+async function addTaskBoard() {
+  if (!checkRequiredInput()) {
+    return;
+  }
+  let title = document.getElementById("task-title");
+  let description = document.getElementById("at-description");
+  let assignedTo =
+    choosedContacts && choosedContacts.length > 0 ? choosedContacts : [];
+  let date = document.getElementById("task-due-date");
+  let prio = taskPrio;
+
+
+  task = {
+    title: title.value,
+    description: description.value,
+    assignedTo: assignedTo,
+    date: date.value,
+    prio: prio,
+    category: categoryChoosed,
+    subcategory: subcategoriesChoosed,
+    completedSubtasks: subtaskCompleted,
+    status: 'toDo',
+  };
+  await postTask("/task", task);
+  goToBoard();
+}
+
 async function loadDataTask(path = "/task") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
