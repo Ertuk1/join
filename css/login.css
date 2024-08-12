@@ -7,6 +7,8 @@ body {
   margin: 0;
   background-color: rgb(246, 247, 248);
   font-family: "inter", sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -383,53 +385,41 @@ footer a:hover {
 }
 
 @media (max-width: 530px) {
-  .justifyLogInContainer {
-    top: 52%;
-  }
-  .resposivSignup {
-    margin-top: 642px;
-  }
   .logIntText {
-    font-size: 47px;
+    margin: 0 0 32px 0;
   }
   .emailInput {
-    width: 364px;
+    width: 348px;
   }
   .passwordInput {
-    width: 364px;
-  }
-}
-
-@media (max-width: 530px) {
-  .emailInput {
-    width: 240px;
-  }
-  .passwordInput {
-    width: 240px;
+    width: 348px;
   }
   .logInInput {
     align-items: center;
+    gap: 32px;
   }
   .rememberMe {
     width: 250px;
-    margin: 24px 16px;
+    margin: 32px 16px;
   }
   .logInButtons {
     flex-direction: column;
     margin: 0;
-    gap: 16px;
+    gap: 21px;
   }
   .resposivSignup {
-    margin-top: 479px;
+    margin-top: 638px;
   }
   .signUPContainerResposiv {
     margin: 0;
+    gap: 35px;
   }
   .logIn {
-    padding: 15px 57px;
+    padding: 15px 48px;
+    font-size: 16px;
   }
-  .signUPContainerResposiv {
-    gap: 35px;
+  .GuestLogIn {
+    font-size: 16px;
   }
   .singupTextResposiv {
     font-size: 20px;
@@ -437,16 +427,23 @@ footer a:hover {
   .rememberMe {
     margin: 16px 16px;
   }
-  .logInContainer{
-    padding: 16px 16px;
+  .logInContainer {
+    padding: 32px 16px;
   }
   .justifyLogInContainer {
     top: 49%;
-}
+  }
+  footer {
+    position: relative;
+    width: 100%;
+    margin-top: 34px;
+    top: unset;
+    left: unset;
+    transform: none;
+  }
 }
 
 @media (max-width: 415px) {
-
 }
 
 @media (max-width: 375px) {
