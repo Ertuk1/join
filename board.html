@@ -35,7 +35,7 @@
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>To do</span>
-                        <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
+                        <img onclick="showOverlay();stopPropagation(event)" class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="toDo" class="taskContent" ondrop="drop(event)" ondragover="allowDrop(event)">
 
@@ -44,7 +44,7 @@
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>In progress</span>
-                        <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
+                        <img onclick="showOverlay('progress')" class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="progress" class="taskContent" ondrop="drop(event)" ondragover="allowDrop(event)">
 
@@ -53,7 +53,7 @@
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>Await feedback</span>
-                        <img class="plussButton" src="./assets/img/plus button.png" alt="plus button">
+                        <img onclick="showOverlay('feedback')" class="plussButton" src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="feedback" class="taskContent" ondrop="drop(event)" ondragover="allowDrop(event)">
 

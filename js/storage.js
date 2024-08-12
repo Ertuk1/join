@@ -14,6 +14,7 @@ async function addTask() {
     choosedContacts && choosedContacts.length > 0 ? choosedContacts : [];
   let date = document.getElementById("task-due-date");
   let prio = taskPrio;
+  let status = document.getElementById('addTaskOverlay').dataset.status || 'toDo';
 
   task = {
     title: title.value,
@@ -24,7 +25,7 @@ async function addTask() {
     category: categoryChoosed,
     subcategory: subcategoriesChoosed,
     completedSubtasks: subtaskCompleted,
-    status: 'toDo',
+    status: status,
   };
   await postTask("/task", task);
   goToBoard();

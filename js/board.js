@@ -296,9 +296,10 @@ function off() {
     overlay.classList.add("fade-out-overlay");
 }
 
-async function showOverlay() {
+async function showOverlay(status = 'toDo') {
     await addTaskInit();
     addTaskOverlay.style.display = 'block';
+    document.getElementById('addTaskOverlay').dataset.status = status;
 }
 
 function offAddTask() {
