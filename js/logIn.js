@@ -16,37 +16,54 @@ function redirectToSignup() {
 
 
 function joinImgAnimation() {
-  let animatedImageContainer = document.querySelector(".animatedImageContainer");
+  let background = document.querySelector(".animatedImageContainer");
+  let backgroundResposive = document.querySelector(".animatedImageContainerResposive");
   let animatedImage = document.querySelector(".animatedImage");
+  let responsiveImg = document.querySelector(".animatedImageResposive");
   let joinIcon = document.querySelector(".joinIcon");
+  let signup = document.getElementById('resposivSignup');
+  let mediaQuery = window.matchMedia("(max-width: 730px)");
 
-  const hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+  let hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
 
-  if (!hasVisitedBefore) {
-    startAnimation(animatedImageContainer, animatedImage, joinIcon);
+  if (hasVisitedBefore) {
+    startAnimation(background, animatedImage, joinIcon, signup, mediaQuery, backgroundResposive, responsiveImg);
   } else {
-    hideElements(animatedImageContainer, animatedImage, joinIcon);
+    hideElements(background, animatedImage, joinIcon, signup, mediaQuery, backgroundResposive, responsiveImg);
   }
 }
 
 
-function startAnimation(animatedImageContainer, animatedImage, joinIcon) {
-  setTimeout(function () {
-    animatedImageContainer.classList.add("fadeOut");
+function startAnimation(background, animatedImage, joinIcon, signup, mediaQuery, backgroundResposive, responsiveImg) {
+    if (mediaQuery.matches) {
+      backgroundResposive.classList.remove("hideElements");
+      background.classList.add("hideElements");
+      responsiveImg.classList.remove("hideElements");
+      signup.classList.add("marginTop");
+      signup.classList.remove("resposivSignup");
+    }
+    background.classList.add("fadeOut");
     animatedImage.classList.add("moveToTopLeft");
 
     setTimeout(function () {
-      hideElements(animatedImageContainer, animatedImage, joinIcon);
+      hideElements(background, animatedImage, joinIcon, signup, mediaQuery, backgroundResposive, responsiveImg);
       localStorage.setItem("hasVisitedBefore", true);
     }, 1500);
-  }, 500);
 }
 
 
-function hideElements(animatedImageContainer, animatedImage, joinIcon) {
-  animatedImageContainer.classList.add("hideElements");
+function hideElements(background, animatedImage, joinIcon, signup, mediaQuery, backgroundResposive, responsiveImg) {
+  if (mediaQuery.matches) {
+    backgroundResposive.classList.add("hideElements");
+    signup.classList.remove("marginTop");
+    signup.classList.add("resposivSignup");
+    responsiveImg.classList.add("hideElements");
+  }
+  background.classList.add("hideElements");
   animatedImage.classList.add("hideElements");
   joinIcon.classList.remove("hideElements");
+  backgroundResposive.classList.add("hideElements");
+  responsiveImg.classList.add("hideElements");
 }
 
 

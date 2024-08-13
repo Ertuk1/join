@@ -9,6 +9,7 @@ body {
   font-family: "inter", sans-serif;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 header {
@@ -34,6 +35,18 @@ header {
   transition: opacity 0.5s ease-out 1s;
 }
 
+.animatedImageContainerResposive {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2A3647;
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
 .animatedImage {
   width: 200px;
   position: absolute;
@@ -44,6 +57,17 @@ header {
   opacity: 1;
   transition: left 0.5s ease-out 1s, top 0.5s ease-out 1s,
     width 0.5s ease-out 1s;
+}
+
+.animatedImageResposive {
+  width: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
 }
 
 .fadeOut {
@@ -312,6 +336,11 @@ footer a:hover {
 }
 
 @media (max-width: 1537px) {
+  .moveToTopLeft {
+    left: 91px;
+    top: 100px;
+    width: 100px;
+  }
   .justifyLogInContainer {
     top: 57%;
     margin: 0;
@@ -338,6 +367,11 @@ footer a:hover {
 }
 
 @media (max-width: 730px) {
+  .moveToTopLeft {
+    left: 70px;
+    top: 77px;
+    width: 64px;
+  }
   .logInContainer {
     padding: 24px 16px;
   }
@@ -354,7 +388,14 @@ footer a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 475px;
+    margin-top: 440px;
+    position: relative;
+  }
+  .marginTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 522px;
     position: relative;
   }
   .signUPContainerResposiv {
@@ -408,7 +449,7 @@ footer a:hover {
     gap: 21px;
   }
   .resposivSignup {
-    margin-top: 638px;
+    margin-top: 567px;
   }
   .signUPContainerResposiv {
     margin: 0;
@@ -435,7 +476,6 @@ footer a:hover {
   }
   footer {
     position: relative;
-    width: 100%;
     margin-top: 34px;
     top: unset;
     left: unset;
@@ -443,8 +483,80 @@ footer a:hover {
   }
 }
 
-@media (max-width: 415px) {
+@media (max-width: 455px) {
+  .resposivSignup {
+    margin-top: 636px;
+  }
+  .emailInput {
+    width: 318px;
+  }
+  .passwordInput {
+    width: 318px;
+  }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 415px) {
+  .emailInput {
+    width: 290px;
+  }
+  .passwordInput {
+    width: 290px;
+  }
+  .resposivSignup {
+    margin-top: 594px;
+  }
+  .justifyLogInContainer {
+    top: 46%;
+  }
+}
+
+@media (max-width: 391px) {
+  .resposivSignup {
+    margin-top: 543px;
+  }
+}
+
+@media (max-width: 376px) {
+  .emailInput {
+    width: 250px;
+  }
+  .passwordInput {
+    width: 250px;
+  }
+  .resposivSignup {
+    margin-top: 532px;
+  }
+  .justifyLogInContainer {
+    top: 58%;
+  }
+  footer {
+    margin-top: 11px;
+  }
+}
+
+@media (max-width: 361px) {
+  .resposivSignup {
+    margin-top: 527px;
+  }
+  .justifyLogInContainer {
+    top: 53%;
+  }
+}
+
+@media (max-width: 350px) {
+  .emailInput {
+    width: 220px;
+  }
+  .passwordInput {
+    width: 220px;
+  }
+  .logInContainer {
+    padding: 32px 8px;
+  }
+  .justifyLogInContainer {
+    top: 49%;
+  }
+  .resposivSignup {
+    margin-top: 604px;
+  }
 }
