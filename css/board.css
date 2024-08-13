@@ -41,7 +41,7 @@ aside {
 main {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 64px;
 }
 
 .headerClass {
@@ -158,8 +158,6 @@ h2 {
     text-align: left;
     color: #42526E;
     margin-top: 30px;
-    margin-right: 64px;
-    margin-left: 64px;
 }
 
 .tasksHeader {
