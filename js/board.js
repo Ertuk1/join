@@ -223,14 +223,20 @@ function getSubtask(toDo) {
 
 async function addCompletedSubtasks(i, id) {
     await loadDataTask();
-    let taskItem = task.find(taskItem => taskItem.id === id);
-    if (taskItem.completedSubtasks[i] == 'false') {
-        taskItem.completedSubtasks[i] = 'true';
+    console.log('Task array:', task);
+    console.log('Searching for task with ID:', id);
+    let taskItem = tasks.find(taskItem => taskItem.id === id);
+    if (taskItem) { // Check if taskItem is not undefined
+        if (taskItem.completedSubtasks[i] == 'false') {
+            taskItem.completedSubtasks[i] = 'true';
+        } else {
+            taskItem.completedSubtasks[i] = 'false';
+        }
+        await changeTask(`/task/${id}/completedSubtasks`, taskItem.completedSubtasks)
+        renderTasks();
+    } else {
+        console.error(`Task with id ${id} not found`);
     }
-    else {
-        taskItem.completedSubtasks[i] = 'false';
-    }
-    await changeTask(`/task/${id}/completedSubtasks`, taskItem.completedSubtasks)
     renderTasks();
 }
 

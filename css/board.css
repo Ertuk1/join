@@ -5,10 +5,12 @@ body {
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Inter', sans-serif;
+    
 }
 
 header,
@@ -39,7 +41,7 @@ aside {
 main {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 64px;
 }
 
 .headerClass {
