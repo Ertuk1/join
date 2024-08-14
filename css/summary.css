@@ -292,5 +292,8 @@ body {
   }
 }
 @media (max-width: 830px) {
-  
+  .container {
+    top: 131px;
+    left: 34px;
+}
 }

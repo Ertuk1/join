@@ -52,30 +52,9 @@ body {
   text-decoration: none;
 }
 
-.summery {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 46px;
-  padding: 0px 56px;
-}
-
-.addTask {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 46px;
-  padding: 0px 56px;
-}
-
-.board {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 46px;
-  padding: 0px 56px;
-}
-
+.summery,
+.addTask,
+.board,
 .conntacts {
   display: flex;
   align-items: center;
@@ -84,24 +63,9 @@ body {
   padding: 0px 56px;
 }
 
-.summery:hover {
-  background-color: rgba(42, 61, 89, 1);
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.addTask:hover {
-  background-color: rgba(42, 61, 89, 1);
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.board:hover {
-  background-color: rgba(42, 61, 89, 1);
-  cursor: pointer;
-  font-weight: 500;
-}
-
+.summery:hover,
+.addTask:hover,
+.board:hover,
 .conntacts:hover {
   background-color: rgba(42, 61, 89, 1);
   cursor: pointer;
@@ -155,5 +119,57 @@ body {
   }
   .policy {
     padding-bottom: 21px;
+  }
+}
+
+@media (max-width: 830px) {
+  .joinIcon {
+    display: none;
+  }
+  .joinIconResposive {
+    position: absolute;
+    display: block;
+    width: 51px;
+    top: 18px;
+    left: 34px;
+}
+  .policy {
+    display: none;
+  }
+  .navbar {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    width: 100%;
+    height: 110px;
+  }
+  .navbarContent {
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 0;
+  }
+  .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    gap: 140px;
+  }
+  .summery,
+  .addTask,
+  .board,
+  .conntacts {
+    flex-direction: column;
+    gap: 8px;
+    height: 46px;
+    padding: 16px 16px;
+    border-radius: 8px;
+  }
+  .menu p {
+    margin: 0;
   }
 }

@@ -17,12 +17,11 @@ body {
   padding: 0 40px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 1);
-
 }
 
 .header p {
-    margin-left: 300px;
-    font-size: 20px;
+  margin-left: 300px;
+  font-size: 20px;
 }
 
 .userIconContainer {
@@ -47,7 +46,7 @@ body {
   justify-content: center;
   height: 56px;
   width: 56px;
-  border: 3px solid rgba(42, 54, 71 ,1);
+  border: 3px solid rgba(42, 54, 71, 1);
   border-radius: 56px;
   font-size: 30px;
   font-weight: 700;
@@ -101,8 +100,55 @@ body {
 .dFlex {
   display: flex;
 }
+
+.menuRowHelp {
+  display: none;
+}
+
+.helpLink {
+  display: block;
+}
+
+.joinIconResposive {
+  display: none;
+}
 @media (max-width: 830px) {
   .kanbanText {
     display: none;
+  }
+  .header {
+    justify-content: flex-end;
+    padding: 0 16px;
+  }
+  .userIcon {
+    height: 40px;
+    width: 40px;
+  }
+  .userIcon {
+    font-size: 20px;
+  }
+  .menuRowHelp {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #cdcdcd;
+    display: block;
+  }
+  .menuRowHelp:hover {
+    background-color: rgba(42, 61, 89, 1);
+    cursor: pointer;
+  }
+  .helpLink {
+    display: none;
+  }
+  .subMenu {
+    padding: 6px;
+    gap: 0;
+  }
+  .joinIconResposive {
+    position: absolute;
+    display: block;
+    width: 51px;
+    top: 18px;
+    left: 34px;
   }
 }
