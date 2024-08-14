@@ -17,7 +17,7 @@ function getSignUpPopup() {
 }
 
 
-async function addUser(event) {
+ function addUser(event) {
   event.preventDefault();
 
   let name = document.getElementById("signUpNameInput");
@@ -33,13 +33,15 @@ async function addUser(event) {
   }
 
   if (!isChecked) {
+    document.querySelector(".acceptCheckbox").classList.add("redLine");
+    document.querySelector(".signUp").style.marginTop = "0px";
     return false;
   }
 
   let newUser = createNewUser(name, email, password);
 
   try {
-    await postUserData('/users', newUser);
+
     showSignUpPopup();
     setTimeout(hideSignUpPopupAndRedirect, 3000);
   } catch (error) {
@@ -64,7 +66,7 @@ function isValidInput(name, email, password, confirmPassword) {
     email.value !== "" &&
     password.value !== "" &&
     confirmPassword.value !== "" &&
-    password.value === confirmPassword.value
+    password.value === confirmPassword.value 
   );
 }
 
@@ -118,10 +120,12 @@ function redirectToLogIn() {
 function toggleCheckbox(img) {
   let checkmark = document.getElementById("checkmark");
   let signUpButton = document.querySelector(".signUp");
-  if (checkmark.style.display === "none") {
+  if (checkmark.style.display === "none") { 
     checkmark.style.display = "block";
     img.src = "/assets/img/chackBox.png";
     signUpButton.classList.add("signUpHover");
+    document.querySelector(".acceptCheckbox").classList.remove("redLine");
+    document.querySelector(".signUp").style.marginTop = "1px";
     isChecked = true;
   } else {
     checkmark.style.display = "none";

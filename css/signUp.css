@@ -8,6 +8,9 @@ body {
   background-color: rgb(246, 247, 248);
   font-family: "inter", sans-serif;
   overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .joinIcon {
@@ -33,7 +36,6 @@ body {
   border: 1px solid white;
   border-radius: 30px;
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
-  margin-bottom: 117px;
   margin-top: 197px;
 }
 
@@ -87,8 +89,12 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 60px;
+  gap: 16px;
+  padding: 40px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
 }
 
 footer a {
@@ -199,7 +205,7 @@ footer a:hover {
 .emailInput:focus,
 .passwordInput:focus,
 .confirmPasswordInput:focus {
-  border: 2px solid rgba(41, 171, 226, 1); /* Grüner Border beim Fokussieren */
+  border: 1px solid rgba(41, 171, 226, 1); /* Grüner Border beim Fokussieren */
 }
 
 .passwordInputFocus,
@@ -241,13 +247,16 @@ footer a:hover {
 
 .checkbox {
   position: relative;
+  height: 17px;
+  width: 17px;
   z-index: 1;
 }
 
 #checkmark {
   position: absolute;
+  height: 14px;
   top: 0;
-  left: 4px;
+  left: 3px;
   z-index: 0;
 }
 
@@ -257,7 +266,7 @@ footer a:hover {
   align-items: center;
   gap: 8px;
   color: rgba(168, 168, 168, 1);
-  margin-top: 14px;
+  margin: 15px 0 1px 0;
 }
 
 .signUp {
@@ -268,6 +277,7 @@ footer a:hover {
   border: none;
   border-radius: 8px;
   padding: 15px 24px;
+  margin-top: 1px;
 }
 
 .signUpHover:hover {
@@ -318,7 +328,7 @@ footer a:hover {
 }
 
 .signUpPopup {
-  background-color: #2A3647;
+  background-color: #2a3647;
   border-radius: 20px;
   left: 50%;
   transform: translate(-50%, 250%);
@@ -339,4 +349,144 @@ footer a:hover {
   color: white;
   padding: 0 25px;
 }
+.redLine {
+  border-bottom: 1px solid #ff8190;
+}
 
+@media (max-width: 1537px) {
+  .joinIcon {
+    padding: 38px 38px;
+  }
+  .signUpContainer {
+    padding: 0px 68px 16px 68px;
+    margin-top: 167px;
+    margin-bottom: 0;
+  }
+  .signUptText {
+    margin: 0px 32px 16px 32px;
+    font-size: 50px;
+  }
+  .signUpInput {
+    gap: 16px;
+  }
+  .nameInput,
+  .emailInput,
+  .passwordInput,
+  .confirmPasswordInput {
+    padding: 6px 21px;
+    background-size: 17px;
+  }
+  footer {
+    padding: 21px;
+  }
+  .checkmarkText {
+    margin: 0;
+  }
+}
+
+@media (max-width: 730px) {
+  .joinIcon {
+    width: 64px;
+  }
+  .vectorLeft {
+    right: 145px;
+  }
+  .signUpContainer {
+    padding: 0px 16px 16px 16px;
+  }
+}
+
+@media (max-width: 530px) {
+  .confirmPasswordInput,
+  .nameInput,
+  .passwordInput,
+  .emailInput {
+    width: 348px;
+  }
+}
+
+@media (max-width: 455px) {
+  .confirmPasswordInput,
+  .nameInput,
+  .passwordInput,
+  .emailInput {
+    width: 318px;
+  }
+  .signUpContainer {
+    margin-top: 238px;
+  }
+  .signUpPopup {
+    transform: translate(-50%, 150%);
+  }
+  .moveToCenter {
+    transform: translate(-50%, -600%);
+  }
+  .signUpPopup p {
+    text-align: center;
+    font-size: 16px;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 415px) {
+  .confirmPasswordInput,
+  .nameInput,
+  .passwordInput,
+  .emailInput {
+    width: 290px;
+  }
+  .signUpContainer {
+    margin-top: 228px;
+  }
+  .signUpPopup {
+    transform: translate(-50%, 150%);
+  }
+  .moveToCenter {
+    transform: translate(-50%, -550%);
+  }
+}
+
+@media (max-width: 391px) {
+  .resposivSignup {
+    margin-top: 543px;
+  }
+  .marginTop {
+    margin-top: 626px;
+  }
+}
+
+@media (max-width: 376px) {
+  .confirmPasswordInput,
+  .nameInput,
+  .passwordInput,
+  .emailInput {
+    width: 250px;
+  }
+  .vectorLeft {
+    right: 122px;
+  }
+  .signUpContainer {
+    margin-top: 131px;
+  }
+  .signUpPopup {
+    transform: translate(-50%, 150%);
+  }
+  .moveToCenter {
+    transform: translate(-50%, -400%);
+  }
+}
+
+@media (max-width: 361px) {
+  .signUpContainer {
+    margin-top: 158px;
+  }
+}
+
+@media (max-width: 350px) {
+  .confirmPasswordInput,
+  .nameInput,
+  .passwordInput,
+  .emailInput {
+    width: 220px;
+  }
+}
