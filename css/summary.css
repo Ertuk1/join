@@ -20,6 +20,7 @@ body {
   display: flex;
   align-items: center;
   gap: 30px;
+  margin-bottom: 54px;
 }
 
 .appHeaderTitle {
@@ -39,9 +40,6 @@ body {
 }
 
 .metricsContainer {
-  position: absolute;
-  top: 335px;
-  left: 328px;
   display: flex;
   gap: 56px;
 }
@@ -214,4 +212,85 @@ body {
 .metricCard:hover .checkIcon {
   background: url(/assets/img/checkOkDarrk.png) no-repeat;
   background-position: center;
+}
+
+.blueBorder {
+  display: none;
+}
+
+@media (max-width: 1537px) {
+  .container {
+    top: 117px;
+    left: 275px;
+  }
+  .appHeader {
+    margin-bottom: 16px;
+  }
+  .metricCard {
+    padding: 16px 60px;
+  }
+  .taskContainer {
+    padding: 0;
+  }
+  .metricsColumn {
+    gap: 16px;
+  }
+  .taskContainer {
+    width: 161px;
+    height: 161px;
+  }
+}
+@media (max-width: 1125px) {
+  .metricCard {
+    padding: 16px 32px;
+  }
+  .taskContainer {
+    padding: 0;
+  }
+  .metricValue {
+    font-size: 50px;
+  }
+  .taskContainer {
+    width: 125px;
+    height: 125px;
+  }
+  .metricsContainer {
+    gap: 16px;
+  }
+}
+@media (max-width: 980px) {
+  .appHeaderTitle {
+    font-size: 47px;
+  }
+  .subtitleText {
+    font-size: 20px;
+    margin: 16px 0 16px 0;
+  }
+  .horizontalBarBlue {
+    display: none;
+  }
+  .blueBorder {
+    display: block;
+    border: 2px solid rgba(41, 171, 226, 1);
+    width: 90px;
+    border-radius: 3px;
+  }
+  .appHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 0;
+  }
+  .appHeaderSubtitle {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 0;
+  }
+  .greetingContainer {
+    display: none;
+  }
+}
+@media (max-width: 830px) {
+  
 }

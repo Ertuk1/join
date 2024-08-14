@@ -17,6 +17,7 @@ body {
   padding: 0 40px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   background-color: rgba(255, 255, 255, 1);
+
 }
 
 .header p {
@@ -48,7 +49,7 @@ body {
   width: 56px;
   border: 3px solid rgba(42, 54, 71 ,1);
   border-radius: 56px;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   color: rgba(41, 171, 226, 1);
 }
@@ -60,8 +61,8 @@ body {
 
 .subMenu {
   position: absolute;
-  top: 11%;
-  right: -200px;
+  top: 118px;
+  right: -20%;
   transform: translate(-1%, -11%);
   background-color: #2a3647;
   border-radius: 20px 0 20px 20px;
@@ -70,6 +71,8 @@ body {
   transition: right 0.5s ease-out;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  z-index: 999;
 }
 
 .subMenu.open {
@@ -97,4 +100,9 @@ body {
 
 .dFlex {
   display: flex;
+}
+@media (max-width: 830px) {
+  .kanbanText {
+    display: none;
+  }
 }

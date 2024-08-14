@@ -17,7 +17,7 @@ function getSignUpPopup() {
 }
 
 
- function addUser(event) {
+  async function addUser(event) {
   event.preventDefault();
 
   let name = document.getElementById("signUpNameInput");
@@ -41,7 +41,7 @@ function getSignUpPopup() {
   let newUser = createNewUser(name, email, password);
 
   try {
-
+    await postUserData('/users', newUser);
     showSignUpPopup();
     setTimeout(hideSignUpPopupAndRedirect, 3000);
   } catch (error) {
