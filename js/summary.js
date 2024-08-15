@@ -7,6 +7,7 @@ async function summeryInit() {
     updateGreeting();
     userName();
     updateSummary();
+    checkResposive();
 }
 
 function redirectToBoard() {
@@ -61,5 +62,41 @@ function formatDate(dateString) {
   return date.toLocaleDateString('en-US', options);
 }
 
+function checkResposive() {
+  let mediaQuery = window.matchMedia("(max-width: 980px)");
+  let background = document.querySelector(".animatedImageContainer");
 
+  if (mediaQuery.matches) {
+    joinImgAnimation(background);
+  }
+
+}
+
+function joinImgAnimation(background) {
+  let animatedImage = document.querySelector(".greetingContainer");
+  let hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+
+
+  if (hasVisitedBefore) {
+      startAnimation(background, animatedImage);
+  } else {
+    hideElements(background, animatedImage);
+  }
+}
+
+
+function startAnimation(background, animatedImage) {
+    background.classList.add("fadeOut");
+    animatedImage.classList.add("fadeOut");
+
+    setTimeout(function () {
+      hideElements(background, animatedImage);
+      localStorage.setItem("hasVisitedBefore", true);
+    }, 1500);
+}
+
+function hideElements(background, animatedImage) {
+  background.style.display ='none';
+  animatedImage.style.display ='none';
+}
   
