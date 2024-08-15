@@ -4,6 +4,12 @@ body {
     font-family: "inter", sans-serif;
   }
   
+  header {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    }
+
   .header {
     height: 96px;
     display: flex;
@@ -18,3 +24,56 @@ body {
       margin-left: 300px;
       font-size: 20px;
   }
+
+  .content {
+    position: absolute;
+    top: 62px;
+    text-wrap: wrap;
+    margin: 0 16px 0 16px;
+    padding-bottom: 60px;
+}
+
+.joinIconResposive {
+  display: none;
+}
+
+@media (max-width: 830px) {
+  .kanbanText {
+    display: none;
+  }
+  .header {
+    justify-content: flex-end;
+    padding: 0 16px;
+  }
+  .userIcon {
+    height: 40px;
+    width: 40px;
+  }
+  .userIcon {
+    font-size: 20px;
+  }
+  .menuRowHelp {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #cdcdcd;
+    display: block;
+  }
+  .menuRowHelp:hover {
+    background-color: rgba(42, 61, 89, 1);
+    cursor: pointer;
+  }
+  .helpLink {
+    display: none;
+  }
+  .subMenu {
+    padding: 6px;
+    gap: 0;
+  }
+  .joinIconResposive {
+    position: absolute;
+    display: block;
+    width: 51px;
+    top: 18px;
+    left: 34px;
+  }
+}

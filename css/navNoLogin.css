@@ -12,6 +12,10 @@
   overflow-y: auto; 
 }
 
+aside {
+  position: fixed;
+  z-index: 999;
+}
 
 .joinIcon {
   width: 100px;
@@ -38,4 +42,10 @@
   cursor: pointer;
   color: rgb(41, 171, 226);
   font-weight: bold;
+}
+
+@media (max-width: 830px) {
+  aside {
+    display: none;
+  }
 }

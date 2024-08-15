@@ -7,7 +7,7 @@ body {
   margin: 0;
   background-color: rgb(246, 247, 248);
   font-family: "inter", sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .container {
@@ -85,7 +85,7 @@ body {
 }
 
 .checkIcon {
-  width: 32px;
+  width: 38px;
   height: 32px;
   background: url(/assets/img/checkOk.png) no-repeat;
   background-position: center;
@@ -160,7 +160,7 @@ body {
 }
 
 .taskText {
-  width: 100px;
+  width: 95px;
 }
 
 .greetingContainer {
@@ -218,7 +218,7 @@ body {
   display: none;
 }
 
-@media (max-width: 1537px) {
+@media (max-height: 821px) {
   .container {
     top: 117px;
     left: 275px;
@@ -280,6 +280,7 @@ body {
     flex-direction: column;
     align-items: baseline;
     gap: 0;
+    margin-bottom: 54px;
   }
   .appHeaderSubtitle {
     display: flex;
@@ -294,6 +295,69 @@ body {
 @media (max-width: 830px) {
   .container {
     top: 131px;
-    left: 34px;
+    left: 16px;
+  }
+  .appHeader {
+    margin-bottom: 40px;
+  }
 }
+@media (max-width: 452px) {
+  .metricValue {
+    font-size: 40px;
+  }
+  .urgentIconContainer,
+  .metricIconContainer {
+    width: 40px;
+    height: 40px;
+    border-radius: 22px;
+  }
+  .checkIcon {
+    width: 23px;
+    height: 18px;
+    background-size: cover;
+  }
+  .toDoIcon {
+    width: 23px;
+    height: 23px;
+    background-size: cover;
+  }
+  .urgentIcon {
+    width: 23px;
+    height: 10px;
+  }
+  .deadlineLabel,
+  .metricLabel {
+    font-size: 14px;
+  }
+  .deadlineDate {
+    font-size: 16px;
+  }
+  .taskContainer {
+    width: 116px;
+    height: 116px;
+  }
+  .metricsRow {
+    gap: 8px;
+  }
+}
+@media (max-width: 387px) {
+  .metricCard {
+    padding: 16px 20px;
+  }
+  .taskContainer {
+    width: 50px;
+    height: 60px;
+  }
+}
+@media (max-height: 668px) {
+  .container {
+    top: 102px;
+    left: 16px;
+  }
+  .subtitleText {
+    margin: 8px 0 8px 0;
+  }
+  .appHeader {
+    margin-bottom: 16px;
+  }
 }
