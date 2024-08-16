@@ -64,18 +64,23 @@ function formatDate(dateString) {
 
 function checkResposive() {
   let mediaQuery = window.matchMedia("(max-width: 980px)");
+  let previousPath = document.referrer;
   let background = document.querySelector(".animatedImageContainer");
+  let animatedImage = document.querySelector(".greetingContainer");
 
-  if (mediaQuery.matches) {
-    joinImgAnimation(background);
+  if (mediaQuery.matches && previousPath.includes('index.html')) {
+    joinImgAnimation(background, animatedImage);
+  } else if (mediaQuery.matches) {  
+    background.style.display ='none';
+    animatedImage.style.display ='none';
+  } else {
+    background.style.display ='none';
+    animatedImage.style.display ='flex';
   }
-
 }
 
-function joinImgAnimation(background) {
-  let animatedImage = document.querySelector(".greetingContainer");
+function joinImgAnimation(background, animatedImage) {
   let hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
-
 
   if (hasVisitedBefore) {
       startAnimation(background, animatedImage);
