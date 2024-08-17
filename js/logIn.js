@@ -1,5 +1,8 @@
 let passwordInputClicks = 0;
 let isChecked = false;
+let guest = { name: "Guest",
+              email: "guest@gmail.com",
+};
 
 
 async function logInInit() {
@@ -125,6 +128,11 @@ function isValidUser(user, password) {
 
 function redirectToSummary() {
   window.location.href = "/summary.html";
+}
+
+function guestLogin() {
+  sessionStorage.setItem('currentUser', JSON.stringify(guest));
+  redirectToSummary();
 }
 
 

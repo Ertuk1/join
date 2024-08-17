@@ -4,6 +4,7 @@ async function initBoard() {
     await includeHTML();
     checkIfEmpty();
     renderTasks();
+    showInitials();
 }
 
 let currentDraggedElement = null;

@@ -18,18 +18,6 @@ aside {
     flex-shrink: 0;
 }
 
-aside {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 232px;
-    background-color: rgba(42, 54, 71, 1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .main-content-wrapper {
     display: flex;
     flex-direction: column;

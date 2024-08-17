@@ -60,12 +60,12 @@ function currentPage() {
     }
 
 function showInitials() {
-  const userIcon = document.getElementById('userIcon');
+  let userIcon = document.getElementById('userIcon');
 
   if (currentUser && typeof currentUser === 'object') {
     if (userIcon) {
-      const userName = currentUser.name;
-      const nameArray = userName.split(' ');
+      let userName = currentUser.name;
+      let nameArray = userName.split(' ');
       let initials = '';
 
       if (nameArray.length > 0) {
