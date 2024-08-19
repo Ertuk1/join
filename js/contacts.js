@@ -7,8 +7,8 @@ let beautifulColors = [
 let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 async function contactInit() {
-    await loadDataContacts();
     await includeHTML();
+    await loadDataContacts();
     renderContacts();
 }
 
@@ -180,3 +180,10 @@ function cancelAddContact() {
     document.getElementById('addNewContact').classList.remove('addnewContactActive');
     document.getElementById('blurBackground').classList.add('d-none');
 }
+
+function cancelEditContact() {
+    document.getElementById('blurBackgroundEdit').classList.add('d-none');
+  }
+
+
+
