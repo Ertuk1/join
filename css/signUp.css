@@ -170,12 +170,20 @@ footer a:hover {
   background-size: 19px;
 }
 
+.lockInputImg {
+  background-image: url("/assets/img/lock.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 19px;
+}
+
 .passwordInput::placeholder {
   color: rgba(209, 209, 209, 1);
   font-size: 20px;
 }
 
-.confirmPasswordContainer {
+.passwordContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -189,13 +197,6 @@ footer a:hover {
   outline: none;
 }
 
-.confirmPasswordInputImg {
-  background-image: url("/assets/img/lock.png");
-  background-repeat: no-repeat;
-  background-position: right 21px center;
-  background-size: 19px;
-}
-
 .confirmPasswordInput::placeholder {
   color: rgba(209, 209, 209, 1);
   font-size: 20px;
@@ -205,7 +206,7 @@ footer a:hover {
 .emailInput:focus,
 .passwordInput:focus,
 .confirmPasswordInput:focus {
-  border: 1px solid rgba(41, 171, 226, 1); /* Grüner Border beim Fokussieren */
+  border: 1px solid rgba(41, 171, 226, 1);
 }
 
 .passwordInputFocus,
@@ -351,6 +352,24 @@ footer a:hover {
 }
 .redLine {
   border-bottom: 1px solid #ff8190;
+}
+
+.paswordVisibilityBTN,
+.confirmPaswordVisibilityBTN {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background-color: transparent;
+  cursor: default;
+  z-index: 999;
+}
+
+.paswordVisibilityBTN:hover,
+.confirmPaswordVisibilityBTN:hover {
+  cursor: pointer;
+  background-color: rgba(246, 247, 248, 0.208);
 }
 
 @media (max-width: 1537px) {

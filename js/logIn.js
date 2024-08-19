@@ -1,4 +1,3 @@
-let passwordInputClicks = 0;
 let isChecked = false;
 let guest = { name: "Guest",
               email: "guest@gmail.com",
@@ -155,20 +154,56 @@ function handleInvalidUser(user, emailInput, passwordInput, password) {
 }
 
 
-function handlePasswordInputClick() {
+function handlePaswordVisibility() {
   let passwordInput = document.getElementById("logInPasswordInput");
-  passwordInputClicks++;
 
-  if (passwordInputClicks === 1) {
+  if (passwordInput.classList.contains("passwordInputImg")) {
+    passwordInput.classList.remove("passwordInputImg");
+    passwordInput.classList.add("lockInputImg");
+  } else if (passwordInput.classList.contains("lockInputImg")) {
+    passwordInput.classList.remove("lockInputImg");
     passwordInput.classList.add("passwordInputFocus");
-  } else if (passwordInputClicks === 2) {
-    passwordInput.type = "text";
-    passwordInput.classList.add("passwordInputVisible");
-  } else if (passwordInputClicks === 3) {
+  } else if (passwordInput.classList.contains("passwordInputFocus")) {
     passwordInput.classList.remove("passwordInputFocus");
+    passwordInput.classList.add("passwordInputVisible");
+    passwordInput.type = "text";
+  } else if (passwordInput.classList.contains("passwordInputVisible")) {
     passwordInput.classList.remove("passwordInputVisible");
+    passwordInput.classList.add("passwordInputFocus");
     passwordInput.type = "password";
-    passwordInputClicks = 0;
+  }
+}
+
+
+function handlepaswordImg(element) {
+  if (element.classList.contains("passwordInputImg")) {
+    element.classList.remove("passwordInputImg");
+    element.classList.add("lockInputImg");
+  } else if (element.classList.contains("lockInputImg")) {
+    element.classList.remove("lockInputImg");
+    element.classList.add("passwordInputImg");
+  } else if (element.classList.contains("passwordInputFocus")) {
+    element.classList.remove("passwordInputFocus");
+    element.classList.add("passwordInputImg");
+    element.type = "password";
+  } else if (element.classList.contains("passwordInputVisible")) {
+    element.classList.remove("passwordInputVisible");
+    element.classList.add("passwordInputImg");
+    element.type = "password";
+  }
+}
+
+
+function handlepaswordStyle(element) {
+  if (element.classList.contains("passwordInputImg")) {
+    element.classList.remove("passwordInputImg");
+    element.classList.add("passwordInputFocus");
+  } else if (element.classList.contains("lockInputImg")) {
+    element.classList.remove("lockInputImg");
+    element.classList.add("passwordInputFocus");
+  } else if (element.classList.contains("passwordInputVisible")) {
+    element.classList.remove("passwordInputVisible");
+    element.classList.add("passwordInputFocus");
   }
 }
 

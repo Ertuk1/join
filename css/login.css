@@ -183,21 +183,32 @@ footer a:hover {
 }
 
 .logInPasswordContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
 
 .passwordInput {
-  background-image: url("/assets/img/lock.png");
-  background-repeat: no-repeat;
-  background-position: right 21px center;
-  background-size: 16px;
   padding: 12px 21px;
   width: 422px;
   border-radius: 8px;
   border: 1px solid rgba(209, 209, 209, 1);
   font-size: 20px;
   outline: none;
+}
+
+.passwordInputImg {
+  background-image: url("/assets/img/lock.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 19px;
+}
+
+.lockInputImg {
+  background-image: url("/assets/img/lock.png");
+  background-repeat: no-repeat;
+  background-position: right 21px center;
+  background-size: 19px;
 }
 
 .passwordInput::placeholder {
@@ -207,7 +218,7 @@ footer a:hover {
 
 .emailInput:focus,
 .passwordInput:focus {
-  border: 1px solid rgba(41, 171, 226, 1); /* Grüner Border beim Fokussieren */
+  border: 1px solid rgba(41, 171, 226, 1);
 }
 
 .passwordInputFocus {
@@ -310,6 +321,22 @@ footer a:hover {
 
 .resposivSignup {
   display: none;
+}
+
+.paswordVisibilityBTN {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  background-color: transparent;
+  cursor: default;
+  z-index: 999;
+}
+
+.paswordVisibilityBTN:hover {
+  cursor: pointer;
+  background-color: rgba(246, 247, 248, 0.208);
 }
 
 @media (max-width: 1537px) {

@@ -47,13 +47,15 @@
             />
             <div class="logInPasswordContainer">
               <input
-              onclick="handlePasswordInputClick()"
+              onblur="handlepaswordImg(this)"
+              onfocus="handlepaswordStyle(this)"
               id="logInPasswordInput"
-              class="passwordInput"
+              class="passwordInput passwordInputImg"
               type="password"
               placeholder="Password"
               required
             />
+            <span class="paswordVisibilityBTN" onclick="handlePaswordVisibility()"></span>
             <span class="passwordAlert dNone">Check your email and password. Please try again.</span>
             </div>
           </div>

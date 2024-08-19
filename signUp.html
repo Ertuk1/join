@@ -37,23 +37,29 @@
               placeholder="Email"
               required
             />
-            <input
-              onclick="handlePasswordInputClick()"
+            <div class="passwordContainer">
+              <input
+              onblur="handlepaswordImg(this)"
+              onfocus="handlepaswordStyle(this)"
               id="signUpPasswordInput"
               class="passwordInput passwordInputImg"
               type="password"
               placeholder="Password"
               required
             />
-            <div class="confirmPasswordContainer">
+            <span class="paswordVisibilityBTN" onclick="handlePaswordVisibility()"></span>
+            </div>
+            <div class="passwordContainer">
               <input
-              onclick="handleConfirmPasswordInputClick()"
+              onblur="handleConfirmPaswordImg(this)"
+              onfocus="handleConfirmPaswordStyle(this)"
               id="confirmPasswordInput"
-              class="confirmPasswordInput confirmPasswordInputImg"
+              class="confirmPasswordInput passwordInputImg"
               type="password"
               placeholder="Confirm Password"
               required
             />
+            <span class="confirmPaswordVisibilityBTN" onclick="handleConfirmPaswordVisibility()"></span>
             <span class="passwordAlert dNone">Your passwords don't match. Please try again.</span>
             </div>
             <div class="acceptCheckbox">

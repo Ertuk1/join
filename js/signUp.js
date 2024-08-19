@@ -1,6 +1,4 @@
 let isChecked = false;
-let passwordInputClicks = 0;
-let confirmPasswordInputClicks = 0;
 
 async function initSignUp() {
   await loadUserData();
@@ -100,6 +98,7 @@ function showSignUpPopup() {
   signUpPopup.classList.add('moveToCenter');
 }
 
+
 function hideSignUpPopup() {
   let signUpPopupContainer = getSignUpPopupContainer();
   let signUpPopup = getSignUpPopup();
@@ -108,14 +107,17 @@ function hideSignUpPopup() {
   signUpPopup.classList.remove('moveToCenter');
 } 
 
+
 function hideSignUpPopupAndRedirect() {
   hideSignUpPopup();
   redirectToLogIn();
 }
 
+
 function redirectToLogIn() {
   window.location.href = "index.html";
 }
+
 
 function toggleCheckbox(img) {
   let checkmark = document.getElementById("checkmark");
@@ -135,36 +137,110 @@ function toggleCheckbox(img) {
   }
 }
 
-function handlePasswordInputClick() {
-  let passwordInput = document.getElementById("signUpPasswordInput");
-  passwordInputClicks++;
 
-  if (passwordInputClicks === 1) {
-    passwordInput.classList.add("passwordInputFocus");
-  } else if (passwordInputClicks === 2) {
+function handlePaswordVisibility() {
+  let passwordInput = document.getElementById("signUpPasswordInput");
+
+  if (passwordInput.classList.contains("passwordInputImg")) {
+    passwordInput.classList.remove("passwordInputImg");
+    passwordInput.classList.add("lockInputImg");
+  } else if (passwordInput.classList.contains("lockInputImg")) {
+    passwordInput.classList.remove("lockInputImg");
+    passwordInput.classList.add("confirmPasswordInputFocus");
+  } else if (passwordInput.classList.contains("confirmPasswordInputFocus")) {
+    passwordInput.classList.remove("confirmPasswordInputFocus");
+    passwordInput.classList.add("confirmPasswordInputVisible");
     passwordInput.type = "text";
-    passwordInput.classList.add("passwordInputVisible");
-  } else if (passwordInputClicks === 3) {
-    passwordInput.classList.remove("passwordInputFocus");
-    passwordInput.classList.remove("passwordInputVisible");
+  } else if (passwordInput.classList.contains("confirmPasswordInputVisible")) {
+    passwordInput.classList.remove("confirmPasswordInputVisible");
+    passwordInput.classList.add("confirmPasswordInputFocus");
     passwordInput.type = "password";
-    passwordInputClicks = 0;
   }
 }
 
-function handleConfirmPasswordInputClick() {
-  let confirmPasswordInput = document.getElementById("confirmPasswordInput");
-  confirmPasswordInputClicks++;
 
-  if (confirmPasswordInputClicks === 1) {
+function handlepaswordImg(element) {
+  if (element.classList.contains("passwordInputImg")) {
+    element.classList.remove("passwordInputImg");
+    element.classList.add("lockInputImg");
+  } else if (element.classList.contains("lockInputImg")) {
+    element.classList.remove("lockInputImg");
+    element.classList.add("passwordInputImg");
+  } else if (element.classList.contains("confirmPasswordInputFocus")) {
+    element.classList.remove("confirmPasswordInputFocus");
+    element.classList.add("passwordInputImg");
+    element.type = "password";
+  } else if (element.classList.contains("confirmPasswordInputVisible")) {
+    element.classList.remove("confirmPasswordInputVisible");
+    element.classList.add("passwordInputImg");
+    element.type = "password";
+  }
+}
+
+
+function handlepaswordStyle(element) {
+  if (element.classList.contains("passwordInputImg")) {
+    element.classList.remove("passwordInputImg");
+    element.classList.add("confirmPasswordInputFocus");
+  } else if (element.classList.contains("lockInputImg")) {
+    element.classList.remove("lockInputImg");
+    element.classList.add("confirmPasswordInputFocus");
+  } else if (element.classList.contains("confirmPasswordInputVisible")) {
+    element.classList.remove("confirmPasswordInputVisible");
+    element.classList.add("confirmPasswordInputFocus");
+  }
+}
+
+
+function handleConfirmPaswordVisibility() {
+  let confirmPasswordInput = document.getElementById("confirmPasswordInput");
+
+  if (confirmPasswordInput.classList.contains("passwordInputImg")) {
+    confirmPasswordInput.classList.remove("passwordInputImg");
+    confirmPasswordInput.classList.add("lockInputImg");
+  } else if (confirmPasswordInput.classList.contains("lockInputImg")) {
+    confirmPasswordInput.classList.remove("lockInputImg");
     confirmPasswordInput.classList.add("confirmPasswordInputFocus");
-  } else if (confirmPasswordInputClicks === 2) {
-    confirmPasswordInput.type = "text";
-    confirmPasswordInput.classList.add("confirmPasswordInputVisible");
-  } else if (confirmPasswordInputClicks === 3) {
+  } else if (confirmPasswordInput.classList.contains("confirmPasswordInputFocus")) {
     confirmPasswordInput.classList.remove("confirmPasswordInputFocus");
+    confirmPasswordInput.classList.add("confirmPasswordInputVisible");
+    confirmPasswordInput.type = "text";
+  } else if (confirmPasswordInput.classList.contains("confirmPasswordInputVisible")) {
     confirmPasswordInput.classList.remove("confirmPasswordInputVisible");
+    confirmPasswordInput.classList.add("confirmPasswordInputFocus");
     confirmPasswordInput.type = "password";
-    confirmPasswordInputClicks = 0;
+  }
+}
+
+
+function handleConfirmPaswordImg(element) {
+  if (element.classList.contains("passwordInputImg")) {
+    element.classList.remove("passwordInputImg");
+    element.classList.add("lockInputImg");
+  } else if (element.classList.contains("lockInputImg")) {
+    element.classList.remove("lockInputImg");
+    element.classList.add("passwordInputImg");
+  } else if (element.classList.contains("confirmPasswordInputFocus")) {
+    element.classList.remove("confirmPasswordInputFocus");
+    element.classList.add("passwordInputImg");
+    element.type = "password";
+  } else if (element.classList.contains("confirmPasswordInputVisible")) {
+    element.classList.remove("confirmPasswordInputVisible");
+    element.classList.add("passwordInputImg");
+    element.type = "password";
+  }
+}
+
+
+function handleConfirmPaswordStyle(element) {
+  if (element.classList.contains("passwordInputImg")) {
+    element.classList.remove("passwordInputImg");
+    element.classList.add("confirmPasswordInputFocus");
+  } else if (element.classList.contains("lockInputImg")) {
+    element.classList.remove("lockInputImg");
+    element.classList.add("confirmPasswordInputFocus");
+  } else if (element.classList.contains("confirmPasswordInputVisible")) {
+    element.classList.remove("confirmPasswordInputVisible");
+    element.classList.add("confirmPasswordInputFocus");
   }
 }
