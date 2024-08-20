@@ -260,9 +260,20 @@ body {
     border-radius: 10px;
 }
 
+.contact p {
+    color: rgba(0, 124, 238, 1);
+}
+
 .contact:hover {
     background-color: rgba(249, 249, 249, 1);
     cursor: pointer;
+}
+.contact.active {
+    background-color: rgba(42, 54, 71, 1);
+}
+
+.contact.active h2 {
+    color: white;
 }
 
 #contacts {

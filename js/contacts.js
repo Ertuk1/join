@@ -16,11 +16,9 @@ function renderContacts() {
     createContactList();
 }
 
-// Funktion zum Erstellen der Kontaktliste
-function createContactList() {
+function createContactList(newContactIndex = null) {
     const contactList = document.getElementById('contact-list');
     contactList.innerHTML = '';
-    let currentLetter = null;
     const seenContacts = new Set(); // Set zum Nachverfolgen der bereits hinzugefügten Kontakte
 
     for (let j = 0; j < alphabet.length; j++) {
@@ -43,6 +41,9 @@ function createContactList() {
 
                 const contactItem = document.createElement('div');
                 contactItem.classList.add('contact');
+                if (i === newContactIndex) {
+                    contactItem.classList.add('active'); // Markiere den neuen Kontakt als aktiv
+                }
                 const profileColor = contact['profileColor'];
                 const profilePicture = document.createElement('div');
                 profilePicture.classList.add('profile-picture');
@@ -60,14 +61,18 @@ function createContactList() {
                 contactList.appendChild(contactItem);
 
                 // Füge dem Kontakt und den Kontaktinformationen einen Click-Event-Listener hinzu
-                contactItem.addEventListener('click', handleClick);
-                function handleClick(event) {
-                    // Stelle sicher, dass nur das geklickte Element behandelt wird
-                    if (event.target === contactItem || event.target.parentElement === contactDetails) {
-                        // Rufe die Kontaktinformationen mit dem aktuellen Kontakt ab
-                        contactClickHandler(contact, i);
-                    }
-                }
+                contactItem.onclick = function() {
+                    // Entferne die 'active' Klasse von allen Kontakten
+                    const allContacts = document.querySelectorAll('.contact');
+                    allContacts.forEach(c => c.classList.remove('active'));
+
+                    // Füge die 'active' Klasse zum geklickten Kontakt hinzu
+                    contactItem.classList.add('active');
+
+                    // Rufe die Kontaktinformationen mit dem aktuellen Kontakt ab
+                    contactClickHandler(i);
+                };
+
                 seenContacts.add(contact.name); // Kontakt als gesehen markieren
             }
         }
@@ -104,8 +109,11 @@ async function getNewContact() {
         };
         await postContact("/contacts", newContact);
         await loadDataContacts();
-        contactClickHandler(newContact, contacts.length - 1);
-        createContactList();
+
+        const newContactIndex = contacts.length - 1; // Index des neu hinzugefügten Kontakts
+        createContactList(newContactIndex); // Neue Liste erstellen und neuen Kontakt hervorheben
+        contactClickHandler(newContactIndex); // Zeige die Details des neuen Kontakts an
+
         name.value = '';
         email.value = '';
         phone.value = '';
@@ -115,7 +123,8 @@ async function getNewContact() {
 }
 
 // Funktion, die beim Klicken auf den Kontakt oder Kontaktinformationen aufgerufen wird
-function contactClickHandler(contact, i) {
+function contactClickHandler(i) {
+    let contact = contacts[i];
     if (window.innerWidth < 1000) {
         editContactResponsive(contact, i);
     }
