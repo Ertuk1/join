@@ -69,7 +69,7 @@ function checkResposive() {
   let animatedImage = document.querySelector(".greetingContainer");
 
   if (mediaQuery.matches && previousPath.includes('index.html')) {
-    joinImgAnimation(background, animatedImage);
+    greetingAnimation(background, animatedImage);
   } else if (mediaQuery.matches) {  
     background.style.display ='none';
     animatedImage.style.display ='none';
@@ -79,7 +79,7 @@ function checkResposive() {
   }
 }
 
-function joinImgAnimation(background, animatedImage) {
+function greetingAnimation(background, animatedImage) {
   let hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
 
   if (hasVisitedBefore) {

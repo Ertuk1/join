@@ -32,7 +32,7 @@ header {
   background-color: rgb(246, 247, 248);
   z-index: 999;
   opacity: 1;
-  transition: opacity 0.5s ease-out 1s;
+  transition: opacity 0.5s ease-out 0.4s;
 }
 
 .animatedImage {
@@ -43,8 +43,8 @@ header {
   transform: translate(-50%, -50%);
   z-index: 1000;
   opacity: 1;
-  transition: left 0.5s ease-out 1s, top 0.5s ease-out 1s,
-    width 0.5s ease-out 1s;
+  transition: left 0.5s ease-out, top 0.5s ease-out ,
+    width 0.5s ease-out;
 }
 
 .fadeOut {
@@ -339,6 +339,12 @@ footer a:hover {
   background-color: rgba(246, 247, 248, 0.208);
 }
 
+.animatedImageResposive {
+  position: absolute;
+  z-index: -999;
+  opacity: 0;
+}
+
 @media (max-width: 1537px) {
   .moveToTopLeft {
     left: 91px;
@@ -371,22 +377,44 @@ footer a:hover {
 }
 
 @media (max-width: 730px) {
+  .animatedImage {
+    width: 200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    opacity: 0;
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out, opacity 0.5s ease-in-out,
+  }
   .animatedImageResposive {
     width: 100px;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1000;
+    z-index: 1001;
     opacity: 1;
-    transition: left 0.5s ease-out 1s, top 0.5s ease-out 1s,
-    width 0.5s ease-out 1s;
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out, opacity 0.5s ease-in-out 0.3s,
+  }
+  .animatedImage.move {
+    left: 70px;
+    top: 77px;
+    width: 64px;
+    opacity: 1;
+  }
+  .animatedImageResposive.move {
+    left: 70px;
+    top: 77px;
+    width: 64px;
+    opacity: 0;
   }
   .animatedImage {
     width: 100px;
   }
   .animatedImageContainer {
     background-color: #2A3647;
+    transition: opacity ease-in-out 0.9s;
   }
   .moveToTopLeft {
     left: 70px;

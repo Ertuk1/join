@@ -38,17 +38,18 @@ function startAnimation(background, animatedImage, joinIcon, signup, responsiveI
   if (mediaQuery.matches) {
     signup.classList.add("marginTop");
     signup.classList.remove("resposivSignup");
-    responsiveImg.classList.remove("hideElements");
     background.classList.add("fadeOut");
-  }
+    responsiveImg.classList.add("move");
+    animatedImage.classList.add("move");
+  } else {
     background.classList.add("fadeOut");
     animatedImage.classList.add("moveToTopLeft");
-
+  }
 
     setTimeout(function () {
       hideElements(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
       localStorage.setItem("hasVisitedBefore", true);
-    }, 1500);
+    }, 500);
 }
 
 function hideElements(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery) {
