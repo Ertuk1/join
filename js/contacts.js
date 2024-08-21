@@ -109,11 +109,9 @@ async function getNewContact() {
         };
         await postContact("/contacts", newContact);
         await loadDataContacts();
-
-        const newContactIndex = contacts.length - 1; // Index des neu hinzugefügten Kontakts
-        createContactList(newContactIndex); // Neue Liste erstellen und neuen Kontakt hervorheben
-        contactClickHandler(newContactIndex); // Zeige die Details des neuen Kontakts an
-
+        const newContactIndex = contacts.length - 1;
+        createContactList(newContactIndex);
+        contactClickHandler(newContactIndex);
         name.value = '';
         email.value = '';
         phone.value = '';
@@ -241,11 +239,10 @@ async function editContactToArray(i) {
     let name = document.getElementById('editName');
     let email = document.getElementById('editEmail');
     let phone = document.getElementById('editPhone');
-    let id = contact.id;
     const initial = extractInitials(name.value);
-  
+
     let myName = isItYou ? name.value + ' (You)' : name.value;
-  
+
     const newContact = {
         "name": myName,
         "mail": email.value,
@@ -253,13 +250,13 @@ async function editContactToArray(i) {
         "profileColor": contact.profileColor,
         "initials": initial
     };
-    
+
     await postContact("/contacts", newContact);
     await loadDataContacts();
-    contactClickHandler(contacts.length -1);
+    contactClickHandler(contacts.length - 1);
     cancelEditContact();
     createContactList();
-  }
+}
 
 // Öffnet die Box 'Add new Contact'
 function showAddContact() {
