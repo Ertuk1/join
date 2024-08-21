@@ -87,7 +87,7 @@ function addHoverForLogin() {
 }
 
 
-function findUser(event) {
+async function findUser(event) {
   event.preventDefault();
 
   let emailInput = document.getElementById("logInEmailInput");
@@ -107,13 +107,29 @@ function findUser(event) {
     } else {
       localStorage.removeItem("savedUser");
     }
-
+    await addNewContact(user.name, user.email);
     redirectToSummary();
   } else {
     handleInvalidUser(user, emailInput, passwordInput, password);
   }
 }
 
+async function addNewContact(name, email) {
+  let youName = name + '&nbsp; (You)';
+  const colorIndex = Math.floor(Math.random() * beautifulColors.length); // Zufälliger Index für Farbe
+  const color = beautifulColors[colorIndex];
+  const initial = extractInitials(name); // Annahme: extractInitials ist bereits implementiert
+  const newContact = {
+      name: youName,
+      mail: email,
+      phone: '', // Da wir keine Telefonnummer während der Registrierung erhalten
+      profileColor: color,
+      initials: initial,
+  };
+
+  await postContact("/contacts", newContact);
+  console.log('Neuer Kontakt hinzugefügt:', newContact);
+}
 
 function resetInputBorders(emailInput, passwordInput) {
   emailInput.style.borderColor = "";

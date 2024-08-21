@@ -8,6 +8,7 @@ let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 
 async function contactInit() {
     await includeHTML();
+    showInitials();
     await loadDataContacts();
     renderContacts();
 }
