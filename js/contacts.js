@@ -61,7 +61,7 @@ function createContactList(newContactIndex = null) {
                 contactList.appendChild(contactItem);
 
                 // Füge dem Kontakt und den Kontaktinformationen einen Click-Event-Listener hinzu
-                contactItem.onclick = function() {
+                contactItem.onclick = function () {
                     // Entferne die 'active' Klasse von allen Kontakten
                     const allContacts = document.querySelectorAll('.contact');
                     allContacts.forEach(c => c.classList.remove('active'));
@@ -139,10 +139,10 @@ function contactClickHandler(i) {
               <h2>${contact.name}</h2>
           </div>
           <div class="editDivContact">
-              <div class="editBox" id="editDiv"><img src="assets/img/edit_contact.png" alt="edit">
+              <div class="editBox" id="editDiv" onclick="showEditContact(${i})"><img src="assets/img/edit_contact.png" alt="edit">
                   <p>Edit</p>
               </div>
-              <div class="editBox" id=deleteDiv onclick="deleteContact('/contacts/${contact.id}')"><img src="assets/img/delete_contact.png" alt="">
+              <div class="editBox" id="deleteDiv" onclick="deleteContact('/contacts/${contact.id}')"><img src="assets/img/delete_contact.png" alt="">
                   <p>Delete</p>
               </div>
           </div>
@@ -178,6 +178,89 @@ function slideSuccessfullyContact() {
     }, 1000);
 }
 
+async function showEditContact(i) {
+    let contact = contacts[i];
+    let name = contact.name;
+    isItYou = name.includes('(You)');
+    let displayName = isItYou ? name.substr(0, name.length - 12) : name;
+
+    const color = contact['profileColor'];
+
+    document.getElementById('editContactSecondSection').innerHTML = '';
+    document.getElementById('blurBackgroundEdit').classList.remove('d-none');
+    document.getElementById('editContactSecondSection').innerHTML = editContactHTML(i);
+    document.getElementById('editName').value = displayName;
+    document.getElementById('editEmail').value = contact.mail;
+    document.getElementById('editPhone').value = contact.phone;
+    document.getElementById('initialsEditContact').style.backgroundColor = color;
+    document.getElementById('initialsText').innerHTML = contact.initials;
+    // closeEditResponsive();
+}
+
+function editContactHTML(i) {
+    let contact = contacts[i];
+    return `
+    <div id="closeAddContactDiv"><img onclick="cancelEditContact()" id="addNewContactCloseButton"
+                        src="/assets/img/Close.png" alt="close"></div>
+                <div class="profileDivContact">
+                    <div id="editProfilePicture">
+                        <div id="whiteCircle">
+                            <div id="initialsEditContact">
+                                <h1 id="initialsText"></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contactInput">
+                        <div id="inputDiv">
+                            <div id="inputBox" class="inputBox"><input class="inputBlueBorder" id="editName"
+                                    required type="text" placeholder="Name">
+                                <img src="/assets/img/person.png">
+                            </div>
+                            <div class="inputBox"><input id="editEmail" type="email" required
+                                    placeholder="Email">
+                                <img src="/assets/img/mail.png">
+                            </div>
+                            <div class="inputBox"><input id="editPhone" type="number"
+                                    pattern="[0-9]" placeholder="Phone"> <img src="/assets/img/call.png">
+                            </div>
+                        </div>
+                        <div id="addNewContactAlert"></div>
+                        <div id="btnDiv">
+                            <button onclick="cancelEditContact(); deleteDataContact('/contacts/${contact.id}')" id="cancelButtonContact">Delete<img id="cancelIcon"
+                                    src="./assets/img/cancel(x).png" alt=""></button>
+                            <button onclick="editContactToArray(${i}), deleteDataContact('/contacts/${contact.id}')"  id="editContactButton">Save<img
+                                    src="./assets/img/check.png" alt=""></button>
+                        </div>
+                </div>
+            </div>
+     </div>`;
+}
+
+async function editContactToArray(i) {
+    let contact = contacts[i];
+    let name = document.getElementById('editName');
+    let email = document.getElementById('editEmail');
+    let phone = document.getElementById('editPhone');
+    let id = contact.id;
+    const initial = extractInitials(name.value);
+  
+    let myName = isItYou ? name.value + ' (You)' : name.value;
+  
+    const newContact = {
+        "name": myName,
+        "mail": email.value,
+        "phone": phone.value,
+        "profileColor": contact.profileColor,
+        "initials": initial
+    };
+    
+    await postContact("/contacts", newContact);
+    await loadDataContacts();
+    contactClickHandler(contacts.length -1);
+    cancelEditContact();
+    createContactList();
+  }
+
 // Öffnet die Box 'Add new Contact'
 function showAddContact() {
     document.getElementById('addNewContactAlert').innerHTML = '';
@@ -192,7 +275,7 @@ function cancelAddContact() {
 
 function cancelEditContact() {
     document.getElementById('blurBackgroundEdit').classList.add('d-none');
-  }
+}
 
 
 
