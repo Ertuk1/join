@@ -115,7 +115,7 @@ async function findUser(event) {
 }
 
 async function addNewContact(name, email) {
-  let youName = name + '&nbsp; (You)';
+  let youName = name + ' (You)';
   const colorIndex = Math.floor(Math.random() * beautifulColors.length); // Zufälliger Index für Farbe
   const color = beautifulColors[colorIndex];
   const initial = extractInitials(name); // Annahme: extractInitials ist bereits implementiert

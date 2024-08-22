@@ -131,6 +131,7 @@ async function postContact(path, newContact) {
   return (responseToJson = await response.json());
 }
 
+
 async function deleteDataContact(path = "") {
   let response = await fetch(BASE_URL + path + ".json", {
       method: "DELETE",

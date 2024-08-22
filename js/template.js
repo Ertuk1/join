@@ -2,6 +2,7 @@ let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 
 async function initTemplate() {
     await includeHTML();
+    await loadDataContacts();
     showInitials();
 }
 
@@ -80,8 +81,12 @@ function showInitials() {
 function clearSessionStorage() {
   sessionStorage.clear();
 }
-  
-function logout() {
+
+async function logout() {
+  let contactWithYou = contacts.find(contact => contact.name.endsWith("(You)"));
+  if (contactWithYou) {
+        await deleteDataContact(`/contacts/${contactWithYou.id}`);
+     }
   clearSessionStorage();
   window.location.href = "/index.html";
 }
