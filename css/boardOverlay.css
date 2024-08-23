@@ -24,7 +24,7 @@
 .overlayContent {
     margin: auto;
     width: 525px;
-    max-height: 80vh;
+    max-height: 75vh;
     height: 100%;
     padding: 48px 40px;
     gap: 24px;
@@ -34,9 +34,36 @@
     box-shadow: 0px 0px 4px 0px #00000029;
     overflow-y: hidden;
     position: relative;
-    
+    margin-top: 100px;
+    animation: slideIn 0.5s ease-out;
 
 
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutLeft {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+.overlayContent.slide-out {
+    animation: slideOutLeft 0.5s ease-out forwards;
 }
 
 .overlayUserTitle {
