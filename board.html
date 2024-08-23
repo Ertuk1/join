@@ -27,15 +27,16 @@
                         <input oninput="searchTasks()" type="search" placeholder="Search..." id="searchInput">
                         <button type="button" id="searchButton">Search</button>
                     </div>
-                    <button onclick="showOverlay();stopPropagation(event)" class="addTaskButton">Add task<div class="addSymbol"><img
-                                src="./assets/img/add.png" alt="Add"></div></button>
+                    <button onclick="showOverlay();stopPropagation(event)" class="addTaskButton"><span class="buttonText">Add task</span><div
+                            class="addSymbol"></button>
                 </div>
             </section>
             <section class="allTasks">
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>To do</span>
-                        <img onclick="showOverlay();stopPropagation(event)" class="plussButton" src="./assets/img/plus button.png" alt="plus button">
+                        <img onclick="showOverlay();stopPropagation(event)" class="plussButton"
+                            src="./assets/img/plus button.png" alt="plus button">
                     </div>
                     <div id="toDo" class="taskContent" ondrop="drop(event)" ondragover="allowDrop(event)">
 
@@ -44,7 +45,8 @@
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>In progress</span>
-                        <img onclick="showOverlay('progress')" class="plussButton" src="./assets/img/plus button.png" alt="plus button">
+                        <img onclick="showOverlay('progress')" class="plussButton" src="./assets/img/plus button.png"
+                            alt="plus button">
                     </div>
                     <div id="progress" class="taskContent" ondrop="drop(event)" ondragover="allowDrop(event)">
 
@@ -53,7 +55,8 @@
                 <div class="todo">
                     <div class="tasksHeader">
                         <span>Await feedback</span>
-                        <img onclick="showOverlay('feedback')" class="plussButton" src="./assets/img/plus button.png" alt="plus button">
+                        <img onclick="showOverlay('feedback')" class="plussButton" src="./assets/img/plus button.png"
+                            alt="plus button">
                     </div>
                     <div id="feedback" class="taskContent" ondrop="drop(event)" ondragover="allowDrop(event)">
 

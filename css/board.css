@@ -129,6 +129,7 @@ h2 {
     margin-left: 4px;
     display: flex;
     align-items: center;
+    content: url(../assets/img/add.png)
 }
 
 .addSymbol img {
@@ -375,4 +376,153 @@ h2 {
     transform: scale(1.05); 
     cursor: pointer;
     
+}
+
+@media (max-width: 1500px) {
+    .allTasks {
+        display: flex;
+        flex-direction: column;
+        gap: 400px; /* Abstand zwischen den Spalten */
+    }
+
+    .todo {
+        width: 100%;
+    }
+
+    .tasksHeader {
+        width: 100%;
+    }
+
+    .taskContent {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        height: 260px;
+        width: 100%;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
+    }
+
+    .taskContent::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge und Opera: Scrollbar verbergen */
+    }
+    .main-content-wrapper{
+        margin-left: 0px;
+        width: 100%;
+    }
+
+    .joinIcon {
+        display: none;
+      }
+      .policy {
+        display: none;
+      }
+      .navbar {
+        width: 100%;
+        height: 110px;
+        top: unset;
+        bottom: 0;
+        flex-direction: row;
+      }
+      .navbarContent {
+        display: block;
+        width: 100%;
+        height: 110px;
+      }
+      .menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 1px;
+        width: 100%;
+        gap: 0;
+      }
+      .summery,
+      .addTask,
+      .board,
+      .conntacts {
+        flex-direction: column;
+        gap: 8px;
+        height: 46px;
+        padding: 26px 30px 37px 26px;
+        border-radius: 16px;
+      }
+      .menu p {
+        margin: 0;
+      }
+      .menu img {
+        height: 40px;
+        width: 40px;
+      }
+      .summery:hover,
+      .addTask:hover,
+      .board:hover,
+      .conntacts:hover {
+        font-weight: 400;
+        background-color: rgba(42, 54, 71, 1);
+      }
+
+      .card{
+        height: 200px;
+      }
+
+      .overlayContent{
+        width: 425px !important;
+        max-height: 60vh !important;
+        overflow-y: scroll !important;
+      }
+}
+
+@media (max-width: 800px) {
+    .buttonText{display: none;}
+    .addSymbol{
+        content: url("../assets/img/plus\ add\ task\ mobile.png");
+        margin-left: 0 ;
+    }
+    .addTaskButton{
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        padding: 3px;
+        gap: 10px;
+        
+    }
+    .headerClass {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100% !important;
+        gap: 10px; /* Abstand zwischen Titel/Add Task und der Suchleiste */
+    }
+
+    .search-and-add {
+        display: flex;
+        flex-direction: column; /* Anordnung der Suchleiste unter dem Add-Button */
+        width: 100% !important;
+    }
+
+    .search-bar {
+        width: 100% !important; /* Suchleiste nimmt die gesamte Breite ein */
+        margin-top: 10px; /* Abstand zum Add Task Button */
+        box-sizing: border-box; 
+    }
+
+    .addTaskButton {
+        align-self: flex-end; /* Positioniert den "Add Task"-Button rechtsbündig */
+        margin-top: -115px; /* Justiert die Position des Buttons, um ihn auf die Höhe des Titels zu bringen */
+    }
+
+    h2 {
+        align-self: flex-start; /* "Board"-Titel linksbündig */
+    }
+    .todo{
+        margin-top: 30px;
+    }
+    main{
+        padding: 10px;
+    }
+
 }

@@ -20,7 +20,7 @@ body {
 .overlayContentAddTask {
     margin: auto;
     width: 1116px;
-    max-height: 80vh;
+    max-height: 75vh;
     height: 100%;
     padding: 48px 40px;
     gap: 24px;
@@ -28,6 +28,7 @@ body {
     background-color: white;
     cursor: auto;
     box-shadow: 0px 0px 4px 0px #00000029;
+    margin-top: 100px;
 }
 
 .closeButtonDiv {
@@ -58,7 +59,7 @@ body {
     justify-content: center;
 }
 
-.overlayContent {
+/* .overlayContent {
     margin: auto;
     width: 525px;
     max-height: 80vh;
@@ -70,7 +71,7 @@ body {
     cursor: auto;
     box-shadow: 0px 0px 4px 0px #00000029;
     overflow-y: auto;
-}
+} */
 
 .overlayUserTitle {
     justify-content: space-between;
