@@ -51,6 +51,7 @@ aside {
 
 .menu p {
   color: rgba(205, 205, 205, 1);
+  margin: 0;
 }
 
 .menu a {
