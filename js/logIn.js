@@ -17,21 +17,19 @@ function redirectToSignup() {
 }
 
 
+
 function joinImgAnimation() {
   let background = document.querySelector(".animatedImageContainer");
   let animatedImage = document.querySelector(".animatedImage");
   let responsiveImg = document.querySelector(".animatedImageResposive");
   let joinIcon = document.querySelector(".joinIcon");
   let signup = document.getElementById('resposivSignup');
-  let hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
   let mediaQuery = window.matchMedia("(max-width: 730px)");
 
-  if (hasVisitedBefore) {
-      startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
-  } else {
-    hideElements(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
-  }
-}
+  setTimeout(function() {
+    startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
+  }, 300);
+}  
 
 
 function startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery) {
@@ -48,7 +46,6 @@ function startAnimation(background, animatedImage, joinIcon, signup, responsiveI
 
     setTimeout(function () {
       hideElements(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
-      localStorage.setItem("hasVisitedBefore", true);
     }, 500);
 }
 

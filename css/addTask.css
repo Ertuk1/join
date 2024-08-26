@@ -15,12 +15,13 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 10;
+    animation: slideInRight 0.5s forwards;
 }
 
 .overlayContentAddTask {
     margin: auto;
     width: 1116px;
-    max-height: 80vh;
+    max-height: 75vh;
     height: 100%;
     padding: 48px 40px;
     gap: 24px;
@@ -28,6 +29,7 @@ body {
     background-color: white;
     cursor: auto;
     box-shadow: 0px 0px 4px 0px #00000029;
+    margin-top: 100px;
 }
 
 .closeButtonDiv {
@@ -56,9 +58,10 @@ body {
     /* Add a pointer on hover */
     align-items: center;
     justify-content: center;
+    animation: slideInRight 0.5s forwards;
 }
 
-.overlayContent {
+/* .overlayContent {
     margin: auto;
     width: 525px;
     max-height: 80vh;
@@ -70,7 +73,7 @@ body {
     cursor: auto;
     box-shadow: 0px 0px 4px 0px #00000029;
     overflow-y: auto;
-}
+} */
 
 .overlayUserTitle {
     justify-content: space-between;
@@ -118,6 +121,17 @@ body {
     background-color: rgb(214, 214, 214);
     border-radius: 50%;
 }
+
+@keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+    }
+  
+    to {
+      transform: translateX(0);
+    }
+  }
+  
 
 @keyframes slideOut {
     0% {

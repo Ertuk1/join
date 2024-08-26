@@ -212,3 +212,68 @@ async function deleteDataTask(path) {
     });
     return response.json();
 }
+
+async function saveTaskChanges(id) {
+  await loadDataTask(); // Call loadDataTask to populate the tasks array
+
+  const taskTitle = document.getElementById('task-title').value.trim() || 'Untitled';
+  const taskDescription = document.getElementById('at-description').value.trim() || 'No description';
+  const taskDueDate = document.getElementById('task-due-date').value || new Date().toISOString().split('T')[0];
+
+  // Überprüfen und setzen der Priorität
+  let taskPriority;
+  const urgentElement = document.querySelector('.at-bg-urgent');
+  const mediumElement = document.querySelector('.at-bg-medium');
+  const lowElement = document.querySelector('.at-bg-low');
+
+  if (urgentElement) {
+    taskPriority = 'urgent';
+  } else if (mediumElement) {
+    taskPriority = 'medium';
+  } else if (lowElement) {
+    taskPriority = 'low';
+  } else {
+    taskPriority = 'low'; // Standardwert
+  }
+
+  // Retrieve existing task data
+  let existingTask;
+  for (const task of tasks) {
+    if (task.id === id) {
+      existingTask = task;
+      break;
+    }
+  }
+
+  // Get the updated subcategories from the edit overlay
+  const subcategories = Array.from(document.querySelectorAll('.choosed-subcategory-input')).map(input => input.value) || [];
+
+  const updatedTask = {
+    title: taskTitle,
+    description: taskDescription,
+    date: taskDueDate,
+    prio: taskPriority,
+    subcategory: subcategories.length > 0 ? subcategories : existingTask.subcategory, // Use the updated subcategories if they exist, otherwise use the existing ones
+    assignedTo: existingTask.assignedTo, // Use the existing assignedTo
+    status: existingTask.status, // Use the existing status
+    category: existingTask.category,
+    completedSubtasks: existingTask.completedSubtasks,
+  };
+
+  console.log("Updated Task:", updatedTask);
+
+  try {
+    // Überprüfen, was an das Backend gesendet wird
+    console.log('Sending updated task to backend:', updatedTask);
+    await changeTask(`/task/${id}`, updatedTask);
+
+    // Überprüfen, ob die Aufgabe nach dem Speichern korrekt neu geladen wird
+    await loadDataTask();
+    renderTasks();
+
+    // Schließen des Overlays
+    off();
+  } catch (error) {
+    console.error('Fehler beim Speichern der Änderungen:', error);
+  }
+}

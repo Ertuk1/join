@@ -224,8 +224,6 @@ function getSubtask(toDo) {
 
 async function addCompletedSubtasks(i, id) {
     await loadDataTask();
-    console.log('Task array:', task);
-    console.log('Searching for task with ID:', id);
     let taskItem = tasks.find(taskItem => taskItem.id === id);
     if (taskItem) { // Check if taskItem is not undefined
         if (taskItem.completedSubtasks[i] == 'false') {
@@ -284,7 +282,6 @@ function on() {
 }
 
 function off() {
-    console.log('Closing modal');
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
 
@@ -347,6 +344,9 @@ async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, task
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
+
+    const saveButton = document.querySelector('.board-task-edit-btn');
+    saveButton.addEventListener('click', () => saveTaskChanges(id));
    
     renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask);
 }
@@ -355,10 +355,35 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
     document.getElementById('task-title').value = taskTitle;
     document.getElementById('at-description').value = taskDescription;  
     document.getElementById('task-due-date').value = taskDueDate;
-    setBackgroundColorPrio(taskPriority);
     document.getElementById('added-subcategories').innerHTML = editSubtask; 
+
+    // Setze das Icon basierend auf der Priorität
+    const priorityIcon = getPriorityIcon(taskPriority);
+    const priorityIconElement = document.getElementById('priority-icon');
+    
+    if (priorityIconElement && priorityIcon) {
+        priorityIconElement.src = priorityIcon;
+    }
+
+    // Sicherstellen, dass das Overlay korrekt gerendert ist, bevor die Priorität gesetzt wird
+    requestAnimationFrame(() => {
+        setBackgroundColorPrio(taskPriority);
+    });
 }
 
+function getSelectedPriority() {
+    const priorityElements = document.querySelectorAll('.at-prio-item');
+    for (const element of priorityElements) {
+        if (element.classList.contains('at-bg-urgent')) {
+            return 'urgent';
+        } else if (element.classList.contains('at-bg-medium')) {
+            return 'medium';
+        } else if (element.classList.contains('at-bg-low')) {
+            return 'low';
+        }
+    }
+    return 'low'; // Default-Wert, falls keine Priorität gefunden wird
+}
 function getEditSubtaskHTML(editSubtask) {
     let subtaskHTML = ''
     for (let i = 0; i < editSubtask.length; i++) {
