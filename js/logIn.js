@@ -26,8 +26,10 @@ function joinImgAnimation() {
   let signup = document.getElementById('resposivSignup');
   let mediaQuery = window.matchMedia("(max-width: 730px)");
 
-  startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
-}
+  setTimeout(function() {
+    startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
+  }, 300);
+}  
 
 
 function startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery) {
