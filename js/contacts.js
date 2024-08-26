@@ -187,6 +187,9 @@ async function showEditContact(i) {
 
     document.getElementById('editContactSecondSection').innerHTML = '';
     document.getElementById('blurBackgroundEdit').classList.remove('d-none');
+    setTimeout(() => {
+        editContact.style.right = "0";
+    }, 10);
     document.getElementById('editContactSecondSection').innerHTML = editContactHTML(i);
     document.getElementById('editName').value = displayName;
     document.getElementById('editEmail').value = contact.mail;
@@ -262,17 +265,24 @@ async function editContactToArray(i) {
 // Öffnet die Box 'Add new Contact'
 function showAddContact() {
     document.getElementById('addNewContactAlert').innerHTML = '';
-    document.getElementById('addNewContact').classList.add('addnewContactActive');
     document.getElementById('blurBackground').classList.remove('d-none');
+    setTimeout(() => {
+        addNewContact.style.right = "0";
+    }, 10);
 }
 
 function cancelAddContact() {
-    document.getElementById('addNewContact').classList.remove('addnewContactActive');
     document.getElementById('blurBackground').classList.add('d-none');
+    setTimeout(() => {
+        addNewContact.style.right = "-6000px";
+    }, 10);
 }
 
 function cancelEditContact() {
     document.getElementById('blurBackgroundEdit').classList.add('d-none');
+    setTimeout(() => {
+        editContact.style.right = "-6000px";
+    }, 10);
 }
 
 
