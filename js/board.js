@@ -347,6 +347,9 @@ async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, task
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
+
+    const saveButton = document.querySelector('.board-task-edit-btn');
+    saveButton.addEventListener('click', () => saveTaskChanges(id));
    
     renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask);
 }
@@ -355,10 +358,89 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
     document.getElementById('task-title').value = taskTitle;
     document.getElementById('at-description').value = taskDescription;  
     document.getElementById('task-due-date').value = taskDueDate;
-    setBackgroundColorPrio(taskPriority);
     document.getElementById('added-subcategories').innerHTML = editSubtask; 
+
+    // Setze das Icon basierend auf der Priorität
+    const priorityIcon = getPriorityIcon(taskPriority);
+    const priorityIconElement = document.getElementById('priority-icon');
+    
+    if (priorityIconElement && priorityIcon) {
+        priorityIconElement.src = priorityIcon;
+    }
+
+    // Sicherstellen, dass das Overlay korrekt gerendert ist, bevor die Priorität gesetzt wird
+    requestAnimationFrame(() => {
+        setBackgroundColorPrio(taskPriority);
+    });
+}
+async function saveTaskChanges(id) {
+    const taskTitle = document.getElementById('task-title').value.trim() || 'Untitled';
+    const taskDescription = document.getElementById('at-description').value.trim() || 'No description';
+    const taskDueDate = document.getElementById('task-due-date').value || new Date().toISOString().split('T')[0];
+
+    // Überprüfen und setzen der Priorität
+    let taskPriority;
+    const urgentElement = document.querySelector('.at-bg-urgent');
+    const mediumElement = document.querySelector('.at-bg-medium');
+    const lowElement = document.querySelector('.at-bg-low');
+
+    if (urgentElement) {
+        taskPriority = 'urgent';
+        console.log('Urgent priority selected');
+    } else if (mediumElement) {
+        taskPriority = 'medium';
+        console.log('Medium priority selected');
+    } else if (lowElement) {
+        taskPriority = 'low';
+        console.log('Low priority selected');
+    } else {
+        taskPriority = 'low'; // Standardwert
+        console.log('No priority selected, defaulting to low');
+    }
+
+    console.log("Task Priority:", taskPriority);
+
+    const subcategories = Array.from(document.querySelectorAll('.choosed-subcategory-input')).map(input => input.value) || [];
+
+    const updatedTask = {
+        title: taskTitle,
+        description: taskDescription,
+        date: taskDueDate,
+        prio: taskPriority,
+        subcategory: subcategories,
+    };
+
+    console.log("Updated Task:", updatedTask);
+
+    try {
+        // Überprüfen, was an das Backend gesendet wird
+        console.log('Sending updated task to backend:', updatedTask);
+        await changeTask(`/task/${id}`, updatedTask);
+
+        // Überprüfen, ob die Aufgabe nach dem Speichern korrekt neu geladen wird
+        await loadDataTask();
+        renderTasks();
+
+        // Schließen des Overlays
+        off();
+    } catch (error) {
+        console.error('Fehler beim Speichern der Änderungen:', error);
+    }
 }
 
+function getSelectedPriority() {
+    const priorityElements = document.querySelectorAll('.at-prio-item');
+    for (const element of priorityElements) {
+        if (element.classList.contains('at-bg-urgent')) {
+            return 'urgent';
+        } else if (element.classList.contains('at-bg-medium')) {
+            return 'medium';
+        } else if (element.classList.contains('at-bg-low')) {
+            return 'low';
+        }
+    }
+    return 'low'; // Default-Wert, falls keine Priorität gefunden wird
+}
 function getEditSubtaskHTML(editSubtask) {
     let subtaskHTML = ''
     for (let i = 0; i < editSubtask.length; i++) {
