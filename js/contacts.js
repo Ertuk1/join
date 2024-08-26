@@ -173,7 +173,6 @@ function slideSuccessfullyContact() {
     setTimeout(() => {
         successfully.classList.remove('slide-in-bottom');
         container.style.display = 'none';
-
     }, 1000);
 }
 
@@ -187,6 +186,7 @@ async function showEditContact(i) {
 
     document.getElementById('editContactSecondSection').innerHTML = '';
     document.getElementById('blurBackgroundEdit').classList.remove('d-none');
+    editContact.style.display = "flex";
     setTimeout(() => {
         editContact.style.right = "0";
     }, 10);
@@ -266,6 +266,7 @@ async function editContactToArray(i) {
 function showAddContact() {
     document.getElementById('addNewContactAlert').innerHTML = '';
     document.getElementById('blurBackground').classList.remove('d-none');
+    addNewContact.style.display = "flex";
     setTimeout(() => {
         addNewContact.style.right = "0";
     }, 10);
@@ -276,6 +277,7 @@ function cancelAddContact() {
     setTimeout(() => {
         addNewContact.style.right = "-6000px";
     }, 10);
+    addNewContact.style.display = "none";
 }
 
 function cancelEditContact() {
@@ -283,6 +285,7 @@ function cancelEditContact() {
     setTimeout(() => {
         editContact.style.right = "-6000px";
     }, 10);
+    editContact.style.display = "none";
 }
 
 
