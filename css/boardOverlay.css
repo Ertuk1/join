@@ -36,6 +36,7 @@
     position: relative;
     margin-top: 100px;
     animation: slideIn 0.5s ease-out;
+    z-index: 100000;
 
 
 }
@@ -343,13 +344,15 @@ cursor: pointer;
 }
 
 .edit-task-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    z-index: 100000;
+    z-index: 200000;
     background-color: white;
     height: 100%;
     width: 99%;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 .board-task-edit-btn{
