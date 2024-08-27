@@ -10,7 +10,7 @@ body {
 
 body {
     font-family: 'Inter', sans-serif;
-    
+
 }
 
 header,
@@ -369,20 +369,21 @@ h2 {
 }
 
 .card {
-    transition: transform 0.2s ease-in-out; 
+    transition: transform 0.2s ease-in-out;
 }
 
 .card:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
     cursor: pointer;
-    
+
 }
 
 @media (max-width: 1500px) {
     .allTasks {
         display: flex;
         flex-direction: column;
-        gap: 400px; /* Abstand zwischen den Spalten */
+        gap: 270px;
+        /* Abstand zwischen den Spalten */
     }
 
     .todo {
@@ -406,155 +407,170 @@ h2 {
     }
 
     .taskContent::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Edge und Opera: Scrollbar verbergen */
+        display: none;
+        /* Chrome, Safari, Edge und Opera: Scrollbar verbergen */
     }
 
-    #done{
+    #done {
         padding-bottom: 100px;
     }
 
 
-
-
-      .card{
+    .card {
         height: 200px;
-      }
+    }
 
-      .overlayContent{
+    .overlayContent {
         width: 425px !important;
         max-height: 60vh !important;
         overflow-y: scroll !important;
-      }
+    }
+}
+
+@media (max-width:1300px){
+    .main-content-wrapper{
+        margin-left: 0px;
+        width: 100%;
+    }
 }
 
 @media (max-width: 830px) {
-    .buttonText{display: none;}
-    .addSymbol{
-        content: url("../assets/img/plus\ add\ task\ mobile.png");
-        margin-left: 0 ;
+    .buttonText {
+        display: none;
     }
-    .addTaskButton{
+
+    .addSymbol {
+        content: url("../assets/img/plus\ add\ task\ mobile.png");
+        margin-left: 0;
+    }
+
+    .addTaskButton {
         width: 40px;
         height: 40px;
         border-radius: 10px;
         padding: 3px;
         gap: 10px;
-        
+
     }
+
     .headerClass {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         width: 100% !important;
-        gap: 10px; /* Abstand zwischen Titel/Add Task und der Suchleiste */
+        gap: 10px;
+        padding-top: 50px;
     }
 
     .search-and-add {
         display: flex;
-        flex-direction: column; /* Anordnung der Suchleiste unter dem Add-Button */
+        flex-direction: column;
+        /* Anordnung der Suchleiste unter dem Add-Button */
         width: 100% !important;
     }
 
     .search-bar {
-        width: 100% !important; /* Suchleiste nimmt die gesamte Breite ein */
-        margin-top: 10px; /* Abstand zum Add Task Button */
-        box-sizing: border-box; 
+        width: 100% !important;
+        /* Suchleiste nimmt die gesamte Breite ein */
+        margin-top: 10px;
+        /* Abstand zum Add Task Button */
+        box-sizing: border-box;
     }
 
     .addTaskButton {
-        align-self: flex-end; /* Positioniert den "Add Task"-Button rechtsbündig */
-        margin-top: -115px; /* Justiert die Position des Buttons, um ihn auf die Höhe des Titels zu bringen */
+        align-self: flex-end;
+        /* Positioniert den "Add Task"-Button rechtsbündig */
+        margin-top: -115px;
+        /* Justiert die Position des Buttons, um ihn auf die Höhe des Titels zu bringen */
     }
 
     h2 {
-        align-self: flex-start; /* "Board"-Titel linksbündig */
+        align-self: flex-start;
+        /* "Board"-Titel linksbündig */
     }
-    .todo{
+
+    .todo {
         margin-top: 30px;
     }
-    main{
-        padding: 0px;
+
+    main {
+        padding: 16px ;
     }
 
-    .main-content-wrapper{
-        margin-left: 0px;
-        width: 100%;
-    }
 
-    .at-input-headlines{
+    .at-input-headlines {
         margin-left: 80px;
-        
+
     }
 
-    .left-input-container input{
+    .left-input-container input {
         width: 50%;
         margin-left: 80px;
 
     }
 
-    .left-input-container textarea{
+    .left-input-container textarea {
         width: 50%;
         margin-left: 80px;
     }
 
-    .custom-select{
+    .custom-select {
         width: 50%;
         margin-left: 80px;
     }
 
-    .at-input-date[type="date"]{
+    .at-input-date[type="date"] {
         width: 50%;
         margin-left: 80px;
     }
-    #urgent-img-deactive ,
+
+    #urgent-img-deactive,
     #urgent-img-active,
     #low-img-active,
     #low-img-deactive,
     #medium-img-deactive,
-    #medium-img-active
-    {
+    #medium-img-active {
         height: 10px;
         width: 15px;
     }
 
-    .at-prio-item{
+    .at-prio-item {
         font-size: 15px !important;
         width: 90px !important;
     }
 
-    .at-prio-container{
+    .at-prio-container {
         justify-content: center !important;
         gap: 10px !important;
     }
 
-    .right-input-container input{
+    .right-input-container input {
         width: 50%;
         margin-left: 75px;
     }
 
-    .board-task-edit-btn{
+    .board-task-edit-btn {
         margin-top: 80px !important;
     }
 
-    .edit-btn-position-container{
+    .edit-btn-position-container {
         justify-content: center
-
     }
 
     .board-task-edit-btn {
         margin-right: 75px;
     }
 
-    #added-subcategories{
+    #added-subcategories {
         margin-left: 80px;
     }
 
-    .edit-task-overlay{
-    overflow-x: hidden;
-    scrollbar-width: thin;
+    .edit-task-overlay {
+        overflow-x: hidden;
+        scrollbar-width: thin;
     }
 
-    .edit-close-btn-container{
+    .edit-close-btn-container {
         margin-right: 0px !important;
         margin-top: 0px !important;
     }
