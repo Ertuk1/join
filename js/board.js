@@ -193,7 +193,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
         <div class="subtasksOverlay"><span>Subtasks</span></div>
         ${subtaskHTML}
         <section>
-            <div class="editDiv">
+            <div id="editDiv" class="editDiv">
                 <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
                 <div class="vector"></div>
                 <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}', '${taskPriority}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
@@ -345,6 +345,9 @@ async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, task
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
+    document.getElementById('at-subcategory-open').classList.add('d-none');
+    document.getElementById('editDiv').classList.add('d-none');
+    
 
     const saveButton = document.querySelector('.board-task-edit-btn');
     saveButton.addEventListener('click', () => saveTaskChanges(id));
