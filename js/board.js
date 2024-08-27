@@ -70,7 +70,7 @@ function renderTasks() {
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
             ? toDo.assignedTo.map((assignee, index) => {
                 let contact = contacts[index];
-                return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
+                return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${assignee.initial}</div>` : '';
             }).join('')
             : '';
         let taskType = toDo.category;
@@ -144,14 +144,15 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
     let taskPriorityIcon = getPriorityIcon(taskPriority);
     let taskTypeBackgroundColor  = taskType === 'User Story' ? '#1FD7C1' : '';
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
-        ? taskAssignees.map((assignee, index) => {
-            let contact = contacts[index];
+        ? taskAssignees.map(assignee => {
+            // Finde den Kontakt mit der passenden ID
+            let contact = contacts.find(contact => contact.id === assignee.id);
             return contact ? `
-        <div class="contactDiv">
-            <span class="contactCard" style="background-color: ${assignee.color};"> ${contact.initials}</span>
-            <span class="contactName">${contact.name}</span>
-        </div>
-        ` : '';
+                <div class="contactDiv">
+                    <span class="contactCard" style="background-color: ${assignee.color};"> ${assignee.initial}</span>
+                    <span class="contactName">${contact.name}</span>
+                </div>
+            ` : '';
         }).join('')
         : '';
 
