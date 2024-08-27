@@ -70,7 +70,7 @@ function renderTasks() {
         let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
             ? toDo.assignedTo.map((assignee, index) => {
                 let contact = contacts[index];
-                return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${contact.initials}</div>` : '';
+                return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${assignee.initial}</div>` : '';
             }).join('')
             : '';
         let taskType = toDo.category;
@@ -144,14 +144,15 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
     let taskPriorityIcon = getPriorityIcon(taskPriority);
     let taskTypeBackgroundColor  = taskType === 'User Story' ? '#1FD7C1' : '';
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
-        ? taskAssignees.map((assignee, index) => {
-            let contact = contacts[index];
+        ? taskAssignees.map(assignee => {
+            // Finde den Kontakt mit der passenden ID
+            let contact = contacts.find(contact => contact.id === assignee.id);
             return contact ? `
-        <div class="contactDiv">
-            <span class="contactCard" style="background-color: ${assignee.color};"> ${contact.initials}</span>
-            <span class="contactName">${contact.name}</span>
-        </div>
-        ` : '';
+                <div class="contactDiv">
+                    <span class="contactCard" style="background-color: ${assignee.color};"> ${assignee.initial}</span>
+                    <span class="contactName">${contact.name}</span>
+                </div>
+            ` : '';
         }).join('')
         : '';
 
@@ -192,7 +193,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
         <div class="subtasksOverlay"><span>Subtasks</span></div>
         ${subtaskHTML}
         <section>
-            <div class="editDiv">
+            <div id="editDiv" class="editDiv">
                 <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
                 <div class="vector"></div>
                 <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}', '${taskPriority}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
@@ -344,6 +345,9 @@ async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, task
     document.getElementById('at-btn-container').classList.add('d-none');
     document.getElementById('category-headline').classList.add('d-none');
     document.getElementById('category-input').classList.add('d-none');
+    document.getElementById('at-subcategory-open').classList.add('d-none');
+    document.getElementById('editDiv').classList.add('d-none');
+    
 
     const saveButton = document.querySelector('.board-task-edit-btn');
     saveButton.addEventListener('click', () => saveTaskChanges(id));
