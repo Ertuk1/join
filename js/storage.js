@@ -247,6 +247,13 @@ async function saveTaskChanges(id) {
 
   // Get the updated subcategories from the edit overlay
   const subcategories = Array.from(document.querySelectorAll('.choosed-subcategory-input')).map(input => input.value) || [];
+  const assignedToContacts = Array.from(document.querySelectorAll('.at-label-checkbox input[type="checkbox"]:checked')).map(input => {
+    const contactId = input.getAttribute('data-contact-id');
+    const contactColor = input.getAttribute('data-contact-color');
+    const contactInitials = input.getAttribute('data-contact-initials');
+    return { id: contactId, color: contactColor, initial: contactInitials };
+  });
+  
 
   const updatedTask = {
     title: taskTitle,
@@ -254,7 +261,7 @@ async function saveTaskChanges(id) {
     date: taskDueDate,
     prio: taskPriority,
     subcategory: subcategories.length > 0 ? subcategories : existingTask.subcategory, // Use the updated subcategories if they exist, otherwise use the existing ones
-    assignedTo: existingTask.assignedTo, // Use the existing assignedTo
+    assignedTo: assignedToContacts.length > 0 ? assignedToContacts : existingTask.assignedTo, 
     status: existingTask.status, // Use the existing status
     category: existingTask.category,
     completedSubtasks: existingTask.completedSubtasks,
