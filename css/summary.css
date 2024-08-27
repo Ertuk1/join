@@ -218,11 +218,13 @@ body {
   display: none;
 }
 
-@media (max-height: 821px) {
+@media (max-width: 1300px) {
   .container {
-    top: 117px;
-    left: 275px;
+    top: 131px;
+    left: 16px;
   }
+}
+@media (max-height: 821px) {
   .appHeader {
     margin-bottom: 16px;
   }
@@ -327,10 +329,6 @@ body {
   }
 }
 @media (max-width: 830px) {
-  .container {
-    top: 131px;
-    left: 16px;
-  }
   .appHeader {
     margin-bottom: 40px;
   }
