@@ -273,19 +273,19 @@ function showAddContact() {
 }
 
 function cancelAddContact() {
-    document.getElementById('blurBackground').classList.add('d-none');
     setTimeout(() => {
         addNewContact.style.right = "-6000px";
+        addNewContact.style.display = "none";
+        document.getElementById('blurBackground').classList.add('d-none');
     }, 10);
-    addNewContact.style.display = "none";
 }
 
 function cancelEditContact() {
-    document.getElementById('blurBackgroundEdit').classList.add('d-none');
     setTimeout(() => {
         editContact.style.right = "-6000px";
+        editContact.style.display = "none";
+        document.getElementById('blurBackgroundEdit').classList.add('d-none');
     }, 10);
-    editContact.style.display = "none";
 }
 
 
