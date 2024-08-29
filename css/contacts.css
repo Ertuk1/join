@@ -1065,15 +1065,6 @@ body {
         font-size: 16px;
     }
 
-    #editRespImg:active img {
-        content: url(./assets/img/edit_contact_blue.png) !important;
-    }
-
-    #deleteRespImg:active img {
-        content: url(./assets/img/delete_contact_blue.png) !important;
-
-    }
-
 
     #editDivResp {
         visibility: visible;
