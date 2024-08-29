@@ -962,13 +962,14 @@ body {
     }
 
     #contactContent {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
         visibility: visible;
         left: 0px !important;
-        padding: 0px !important;
-        margin: 32px;
+        padding: 32px 0px 32px 32px !important;
         align-items: start !important;
-        height: 70%;
-        width: 90vw;
         overflow: hidden;
 
     }
@@ -995,6 +996,7 @@ body {
     }
 
     #contactsHeadlineResp img{
+        padding: 4px;
         visibility: visible;
         height: 24px;
         object-fit: cover;
@@ -1011,8 +1013,8 @@ body {
         position: absolute;
         width: 56px;
         height: 56px;
-        bottom: 18px;
-        right: 0px;
+        bottom: 120px;
+        right: 24px;
         border-radius: 50%;
         background-color: rgba(42, 54, 71, 1);
         display: flex;
@@ -1033,7 +1035,7 @@ body {
 
     #editDivResp {
         position: absolute;
-        bottom: 3px;
+        bottom: 115px;
         right: -200px;
         width: 140px;
         height: 100px;
@@ -1065,10 +1067,31 @@ body {
         font-size: 16px;
     }
 
+    #editContactResp:active img{
+        content: url(/assets/img/edit_contact_blue.png);
+    }
+
+    #deleteContactResp:active img {
+        content: url(/assets/img/delete_contact_blue.png);
+    }
+
 
     #editDivResp {
         visibility: visible;
     }
 
+    #editContact {
+        flex-direction: column;
+        height: 95vh !important;
+        margin: auto;
+        width: 600px !important;
+        right: 0 !important;
+        bottom: -6000px;
+    }
+
+    #contactsHeadlineResp img:active {
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 
 }

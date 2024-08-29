@@ -173,7 +173,7 @@ function editContactResponsive(contact, i) {
     let contactSection = document.getElementById('viewContact');
     contactSection.innerHTML = '';
     contactSection.innerHTML =
-        `<div onclick="closeEditDiv()" >
+        `<div onclick="closeEditDiv()">
         <div class="profileName">
       <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
       <div class="nameEditBox">
@@ -194,7 +194,7 @@ function editContactResponsive(contact, i) {
       <p>Contact Information</p>
     </div>
     <div>
-      <div class="showOneContact">
+      <div class="showOneContact" onclick="closeEditDiv()">
           <div class="showOneContactInfo">
               <h3>Email</h3>
               <a id="emailFromContact" href="mailto:${contact.mail}" >${contact.mail}</a>
@@ -207,8 +207,8 @@ function editContactResponsive(contact, i) {
   </div>
   <div onclick="event.stopPropagation(), showEditDiv(${i})" id="editContactThirdSection"><img src="./assets/img/points_white.png" alt=""></div>
   <div id="editDivResp" onclick="event.stopPropagation()">
-  <div onclick="event.stopPropagation(event)><img src="./assets/img/edit_contact.png" alt=""><p>Edit</p></div>
-  <div onclick="event.stopPropagation(event)><img src="./assets/img/delete_contact.png" alt=""><p>Delete</p></div>
+  <div id="editContactResp" onclick="event.stopPropagation(event), showEditContact(${i})"><img src="./assets/img/edit_contact.png" alt=""><p>Edit</p></div>
+  <div id="deleteContactResp" onclick="event.stopPropagation(event), deleteContact('/contacts/${contact.id}'), closeEditResponsive()"><img src="./assets/img/delete_contact.png" alt=""><p>Delete</p></div>
   </div>
   </div`;
 }
@@ -216,7 +216,7 @@ function editContactResponsive(contact, i) {
 function showEditDiv(i) {
     let editDivResp = document.getElementById('editDivResp');
     setTimeout(() => {
-        editDivResp.style.right = '0px';
+        editDivResp.style.right = '6px';
     }, 10);
 
 }
@@ -261,6 +261,7 @@ async function showEditContact(i) {
     document.getElementById('blurBackgroundEdit').classList.remove('d-none');
     editContact.style.display = "flex";
     setTimeout(() => {
+        editContact.style.bottom = "0";
         editContact.style.right = "0";
     }, 10);
     document.getElementById('editContactSecondSection').innerHTML = editContactHTML(i);
@@ -358,6 +359,7 @@ function cancelAddContact() {
 function cancelEditContact() {
     setTimeout(() => {
         editContact.style.right = "-6000px";
+        editContact.style.bottom = "-6000px";
         editContact.style.display = "none";
         document.getElementById('blurBackgroundEdit').classList.add('d-none');
     }, 10);
