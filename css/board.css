@@ -361,11 +361,12 @@ h2 {
 .input-container-bordHTML {
     margin-left: 0 !important;
     justify-content: center !important;
+    align-items: center !important;
 }
 
 .input-container-bordHTML-headline {
-    margin-top: 20px !important;
-    margin-left: 70px !important;
+    padding: 0 !important; 
+    margin-left: 66px
 }
 
 .card {
