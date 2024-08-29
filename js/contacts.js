@@ -124,7 +124,7 @@ async function getNewContact() {
 // Funktion, die beim Klicken auf den Kontakt oder Kontaktinformationen aufgerufen wird
 function contactClickHandler(i) {
     let contact = contacts[i];
-    if (window.innerWidth < 1000) {
+    if (window.innerWidth < 1300) {
         editContactResponsive(contact, i);
     }
     else {
@@ -163,6 +163,62 @@ function contactClickHandler(i) {
       </div>
   </div>`;
     }
+}
+
+function editContactResponsive(contact, i) {
+    document.getElementById('contactListContent').classList.add('d-none');
+    document.getElementById('contactContent').classList.remove('d-noneResp');
+    // document.getElementById('editContactThirdSection').classList.remove('d-noneResp');
+    document.getElementById('addContactResp').classList.add('d-noneResp');
+    let contactSection = document.getElementById('viewContact');
+    contactSection.innerHTML = '';
+    contactSection.innerHTML =
+        `<div onclick="closeEditDiv()">
+        <div class="profileName">
+      <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
+      <div class="nameEditBox">
+          <div class="nameBox">
+              <h2>${contact.name}</h2>
+          </div>
+          <div class="editDivContact">
+              <div class="editBox" id="editDiv" onclick="showEditContact(${i})"><img src="assets/img/edit_contact.png" alt="edit">
+                  <p>Edit</p>
+              </div>
+              <div class="editBox" id="deleteDiv" onclick="deleteContact('/contacts/${contact.id}')"><img src="assets/img/delete_contact.png" alt="">
+                  <p>Delete</p>
+              </div>
+          </div>
+      </div>
+    </div>
+    <div class="contactInformation">
+      <p>Contact Information</p>
+    </div>
+    <div>
+      <div class="showOneContact">
+          <div class="showOneContactInfo">
+              <h3>Email</h3>
+              <a id="emailFromContact" href="mailto:${contact.mail}" >${contact.mail}</a>
+          </div>
+          <div class="showOneContactInfo">
+              <h3>Phone</h3>
+              <p id="phoneFromContact">${contact.phone}</p>
+          </div>
+      </div>
+  </div>
+  <div onclick="event.stopPropagation(), showEditDiv(${i})" id="editContactThirdSection"><img src="./assets/img/points_white.png" alt=""></div>
+  <div id="editDivResp" class="rightRespDiv">
+  <div class="editresp" ><img src="assets/img/edit_contact.png" alt=""><p>Edit</p></div>
+  <div class="editresp" ><img src="assets/img/delete_contact.png" alt=""><p>Delete</p></div>
+  </div>
+  </div>`;
+}
+
+function showEditDiv(i) {
+document.getElementById('editDivResp').classList.remove('rightRespDiv');
+}
+
+function closeEditDiv() {
+    document.getElementById('editDivResp').classList.add('rightRespDiv');
 }
 
 function slideSuccessfullyContact() {
@@ -269,12 +325,14 @@ function showAddContact() {
     addNewContact.style.display = "flex";
     setTimeout(() => {
         addNewContact.style.right = "0";
+        addNewContact.style.bottom = "0";
     }, 10);
 }
 
 function cancelAddContact() {
     setTimeout(() => {
         addNewContact.style.right = "-6000px";
+        addNewContact.style.bottom = "-6000px";
         addNewContact.style.display = "none";
         document.getElementById('blurBackground').classList.add('d-none');
     }, 10);

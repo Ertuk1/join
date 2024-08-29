@@ -17,18 +17,19 @@
 <body onload="contactInit()">
     <header w3-include-html="../template/header.html"></header>
     <aside w3-include-html="../template/nav.html"></aside>
-
+<div id="content">
     <div id="contactListContent">
         <div id="contactListButtonContent"><button onclick="showAddContact()">Add new Contact <img
                     src="./assets/img/person_add.png" alt=""></button></div>
         <div id="contact-list" class="contact-list"></div>
     </div>
 
-    <div id="contactContent">
+    <div id="contactContent" class="d-noneResp">
         <div id="contactHeadline">
-            <h1>Contacts</h1>
+            <div id="contactsHeadlineResp"><h1>Contacts</h1> <img onclick="backToContactList()" src="./assets/img/vectorLeft.png" alt=""></div>
             <div id="headlineLine"></div>
             <p>Better with a team</p>
+            <div id="headlineResp"></div>
         </div>
         <div id="viewContact">
         </div>
@@ -36,7 +37,9 @@
     <div id="blurBackground" onclick="cancelAddContact()" class="blurBackground d-none"></div>
         <div id="addNewContact" onclick="event.stopPropagation()" class="slide-right">
             <div id="addNewContactFirstSection">
-                <div>
+                <div id="closeAddContactDivResp"><img onclick="cancelAddContact()" id="addNewContactCloseButton"
+                    src="/assets/img/close_white.png" alt="close"></div>
+                <div id="addNewContactSlogan">
                     <img src="/assets/img/joinWhite.png" alt="logo">
                     <h1>Add contact</h1>
                     <h3>Tasks are better with a team!</h3>
@@ -129,6 +132,8 @@
     <div id="successfullyContainer">
         <div id="successfully">Contact succesfully created</div>
     </div>
+    <div id="addContactResp" onclick="showAddContact()"><img src="./assets/img/person_add.png" alt=""></div>
+</div>
 
     <script src="../js/template.js"></script>
     <script src="../js/contacts.js"></script>

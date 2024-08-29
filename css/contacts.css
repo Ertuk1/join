@@ -325,7 +325,7 @@ body {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .blurBackground {
@@ -811,6 +811,18 @@ body {
     color: white;
 }
 
+#closeAddContactDivResp {
+    visibility: hidden;
+}
+
+#contactsHeadlineResp img {
+    visibility: hidden;
+}
+
+#headlineResp {
+    visibility: hidden;
+}
+
 @media (max-width: 1300px) {
     #contactListContent {
         margin-left: 0px !important;
@@ -825,17 +837,217 @@ body {
         left: 400px;
     }
 
-    #addNewContact {
-    }
-
-    #addNewContactSecondSection {
-
-    }
-
-    .profileDivContact {
-    }
 }
 
 @media (max-width: 1150px) {
+    .d-noneResp {
+        display: none !important;
+
+    }
     
+
+    #contactListContent {
+        padding-top: 60px;
+        padding-left: 45px;
+        padding-bottom: 40px;
+        width: 370px;
+        height: 80vh;
+    }
+
+    #content {
+        display: flex;
+        justify-content: center;
+        align-items: center !important;
+        width: 100%;
+        height: 100%;
+    }
+
+    #contactListButtonContent {
+      display: none;
+    }
+
+    #addContactResp {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        bottom: 120px;
+        right: 24px;
+        border-radius: 50%;
+        background-color: rgba(42, 54, 71, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    #addContactResp:active {
+        background-color: rgba(41, 171, 226, 1);
+    }
+
+    #addNewContact {
+        flex-direction: column;
+        height: 95vh !important;
+        margin: auto;
+        width: 600px !important;
+        right: 0 !important;
+        bottom: -6000px;
+    }
+
+    #addNewContactFirstSection {
+        border-radius: 30px 30px 0 0;
+        width: initial !important;
+        padding: 0 !important;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        padding-left: 24px !important;
+    }
+
+    #addNewContactSecondSection {
+        width: initial !important;
+        padding: 0 !important;
+        border-radius: 0 0 30px 30px;
+        position: relative;
+    }
+
+    #addContactResp img {
+        width: 32px;
+        object-fit: cover;
+    }
+
+    #closeAddContactDivResp {
+        visibility: visible;
+        position: absolute !important;
+        top: 32px;
+        right: 16px;
+
+    }
+
+    #cancelButtonContact {
+        display: none;
+    }
+
+    #btnDiv {
+        align-items: center;
+        justify-content:center;
+    }
+
+    #contactInput {
+        align-items: center;
+        padding-top: 24px;
+        gap: 18px;
+    }
+
+    #closeAddContactDivResp img {
+        width: 24px;
+        height: 24px;
+    }
+
+    #closeAddContactDiv {
+        display: none;
+    }
+
+    .profilPictureDivContent {
+        position: absolute;
+        top: -60px;
+        left:38%;
+    }
+
+    #addNewContactSlogan img {
+        display: none;
+    }
+
+    #contactContent {
+        visibility: visible;
+        left: 0px !important;
+        padding: 0px !important;
+        margin: 42px;
+        align-items: start !important;
+        height: 70%;
+
+    }
+
+    #contactHeadline {
+        flex-direction: column;
+        align-items: start;
+        gap: 8px;
+    }
+
+    #headlineLine {
+        display: none;
+    }
+
+    #headlineResp {
+        visibility: visible;
+        width: 90px;
+        background-color: rgba(41, 171, 226, 1);
+        height: 3px;
+    }
+    
+    .editDivContact {
+        display: none;
+    }
+
+    #contactsHeadlineResp img{
+        visibility: visible;
+        height: 24px;
+        object-fit: cover;
+    }
+
+    #contactsHeadlineResp {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 90vw;
+    }
+
+    #editContactThirdSection {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        bottom: 18px;
+        right: 0px;
+        border-radius: 50%;
+        background-color: rgba(42, 54, 71, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    #oneContactResp {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rightRespDiv {
+        display: none !important;
+        right: -200px !important;
+    }
+
+    #editDivResp {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        width: 116px;
+        height: 100px;
+        border-radius: 20px 20px 0px 20px;
+        background-color: white;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .editresp {
+        width: 96px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+
 }
