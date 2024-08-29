@@ -173,7 +173,7 @@ function editContactResponsive(contact, i) {
     let contactSection = document.getElementById('viewContact');
     contactSection.innerHTML = '';
     contactSection.innerHTML =
-        `<div onclick="closeEditDiv()">
+        `<div onclick="closeEditDiv()" >
         <div class="profileName">
       <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
       <div class="nameEditBox">
@@ -206,19 +206,36 @@ function editContactResponsive(contact, i) {
       </div>
   </div>
   <div onclick="event.stopPropagation(), showEditDiv(${i})" id="editContactThirdSection"><img src="./assets/img/points_white.png" alt=""></div>
-  <div id="editDivResp" class="rightRespDiv">
+  <div id="editDivResp">
   <div class="editresp" ><img src="assets/img/edit_contact.png" alt=""><p>Edit</p></div>
   <div class="editresp" ><img src="assets/img/delete_contact.png" alt=""><p>Delete</p></div>
   </div>
-  </div>`;
+  </div`;
 }
 
 function showEditDiv(i) {
-document.getElementById('editDivResp').classList.remove('rightRespDiv');
+    let editDivResp = document.getElementById('editDivResp');
+    setTimeout(() => {
+        editDivResp.style.right = '0px';
+    }, 10);
+
 }
 
 function closeEditDiv() {
-    document.getElementById('editDivResp').classList.add('rightRespDiv');
+    let editDivResp = document.getElementById('editDivResp');
+    setTimeout(() => {
+        editDivResp.style.right = '-200px';
+    }, 10);
+}
+
+function closeEditResponsive() {
+     // Entferne die 'active' Klasse von allen Kontakten
+     const allContacts = document.querySelectorAll('.contact');
+     allContacts.forEach(c => c.classList.remove('active'));
+    document.getElementById('contactListContent').classList.remove('d-none');
+    document.getElementById('contactContent').classList.add('d-noneResp');
+    // document.getElementById('editContactThirdSection').classList.remove('d-noneResp');
+    document.getElementById('addContactResp').classList.remove('d-noneResp');
 }
 
 function slideSuccessfullyContact() {

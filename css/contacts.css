@@ -823,6 +823,10 @@ body {
     visibility: hidden;
 }
 
+#editDivResp {
+    visibility: hidden;
+}
+
 @media (max-width: 1300px) {
     #contactListContent {
         margin-left: 0px !important;
@@ -961,9 +965,11 @@ body {
         visibility: visible;
         left: 0px !important;
         padding: 0px !important;
-        margin: 42px;
+        margin: 32px;
         align-items: start !important;
         height: 70%;
+        width: 90vw;
+        overflow: hidden;
 
     }
 
@@ -1027,18 +1033,19 @@ body {
 
     #editDivResp {
         position: absolute;
-        bottom: 0px;
-        right: 0px;
+        bottom: 3px;
+        right: -200px;
         width: 116px;
         height: 100px;
         border-radius: 20px 20px 0px 20px;
         background-color: white;
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-        display: flex;
         flex-direction: column;
+        display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px;
+        transition: all 0.5s;
     }
 
     .editresp {
@@ -1047,6 +1054,10 @@ body {
         display: flex;
         align-items: center;
         gap: 12px;
+    }
+
+    #editDivResp {
+        visibility: visible;
     }
 
 
