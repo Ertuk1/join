@@ -206,9 +206,9 @@ function editContactResponsive(contact, i) {
       </div>
   </div>
   <div onclick="event.stopPropagation(), showEditDiv(${i})" id="editContactThirdSection"><img src="./assets/img/points_white.png" alt=""></div>
-  <div id="editDivResp">
-  <div class="editresp" ><img src="assets/img/edit_contact.png" alt=""><p>Edit</p></div>
-  <div class="editresp" ><img src="assets/img/delete_contact.png" alt=""><p>Delete</p></div>
+  <div id="editDivResp" onclick="event.stopPropagation()">
+  <div id="editRespImg" onclick="event.stopPropagation(event)><img src="assets/img/edit_contact.png" alt=""><p>Edit</p></div>
+  <div id="deleteRespImg" onclick="event.stopPropagation(event)><img src="assets/img/delete_contact.png" alt=""><p>Delete</p></div>
   </div>
   </div`;
 }
