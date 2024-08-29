@@ -425,6 +425,7 @@ h2 {
         width: 425px !important;
         max-height: 60vh !important;
         overflow-y: scroll !important;
+        scrollbar-width: thin;
     }
 }
 
