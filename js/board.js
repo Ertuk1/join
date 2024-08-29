@@ -335,39 +335,57 @@ function getPriorityIcon(priority) {
     }
 }
 
-async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask) {
-    await addTaskInit();
-    document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
-    document.getElementById(`edit-main-input-container${id}`).classList.remove('main-input-container');
-    document.getElementById(`edit-main-input-container${id}`).classList.add('edit-main-input-container');
-    document.getElementById('input-border-container').classList.add('d-none');
-    document.getElementById('at-alert-description').classList.add('d-none');
-    document.getElementById('at-btn-container').classList.add('d-none');
-    document.getElementById('category-headline').classList.add('d-none');
-    document.getElementById('category-input').classList.add('d-none');
-    document.getElementById('at-subcategory-open').classList.add('d-none');
-    document.getElementById('editDiv').classList.add('d-none');
-    var element = document.getElementsByClassName('checkBoxDiv')[0];
-    if (element) {
-      element.classList.add('d-none');
-    } else {
-      console.error('Element mit der Klasse "checkBoxDiv" nicht gefunden.');
-    }
-    
+async function ShowEditOverlay(id) {
+    // Load the tasks from the backend
+    await loadDataTask();
 
-    const saveButton = document.querySelector('.board-task-edit-btn');
-    saveButton.addEventListener('click', () => saveTaskChanges(id));
-   
-    renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask);
+    // Find the specific task by its ID
+    const task = tasks.find(task => task.id === id);
+
+    if (task) {
+        const { title, description, date, prio, subcategory } = task;
+
+        await addTaskInit();
+        document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
+        document.getElementById(`edit-main-input-container${id}`).classList.remove('main-input-container');
+        document.getElementById(`edit-main-input-container${id}`).classList.add('edit-main-input-container');
+        document.getElementById('input-border-container').classList.add('d-none');
+        document.getElementById('at-alert-description').classList.add('d-none');
+        document.getElementById('at-btn-container').classList.add('d-none');
+        document.getElementById('category-headline').classList.add('d-none');
+        document.getElementById('category-input').classList.add('d-none');
+        document.getElementById('at-subcategory-open').classList.add('d-none');
+        document.getElementById('editDiv').classList.add('d-none');
+
+        var element = document.getElementsByClassName('checkBoxDiv')[0];
+        if (element) {
+            element.classList.add('d-none');
+        } else {
+            console.error('Element with class "checkBoxDiv" not found.');
+        }
+
+        const saveButton = document.querySelector('.board-task-edit-btn');
+        saveButton.addEventListener('click', () => saveTaskChanges(id));
+
+        // Generate the subtask HTML if the task has subcategories
+        const subtaskHTML = Array.isArray(subcategory) ? getEditSubtaskHTML(subcategory) : '';
+
+        renderEditTaskData(id, title, description, date, prio, subtaskHTML);
+    } else {
+        console.error('Task not found');
+    }
 }
 
-function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, editSubtask){
+
+function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, subtaskHTML) {
     document.getElementById('task-title').value = taskTitle;
     document.getElementById('at-description').value = taskDescription;  
     document.getElementById('task-due-date').value = taskDueDate;
-    document.getElementById('added-subcategories').innerHTML = editSubtask; 
 
-    // Setze das Icon basierend auf der Priorität
+    // Assign the generated HTML or an empty string if there are no subtasks
+    document.getElementById('added-subcategories').innerHTML = subtaskHTML;
+
+    // Set the priority icon
     const priorityIcon = getPriorityIcon(taskPriority);
     const priorityIconElement = document.getElementById('priority-icon');
     
@@ -375,7 +393,7 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
         priorityIconElement.src = priorityIcon;
     }
 
-    // Sicherstellen, dass das Overlay korrekt gerendert ist, bevor die Priorität gesetzt wird
+    // Ensure correct rendering before setting priority background
     requestAnimationFrame(() => {
         setBackgroundColorPrio(taskPriority);
     });
