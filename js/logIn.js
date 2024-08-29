@@ -9,6 +9,7 @@ async function logInInit() {
   await loadUserData();
   getSavedUser();
   addHoverForLogin();
+  checkInputs();
 }
 
 
@@ -98,11 +99,12 @@ async function findUser(event) {
 
   if (isValidUser(user, password)) {
     sessionStorage.setItem('currentUser', JSON.stringify(user));  
+    localStorage.setItem('hasVisitedBefore', JSON.stringify(false));
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
-      localStorage.setItem("savedUser", JSON.stringify(userToSave));
+      sessionStorage.setItem("savedUser", JSON.stringify(userToSave));
     } else {
-      localStorage.removeItem("savedUser");
+      sessionStorage.removeItem("savedUser");
     }
     await addNewContact(user.name, user.email);
     redirectToSummary();
@@ -144,24 +146,28 @@ function redirectToSummary() {
 }
 
 function guestLogin() {
+  let form = document.querySelector('form');
   sessionStorage.setItem('currentUser', JSON.stringify(guest));
+  form.reset();
   redirectToSummary();
 }
 
 
 function handleInvalidUser(user, emailInput, passwordInput, password) {
-  if (!user) {
-    emailInput.style.borderColor = "#FF8190";
-    passwordInput.style.borderColor = "#FF8190";
-    document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
-    document.querySelector(".passwordAlert").classList.remove("dNone");
-  }
+  let passwordAlert = document.querySelector(".passwordAlert");
+  let rememberMe = document.querySelector(".rememberMe");
 
-  if (user.password !== password) {
+  let handleInvalidInput = () => {
     emailInput.style.borderColor = "#FF8190";
     passwordInput.style.borderColor = "#FF8190";
-    document.querySelector(".passwordAlert").classList.remove("dNone");
-    document.querySelector(".rememberMe").style.margin = "9px 42px 24px 42px";
+    passwordAlert.classList.remove("dNone");
+    rememberMe.style.margin = "1px 42px 16px 42px";
+  };
+
+  if (!user) {
+    handleInvalidInput();
+  } else if (user.password !== password) {
+    handleInvalidInput();
   }
 
   return false;
@@ -237,9 +243,9 @@ function toggleCheckbox(img) {
 
 
 function getSavedUser() {
-  let savedUser = localStorage.getItem("savedUser");
+  let savedUser = sessionStorage.getItem("savedUser");
   if (savedUser) {
-    const user = JSON.parse(savedUser);
+    let user = JSON.parse(savedUser);
     document.getElementById("logInEmailInput").value = user.email;
     document.getElementById("logInPasswordInput").value = user.password;
   }

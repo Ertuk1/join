@@ -225,6 +225,9 @@ body {
   }
 }
 @media (max-height: 821px) {
+  .container {
+    top: 106px;
+  }
   .appHeader {
     margin-bottom: 16px;
   }

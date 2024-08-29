@@ -78,8 +78,8 @@ function showInitials() {
   } 
 }
 
-function clearSessionStorage() {
-  sessionStorage.clear();
+function clearStorage() {
+  sessionStorage.removeItem("currentUser");
 }
 
 async function logout() {
@@ -87,7 +87,7 @@ async function logout() {
   if (contactWithYou) {
         await deleteDataContact(`/contacts/${contactWithYou.id}`);
      }
-  clearSessionStorage();
+  clearStorage();
   window.location.href = "/index.html";
 }
 

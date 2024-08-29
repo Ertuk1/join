@@ -24,6 +24,7 @@
         <form action="" onsubmit="return addUser(event)">
           <div class="signUpInput">
             <input
+              onblur="toUpperCase(this)"
               id="signUpNameInput"
               class="nameInput"
               type="text"
@@ -39,31 +40,39 @@
             />
             <div class="passwordContainer">
               <input
-              onblur="handlepaswordImg(this)"
-              onfocus="handlepaswordStyle(this)"
-              id="signUpPasswordInput"
-              class="passwordInput passwordInputImg"
-              type="password"
-              placeholder="Password"
-              required
-            />
-            <span class="paswordVisibilityBTN" onclick="handlePaswordVisibility()"></span>
+                onblur="handlepaswordImg(this)"
+                onfocus="handlepaswordStyle(this)"
+                id="signUpPasswordInput"
+                class="passwordInput passwordInputImg"
+                type="password"
+                placeholder="Password"
+              
+                required
+              />
+              <span
+                class="paswordVisibilityBTN"
+                onclick="handlePaswordVisibility()"
+              ></span>
             </div>
             <div class="passwordContainer">
               <input
-              onblur="handleConfirmPaswordImg(this)"
-              onfocus="handleConfirmPaswordStyle(this)"
-              id="confirmPasswordInput"
-              class="confirmPasswordInput passwordInputImg"
-              type="password"
-              placeholder="Confirm Password"
-              required
-            />
-            <span class="confirmPaswordVisibilityBTN" onclick="handleConfirmPaswordVisibility()"></span>
-            <span class="passwordAlert dNone">Your passwords don't match. Please try again.</span>
+                onblur="handleConfirmPaswordImg(this)"
+                onfocus="handleConfirmPaswordStyle(this)"
+                id="confirmPasswordInput"
+                class="confirmPasswordInput passwordInputImg"
+                type="password"
+                placeholder="Confirm Password"
+                required
+              />
+              <span
+                class="confirmPaswordVisibilityBTN"
+                onclick="handleConfirmPaswordVisibility()"
+              ></span>
+              <span class="passwordAlert dNone"
+                >Your passwords don't match. Please try again.</span
+              >
             </div>
             <div class="acceptCheckbox">
-
               <div class="checkboxContainer">
                 <img
                   id="checkbox"
