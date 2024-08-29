@@ -347,6 +347,12 @@ async function ShowEditOverlay(id, taskTitle, taskDescription, taskDueDate, task
     document.getElementById('category-input').classList.add('d-none');
     document.getElementById('at-subcategory-open').classList.add('d-none');
     document.getElementById('editDiv').classList.add('d-none');
+    var element = document.getElementsByClassName('checkBoxDiv')[0];
+    if (element) {
+      element.classList.add('d-none');
+    } else {
+      console.error('Element mit der Klasse "checkBoxDiv" nicht gefunden.');
+    }
     
 
     const saveButton = document.querySelector('.board-task-edit-btn');
