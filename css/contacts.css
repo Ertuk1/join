@@ -369,7 +369,7 @@ body {
     transition: all 0.5s;
     margin: auto;
     flex-direction: row;
-    width: 1212px !important;
+    width: 1112px !important;
     height: 592px !important;
     border-radius: 30px 30px 30px 30px !important;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
@@ -388,8 +388,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 70px;
-    gap: 90px;
+    gap: 42px;
 }
 
 #addNewContactFirstSection {
@@ -454,13 +453,13 @@ body {
 }
 
 #closeAddContactDiv {
-    width: 710px;
+    padding: 42px 0 24px 24px;
+    width: 570px;
     display: flex;
     justify-content: end;
 }
 
 #addNewContactSecondSection {
-    padding: 48px !important;
     border-radius: 0 30px 30px 0;
     height: -webkit-fill-available;
     display: flex;
@@ -471,7 +470,6 @@ body {
 }
 
 #editContactSecondSection {
-    padding: 48px !important;
     border-radius: 0 30px 30px 0;
     height: -webkit-fill-available;
     display: flex;
@@ -487,16 +485,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: start;
-    margin-top: 57px;
+    justify-content: center;
     gap: 26px;
 }
 
 .profilPictureDivContent {
-    margin-bottom: 120px;
+    margin-bottom: 70px;
 }
 
 #editProfilePicture {
-    margin-bottom: 150px;
+    margin-bottom: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -742,7 +740,7 @@ body {
     right: -6000px;
     transition: all 0.5s;
     margin: auto;
-    width: 1212px;
+    width: 1112px;
     height: 592px;
     border-radius: 30px 30px 30px 30px;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
@@ -813,13 +811,31 @@ body {
     color: white;
 }
 
-@media (max-width: 830px) {
+@media (max-width: 1300px) {
     #contactListContent {
-        margin-left: 0px;
-        height: calc(84vh - 100px);
+        margin-left: 0px !important;
+        height: calc(84vh - 110px);
+    }
+
+    #contactListButtonContent {
+        left: 10px;
     }
 
     #contactContent {
-        display: none;
+        left: 400px;
     }
+
+    #addNewContact {
+    }
+
+    #addNewContactSecondSection {
+
+    }
+
+    .profileDivContact {
+    }
+}
+
+@media (max-width: 1150px) {
+    
 }
