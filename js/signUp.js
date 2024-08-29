@@ -138,6 +138,18 @@ function toggleCheckbox(img) {
 }
 
 
+function toUpperCase(inputName) {
+    let name = inputName.value.trim();
+
+    if (name.length > 0) {
+      let firstChar = name.charAt(0).toUpperCase();
+      let restOfName = name.slice(1);
+      let fullName = firstChar + restOfName;
+      inputName.value = fullName; 
+    }
+}
+
+
 function handlePaswordVisibility() {
   let passwordInput = document.getElementById("signUpPasswordInput");
 
