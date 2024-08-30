@@ -69,7 +69,7 @@ function checkResposive() {
   let animatedImage = document.querySelector(".greetingContainer");
 
   if (mediaQuery.matches && previousPath.includes('index.html')) {
-    greetingAnimation(background, animatedImage);
+    greetingAnimation(background, animatedImage, mediaQuery);
   } else if (mediaQuery.matches) {  
     background.style.display ='none';
     animatedImage.style.display ='none';
@@ -79,10 +79,9 @@ function checkResposive() {
   }
 }
 
-function greetingAnimation(background, animatedImage) {
-  let hasVisitedBefore = localStorage.getItem("hasVisitedBefore");
+function greetingAnimation(background, animatedImage, mediaQuery) {
 
-  if (hasVisitedBefore) {
+  if (mediaQuery) {
       startAnimation(background, animatedImage);
   } else {
     hideElements(background, animatedImage);
@@ -96,7 +95,6 @@ function startAnimation(background, animatedImage) {
 
     setTimeout(function () {
       hideElements(background, animatedImage);
-      localStorage.setItem("hasVisitedBefore", true);
     }, 1500);
 }
 

@@ -113,6 +113,10 @@ aside {
   font-weight: 400 !important;
 }
 
+.boardResposive {
+  display: none;
+}
+
 @media (max-height: 821px) {
   .joinIcon {
     width: 90px;
@@ -156,9 +160,20 @@ aside {
     width: 100%;
     gap: 0;
   }
+  .board {
+    display: none;
+  }
+  .boardResposive {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 16px;
+    height: 46px;
+    padding: 26px 35px 37px 35px;
+    gap: 8px;
+  }
   .summery,
   .addTask,
-  .board,
   .conntacts {
     flex-direction: column;
     gap: 8px;
@@ -197,9 +212,11 @@ aside {
   }
   .summery,
   .addTask,
-  .board,
   .conntacts {
     padding: 14px 14px 18px 14px;
+  }
+  .boardResposive {
+    padding: 14px 25px 18px 25px;
   }
 }
 @media (max-width: 380px) {

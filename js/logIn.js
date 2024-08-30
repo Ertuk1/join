@@ -24,19 +24,16 @@ function joinImgAnimation() {
   let animatedImage = document.querySelector(".animatedImage");
   let responsiveImg = document.querySelector(".animatedImageResposive");
   let joinIcon = document.querySelector(".joinIcon");
-  let signup = document.getElementById('resposivSignup');
   let mediaQuery = window.matchMedia("(max-width: 730px)");
 
   setTimeout(function() {
-    startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
+    startAnimation(background, animatedImage, joinIcon, responsiveImg, mediaQuery);
   }, 300);
 }  
 
 
-function startAnimation(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery) {
+function startAnimation(background, animatedImage, joinIcon, responsiveImg, mediaQuery) {
   if (mediaQuery.matches) {
-    signup.classList.add("marginTop");
-    signup.classList.remove("resposivSignup");
     background.classList.add("fadeOut");
     responsiveImg.classList.add("move");
     animatedImage.classList.add("move");
@@ -46,14 +43,12 @@ function startAnimation(background, animatedImage, joinIcon, signup, responsiveI
   }
 
     setTimeout(function () {
-      hideElements(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery);
+      hideElements(background, animatedImage, joinIcon, responsiveImg, mediaQuery);
     }, 500);
 }
 
-function hideElements(background, animatedImage, joinIcon, signup, responsiveImg, mediaQuery) {
+function hideElements(background, animatedImage, joinIcon, responsiveImg, mediaQuery) {
   if (mediaQuery.matches)  {
-    signup.classList.remove("marginTop");
-    signup.classList.add("resposivSignup");
     responsiveImg.classList.add("hideElements");
     background.classList.add("hideElements");
   }
@@ -99,7 +94,6 @@ async function findUser(event) {
 
   if (isValidUser(user, password)) {
     sessionStorage.setItem('currentUser', JSON.stringify(user));  
-    localStorage.setItem('hasVisitedBefore', JSON.stringify(false));
     if (rememberMe) {
       let userToSave = { email: user.email, password: user.password };
       sessionStorage.setItem("savedUser", JSON.stringify(userToSave));

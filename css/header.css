@@ -53,7 +53,7 @@ z-index: 999;
   width: 56px;
   border: 3px solid rgba(42, 54, 71, 1);
   border-radius: 56px;
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 700;
   color: rgba(41, 171, 226, 1);
 }
@@ -128,9 +128,7 @@ z-index: 999;
   .userIcon {
     height: 40px;
     width: 40px;
-  }
-  .userIcon {
-    font-size: 20px;
+    font-size: 19px;
   }
   .menuRowHelp {
     padding: 8px 16px;

@@ -118,6 +118,11 @@ footer a:hover {
   gap: 24px;
 }
 
+.signUpInput input {
+  height: 45px;
+  font-size: 24px;
+}
+
 .nameInput {
   background-image: url("/assets/img/person.png");
   background-repeat: no-repeat;
@@ -372,6 +377,13 @@ footer a:hover {
   background-color: rgba(246, 247, 248, 0.208);
 }
 
+@media (max-height: 851px) {
+  .signUpInput input {
+    height: 28px;
+    font-size: 18px;
+  }
+}
+
 @media (max-width: 1537px) {
   .joinIcon {
     padding: 38px 38px;
@@ -431,9 +443,7 @@ footer a:hover {
   .emailInput {
     width: 318px;
   }
-  .signUpContainer {
-    margin-top: 238px;
-  }
+
   .signUpPopup {
     transform: translate(-50%, 150%);
   }
@@ -454,9 +464,7 @@ footer a:hover {
   .emailInput {
     width: 290px;
   }
-  .signUpContainer {
-    margin-top: 228px;
-  }
+
   .signUpPopup {
     transform: translate(-50%, 150%);
   }
@@ -493,11 +501,8 @@ footer a:hover {
   .moveToCenter {
     transform: translate(-50%, -400%);
   }
-}
-
-@media (max-width: 361px) {
-  .signUpContainer {
-    margin-top: 158px;
+  .signUpInput input {
+    height: 25px;
   }
 }
 

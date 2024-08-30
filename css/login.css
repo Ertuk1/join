@@ -118,6 +118,7 @@ footer a:hover {
 
 .justifyLogInContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-self: center;
   background-color: rgb(246, 247, 248);
@@ -162,6 +163,11 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+.logInInput input{
+  height: 45px;
+  font-size: 24px;
 }
 
 .emailInput {
@@ -388,6 +394,7 @@ footer a:hover {
     transition: left 0.5s ease-in-out, top 0.5s ease-in-out, opacity 0.5s ease-in-out,
   }
   .animatedImageResposive {
+    display: block;
     width: 100px;
     position: absolute;
     left: 50%;
@@ -437,7 +444,7 @@ footer a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 440px;
+    margin-top: 50px;
     position: relative;
   }
   .marginTop {
@@ -498,7 +505,7 @@ footer a:hover {
     gap: 21px;
   }
   .resposivSignup {
-    margin-top: 567px;
+    margin-top: 50px;
   }
   .marginTop {
     margin-top: 718px;
@@ -526,18 +533,11 @@ footer a:hover {
   .justifyLogInContainer {
     top: 49%;
   }
-  footer {
-    position: relative;
-    margin-top: 34px;
-    top: unset;
-    left: unset;
-    transform: none;
-  }
 }
 
 @media (max-width: 455px) {
   .resposivSignup {
-    margin-top: 636px;
+    margin-top: 50px;
   }
 
   .emailInput {
@@ -556,10 +556,10 @@ footer a:hover {
     width: 290px;
   }
   .resposivSignup {
-    margin-top: 594px;
+    margin-top: 50px;
   }
   .justifyLogInContainer {
-    top: 46%;
+    top: 51%;
   }
   .marginTop {
     margin-top: 675px;
@@ -567,8 +567,8 @@ footer a:hover {
 }
 
 @media (max-width: 391px) {
-  .resposivSignup {
-    margin-top: 543px;
+  .justifyLogInContainer {
+    top: 53%;
   }
   .marginTop {
     margin-top: 626px;
@@ -583,7 +583,7 @@ footer a:hover {
     width: 250px;
   }
   .resposivSignup {
-    margin-top: 532px;
+    margin-top: 50px;
   }
   .justifyLogInContainer {
     top: 58%;
@@ -598,7 +598,7 @@ footer a:hover {
 
 @media (max-width: 361px) {
   .resposivSignup {
-    margin-top: 527px;
+    margin-top: 35px;
   }
   .marginTop {
     margin-top: 609px;
@@ -622,6 +622,6 @@ footer a:hover {
     top: 49%;
   }
   .resposivSignup {
-    margin-top: 604px;
+    margin-top: 50px;
   }
 }
