@@ -1,5 +1,5 @@
 <div class="right-left-container">
-    <div class="left-input-container">
+    <div class="left-input-container left-input-container-mobile">
         <div class="at-input-headlines">Title<div class="required-star">*</div>
         </div>
         <input oninput="checkIfTitleEmpty()" type="text" placeholder="Enter a title" id="task-title">
@@ -18,7 +18,7 @@
         <div id="at-selected-contacts"></div>
     </div>
     <div id="input-border-container" class="input-border-container"></div>
-    <div class="right-input-container">
+    <div class="right-input-container right-input-container-mobile">
         <div oninput="checkIfDateEmpty()" class="at-input-headlines">Due Date<div class="required-star">*</div>
         </div>
         <input class="at-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
@@ -74,8 +74,8 @@
         <div id="added-subcategories"></div>
     </div>
 </div>
-<div id="at-btn-container" class="at-btn-container">
-    <div id="at-alert-description" class="at-alert-description">
+<div id="at-btn-container" class="at-btn-container at-btn-container-mobile">
+    <div id="at-alert-description" class="at-alert-description at-alert-description-mobile">
         <div class="required-star">*</div>This field is required
     </div>
     <div class="btn-clear-add">
@@ -86,7 +86,7 @@
                 <path d="M23 2L2 22" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
         </div>
-        <div onclick="addTask()" class="at-create-btn">
+        <div onclick="addTask()" class="at-create-btn  at-create-btn-mobile">
             <div>Create Task</div><img src="assets/img/check(ok).png">
         </div>
     </div>

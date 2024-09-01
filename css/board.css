@@ -512,58 +512,6 @@ h2 {
         padding: 16px ;
     }
 
-
-    .at-input-headlines {
-        margin-left: 80px;
-
-    }
-
-    .left-input-container input {
-        width: 50%;
-        margin-left: 80px;
-
-    }
-
-    .left-input-container textarea {
-        width: 50%;
-        margin-left: 80px;
-    }
-
-    .custom-select {
-        width: 50%;
-        margin-left: 80px;
-    }
-
-    .at-input-date[type="date"] {
-        width: 50%;
-        margin-left: 80px;
-    }
-
-    #urgent-img-deactive,
-    #urgent-img-active,
-    #low-img-active,
-    #low-img-deactive,
-    #medium-img-deactive,
-    #medium-img-active {
-        height: 10px;
-        width: 15px;
-    }
-
-    .at-prio-item {
-        font-size: 15px !important;
-        width: 90px !important;
-    }
-
-    .at-prio-container {
-        justify-content: center !important;
-        gap: 10px !important;
-    }
-
-    .right-input-container input {
-        width: 50%;
-        margin-left: 75px;
-    }
-
     .board-task-edit-btn {
         margin-top: 80px !important;
     }
@@ -589,4 +537,5 @@ h2 {
         margin-right: 0px !important;
         margin-top: 0px !important;
     }
+
 }

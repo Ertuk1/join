@@ -806,6 +806,10 @@ body {
 
     }
 
+    .at-btn-container-mobile{
+        background-color: white;
+    }
+
 }
 
 @media (max-width:1200px) {
@@ -879,17 +883,48 @@ body {
 
 @media (max-width: 794px) {
     .at-btn-container {
-        margin-bottom: 22;
+        margin-bottom: 22px;
     }
 }
 
-@media (max-width:575px) {
-    .right-input-container {
-        width: 400px;
+@media (max-width:650px) {
+    .overlayContentAddTask{
+        width: 350px;
     }
 
-    .left-input-container {
-        width: 400px;
+    .right-input-container-mobile{
+        width: 300px;
+    }
+    
+    .left-input-container-mobile{
+        width: 300px;
+    }
+
+    .at-prio-container {
+        gap: 20px;
+    }
+
+    .at-alert-description-mobile{
+        font-size: 16px;
+    }
+
+    .at-btn-container-mobile{
+        width: 320px;
+    }
+
+    .at-create-btn-mobile{
+        font-size: 16px;
+    }
+
+}
+
+@media (max-width:575px) {
+    .right-input-container-mobile {
+        width: 250px;
+    }
+
+    .left-input-container-mobile {
+        width: 250px;
     }
 
     .left-input-container textarea {
@@ -916,6 +951,18 @@ body {
     .header-width {
         width: 400px;
     }
+
+    .at-alert-description-mobile{
+        font-size: 12px !important;
+    }
+
+    .at-btn-container-mobile{
+        width: 320px !important;
+    }
+
+    .at-create-btn-mobile{
+        font-size: 16px !important;
+    }
 }
 
 
@@ -928,8 +975,16 @@ body {
         width: 330px;
     }
 
+    .right-input-container-mobile {
+        width: 250px;
+    }
+
     .left-input-container {
         width: 330px;
+    }
+
+    .left-input-container-mobile {
+        width: 250px;
     }
 
     .left-input-container textarea {
@@ -955,6 +1010,17 @@ body {
 
     .header-width {
         width: 330px;
+    }
+    .at-alert-description-mobile{
+        font-size: 16px;
+    }
+
+    .at-btn-container-mobile{
+        width: 320px;
+    }
+
+    .at-create-btn-mobile{
+        font-size: 16px;
     }
 }
 
