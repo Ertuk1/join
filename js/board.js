@@ -356,6 +356,8 @@ async function ShowEditOverlay(id) {
         document.getElementById('category-input').classList.add('d-none');
         document.getElementById('at-subcategory-open').classList.add('d-none');
         document.getElementById('editDiv').classList.add('d-none');
+        var element = document.querySelector('.right-left-container');
+        element.style.display = 'block';
 
         var element = document.getElementsByClassName('checkBoxDiv')[0];
         if (element) {
