@@ -231,6 +231,11 @@ body {
 
 }
 
+.at-input-container {
+    position: relative;
+    display: inline-block; /* Oder block, je nach gewünschtem Layout */
+}
+
 .left-input-container input::placeholder {
     font-weight: 400;
     font-size: 20px;
@@ -460,6 +465,7 @@ body {
     gap: 10px;
     font-family: "inter", sans-serif !important;
     font-size: 20px;
+    width: 91%;
 }
 
 .at-input-date[type="date"] {
@@ -548,7 +554,7 @@ body {
 .at-subcategory-btn-container {
     position: absolute;
     display: flex;
-    top: 370px;
+    top: 20px;
     right: 12px;
 }
 
