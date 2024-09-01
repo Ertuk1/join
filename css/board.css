@@ -429,10 +429,23 @@ h2 {
     }
 }
 
+@media(max-width: 1307px) {
+    .input-container-bordHTML-headline {
+        padding-left: 48px;
+    }
+}
+
 @media (max-width:1300px){
     .main-content-wrapper{
         margin-left: 0px;
         width: 100%;
+    }
+}
+
+@media(max-width: 1200px) {
+    .input-container-bordHTML-headline{
+        padding-left: 0;
+        margin-left: 0;
     }
 }
 

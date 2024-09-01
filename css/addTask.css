@@ -14,7 +14,7 @@ body {
     background: rgba(0, 0, 0, 0.8);
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: 1000;
     animation: slideInRight 0.5s forwards;
 }
 
@@ -186,7 +186,7 @@ body {
 }
 
 .at-headline {
-    padding: 110px 0 32px 328px;
+    padding: 110px 0 32px 0;
     height: 73px;
     font-weight: 700;
     font-size: 61px;
@@ -780,18 +780,14 @@ body {
     .choosed-subcategorie-container {
         width: 412px;
     }
+
+    
 }
 
 @media (max-width: 1300px) {
     .main-input-container {
         align-items: center;
         margin-left: 0;
-    }
-
-    .at-headline {
-        padding-left: 0;
-        display: flex;
-        justify-content: center;
     }
 
     .header-width {
@@ -853,6 +849,17 @@ body {
 
     .at-btn-container {
         width: 500px;
+        bottom: 48px;
+        margin-bottom: 54px; 
+    }
+
+    .overlayContentAddTask {
+        width: 530px;
+    }
+
+    .innerOverlay {
+        overflow-y: auto;
+        height: 100%;
     }
 }
 
@@ -872,7 +879,7 @@ body {
 
 @media (max-width: 794px) {
     .at-btn-container {
-        margin-bottom: 0;
+        margin-bottom: 22;
     }
 }
 
