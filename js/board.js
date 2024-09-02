@@ -142,7 +142,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
     let taskPriorityIcon = getPriorityIcon(taskPriority);
-    let taskTypeBackgroundColor  = taskType === 'User Story' ? '#1FD7C1' : '';
+    let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
         ? taskAssignees.map(assignee => {
             // Finde den Kontakt mit der passenden ID
@@ -158,17 +158,16 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
 
     overlayContent.innerHTML = /*html*/`
     <section id="edit-task-overlay${id}" class="edit-task-overlay d-none">
-    <section class="edit-close-btn-container">
-            <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-        </section>
+            <section class="edit-close-btn-container">
+                <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
+            </section>
             <form id="edit-main-input-container${id}" class="main-input-container" w3-include-html="template/addTaskTemplate.html"></form>
             <div class="edit-btn-position-container">
                 <div onclick="addTask()" class="board-task-edit-btn">
-                    <div>Ok</div><img src="assets/img/check(ok).png">
+                    <div>Ok</div><img src="assets/img/check(ok).png"></div>
                 </div>
             </div>
-        </div>
-        </section>
+    </section>
         <section class="overlayUserTitle">
             <span style="background-color: ${taskTypeBackgroundColor};" class="overlayUser">${taskType}</span>
             <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
@@ -381,7 +380,7 @@ async function ShowEditOverlay(id) {
 
 function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, subtaskHTML) {
     document.getElementById('task-title').value = taskTitle;
-    document.getElementById('at-description').value = taskDescription;  
+    document.getElementById('at-description').value = taskDescription;
     document.getElementById('task-due-date').value = taskDueDate;
 
     // Assign the generated HTML or an empty string if there are no subtasks
@@ -390,7 +389,7 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
     // Set the priority icon
     const priorityIcon = getPriorityIcon(taskPriority);
     const priorityIconElement = document.getElementById('priority-icon');
-    
+
     if (priorityIconElement && priorityIcon) {
         priorityIconElement.src = priorityIcon;
     }
@@ -432,8 +431,9 @@ function getEditSubtaskHTML(editSubtask) {
             <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
         </div>
     </div>`
+    }
+    return subtaskHTML
 }
-return subtaskHTML}
 
 function searchTasks() {
     let searchInput = document.getElementById('searchInput').value.toLowerCase();

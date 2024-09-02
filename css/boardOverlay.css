@@ -37,8 +37,7 @@
     margin-top: 100px;
     animation: slideIn 0.5s ease-out;
     z-index: 100000;
-
-
+    overflow: auto !important;
 }
 
 @keyframes slideIn {
@@ -337,9 +336,6 @@ cursor: pointer;
 .edit-close-btn-container{
     justify-content: flex-end;
     display: flex;
-    padding-bottom: 24px;
-    margin-right: 80px;
-    margin-top: 40px;
 
 }
 
@@ -350,9 +346,10 @@ cursor: pointer;
     z-index: 200000;
     background-color: white;
     height: 100%;
-    width: 99%;
+    width: 97%;
     box-sizing: border-box;
     padding: 20px;
+    overflow: auto;
 }
 
 .board-task-edit-btn{

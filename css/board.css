@@ -423,7 +423,7 @@ h2 {
     }
 
     .overlayContent {
-        width: 425px !important;
+        width: 485px !important;
         max-height: 60vh !important;
         overflow-y: scroll !important;
         scrollbar-width: thin;
@@ -547,4 +547,10 @@ h2 {
         margin-top: 0px !important;
     }
 
+}
+
+@media (max-width: 650px) {
+    .overlayContent {
+        width: 345px !important;
+    }
 }
