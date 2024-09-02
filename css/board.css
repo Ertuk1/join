@@ -365,7 +365,8 @@ h2 {
 }
 
 .input-container-bordHTML-headline {
-    padding: 0 !important; 
+    padding-top: 0 !important;
+
     margin-left: 66px
 }
 
@@ -431,7 +432,7 @@ h2 {
 
 @media(max-width: 1307px) {
     .input-container-bordHTML-headline {
-        padding-left: 48px;
+        padding-left: 48px !important;
     }
 }
 
@@ -444,8 +445,12 @@ h2 {
 
 @media(max-width: 1200px) {
     .input-container-bordHTML-headline{
-        padding-left: 0;
+        padding-left: 0 !important;
         margin-left: 0;
+    }
+
+    .input-container-bordHTML {
+        margin-bottom: 42px !important; 
     }
 }
 
@@ -526,6 +531,10 @@ h2 {
 
     #added-subcategories {
         margin-left: 80px;
+    }
+
+    .added-subcategories-template {
+        margin-left: 0px !important;
     }
 
     .edit-task-overlay {

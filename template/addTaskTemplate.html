@@ -7,7 +7,7 @@
         <div class="at-input-headlines">Description</div>
         <textarea type="text" placeholder="Enter a Description" id="at-description"></textarea>
         <div class="at-input-headlines">Assigned to</div>
-        <div class="custom-select">
+        <div class="custom-select fs16">
             <div class="select-selected">
                 <div>Select contacts to assign</div>
                 <img id="open-contact-list" src="assets/img/arrow_drop_down_open.png">
@@ -18,24 +18,24 @@
         <div id="at-selected-contacts"></div>
     </div>
     <div id="input-border-container" class="input-border-container"></div>
-    <div class="right-input-container right-input-container-mobile">
+    <div class="right-input-container right-input-container-mobile fs16">
         <div oninput="checkIfDateEmpty()" class="at-input-headlines">Due Date<div class="required-star">*</div>
         </div>
         <input class="at-input-date" required type="date" id="task-due-date" placeholder="JJJJ-MM-TT">
         <div class="at-alert d-none" id="at-alert-due-date">This field is required</div>
         <div class="at-input-headlines">Prio</div>
-        <div class="at-prio-container">
-            <div onclick="setBackgroundColorPrio('urgent')" id="urgent" class="at-prio-item">
+        <div class="at-prio-container  at-prio-container-template">
+            <div onclick="setBackgroundColorPrio('urgent')" id="urgent" class="at-prio-item at-prio-item-template">
                 <div>Urgent</div>
                 <img id="urgent-img-deactive" src="assets/img/urgent.png">
                 <img id="urgent-img-active" src="assets/img/urgent-white.png" style="display: none;">
             </div>
-            <div onclick="setBackgroundColorPrio('medium')" id="medium" class="at-prio-item">
+            <div onclick="setBackgroundColorPrio('medium')" id="medium" class="at-prio-item at-prio-item-template">
                 <div>Medium</div>
                 <img id="medium-img-deactive" src="assets/img/medium.png">
                 <img id="medium-img-active" src="assets/img/medium-white.png" style="display: none;">
             </div>
-            <div onclick="setBackgroundColorPrio('low')" id="low" class="at-prio-item">
+            <div onclick="setBackgroundColorPrio('low')" id="low" class="at-prio-item at-prio-item-template">
                 <div>Low</div>
                 <img id="low-img-deactive" src="assets/img/low.png">
                 <img id="low-img-active" src="assets/img/low-white.png" style="display: none;">
@@ -43,7 +43,7 @@
         </div>
         <div id="category-headline" class="at-input-headlines">Category<div class="required-star">*</div>
         </div>
-        <div class="custom-category-select" id="category-input">
+        <div class="custom-category-select fs16" id="category-input">
             <div class="select-category-selected">
                 <div>Select task category</div>
                 <img id="open-category-list" src="assets/img/arrow_drop_down_open.png">
@@ -61,7 +61,7 @@
         <div class="at-alert d-none" id="at-alert-category">This field is required</div>
         <div class="at-input-headlines">Subcategory</div>
         <div class="at-input-container">
-            <input onclick="activateSubcategory()" class="at-input-date" type="text" id="add-subcategory"
+            <input onclick="activateSubcategory()" class="at-input-date at-input-subcategory at-input-subcategory-template" type="text" id="add-subcategory"
                 placeholder="Add new subtask">
             <div class="at-subcategory-btn-container">
                 <img onclick="clearInputSubcategory(event)" class="d-none" src="assets/img/clear.png" id="at-subcategory-clear">
@@ -71,7 +71,7 @@
                 <img src="assets/img/add-black.png" id="at-subcategory-open">
             </div>
         </div>
-        <div id="added-subcategories"></div>
+        <div id="added-subcategories" class="added-subcategories-template"></div>
     </div>
 </div>
 <div id="at-btn-container" class="at-btn-container at-btn-container-mobile">
