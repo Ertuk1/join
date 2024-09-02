@@ -233,7 +233,8 @@ body {
 
 .at-input-container {
     position: relative;
-    display: inline-block; /* Oder block, je nach gewünschtem Layout */
+    display: inline-block;
+    /* Oder block, je nach gewünschtem Layout */
 }
 
 .left-input-container input::placeholder {
@@ -465,7 +466,6 @@ body {
     gap: 10px;
     font-family: "inter", sans-serif !important;
     font-size: 20px;
-    width: 91%;
 }
 
 .at-input-date[type="date"] {
@@ -473,6 +473,10 @@ body {
     font-size: 20px;
     color: #D1D1D1 !important;
     font-family: "inter", sans-serif !important;
+}
+
+.at-input-subcategory {
+    width: 395px;
 }
 
 .at-prio-container {
@@ -781,17 +785,17 @@ body {
         width: 412px;
     }
 
-    
+    .at-input-subcategory {
+        width: 381px;
+    }
+
+
 }
 
 @media (max-width: 1300px) {
     .main-input-container {
         align-items: center;
         margin-left: 0;
-    }
-
-    .header-width {
-        width: 886px;
     }
 
     .at-btn-container {
@@ -806,7 +810,7 @@ body {
 
     }
 
-    .at-btn-container-mobile{
+    .at-btn-container-mobile {
         background-color: white;
     }
 
@@ -843,10 +847,6 @@ body {
         width: 495px;
     }
 
-    .header-width {
-        width: 500px;
-    }
-
     .right-left-container {
         flex-direction: column;
     }
@@ -854,7 +854,7 @@ body {
     .at-btn-container {
         width: 500px;
         bottom: 48px;
-        margin-bottom: 54px; 
+        margin-bottom: 54px;
     }
 
     .overlayContentAddTask {
@@ -864,6 +864,10 @@ body {
     .innerOverlay {
         overflow-y: auto;
         height: 100%;
+    }
+
+    .at-input-subcategory {
+        width: 458px;
     }
 }
 
@@ -888,15 +892,15 @@ body {
 }
 
 @media (max-width:650px) {
-    .overlayContentAddTask{
+    .overlayContentAddTask {
         width: 350px;
     }
 
-    .right-input-container-mobile{
+    .right-input-container-mobile {
         width: 300px;
     }
-    
-    .left-input-container-mobile{
+
+    .left-input-container-mobile {
         width: 300px;
     }
 
@@ -904,15 +908,15 @@ body {
         gap: 20px;
     }
 
-    .at-alert-description-mobile{
+    .at-alert-description-mobile {
         font-size: 16px;
     }
 
-    .at-btn-container-mobile{
+    .at-btn-container-mobile {
         width: 320px;
     }
 
-    .at-create-btn-mobile{
+    .at-create-btn-mobile {
         font-size: 16px;
     }
 
@@ -927,8 +931,12 @@ body {
         width: 250px;
     }
 
-    .left-input-container textarea {
-        max-width: 400px;
+    .right-input-container {
+        width: 350px;
+    }
+
+    .left-input-container {
+        width: 350px;
     }
 
     .at-alert-description {
@@ -948,20 +956,20 @@ body {
         width: 385px;
     }
 
-    .header-width {
-        width: 400px;
-    }
-
-    .at-alert-description-mobile{
+    .at-alert-description-mobile {
         font-size: 12px !important;
     }
 
-    .at-btn-container-mobile{
+    .at-btn-container-mobile {
         width: 320px !important;
     }
 
-    .at-create-btn-mobile{
+    .at-create-btn-mobile {
         font-size: 16px !important;
+    }
+
+    .at-input-subcategory {
+        width: 308px;
     }
 }
 
@@ -969,8 +977,9 @@ body {
 @media (max-width:465px) {
 
     .at-headline {
-        font-size: 55px; 
+        font-size: 55px;
     }
+
     .right-input-container {
         width: 330px;
     }
@@ -1011,16 +1020,21 @@ body {
     .header-width {
         width: 330px;
     }
-    .at-alert-description-mobile{
+
+    .at-alert-description-mobile {
         font-size: 16px;
     }
 
-    .at-btn-container-mobile{
+    .at-btn-container-mobile {
         width: 320px;
     }
 
-    .at-create-btn-mobile{
+    .at-create-btn-mobile {
         font-size: 16px;
+    }
+
+    .at-input-subcategory {
+        width: 288px;
     }
 }
 
@@ -1076,5 +1090,13 @@ body {
 
     .header-width {
         width: 275px;
+    }
+
+    .at-input-subcategory {
+        width: 233px;
+    }
+
+    .at-prio-container {
+        gap: 6px;
     }
 }
