@@ -353,21 +353,19 @@ cursor: pointer;
 }
 
 .board-task-edit-btn{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    gap: 12px;
-    font-size: 20px;
-    background: #2A3647;
-    color: white;
-    cursor: pointer;
-    width: 50px;
-    margin-right: 75px;
-    margin-top: 20px;
-    margin-bottom: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        gap: 12px;
+        font-size: 20px;
+        background: #2A3647;
+        color: white;
+        cursor: pointer;
+        width: 50px;
+        margin-right: 44px;
 }
 
 
