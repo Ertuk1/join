@@ -83,8 +83,10 @@
     <div id="blurBackgroundEdit" onclick="cancelEditContact()" class="blurBackgroundEdit d-none"></div>
         <div id="editContact" onclick="event.stopPropagation()" class="slide-right">
             <div id="addNewContactFirstSection">
+                <div id="closeAddContactDivResp"><img onclick="cancelEditContact()" id="addNewContactCloseButton"
+                    src="/assets/img/close_white.png" alt="close"></div>
                 <div>
-                    <img src="/assets/img/joinWhite.png" alt="logo">
+                    <img id="editContactLogo" src="/assets/img/joinWhite.png" alt="logo">
                     <h1>Edit contact</h1>
                     <div class="blueLineAddContact"></div>
                 </div>
