@@ -539,13 +539,18 @@ footer a:hover {
   .resposivSignup {
     margin-top: 50px;
   }
-
   .emailInput {
     width: 318px;
   }
   .passwordInput {
     width: 318px;
   }
+}
+
+@media (max-width: 426px) {
+  .justifyLogInContainer {
+    top: 54%;
+  } 
 }
 
 @media (max-width: 415px) {
@@ -575,6 +580,16 @@ footer a:hover {
   }
 }
 
+@media (max-height: 668px) {
+  footer {
+    position: relative;
+    top: 680px;
+  }
+  .justifyLogInContainer {
+    top: 67%;
+  }
+}
+
 @media (max-width: 376px) {
   .emailInput {
     width: 250px;
@@ -585,18 +600,17 @@ footer a:hover {
   .resposivSignup {
     margin-top: 50px;
   }
-  .justifyLogInContainer {
-    top: 58%;
-  }
-  footer {
-    margin-top: 11px;
-  }
+  
   .marginTop {
     margin-top: 614px;
   }
 }
 
 @media (max-width: 361px) {
+  footer {
+    position: absolute;
+    top: 100%;
+  }
   .resposivSignup {
     margin-top: 35px;
   }
@@ -619,7 +633,7 @@ footer a:hover {
     padding: 32px 8px;
   }
   .justifyLogInContainer {
-    top: 49%;
+    top: 54%;
   }
   .resposivSignup {
     margin-top: 50px;

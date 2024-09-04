@@ -77,7 +77,7 @@ p {
   background-color: rgb(239, 239, 239);
 }
 
-@media (max-width: 830px) {
+@media (max-width: 1300px) {
   .content {
     position: absolute;
     top: 80px;
@@ -85,6 +85,10 @@ p {
     margin: 0 16px 0 16px;
     padding-bottom: 100px;
   }
+  
+}
+
+@media (max-width: 830px) {
   .legalNotice {
     font-size: 47px;
     font-weight: 700;
