@@ -810,6 +810,12 @@ body {
 }
 
 @media (max-width: 1300px) {
+    
+    .bg-confirmation-task-creation {
+        position: fixed;
+        margin-left: 0;
+    }
+    
     .main-input-container {
         align-items: center;
         margin-left: 0;
