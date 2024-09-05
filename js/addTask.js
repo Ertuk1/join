@@ -94,14 +94,20 @@ function showChoosedContacts() {
 
 async function showAvailableContacts() {
     let customSelects = document.querySelectorAll('.custom-select');
+
     customSelects.forEach(function (select) {
         let selectSelected = select.querySelector('.select-selected');
         let selectItems = select.querySelector('.select-items');
         let options = selectItems.querySelectorAll('.at-contact-layout');
+        
+        // Verstecke die Kontaktliste standardmäßig
         selectItems.style.display = 'none';
-        showContactList(customSelects, selectSelected, selectItems)
+
+        // Initialisiere das Anzeigen der Kontaktliste und das Auswählen von Kontakten
+        showContactList(selectSelected, selectItems);
         chooseContactFromList(options);
 
+        // Schließe die Liste, wenn außerhalb geklickt wird
         window.addEventListener('click', function (event) {
             if (!select.contains(event.target)) {
                 selectItems.style.display = 'none';
@@ -112,14 +118,23 @@ async function showAvailableContacts() {
     });
 }
 
-function showContactList(customSelects, selectSelected, selectItems) {
+function showContactList(selectSelected, selectItems) {
     selectSelected.addEventListener('click', function (event) {
         event.stopPropagation();
-        customSelects.forEach(function (s) {
-            s.querySelector('.select-items').style.display = 'none';
+
+        // Toggle-Logik für das Dropdown
+        const isVisible = selectItems.style.display === 'block';
+        
+        // Schließe alle anderen geöffneten Dropdowns
+        document.querySelectorAll('.select-items').forEach(function (item) {
+            item.style.display = 'none';
         });
-        selectItems.style.display = selectItems.style.display === 'block' ? 'none' : 'block';
-        if (selectItems.style.display === 'none') {
+
+        // Toggle das aktuelle Dropdown
+        selectItems.style.display = isVisible ? 'none' : 'block';
+
+        // Zeige und verstecke die Icons entsprechend
+        if (isVisible) {
             document.getElementById('open-contact-list').classList.remove('d-none');
             document.getElementById('close-contact-list').classList.add('d-none');
         } else {
@@ -128,7 +143,6 @@ function showContactList(customSelects, selectSelected, selectItems) {
         }
     });
 }
-
 
 function chooseContactFromList(options) {
     options.forEach(function (option) {
