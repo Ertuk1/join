@@ -596,7 +596,7 @@ body {
 }
 
 .choosed-subcategorie-container input {
-    background-color: rgb(246, 247, 248);
+    background-color: transparent;
     border: none;
     font-size: 16px;
     padding: 6px 16px 6px 16px !important;
