@@ -11,7 +11,7 @@ async function addTaskInit() {
     await includeHTML();
     await loadDataContacts();
     await renderAssignedToContacts();
-    setupDropdownToggle(); 
+    setupDropdownToggle();
     showAvailableContacts();
     showCategoryList();
     showInitials();
@@ -25,8 +25,8 @@ function setupDropdownToggle() {
         this.classList.toggle('select-arrow-active');
         dropdownContainer.classList.toggle('select-hide');
     });
-    
-    document.addEventListener('click', function(event) {
+
+    document.addEventListener('click', function (event) {
         if (!event.target.closest('.custom-select')) {
             dropdownContainer.classList.add('select-hide');
             selectedElement.classList.remove('select-arrow-active');
@@ -115,8 +115,12 @@ async function showAvailableContacts() {
 function showContactList(customSelects, selectSelected, selectItems) {
     selectSelected.addEventListener('click', function (event) {
         event.stopPropagation();
+
         customSelects.forEach(function (s) {
-            s.querySelector('.select-items').style.display = 'none';
+            const items = s.querySelector('.select-items');
+            if (items) {
+                items.style.display = 'none';
+            }
         });
         selectItems.style.display = selectItems.style.display === 'block' ? 'none' : 'block';
         if (selectItems.style.display === 'none') {
@@ -127,7 +131,13 @@ function showContactList(customSelects, selectSelected, selectItems) {
             document.getElementById('close-contact-list').classList.remove('d-none');
         }
     });
+    document.addEventListener('click', function () {
+        selectItems.style.display = 'none';
+        document.getElementById('open-contact-list').classList.remove('d-none');
+        document.getElementById('close-contact-list').classList.add('d-none');
+    });
 }
+
 
 
 function chooseContactFromList(options) {
