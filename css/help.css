@@ -97,7 +97,7 @@ p {
     top: 80px;
     text-wrap: wrap;
     margin: 0 16px 0 16px;
-    padding-bottom: 100px;
+    padding-bottom: 130px;
   }
  
 }
@@ -106,5 +106,11 @@ p {
  .help {
     font-size: 47px;
     font-weight: 700;
+  }
 }
+
+@media (max-width: 794px) {
+  .content {
+    padding-bottom: 100px;
+  }
 }

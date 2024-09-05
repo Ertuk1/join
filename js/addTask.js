@@ -14,6 +14,7 @@ async function addTaskInit() {
     setupDropdownToggle(); 
     showAvailableContacts();
     showCategoryList();
+    showInitials();
 }
 
 function setupDropdownToggle() {
