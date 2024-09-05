@@ -377,7 +377,7 @@ footer a:hover {
   background-color: rgba(246, 247, 248, 0.208);
 }
 
-@media (max-height: 851px) {
+@media (max-height: 912px) {
   .signUpInput input {
     height: 28px;
     font-size: 18px;
