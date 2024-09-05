@@ -66,7 +66,6 @@ function generateAssignedContactsHTML(initials, contactName, i, color, id) {
 }
 
 function addContactToTask(initials, i, colors, id) {
-    console.log(id);
     let index = choosedContacts.findIndex(contact => contact.id === id);
     if (index === -1) {
         choosedContacts.push({
