@@ -277,7 +277,7 @@ async function saveTaskChanges(id) {
     // Überprüfen, ob die Aufgabe nach dem Speichern korrekt neu geladen wird
     await loadDataTask();
     renderTasks();
-
+    subcategoriesChoosed = [];
     // Schließen des Overlays
     off();
   } catch (error) {

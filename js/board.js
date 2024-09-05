@@ -298,6 +298,7 @@ function off() {
 
     overlayContent.classList.add("slide-out-content");
     overlay.classList.add("fade-out-overlay");
+    subcategoriesChoosed = [];
 }
 
 async function showOverlay(status = 'toDo') {
@@ -343,6 +344,7 @@ async function ShowEditOverlay(id) {
 
     if (task) {
         const { title, description, date, prio, subcategory } = task;
+        subcategoriesChoosed = [...subcategory];
 
         await addTaskInit();
         document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
