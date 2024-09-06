@@ -204,6 +204,7 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
     overlayContent.style.transform = "translateX(0)";
     overlayContent.style.opacity = "1";
     await includeHTML();
+    showInitials()
 }
 
 function getSubtask(toDo) {
