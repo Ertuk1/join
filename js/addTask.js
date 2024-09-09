@@ -35,17 +35,31 @@ function setupDropdownToggle() {
 }
 
 async function renderAssignedToContacts() {
-    let content = document.getElementById('at-contact-container');
-    content.innerHTML = '';
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i].name;
-        let initials = contacts[i].initials;
-        let color = contacts[i].profileColor;
-        let id = contacts[i].id
-        content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color, id)
-        document.getElementById(`at-shortcut${i}`).style.backgroundColor = color;
+    let contentCollection = document.getElementsByClassName('select-items');
+    
+    // Iteriere über die HTMLCollection, um jedes Element zu bearbeiten
+    for (let j = 0; j < contentCollection.length; j++) {
+        let content = contentCollection[j];
+        content.innerHTML = '';  // Leere den Inhalt des Containers
+        
+        for (let i = 0; i < contacts.length; i++) {
+            const contactName = contacts[i].name;
+            let initials = contacts[i].initials;
+            let color = contacts[i].profileColor;
+            let id = contacts[i].id;
+
+            content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color, id);
+
+            let shortcutElement = document.getElementById(`at-shortcut${i}`);
+            if (shortcutElement) {
+                shortcutElement.style.backgroundColor = color;
+            } else {
+                console.error(`Shortcut Element für Kontakt ${i} nicht gefunden`);
+            }
+        }
     }
 }
+
 
 function generateAssignedContactsHTML(initials, contactName, i, color, id) {
     return /*html*/`
