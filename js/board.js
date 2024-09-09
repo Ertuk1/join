@@ -67,12 +67,26 @@ function renderTasks() {
         let subtaskHTML = getSubtask(toDo);
         let editSubtask = getEditSubtaskHTML(toDo.subcategory);
         let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
-        let taskAssignee = Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0
-            ? toDo.assignedTo.map((assignee, index) => {
-                let contact = contacts[index];
+        
+        let taskAssignee = '';
+        if (Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0) {
+            // Zeige maximal 3 Kontakte an
+            let visibleAssignees = toDo.assignedTo.slice(0, 3);
+            taskAssignee = visibleAssignees.map((assignee, index) => {
+                let contact = contacts.find(contact => contact.id === assignee.id);
                 return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${assignee.initial}</div>` : '';
-            }).join('')
-            : '';
+            }).join('');
+
+            // Wenn es mehr als 3 Kontakte gibt, zeige "x+" an
+            let remainingAssignees = toDo.assignedTo.length - visibleAssignees.length;
+            if (remainingAssignees > 0) {
+                taskAssignee += `
+                <div class="contactCard otherContacts" style="background-color: #919191;">
+                    ${remainingAssignees}+
+                </div>`;
+            }
+        }
+
         let taskType = toDo.category;
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
         let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
