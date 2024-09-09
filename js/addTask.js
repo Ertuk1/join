@@ -48,17 +48,12 @@ async function renderAssignedToContacts() {
             let color = contacts[i].profileColor;
             let id = contacts[i].id;
 
+            // Generiere HTML für jeden Kontakt
             content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color, id);
-
-            let shortcutElement = document.getElementById(`at-shortcut${i}`);
-            if (shortcutElement) {
-                shortcutElement.style.backgroundColor = color;
-            } else {
-                console.error(`Shortcut Element für Kontakt ${i} nicht gefunden`);
-            }
         }
     }
 }
+
 
 
 function generateAssignedContactsHTML(initials, contactName, i, color, id) {
@@ -66,17 +61,17 @@ function generateAssignedContactsHTML(initials, contactName, i, color, id) {
     <div onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')">
         <div class="at-contact-layout">
             <div class="at-contact-name-container">
-                <div id="at-shortcut${i}" class="at-contact-shortcut-layout">
+                <div id="at-shortcut${i}" class="at-contact-shortcut-layout" style="background-color: ${color};">
                     <div class="at-contact-shortcut">${initials}</div>
                 </div>
-            <div class="at-contact-name">${contactName}</div>
+                <div class="at-contact-name">${contactName}</div>
+            </div>
+            <label class="at-label-checkbox">
+                <input data-contact-id="${id}" data-contact-color="${color}" data-contact-initials="${initials}" onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')" type="checkbox">
+                <span class="at-checkmark"></span>
+            </label>
         </div>
-        <label class="at-label-checkbox">
-            <input data-contact-id="${id}" data-contact-color="${color}" data-contact-initials="${initials}" onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')" type="checkbox">
-            <span class="at-checkmark"></span>
-        </label>
-        </div>
-        </div>`
+    </div>`;
 }
 
 function addContactToTask(initials, i, colors, id) {
