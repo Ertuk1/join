@@ -18,7 +18,7 @@ body {
     padding-left: 52px;
     padding-right: 24px;
     padding-top: 130px;
-    padding-bottom: 30px;
+    padding-bottom: 64px;
 }
 
 
@@ -854,9 +854,9 @@ body {
     #contactListContent {
         padding-top: 60px;
         padding-left: 45px;
-        padding-bottom: 40px;
+        padding-bottom: 50px;
         width: 370px;
-        height: 80vh;
+        height: 75vh;
     }
 
     #content {

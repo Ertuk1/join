@@ -86,12 +86,14 @@ function clearStorage() {
 }
 
 async function logout() {
-  let contactWithYou = contacts.find(contact => contact.name.endsWith("(You)"));
-  if (contactWithYou) {
-        await deleteDataContact(`/contacts/${contactWithYou.id}`);
-     }
-  clearStorage();
-  window.location.href = "/index.html";
+  for (let i = 0; i < contacts.length; i++){
+      let contact = contacts[i];
+      if (contact.name.endsWith("(You)")) {
+      await deleteDataContact(`/contacts/${contact.id}`);
+   } 
+  }
+   clearStorage();
+   window.location.href = "/index.html";
 }
 
 

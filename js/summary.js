@@ -3,6 +3,7 @@ let newUser = JSON.parse(sessionStorage.getItem('currentUser'));
 async function summeryInit() {
     await includeHTML();
     await loadDataTask();
+    await loadDataContacts();
     showInitials();
     updateGreeting();
     userName();
