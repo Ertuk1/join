@@ -935,7 +935,7 @@ body {
 @media (max-width: 794px) {
 
     body {
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .at-btn-container {

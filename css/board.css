@@ -395,7 +395,7 @@ h2 {
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: rotate(5deg);
     cursor: pointer;
 
 }
@@ -567,6 +567,6 @@ h2 {
 
 @media (max-width: 650px) {
     .overlayContent {
-        width: 345px !important;
+        width: 220px !important;
     }
 }
