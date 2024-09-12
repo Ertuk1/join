@@ -124,6 +124,23 @@ body {
     border-radius: 50%;
 }
 
+#contact-search {
+    border: none; /* Kein Rand */
+    outline: none; /* Kein Fokus-Rand */
+    background-color: transparent; /* Hintergrund transparent, damit Platzhalter sichtbar ist */
+    font-size: inherit; /* Schriftgröße übernehmen */
+    width: 100%; /* Breite 100% des Containers */
+    color: black; /* Sichtbare Schriftfarbe */
+    padding: 5px; /* Innenabstand für besseres Layout */
+    position: relative; /* Entferne absolute Positionierung */
+    z-index: 2; /* Stelle sicher, dass es über anderen Inhalten liegt */
+}
+
+
+#contact-search::placeholder {
+    color: transparent;
+}
+
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -279,7 +296,6 @@ body {
     font-size: 20px;
     border-radius: 10px;
     border: 1px solid #D1D1D1;
-    padding: 12px 16px 12px 16px !important;
     position: relative;
     display: inline-block;
     background-color: white;
@@ -294,8 +310,36 @@ body {
 }
 
 .select-selected {
-    cursor: pointer;
+    display: flex; /* Verwende Flexbox für Layout */
+    align-items: center; /* Zentriere den Inhalt vertikal */
+    justify-content: space-between; /* Bild bleibt rechts, Eingabefeld links */
+    position: relative; /* Position für Flexbox */
+    width: 96%; /* Breite 100% */
+    background-color: white; /* Weißer Hintergrund */
+    border-radius: 10px;
+    
 }
+
+.select-selected img {
+    height: 16px;
+    width: 16px;
+    margin-left: auto; /* Schiebe das Bild nach rechts */
+}
+
+.select-selected div {
+    color: #A8A8A8;
+}
+
+#original-placeholder {
+    color: #A8A8A8;
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+
 
 
 .select-selected {
@@ -935,7 +979,7 @@ body {
 @media (max-width: 794px) {
 
     body {
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     .at-btn-container {

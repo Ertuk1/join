@@ -34,7 +34,8 @@
                 <div class="at-input-headlines">Assigned to</div>
                 <div class="custom-select">
                     <div class="select-selected">
-                        <div>Select contacts to assign</div>
+                        <div id="original-placeholder">Select contacts to assign</div>
+                        <input type="text" id="contact-search" placeholder="" oninput="filterContacts()">
                         <img id="open-contact-list" src="assets/img/arrow_drop_down_open.png">
                         <img id="close-contact-list" class="d-none" src="assets/img/arrow_drop_down_close.png">
                     </div>

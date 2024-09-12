@@ -7,6 +7,7 @@ let guest = { name: "Guest",
 async function logInInit() {
   joinImgAnimation();
   await loadUserData();
+  await loadDataContacts();
   getSavedUser();
   addHoverForLogin();
   checkInputs();
