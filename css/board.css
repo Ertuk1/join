@@ -168,6 +168,14 @@ h2 {
     border-radius: 8px 0px 0px 0px;
 }
 
+.plussButton:hover{
+    cursor: pointer;
+}
+
+.plussButton:active{
+content: url('../assets/img/Property\ 1=Variant2.png');
+}
+
 .taskContent {
     width: 246px;
     height: 688px;
@@ -482,6 +490,10 @@ h2 {
     .addSymbol {
         content: url("../assets/img/plus\ add\ task\ mobile.png");
         margin-left: 0;
+    }
+
+    .addSymbol:hover{
+        content: url(../assets/img/Property\ 1=Variant2.png);
     }
 
     .addTaskButton {
