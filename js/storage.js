@@ -28,6 +28,7 @@ async function addTask() {
     status: status,
   };
   await postTask("/task", task);
+  await addTaskInit();
   goToBoard();
 }
 

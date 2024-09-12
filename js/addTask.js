@@ -22,13 +22,16 @@ function setupDropdownToggle() {
     const selectedElement = document.querySelector('.select-selected');
     const dropdownContainer = document.getElementById('at-contact-container');
 
-    selectedElement.addEventListener('click', function () {
+    // Toggle dropdown when the select is clicked
+    selectedElement.addEventListener('click', function (event) {
+        event.stopPropagation();  // Prevent click from propagating and triggering the document click listener
         this.classList.toggle('select-arrow-active');
         dropdownContainer.classList.toggle('select-hide');
     });
 
+    // Handle outside clicks to close the dropdown
     document.addEventListener('click', function (event) {
-        if (!event.target.closest('.custom-select')) {
+        if (!event.target.closest('.custom-select') && !event.target.closest('.select-items')) {
             dropdownContainer.classList.add('select-hide');
             selectedElement.classList.remove('select-arrow-active');
         }
@@ -57,18 +60,18 @@ async function renderAssignedToContacts() {
 }
 
 function filterContacts() {
-    const searchInput = document.querySelector('.inputClass');
+    const searchInput = document.getElementById('contact-search'); // Corrected to use 'id' instead of 'class'
     if (!searchInput) {
-        console.error('Element mit der Klasse "inputClass" wurde nicht gefunden.');
+        console.error('Element mit der ID "contact-search" wurde nicht gefunden.');
         return;
     }
 
     const searchValue = searchInput.value.toLowerCase();
     const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(searchValue));
 
-    const contactContainer = document.querySelector('.select-items');
+    const contactContainer = document.getElementById('at-contact-container'); // Ensure correct container is used
     if (!contactContainer) {
-        console.error('Element mit der Klasse "select-items" wurde nicht gefunden.');
+        console.error('Element mit der ID "at-contact-container" wurde nicht gefunden.');
         return;
     }
 
@@ -171,7 +174,7 @@ function showAvailableContacts() {
         selectItems.style.display = 'none';
 
         // Handle showing contact list and selection
-        showContactList(selectSelected, selectItems);
+        showContactList(selectSelected, selectItems, customSelects);
         chooseContactFromList(options);
 
         // Close the list if clicked outside the dropdown
@@ -205,37 +208,45 @@ function toggleCheckbox(contactId) {
 }
 
 
-
-function showContactList(selectSelected, selectItems) {
+function showContactList(selectSelected, selectItems, customSelects) {
     selectSelected.addEventListener('click', function (event) {
-        event.stopPropagation();
+        event.stopPropagation(); // Prevents closing the dropdown on this click
         customSelects.forEach(function (s) {
-            s.querySelector('.select-items').style.display = 'none';
+            s.querySelector('.select-items').style.display = 'none'; // Hide other dropdowns
         });
 
-        // Toggle das aktuelle Dropdown
-        selectItems.style.display = isVisible ? 'none' : 'block';
-
-        // Zeige und verstecke die Icons entsprechend
-        if (isVisible) {
-            document.getElementById('open-contact-list').classList.remove('d-none');
-            document.getElementById('close-contact-list').classList.add('d-none');
+        // Toggle the current dropdown
+        if (selectItems.style.display === 'block') {
+            selectItems.style.display = 'none';
         } else {
+            selectItems.style.display = 'block';
+        }
+
+        // Toggle the icons accordingly
+        if (selectItems.style.display === 'block') {
             document.getElementById('open-contact-list').classList.add('d-none');
             document.getElementById('close-contact-list').classList.remove('d-none');
+        } else {
+            document.getElementById('open-contact-list').classList.remove('d-none');
+            document.getElementById('close-contact-list').classList.add('d-none');
         }
     });
-    document.addEventListener('click', function () {
-        selectItems.style.display = 'none';
-        document.getElementById('open-contact-list').classList.remove('d-none');
-        document.getElementById('close-contact-list').classList.add('d-none');
+
+    // Close the dropdown when clicking outside of it
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.custom-select') && !event.target.closest('.select-items')) {
+            selectItems.style.display = 'none';
+            document.getElementById('open-contact-list').classList.remove('d-none');
+            document.getElementById('close-contact-list').classList.add('d-none');
+        }
     });
 }
 
 
 function chooseContactFromList(options) {
     options.forEach(option => {
-        option.addEventListener('click', function () {
+        option.addEventListener('click', function (event) {
+            event.stopPropagation(); // Keep the dropdown open when selecting
             const checkbox = option.querySelector('input[type="checkbox"]');
             const contactId = option.querySelector('input').dataset.contactId;
 
@@ -245,6 +256,7 @@ function chooseContactFromList(options) {
         });
     });
 }
+
 function setBackgroundColorPrio(prio) {
     let prioStatus = document.getElementById(prio);
     let prioImgDeactive = document.getElementById(`${prio}-img-deactive`);
@@ -307,26 +319,30 @@ function showCategoryList() {
 }
 
 function showCategoryDropdown(selectSelected, selectItems) {
-    selectSelected.addEventListener('click', function () {
+    selectSelected.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevents the event from closing the dropdown immediately
+        // Toggle dropdown visibility
         if (selectItems.style.display === 'block') {
             selectItems.style.display = 'none';
-            let openIcon = document.getElementById('open-category-list');
-            let closeIcon = document.getElementById('close-category-list');
-            if (openIcon && closeIcon) {
-                openIcon.classList.remove('d-none');
-                closeIcon.classList.add('d-none');
-            }
+            document.getElementById('open-category-list').classList.remove('d-none');
+            document.getElementById('close-category-list').classList.add('d-none');
         } else {
             selectItems.style.display = 'block';
-            let openIcon = document.getElementById('open-category-list');
-            let closeIcon = document.getElementById('close-category-list');
-            if (openIcon && closeIcon) {
-                openIcon.classList.add('d-none');
-                closeIcon.classList.remove('d-none');
-            }
+            document.getElementById('open-category-list').classList.add('d-none');
+            document.getElementById('close-category-list').classList.remove('d-none');
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.custom-category-select')) {
+            selectItems.style.display = 'none';
+            document.getElementById('open-category-list').classList.remove('d-none');
+            document.getElementById('close-category-list').classList.add('d-none');
         }
     });
 }
+
 
 function clearCategoryDropdown() {
     let customSelects = document.querySelectorAll('.custom-category-select');
