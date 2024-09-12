@@ -59,14 +59,15 @@ function resetInputBorders(name, email, password, confirmPassword) {
 }
 
 function isValidInput(name, email, password, confirmPassword) {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   return (
     name.value !== "" &&
     email.value !== "" &&
-    password.value !== "" &&
-    confirmPassword.value !== "" &&
-    password.value === confirmPassword.value 
+    passwordRegex.test(password.value) &&
+    password.value === confirmPassword.value
   );
 }
+
 
 function handleInvalidInput(name, email, password, confirmPassword) {
   if (name.value === "") name.style.borderColor = "#FF8190";
