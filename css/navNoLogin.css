@@ -44,7 +44,7 @@ aside {
   font-weight: bold;
 }
 
-@media (max-width: 830px) {
+@media (max-width: 1300px) {
   aside {
     display: none;
   }
