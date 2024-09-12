@@ -57,10 +57,21 @@ async function renderAssignedToContacts() {
 }
 
 function filterContacts() {
-    const searchValue = document.getElementById('contact-search').value.toLowerCase();
+    const searchInput = document.querySelector('.inputClass');
+    if (!searchInput) {
+        console.error('Element mit der Klasse "inputClass" wurde nicht gefunden.');
+        return;
+    }
+
+    const searchValue = searchInput.value.toLowerCase();
     const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(searchValue));
 
-    const contactContainer = document.getElementById('at-contact-container');
+    const contactContainer = document.querySelector('.select-items');
+    if (!contactContainer) {
+        console.error('Element mit der Klasse "select-items" wurde nicht gefunden.');
+        return;
+    }
+
     contactContainer.innerHTML = ''; // Clear the previous results
 
     filteredContacts.forEach(contact => {
