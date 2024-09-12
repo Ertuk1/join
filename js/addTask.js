@@ -15,6 +15,7 @@ async function addTaskInit() {
     showAvailableContacts();
     showCategoryList();
     showInitials();
+    setupContactSearchPlaceholder();
 }
 
 function setupDropdownToggle() {
@@ -36,19 +37,24 @@ function setupDropdownToggle() {
 
 
 async function renderAssignedToContacts() {
-    const contactContainer = document.getElementById('at-contact-container');
-    contactContainer.innerHTML = '';  // Leere den Inhalt
-    for (let i = 0; i < contacts.length; i++) {
-        const contactName = contacts[i].name;
-        const initials = contacts[i].initials;
-        const color = contacts[i].profileColor;
-        const id = contacts[i].id;
+    let contentCollection = document.getElementsByClassName('select-items');
 
-        // HTML für jeden Kontakt generieren
-        contactContainer.innerHTML += generateAssignedContactsHTML(initials, contactName, id, color);
+    // Iteriere über die HTMLCollection, um jedes Element zu bearbeiten
+    for (let j = 0; j < contentCollection.length; j++) {
+        let content = contentCollection[j];
+        content.innerHTML = '';  // Leere den Inhalt des Containers
+
+        for (let i = 0; i < contacts.length; i++) {
+            const contactName = contacts[i].name;
+            let initials = contacts[i].initials;
+            let color = contacts[i].profileColor;
+            let id = contacts[i].id;
+
+            // Generiere HTML für jeden Kontakt
+            content.innerHTML += generateAssignedContactsHTML(initials, contactName, id, color);
+        }
     }
 }
-
 
 function filterContacts() {
     const searchValue = document.getElementById('contact-search').value.toLowerCase();
@@ -511,18 +517,27 @@ function goToBoard() {
     }, 2000);
 }
 
-document.getElementById('contact-search').addEventListener('focus', function() {
+function setupContactSearchPlaceholder() {
+    const searchInput = document.getElementById('contact-search');
     const originalPlaceholder = document.getElementById('original-placeholder');
-    originalPlaceholder.style.display = 'none'; // Hide the placeholder on focus
-});
 
-document.getElementById('contact-search').addEventListener('blur', function() {
-    if (this.value === '') {
-        const originalPlaceholder = document.getElementById('original-placeholder');
-        originalPlaceholder.style.display = 'block'; // Show the placeholder if input is empty
+    if (!searchInput || !originalPlaceholder) {
+        console.error('Elemente "contact-search" oder "original-placeholder" wurden nicht gefunden.');
+        return;
     }
-});
 
+    // Event-Listener für "focus"
+    searchInput.addEventListener('focus', function() {
+        originalPlaceholder.style.display = 'none'; // Verstecke den Platzhalter beim Fokus
+    });
+
+    // Event-Listener für "blur"
+    searchInput.addEventListener('blur', function() {
+        if (this.value === '') {
+            originalPlaceholder.style.display = 'block'; // Zeige den Platzhalter wieder, wenn das Eingabefeld leer ist
+        }
+    });
+}
 
 
 
