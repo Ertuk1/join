@@ -36,7 +36,7 @@
               <p class="metricLabel">To-do</p>
             </div>
           </div>
-          <div onclick="redirectToBoard()" class="metricCard">
+          <div onclick="redirectToBoard('done')" class="metricCard">
             <div class="metricIconContainer">
               <div class="checkIcon"></div>
             </div>
@@ -76,11 +76,11 @@
             <p id="tasksInBoard" class="metricValue">1</p>
             <p class="metricLabel taskText">Tasks in Board</p>
           </div>
-          <div onclick="redirectToBoard()" class="metricCard taskContainer">
+          <div onclick="redirectToBoard('progress');event.stopPropagation()" class="metricCard taskContainer">
             <p id="tasksInProgress" class="metricValue">1</p>
             <p class="metricLabel taskText">Tasks in Progress</p>
           </div>
-          <div onclick="redirectToBoard()" class="metricCard taskContainer">
+          <div onclick="redirectToBoard('feedback');event.stopPropagation()" class="metricCard taskContainer">
             <p id="awaitingFeedback" class="metricValue">1</p>
             <p class="metricLabel taskText">Awaiting Feedback</p>
           </div>
