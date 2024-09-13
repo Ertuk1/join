@@ -215,6 +215,7 @@ async function deleteDataTask(path) {
 
 async function saveTaskChanges(id) {
   await loadDataTask(); // Call loadDataTask to populate the tasks array
+  clearEditTaskOverlayContent()
 
   const taskTitle = document.getElementById('task-title').value.trim() || 'Untitled';
   const taskDescription = document.getElementById('at-description').value.trim() || 'No description';

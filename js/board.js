@@ -296,9 +296,21 @@ function on() {
     });
 }
 
+function clearEditTaskOverlayContent() {
+    // Wähle alle Elemente aus, deren ID 'edit-task-overlay' enthält
+    const overlayContainers = document.querySelectorAll('[id*="edit-task-overlay"]');
+    
+    overlayContainers.forEach(container => {
+        // Leere den gesamten Inhalt jedes ausgewählten Containers
+        container.innerHTML = '';
+    });
+}
+
+
 function off() {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
+    clearEditTaskOverlayContent()
 
     const handleAnimationEnd = () => {
         overlay.style.display = "none";
