@@ -302,7 +302,7 @@ body {
 }
 
 .select-hide {
-    display: none;
+    display: none !important;
 }
 
 .select-arrow-active {
@@ -1028,6 +1028,10 @@ body {
 }
 
 @media (max-width:575px) {
+
+    .confirmation-task-creation-hidden {
+       width: 250px;
+    }
 
     .fs16{
         font-size: 16px !important; 

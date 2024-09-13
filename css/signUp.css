@@ -377,14 +377,14 @@ footer a:hover {
   background-color: rgba(246, 247, 248, 0.208);
 }
 
-@media (max-height: 912px) {
+@media (max-height: 970px) {
   .signUpInput input {
     height: 28px;
     font-size: 18px;
   }
 }
 
-@media (max-width: 1537px) {
+@media (max-width: 1921px) {
   .joinIcon {
     padding: 38px 38px;
   }
