@@ -191,6 +191,7 @@ function toggleCheckbox(contactId) {
         // Change the background color if checked
         if (contactLayout) {
             contactLayout.style.backgroundColor = '#2a3647e0';
+            contactLayout.style.color = 'white'
         }
     } else {
         removeContactFromTask(contactId);
@@ -198,6 +199,7 @@ function toggleCheckbox(contactId) {
         // Remove the background color if unchecked
         if (contactLayout) {
             contactLayout.style.backgroundColor = '';
+            contactLayout.style.color = 'black'
         }
     }
 }
