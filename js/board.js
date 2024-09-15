@@ -67,17 +67,15 @@ function renderTasks() {
         let subtaskHTML = getSubtask(toDo);
         let editSubtask = getEditSubtaskHTML(toDo.subcategory);
         let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
-        
+
         let taskAssignee = '';
         if (Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0) {
-            // Zeige maximal 3 Kontakte an
             let visibleAssignees = toDo.assignedTo.slice(0, 3);
             taskAssignee = visibleAssignees.map((assignee, index) => {
                 let contact = contacts.find(contact => contact.id === assignee.id);
                 return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${assignee.initial}</div>` : '';
             }).join('');
 
-            // Wenn es mehr als 3 Kontakte gibt, zeige "x+" an
             let remainingAssignees = toDo.assignedTo.length - visibleAssignees.length;
             if (remainingAssignees > 0) {
                 taskAssignee += `
@@ -90,36 +88,10 @@ function renderTasks() {
         let taskType = toDo.category;
         let taskPriorityIcon = getPriorityIcon(toDo.prio);
         let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
+
+        // Generate the task card using the template function
         let newTask = document.createElement('div');
-        newTask.classList.add('card');
-        newTask.setAttribute('draggable', 'true');
-        newTask.setAttribute('ondragstart', `startDragging('${id}')`);
-        newTask.setAttribute('data-id', id);
-        newTask.innerHTML = `
-            <div class="cardContent">
-                <span class="labelUser" style="background-color: ${taskTypeBackgroundColor};">${taskType}</span>
-                <div class="contextContent">
-                    <span class="cardTitle">${toDo.title}</span>
-                    <div>
-                        <span class="cardContext">${toDo.description}</span>
-                    </div>
-                    <div class="progressbar">
-                        <div class="progressbarContainer">
-                            <div class="bar" id="progressBarId${i}"></div>
-                        </div>
-                        <div class="subtasks">${completedSubtasks}/${toDo.subcategory.length} Subtasks</div>
-                    </div>
-                    <div class="contactContainer">
-                        <div style="display: flex;">
-                            ${taskAssignee}
-                        </div>
-                        <div>
-                            <img class="urgentSymbol" src="${taskPriorityIcon}" alt="${toDo.prio}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+        newTask.innerHTML = getTaskTemplate(toDo, i, taskTypeBackgroundColor, taskType, taskAssignee, taskPriorityIcon, completedSubtasks, editSubtask, id, subtaskHTML);
 
         newTask.addEventListener('click', function (event) {
             event.stopPropagation();
@@ -252,27 +224,6 @@ async function addCompletedSubtasks(i, id) {
         console.error(`Task with id ${id} not found`);
     }
     renderTasks();
-}
-
-
-function checkIfEmpty() {
-    let toDo = document.getElementById('toDo');
-    let progress = document.getElementById('progress');
-    let feedback = document.getElementById('feedback');
-    let done = document.getElementById('done');
-
-    if (progress.innerHTML.trim() === "") {
-        progress.innerHTML = `<div class="noTasks"><span class="noTaskText">Nothing in progress</span></div>`;
-    }
-    if (toDo.innerHTML.trim() === "") {
-        toDo.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks To do</span></div>`;
-    }
-    if (feedback.innerHTML.trim() === "") {
-        feedback.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks awaiting feedback</span></div>`;
-    }
-    if (done.innerHTML.trim() === "") {
-        done.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
-    }
 }
 
 function updateProgressBar(subtasksCompleted, totalSubtasks, i) {
@@ -443,27 +394,6 @@ function getSelectedPriority() {
         }
     }
     return 'low'; // Default-Wert, falls keine Priorität gefunden wird
-}
-function getEditSubtaskHTML(editSubtask) {
-    let subtaskHTML = ''
-    for (let i = 0; i < editSubtask.length; i++) {
-        let choosedSubcategorie = editSubtask[i];
-        subtaskHTML += /*html*/`
-    <div class="choosed-subcategorie-container">
-        <input class="choosed-subcategory-input" value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
-        <div class="choosed-subcategorie-btn-container">
-            <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit-${i}">
-            <div class="small-border-container"></div>
-            <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
-        </div>
-        <div class="choosed-subcategorie-btn-container-active-field">
-            <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
-            <div class="small-border-container-gray"></div>
-            <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
-        </div>
-    </div>`
-    }
-    return subtaskHTML
 }
 
 function searchTasks() {

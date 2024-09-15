@@ -88,24 +88,6 @@ function filterContacts() {
     });
 }
 
-function generateAssignedContactsHTML(initials, contactName, id, color) {
-    return `
-        <div class="at-contact-layout" onclick="toggleCheckbox('${id}')">
-            <div class="at-contact-name-container">
-                <div class="at-contact-shortcut-layout" style="background-color: ${color};">
-                    <div class="at-contact-shortcut">${initials}</div>
-                </div>
-                <div class="at-contact-name">${contactName}</div>
-            </div>
-            <label class="at-label-checkbox">
-                <input data-contact-id="${id}" data-contact-color="${color}" data-contact-initials="${initials}" type="checkbox">
-                <span class="at-checkmark"></span>
-            </label>
-        </div>`;
-}
-
-
-
 
 function addContactToTask(initials, id, color) {
     // Überprüfe, ob der Kontakt bereits in der Liste ist

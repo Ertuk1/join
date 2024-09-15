@@ -126,91 +126,19 @@ function contactClickHandler(i) {
     let contact = contacts[i];
     if (window.innerWidth < 1300) {
         editContactResponsive(contact, i);
-    }
-    else {
+    } else {
         let contactSection = document.getElementById('viewContact');
-        contactSection.innerHTML = '';
-        contactSection.innerHTML =
-            `<div class="profileName">
-      <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
-      <div class="nameEditBox">
-          <div class="nameBox">
-              <h2>${contact.name}</h2>
-          </div>
-          <div class="editDivContact">
-              <div class="editBox" id="editDiv" onclick="showEditContact(${i})"><img src="assets/img/edit_contact.png" alt="edit">
-                  <p>Edit</p>
-              </div>
-              <div class="editBox" id="deleteDiv" onclick="deleteContact('/contacts/${contact.id}')"><img src="assets/img/delete_contact.png" alt="">
-                  <p>Delete</p>
-              </div>
-          </div>
-      </div>
-    </div>
-    <div class="contactInformation">
-      <p>Contact Information</p>
-    </div>
-    <div>
-      <div class="showOneContact">
-          <div class="showOneContactInfo">
-              <h3>Email</h3>
-              <a id="emailFromContact" href="mailto:${contact.mail}" >${contact.mail}</a>
-          </div>
-          <div class="showOneContactInfo">
-              <h3>Phone</h3>
-              <p id="phoneFromContact">${contact.phone}</p>
-          </div>
-      </div>
-  </div>`;
+        contactSection.innerHTML = getContactViewTemplate(contact, i);
     }
 }
 
 function editContactResponsive(contact, i) {
     document.getElementById('contactListContent').classList.add('d-none');
     document.getElementById('contactContent').classList.remove('d-noneResp');
-    // document.getElementById('editContactThirdSection').classList.remove('d-noneResp');
     document.getElementById('addContactResp').classList.add('d-noneResp');
+    
     let contactSection = document.getElementById('viewContact');
-    contactSection.innerHTML = '';
-    contactSection.innerHTML =
-        `<div onclick="closeEditDiv()">
-        <div class="profileName">
-      <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
-      <div class="nameEditBox">
-          <div class="nameBox">
-              <h2>${contact.name}</h2>
-          </div>
-          <div class="editDivContact">
-              <div class="editBox" id="editDiv" onclick="showEditContact(${i})"><img src="assets/img/edit_contact.png" alt="edit">
-                  <p>Edit</p>
-              </div>
-              <div class="editBox" id="deleteDiv" onclick="deleteContact('/contacts/${contact.id}')"><img src="assets/img/delete_contact.png" alt="">
-                  <p>Delete</p>
-              </div>
-          </div>
-      </div>
-    </div>
-    <div class="contactInformation">
-      <p>Contact Information</p>
-    </div>
-    <div>
-      <div class="showOneContact" onclick="closeEditDiv()">
-          <div class="showOneContactInfo">
-              <h3>Email</h3>
-              <a id="emailFromContact" href="mailto:${contact.mail}" >${contact.mail}</a>
-          </div>
-          <div class="showOneContactInfo">
-              <h3>Phone</h3>
-              <p id="phoneFromContact">${contact.phone}</p>
-          </div>
-      </div>
-  </div>
-  <div onclick="event.stopPropagation(), showEditDiv(${i})" id="editContactThirdSection"><img src="./assets/img/points_white.png" alt=""></div>
-  <div id="editDivResp" onclick="event.stopPropagation()">
-  <div id="editContactResp" onclick="event.stopPropagation(event), showEditContact(${i})"><img src="./assets/img/edit_contact.png" alt=""><p>Edit</p></div>
-  <div id="deleteContactResp" onclick="event.stopPropagation(event), deleteContact('/contacts/${contact.id}'), closeEditResponsive()"><img src="./assets/img/delete_contact.png" alt=""><p>Delete</p></div>
-  </div>
-  </div`;
+    contactSection.innerHTML = getResponsiveContactTemplate(contact, i);
 }
 
 function showEditDiv(i) {
@@ -275,41 +203,7 @@ async function showEditContact(i) {
 
 function editContactHTML(i) {
     let contact = contacts[i];
-    return `
-    <div id="closeAddContactDiv"><img onclick="cancelEditContact()" id="addNewContactCloseButton"
-                        src="/assets/img/Close.png" alt="close"></div>
-                <div class="profileDivContact">
-                    <div id="editProfilePicture">
-                        <div id="whiteCircle">
-                            <div id="initialsEditContact">
-                                <h1 id="initialsText"></h1>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="contactInput">
-                        <div id="inputDiv">
-                            <div id="inputBox" class="inputBox"><input class="inputBlueBorder" id="editName"
-                                    required type="text" placeholder="Name">
-                                <img src="/assets/img/person.png">
-                            </div>
-                            <div class="inputBox"><input id="editEmail" type="email" required
-                                    placeholder="Email">
-                                <img src="/assets/img/mail.png">
-                            </div>
-                            <div class="inputBox"><input id="editPhone" type="number"
-                                    pattern="[0-9]" placeholder="Phone"> <img src="/assets/img/call.png">
-                            </div>
-                        </div>
-                        <div id="addNewContactAlert"></div>
-                        <div id="btnDiv">
-                            <button onclick="cancelEditContact(); deleteDataContact('/contacts/${contact.id}')" id="cancelButtonContact">Delete<img id="cancelIcon"
-                                    src="./assets/img/cancel(x).png" alt=""></button>
-                            <button onclick="editContactToArray(${i}), deleteDataContact('/contacts/${contact.id}')"  id="editContactButton">Save<img
-                                    src="./assets/img/check.png" alt=""></button>
-                        </div>
-                </div>
-            </div>
-     </div>`;
+    return getEditContactTemplate(contact, i);
 }
 
 async function editContactToArray(i) {
