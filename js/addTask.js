@@ -181,13 +181,27 @@ function toggleCheckbox(contactId) {
     // Find the contact by ID
     const selectedContact = contacts.find(contact => contact.id === contactId);
 
+    // Find the closest parent with the class 'at-contact-layout'
+    const contactLayout = checkbox.closest('.at-contact-layout');
+
     // Add or remove the contact from the selected list based on checkbox state
     if (checkbox.checked) {
         addContactToTask(selectedContact.initials, contactId, selectedContact.profileColor);
+
+        // Change the background color if checked
+        if (contactLayout) {
+            contactLayout.style.backgroundColor = '#2a3647e0';
+        }
     } else {
         removeContactFromTask(contactId);
+
+        // Remove the background color if unchecked
+        if (contactLayout) {
+            contactLayout.style.backgroundColor = '';
+        }
     }
 }
+
 
 
 function showContactList(selectSelected, selectItems, customSelects) {
