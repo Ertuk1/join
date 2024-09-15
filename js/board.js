@@ -79,7 +79,7 @@ function renderTasks() {
             let remainingAssignees = toDo.assignedTo.length - visibleAssignees.length;
             if (remainingAssignees > 0) {
                 taskAssignee += `
-                <div class="contactCard otherContacts" style="background-color: #919191;">
+                <div class="contactCard otherContacts" style="background-color: #5DE2E7;">
                     ${remainingAssignees}+
                 </div>`;
             }
