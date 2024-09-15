@@ -182,7 +182,6 @@ async function loadUserData() {
       password: userResponse[userKeysArray[index]].password,
     });
   }
-  console.log(users);
 }
 
 async function postUserData(path, newUser) {
@@ -269,11 +268,10 @@ async function saveTaskChanges(id) {
     completedSubtasks: existingTask.completedSubtasks,
   };
 
-  console.log("Updated Task:", updatedTask);
+  
 
   try {
     // Überprüfen, was an das Backend gesendet wird
-    console.log('Sending updated task to backend:', updatedTask);
     await changeTask(`/task/${id}`, updatedTask);
 
     // Überprüfen, ob die Aufgabe nach dem Speichern korrekt neu geladen wird

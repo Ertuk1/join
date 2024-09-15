@@ -122,7 +122,6 @@ async function addNewContact(name, email) {
   };
 
   await postContact("/contacts", newContact);
-  console.log('Neuer Kontakt hinzugefügt:', newContact);
 }
 
 function resetInputBorders(emailInput, passwordInput) {
