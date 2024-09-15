@@ -453,7 +453,7 @@ content: url('../assets/img/Property\ 1=Variant2.png');
     .overlayContent {
         width: 485px !important;
         max-height: 60vh !important;
-        overflow-y: scroll !important;
+        overflow-y: scroll ;
         scrollbar-width: thin;
     }
 }
@@ -581,4 +581,11 @@ content: url('../assets/img/Property\ 1=Variant2.png');
     .overlayContent {
         width: 220px !important;
     }
+    .overlayTitle{
+        font-size: 40px !important;
+    }
+}
+
+.overflow-hidden {
+    overflow: hidden;
 }

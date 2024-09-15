@@ -340,12 +340,11 @@ async function ShowEditOverlay(id) {
         var element = document.querySelector('.right-left-container');
         element.style.display = 'block';
 
-        var element = document.getElementsByClassName('checkBoxDiv')[0];
-        if (element) {
-            element.classList.add('d-none');
-        } else {
-            console.error('Element with class "checkBoxDiv" not found.');
-        }
+        // Remove all elements with the specified classes
+        const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay');
+        elementsToRemove.forEach(element => {
+            element.remove(); // Removes the element from the DOM
+        });
 
         const saveButton = document.querySelector('.board-task-edit-btn');
         saveButton.addEventListener('click', () => saveTaskChanges(id));
@@ -358,6 +357,7 @@ async function ShowEditOverlay(id) {
         console.error('Task not found');
     }
 }
+
 
 
 function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, subtaskHTML) {
