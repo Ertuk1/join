@@ -19,6 +19,7 @@ body {
     padding-right: 24px;
     padding-top: 130px;
     padding-bottom: 64px;
+    overflow-x: hidden;
 }
 
 
