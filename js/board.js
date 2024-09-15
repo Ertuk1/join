@@ -127,11 +127,11 @@ function renderTasks() {
 async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML, id, editSubtask) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
+
     let taskPriorityIcon = getPriorityIcon(taskPriority);
     let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
         ? taskAssignees.map(assignee => {
-            // Finde den Kontakt mit der passenden ID
             let contact = contacts.find(contact => contact.id === assignee.id);
             return contact ? `
                 <div class="contactDiv">
@@ -142,56 +142,30 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
         }).join('')
         : '';
 
-    overlayContent.innerHTML = /*html*/`
-    <section id="edit-task-overlay${id}" class="edit-task-overlay d-none">
-            <section class="edit-close-btn-container">
-                <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-            </section>
-            <form id="edit-main-input-container${id}" class="main-input-container" w3-include-html="template/addTaskTemplate.html"></form>
-            <div class="edit-btn-position-container">
-                <div onclick="addTask()" class="board-task-edit-btn">
-                    <div>Ok</div><img src="assets/img/check(ok).png"></div>
-                </div>
-            </div>
-    </section>
-        <section class="overlayUserTitle">
-            <span style="background-color: ${taskTypeBackgroundColor};" class="overlayUser">${taskType}</span>
-            <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-        </section>
-        <section>
-            <span class="overlayTitle">${taskTitle}</span>
-        </section>
-        <section class="overlayContext"><span>${taskDescription}</span></section>
-        <section class="dateDiv">
-            <span class="dueDate">Due date:</span>
-            <span class="date">${taskDueDate}</span>
-        </section>
-        <section class="prioDiv">
-            <span class="dueDate">Priority:</span>
-            <span class="urgencyText">${taskPriority}
-                <img class="overlayUrgencyImg" src="${taskPriorityIcon}" alt="${taskPriority}">
-            </span>
-        </section>
-        <section>
-            <span class="contactOverlay">Assigned To:</span>
-                ${assigneeOverlayContent}
-        <div class="subtasksOverlay"><span>Subtasks</span></div>
-        ${subtaskHTML}
-        <section>
-            <div id="editDiv" class="editDiv">
-                <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
-                <div class="vector"></div>
-                <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}', '${taskPriority}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
-            </div>
-        </section>
-    `;
+    // Use the template function to get the HTML string
+    const templateHTML = getOverlayTemplate(
+        taskTitle, 
+        taskDescription, 
+        taskDueDate, 
+        taskPriority, 
+        taskPriorityIcon, 
+        taskType, 
+        taskTypeBackgroundColor, 
+        assigneeOverlayContent, 
+        subtaskHTML, 
+        id
+    );
+
+    // Insert the generated HTML into the overlay content
+    overlayContent.innerHTML = templateHTML;
 
     overlay.style.display = "flex";
     overlayContent.style.transform = "translateX(0)";
     overlayContent.style.opacity = "1";
     await includeHTML();
-    showInitials()
+    showInitials();
 }
+
 
 function getSubtask(toDo) {
     let subtaskHTML = '';
