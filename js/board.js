@@ -374,14 +374,63 @@ function searchTasks() {
     let searchInput = document.getElementById('searchInput').value.toLowerCase();
     let taskCards = document.querySelectorAll('.card');
 
+    // Select the containers for each category
+    let toDoContainer = document.getElementById('toDo');
+    let progressContainer = document.getElementById('progress');
+    let feedbackContainer = document.getElementById('feedback');
+    let doneContainer = document.getElementById('done');
+
+    // Clear any existing "no results" messages
+    removeExistingNoResultsMessages();
+
+    // Track if matches are found for each section
+    let matchesFound = {
+        toDo: false,
+        progress: false,
+        feedback: false,
+        done: false
+    };
+
     taskCards.forEach(card => {
         let taskTitle = card.querySelector('.cardTitle').textContent.toLowerCase();
         let taskDescription = card.querySelector('.cardContext').textContent.toLowerCase();
+        
+        // Find the parent section of the card
+        let parentSection = card.closest('#toDo, #progress, #feedback, #done');
 
         if (taskTitle.includes(searchInput) || taskDescription.includes(searchInput)) {
-            card.style.display = 'block'; // Zeige die Karte an, wenn sie mit der Suche übereinstimmt
+            card.style.display = 'block'; // Show the card if it matches the search
+
+            // Mark that at least one match was found for the parent section
+            if (parentSection) {
+                if (parentSection.id === 'toDo') matchesFound.toDo = true;
+                if (parentSection.id === 'progress') matchesFound.progress = true;
+                if (parentSection.id === 'feedback') matchesFound.feedback = true;
+                if (parentSection.id === 'done') matchesFound.done = true;
+            }
         } else {
-            card.style.display = 'none'; // Verstecke die Karte, wenn sie nicht mit der Suche übereinstimmt
+            card.style.display = 'none'; // Hide the card if it doesn't match the search
         }
     });
+
+    // Check each section and add "no results" message if needed
+    if (!matchesFound.toDo) addNoResultsMessage(toDoContainer);
+    if (!matchesFound.progress) addNoResultsMessage(progressContainer);
+    if (!matchesFound.feedback) addNoResultsMessage(feedbackContainer);
+    if (!matchesFound.done) addNoResultsMessage(doneContainer);
+}
+
+function removeExistingNoResultsMessages() {
+    // Remove any previously added "no results" messages
+    document.querySelectorAll('.no-results-message').forEach(message => message.remove());
+}
+
+function addNoResultsMessage(container) {
+    if (container) {
+        // Create a new message element
+        let noResultsMessage = document.createElement('div');
+        noResultsMessage.classList.add('no-results-message');
+        noResultsMessage.textContent = 'No matching tasks found';
+        container.appendChild(noResultsMessage);
+    }
 }
