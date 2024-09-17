@@ -12,6 +12,40 @@ let initialX = null;
 let initialY = null;
 let isDragging = false;
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Select all .taskContent elements
+    const scrollContainers = document.querySelectorAll('.taskContent');
+
+    // Adjust these values to control the scrolling speed and sensitivity
+    const scrollSpeed = 5; // Higher value means faster scrolling
+    const scrollMargin = 0.3; // Portion of the container width to trigger scrolling (e.g., 0.2 means 20% from edges)
+
+    scrollContainers.forEach(container => {
+        container.addEventListener('mousemove', (event) => {
+            // Get the container's dimensions and position
+            const rect = container.getBoundingClientRect();
+            const containerWidth = rect.width;
+            const containerLeft = rect.left;
+
+            // Calculate mouse position relative to the container
+            const mouseX = event.clientX - containerLeft;
+
+            // Calculate the margins for scrolling
+            const leftMargin = containerWidth * scrollMargin;
+            const rightMargin = containerWidth * (1 - scrollMargin);
+
+            if (mouseX < leftMargin) {
+                // Mouse is within the left margin, scroll left
+                container.scrollLeft -= scrollSpeed * (leftMargin - mouseX) / leftMargin;
+            } else if (mouseX > rightMargin) {
+                // Mouse is within the right margin, scroll right
+                container.scrollLeft += scrollSpeed * (mouseX - rightMargin) / (containerWidth - rightMargin);
+            }
+        });
+    });
+});
+
+
 function stopPropagation(event) {
     event.stopPropagation();
 }
