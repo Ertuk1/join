@@ -388,14 +388,14 @@ footer a:hover {
   .joinIcon {
     padding: 38px 38px;
   }
+  .signUptText {
+    font-size: 50px;
+    margin: 0px 32px 16px 32px;
+  }
   .signUpContainer {
     padding: 0px 68px 16px 68px;
     margin-top: 167px;
-    margin-bottom: 0;
-  }
-  .signUptText {
-    margin: 0px 32px 16px 32px;
-    font-size: 50px;
+    margin-bottom: 0; 
   }
   .signUpInput {
     gap: 16px;
