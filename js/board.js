@@ -11,6 +11,7 @@ let currentDraggedElement = null;
 let initialX = null;
 let initialY = null;
 let isDragging = false;
+let dragClone = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Select all .taskContent elements
@@ -90,7 +91,7 @@ async function drop(event) {
 }
 
 async function dropMobile(event) {
-    /* event.preventDefault(); */ // Prevent default drop behavior
+  /*   event.preventDefault(); // Prevent default drop behavior */
 
     // Get touch coordinates
     let touch = event.changedTouches[0];
@@ -125,8 +126,6 @@ async function dropMobile(event) {
 }
 
 
-
-// Event listener for touchstart
 document.addEventListener('touchstart', (event) => {
     const card = event.target.closest('.card');
     if (card) {
@@ -134,10 +133,15 @@ document.addEventListener('touchstart', (event) => {
         initialX = event.touches[0].clientX;
         initialY = event.touches[0].clientY;
         isDragging = false; // Reset dragging state
+
+        // Create a visual clone of the dragged element
+        dragClone = card.cloneNode(true);
+        dragClone.style.position = 'absolute';
+        dragClone.style.pointerEvents = 'none';
+        document.body.appendChild(dragClone);
     }
 }, { passive: true });
 
-// Event listener for touchmove
 document.addEventListener('touchmove', (event) => {
     if (initialX === null || initialY === null) return;
 
@@ -147,7 +151,6 @@ document.addEventListener('touchmove', (event) => {
     let diffX = currentX - initialX;
     let diffY = currentY - initialY;
 
-    // Check if the user is moving more horizontally than vertically
     if (Math.abs(diffX) > Math.abs(diffY)) {
         // Horizontal movement detected, let the user scroll
         isDragging = false;
@@ -156,17 +159,23 @@ document.addEventListener('touchmove', (event) => {
         event.preventDefault(); // Prevent scrolling
         isDragging = true;
 
-        const card = event.target.closest('.card');
-        if (card) {
-            allowDrop(event);
+        if (dragClone) {
+            // Update the clone's position to follow the touch
+            dragClone.style.left = `${currentX}px`;
+            dragClone.style.top = `${currentY}px`;
         }
     }
 }, { passive: false });
 
-// Event listener for touchend
-document.addEventListener('touchend', (event) => {
+document.addEventListener('touchend', async (event) => {
     if (isDragging) {
-        dropMobile(event);
+        await dropMobile(event);
+    }
+
+    // Remove the clone
+    if (dragClone) {
+        document.body.removeChild(dragClone);
+        dragClone = null;
     }
 
     // Reset initial positions
@@ -174,7 +183,6 @@ document.addEventListener('touchend', (event) => {
     initialY = null;
     isDragging = false;
 }, { passive: true });
-
 
 function renderTasks() {
     let taskToDo = document.getElementById('toDo');
