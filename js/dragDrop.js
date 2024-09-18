@@ -189,6 +189,7 @@ document.addEventListener('touchstart', (event) => {
  *  Horizontal movement detected, let the user scroll 
  *  Vertical movement detected, start dragging Prevent scrolling
  *  Update the clone's position to follow the touch
+ *  Prevent scrolling when dragging, only if the event is cancelable
  */
 document.addEventListener('touchmove', (event) => {
     if (initialX === null || initialY === null) return;
@@ -202,18 +203,45 @@ document.addEventListener('touchmove', (event) => {
     if (Math.abs(diffX) > Math.abs(diffY)) {
 
         isDragging = false;
-    } else {
-        // 
-        event.preventDefault(); 
-        isDragging = true;
 
         if (dragClone) {
+            document.body.removeChild(dragClone);
+            dragClone = null;
+        }
+        
+        currentDraggedElement = null;
+    } else {
+        
+        if (!event.cancelable) return;
+
+        event.preventDefault(); 
+
+        
+        if (!isDragging) {
+            isDragging = true;
+
             
+            if (dragClone === null) {
+                const card = document.querySelector(`[data-id="${currentDraggedElement}"]`);
+                if (card) {
+                    dragClone = card.cloneNode(true);
+                    dragClone.style.position = 'absolute';
+                    dragClone.style.pointerEvents = 'none';
+                    document.body.appendChild(dragClone);
+                }
+            }
+        }
+
+        
+        if (dragClone) {
             dragClone.style.left = `${currentX}px`;
             dragClone.style.top = `${currentY}px`;
         }
     }
 }, { passive: false });
+
+
+
 
 /**
  * Handles the end of a touch event by dropping the task if dragging was in progress and removing the visual clone.
