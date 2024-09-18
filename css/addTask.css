@@ -1242,6 +1242,8 @@ body {
 
     .at-prio-item {
         font-size: 18px;
+        padding: 2px;
+        gap: 13px;
     }
 
     .custom-category-select {
