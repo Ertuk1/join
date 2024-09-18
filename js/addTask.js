@@ -127,20 +127,29 @@ function updateCheckboxState(contactId) {
 
 function showChoosedContacts() {
     let content = document.getElementById('at-selected-contacts');
-    content.innerHTML = '';  // Leere den Bereich, bevor du neue Inhalte hinzufügst
+    content.innerHTML = ''; 
     
-    for (let i = 0; i < choosedContacts.length; i++) {
+    let maxVisibleContacts = 4; // Maximum number of contacts to display
+
+    // Display up to 4 contacts
+    for (let i = 0; i < choosedContacts.length && i < maxVisibleContacts; i++) {
         let contact = choosedContacts[i].initial;
         let color = choosedContacts[i].color;
-        
-        // Zeige ausgewählte Kontakte mit ihren Farben und Initialen an
+
         content.innerHTML += `<div class="at-choosed-contact-shortcut" id="at-choosed-shortcut${i}">
                                 <div class="at-contact-shortcut">${contact}</div>
                               </div>`;
-        
-        // Setze den Hintergrund für die Kontakte
+
         let backgroundColor = document.getElementById(`at-choosed-shortcut${i}`);
         backgroundColor.style.backgroundColor = color;
+    }
+
+    // If there are more than 4 contacts, display the count of the remaining contacts
+    if (choosedContacts.length > maxVisibleContacts) {
+        let remainingCount = choosedContacts.length - maxVisibleContacts;
+        content.innerHTML += `<div class="at-choosed-contact-shortcut" style="background-color: rgb(218, 42, 224);">
+                                <div class="at-contact-shortcut">+${remainingCount}</div>
+                              </div>`;
     }
 }
 
