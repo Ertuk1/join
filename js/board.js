@@ -6,160 +6,100 @@ async function initBoard() {
     renderTasks();
     showInitials();
 }
-
-let currentDraggedElement = null;
-
-function stopPropagation(event) {
-    event.stopPropagation();
-}
-
-function startDragging(taskId) {
-    currentDraggedElement = taskId;
-}
-
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-async function drop(event) {
-    event.preventDefault(); // Prevent default drop behavior
-
-    let dropZone = event.target.closest('.taskContent'); // Identify the drop zone
-    if (!dropZone) return;
-
-    let taskElement = document.querySelector(`[data-id="${currentDraggedElement}"]`);
-    if (!taskElement) {
-        console.error('Task element not found with id:', currentDraggedElement);
-        return;
-    }
-
-    // Append the task to the drop zone
-    dropZone.appendChild(taskElement);
-
-    // Update the task's status based on the drop zone ID
-    let newStatus = dropZone.id;
-    let task = tasks.find(t => t.id === currentDraggedElement);
-
-    if (task) {
-        task.status = newStatus;
-        await changeTask(`/task/${currentDraggedElement}/status`, task.status);
-        await loadDataTask(); // Reload tasks from backend
-        renderTasks(); // Re-render tasks to reflect changes
-    } else {
-        console.error('Task data not found for id:', currentDraggedElement);
-    }
-}
-
+/**
+ * Renders the tasks in their respective columns and updates the UI.
+ * Generate task card using a template
+ * Attach click event listener
+ * Append task to the appropriate column
+ * Update progress bar
+ * Ensure columns display empty messages if needed
+ */
 function renderTasks() {
-    let taskToDo = document.getElementById('toDo');
-    let taskInProgress = document.getElementById('progress');
-    let taskFeedback = document.getElementById('feedback');
-    let taskDone = document.getElementById('done');
+    const columns = {
+        toDo: document.getElementById('toDo'),
+        progress: document.getElementById('progress'),
+        feedback: document.getElementById('feedback'),
+        done: document.getElementById('done')
+    };
 
-    // Clear all columns
-    taskToDo.innerHTML = '';
-    taskInProgress.innerHTML = '';
-    taskFeedback.innerHTML = '';
-    taskDone.innerHTML = '';
+    
+    Object.values(columns).forEach(column => column.innerHTML = '');
 
-    tasks.forEach((toDo, i) => {
-        let id = toDo.id;
-        let subtaskHTML = getSubtask(toDo);
-        let editSubtask = getEditSubtaskHTML(toDo.subcategory);
-        let completedSubtasks = toDo.completedSubtasks.filter(completed => completed === 'true').length;
+    tasks.forEach((task, i) => {
+        const { id, subcategory, completedSubtasks, assignedTo, category, prio, status } = task;
+
+        let subtaskHTML = getSubtask(task);
+        let editSubtask = getEditSubtaskHTML(subcategory);
+        let completedCount = completedSubtasks.filter(completed => completed === 'true').length;
+        let taskAssignee = getTaskAssignee(assignedTo);
+        let taskPriorityIcon = getPriorityIcon(prio);
+        let taskTypeBackgroundColor = category === 'User Story' ? '#1FD7C1' : '';
+
         
-        let taskAssignee = '';
-        if (Array.isArray(toDo.assignedTo) && toDo.assignedTo.length > 0) {
-            // Zeige maximal 3 Kontakte an
-            let visibleAssignees = toDo.assignedTo.slice(0, 3);
-            taskAssignee = visibleAssignees.map((assignee, index) => {
-                let contact = contacts.find(contact => contact.id === assignee.id);
-                return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${assignee.initial}</div>` : '';
-            }).join('');
-
-            // Wenn es mehr als 3 Kontakte gibt, zeige "x+" an
-            let remainingAssignees = toDo.assignedTo.length - visibleAssignees.length;
-            if (remainingAssignees > 0) {
-                taskAssignee += `
-                <div class="contactCard otherContacts" style="background-color: #919191;">
-                    ${remainingAssignees}+
-                </div>`;
-            }
-        }
-
-        let taskType = toDo.category;
-        let taskPriorityIcon = getPriorityIcon(toDo.prio);
-        let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
         let newTask = document.createElement('div');
-        newTask.classList.add('card');
-        newTask.setAttribute('draggable', 'true');
-        newTask.setAttribute('ondragstart', `startDragging('${id}')`);
-        newTask.setAttribute('data-id', id);
-        newTask.innerHTML = `
-            <div class="cardContent">
-                <span class="labelUser" style="background-color: ${taskTypeBackgroundColor};">${taskType}</span>
-                <div class="contextContent">
-                    <span class="cardTitle">${toDo.title}</span>
-                    <div>
-                        <span class="cardContext">${toDo.description}</span>
-                    </div>
-                    <div class="progressbar">
-                        <div class="progressbarContainer">
-                            <div class="bar" id="progressBarId${i}"></div>
-                        </div>
-                        <div class="subtasks">${completedSubtasks}/${toDo.subcategory.length} Subtasks</div>
-                    </div>
-                    <div class="contactContainer">
-                        <div style="display: flex;">
-                            ${taskAssignee}
-                        </div>
-                        <div>
-                            <img class="urgentSymbol" src="${taskPriorityIcon}" alt="${toDo.prio}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+        newTask.innerHTML = getTaskTemplate(task, i, taskTypeBackgroundColor, category, taskAssignee, taskPriorityIcon, completedCount, editSubtask, id, subtaskHTML);
 
-        newTask.addEventListener('click', function (event) {
+        
+        newTask.addEventListener('click', event => {
             event.stopPropagation();
-            showOverlay1(toDo.title, toDo.description, toDo.date, toDo.prio, toDo.assignedTo, toDo.category, subtaskHTML, id, editSubtask);
+            showOverlay1(task.title, task.description, task.date, prio, assignedTo, category, subtaskHTML, id, editSubtask);
         });
 
-        // Append the task to the appropriate column based on its status
-        switch (toDo.status) {
-            case 'toDo':
-                taskToDo.appendChild(newTask);
-                break;
-            case 'progress':
-                taskInProgress.appendChild(newTask);
-                break;
-            case 'feedback':
-                taskFeedback.appendChild(newTask);
-                break;
-            case 'done':
-                taskDone.appendChild(newTask);
-                break;
-            default:
-                taskToDo.appendChild(newTask); // Default fallback
-                break;
-        }
+        
+        let targetColumn = columns[status] || columns.toDo;
+        targetColumn.appendChild(newTask);
 
-        updateProgressBar(completedSubtasks, toDo.subcategory.length, i);
+        
+        updateProgressBar(completedCount, subcategory.length, i);
     });
 
-    checkIfEmpty(); // Ensure columns display empty messages if needed
+    checkIfEmpty(); 
+}
+
+/**
+ * Retrieves the HTML for task assignees and handles overflow if there are more than three assignees.
+ * @param {Array} assignedTo - Array of assigned contact objects.
+ * @returns {string} - HTML string representing the task assignees.
+ */
+function getTaskAssignee(assignedTo) {
+    if (!Array.isArray(assignedTo) || assignedTo.length === 0) return '';
+
+    let visibleAssignees = assignedTo.slice(0, 3);
+    let taskAssignee = visibleAssignees.map(assignee => {
+        let contact = contacts.find(contact => contact.id === assignee.id);
+        return contact ? `<div class="contactCard" style="background-color: ${assignee.color};">${assignee.initial}</div>` : '';
+    }).join('');
+
+    let remainingAssignees = assignedTo.length - visibleAssignees.length;
+    if (remainingAssignees > 0) {
+        taskAssignee += `<div class="contactCard otherContacts" style="background-color: #5DE2E7;">${remainingAssignees}+</div>`;
+    }
+
+    return taskAssignee;
 }
 
 
+/**
+ * Shows the task overlay with detailed task information.
+ * @async
+ * @param {string} taskTitle - The title of the task.
+ * @param {string} taskDescription - The description of the task.
+ * @param {string} taskDueDate - The due date of the task.
+ * @param {string} taskPriority - The priority of the task.
+ * @param {Array} taskAssignees - The array of task assignees.
+ * @param {string} taskType - The type/category of the task.
+ * @param {string} subtaskHTML - The HTML content for subtasks.
+ * @param {string} id - The ID of the task.
+ * @param {string} editSubtask - The HTML content for editing subtasks.
+ */
 async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriority, taskAssignees, taskType, subtaskHTML, id, editSubtask) {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
+
     let taskPriorityIcon = getPriorityIcon(taskPriority);
     let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
     let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
         ? taskAssignees.map(assignee => {
-            // Finde den Kontakt mit der passenden ID
             let contact = contacts.find(contact => contact.id === assignee.id);
             return contact ? `
                 <div class="contactDiv">
@@ -170,57 +110,35 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
         }).join('')
         : '';
 
-    overlayContent.innerHTML = /*html*/`
-    <section id="edit-task-overlay${id}" class="edit-task-overlay d-none">
-            <section class="edit-close-btn-container">
-                <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-            </section>
-            <form id="edit-main-input-container${id}" class="main-input-container" w3-include-html="template/addTaskTemplate.html"></form>
-            <div class="edit-btn-position-container">
-                <div onclick="addTask()" class="board-task-edit-btn">
-                    <div>Ok</div><img src="assets/img/check(ok).png"></div>
-                </div>
-            </div>
-    </section>
-        <section class="overlayUserTitle">
-            <span style="background-color: ${taskTypeBackgroundColor};" class="overlayUser">${taskType}</span>
-            <img class="closeButton" onclick="off()" src="./assets/img/Close.png" alt="">
-        </section>
-        <section>
-            <span class="overlayTitle">${taskTitle}</span>
-        </section>
-        <section class="overlayContext"><span>${taskDescription}</span></section>
-        <section class="dateDiv">
-            <span class="dueDate">Due date:</span>
-            <span class="date">${taskDueDate}</span>
-        </section>
-        <section class="prioDiv">
-            <span class="dueDate">Priority:</span>
-            <span class="urgencyText">${taskPriority}
-                <img class="overlayUrgencyImg" src="${taskPriorityIcon}" alt="${taskPriority}">
-            </span>
-        </section>
-        <section>
-            <span class="contactOverlay">Assigned To:</span>
-                ${assigneeOverlayContent}
-        <div class="subtasksOverlay"><span>Subtasks</span></div>
-        ${subtaskHTML}
-        <section>
-            <div id="editDiv" class="editDiv">
-                <div class="deleteDiv" onclick="deleteTask('${id}'); off();"><img class="deletePng" src="./assets/img/delete (1).png" alt=""><span>Delete</span></div>
-                <div class="vector"></div>
-                <div class="deleteDiv" onclick="ShowEditOverlay('${id}', '${taskTitle}', '${taskDescription}', '${taskDueDate}', '${taskPriority}')"><img class="deletePng" src="./assets/img/edit (1).png" alt=""><span>Edit</span></div>
-            </div>
-        </section>
-    `;
+    // Use the template function to get the HTML string
+    const templateHTML = getOverlayTemplate(
+        taskTitle,
+        taskDescription,
+        taskDueDate,
+        taskPriority,
+        taskPriorityIcon,
+        taskType,
+        taskTypeBackgroundColor,
+        assigneeOverlayContent,
+        subtaskHTML,
+        id
+    );
+
+    // Insert the generated HTML into the overlay content
+    overlayContent.innerHTML = templateHTML;
 
     overlay.style.display = "flex";
     overlayContent.style.transform = "translateX(0)";
     overlayContent.style.opacity = "1";
     await includeHTML();
-    showInitials()
+    showInitials();
 }
 
+/**
+ * Generates the HTML for the subtasks of a task.
+ * @param {Object} toDo - The task object containing subtasks and their completion status.
+ * @returns {string} - HTML string representing the subtasks.
+ */
 function getSubtask(toDo) {
     let subtaskHTML = '';
 
@@ -237,6 +155,12 @@ function getSubtask(toDo) {
     return subtaskHTML;
 }
 
+/**
+ * Toggles the completion status of a subtask and updates the task.
+ * @async
+ * @param {number} i - The index of the subtask to toggle.
+ * @param {string} id - The ID of the task.
+ */
 async function addCompletedSubtasks(i, id) {
     await loadDataTask();
     let taskItem = tasks.find(taskItem => taskItem.id === id);
@@ -254,33 +178,21 @@ async function addCompletedSubtasks(i, id) {
     renderTasks();
 }
 
-
-function checkIfEmpty() {
-    let toDo = document.getElementById('toDo');
-    let progress = document.getElementById('progress');
-    let feedback = document.getElementById('feedback');
-    let done = document.getElementById('done');
-
-    if (progress.innerHTML.trim() === "") {
-        progress.innerHTML = `<div class="noTasks"><span class="noTaskText">Nothing in progress</span></div>`;
-    }
-    if (toDo.innerHTML.trim() === "") {
-        toDo.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks To do</span></div>`;
-    }
-    if (feedback.innerHTML.trim() === "") {
-        feedback.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks awaiting feedback</span></div>`;
-    }
-    if (done.innerHTML.trim() === "") {
-        done.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
-    }
-}
-
+/**
+ * Updates the progress bar for a task.
+ * @param {number} subtasksCompleted - Number of completed subtasks.
+ * @param {number} totalSubtasks - Total number of subtasks.
+ * @param {number} i - Index of the task.
+ */
 function updateProgressBar(subtasksCompleted, totalSubtasks, i) {
     let progressPercentage = (subtasksCompleted / totalSubtasks) * 100;
     let progressBar = document.getElementById(`progressBarId${i}`);
     progressBar.style.width = progressPercentage + '%';
 }
 
+/**
+ * Attaches event listeners to task cards to show an overlay when clicked.
+ */
 function on() {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
@@ -296,9 +208,26 @@ function on() {
     });
 }
 
+/**
+ * Clears the content of all overlay containers that have an ID containing 'edit-task-overlay'.
+ */
+function clearEditTaskOverlayContent() {
+    
+    const overlayContainers = document.querySelectorAll('[id*="edit-task-overlay"]');
+
+    overlayContainers.forEach(container => {
+        
+        container.innerHTML = '';
+    });
+}
+
+/**
+ * Hides the overlay by applying fade-out and slide-out animations.
+ */
 function off() {
     const overlay = document.getElementById("overlay");
     const overlayContent = document.querySelector(".overlayContent");
+    clearEditTaskOverlayContent()
 
     const handleAnimationEnd = () => {
         overlay.style.display = "none";
@@ -316,12 +245,22 @@ function off() {
     subcategoriesChoosed = [];
 }
 
+/**
+ * Displays the add task overlay and initializes it.
+ * @async
+ * @param {string} [status='toDo'] - The status to set for the task (default is 'toDo').
+ */
 async function showOverlay(status = 'toDo') {
+
     await addTaskInit();
     addTaskOverlay.style.display = 'block';
     document.getElementById('addTaskOverlay').dataset.status = status;
+
 }
 
+/**
+ * Hides the add task overlay with fade-out and slide-out animations.
+ */
 function offAddTask() {
     const overlay = document.getElementById("addTaskOverlay");
     const overlayContent = document.querySelector(".overlayContentAddTask");
@@ -337,6 +276,11 @@ function offAddTask() {
     }, { once: true }); // Ensure the event listener is only triggered once
 }
 
+/**
+ * Returns the icon path based on the task priority.
+ * @param {string} priority - The priority of the task ('urgent', 'medium', 'low').
+ * @returns {string} - The path to the corresponding priority icon.
+ */
 function getPriorityIcon(priority) {
     switch (priority) {
         case 'urgent':
@@ -346,19 +290,32 @@ function getPriorityIcon(priority) {
         case 'low':
             return './assets/img/low.png';
         default:
-            return ''; // or return a default icon path
+            return '';
     }
 }
 
+/**
+ * Shows the edit overlay for a specific task.
+ * @async
+ * @param {string} id - The ID of the task to edit.
+ * Load the tasks from the backend
+ * Find the specific task by its ID
+ * Remove all elements with the specified classes
+ * Removes the element from the DOM
+ * Check assigned contacts and update checkboxes
+ * Use assignedTo from task
+ * Mark the checkbox as checked
+ * Generate the subtask HTML if the task has subcategories
+ */
 async function ShowEditOverlay(id) {
-    // Load the tasks from the backend
+    
     await loadDataTask();
 
-    // Find the specific task by its ID
+    
     const task = tasks.find(task => task.id === id);
 
     if (task) {
-        const { title, description, date, prio, subcategory } = task;
+        const { title, description, date, prio, subcategory, assignedTo } = task;
         subcategoriesChoosed = [...subcategory];
 
         await addTaskInit();
@@ -375,17 +332,33 @@ async function ShowEditOverlay(id) {
         var element = document.querySelector('.right-left-container');
         element.style.display = 'block';
 
-        var element = document.getElementsByClassName('checkBoxDiv')[0];
-        if (element) {
-            element.classList.add('d-none');
-        } else {
-            console.error('Element with class "checkBoxDiv" not found.');
-        }
+        
+        const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay, .dateDiv, .prioDiv, .overlayTitle');
+        elementsToRemove.forEach(element => {
+            element.remove(); 
+        });
 
         const saveButton = document.querySelector('.board-task-edit-btn');
         saveButton.addEventListener('click', () => saveTaskChanges(id));
 
-        // Generate the subtask HTML if the task has subcategories
+        const assignedContacts = assignedTo || []; 
+        assignedContacts.forEach(contact => {
+           
+            const contactId = contact.id || contact; 
+
+            const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
+            if (checkbox) {
+                checkbox.checked = true; 
+                const contactLayout = checkbox.closest('.at-contact-layout');
+                if (contactLayout) {
+                    contactLayout.style.backgroundColor = '#2a3647e0';
+                    contactLayout.style.color = 'white';
+                }
+            } else {
+                console.warn(`Checkbox with ID ${contactId} not found.`);
+            }
+        });
+        
         const subtaskHTML = Array.isArray(subcategory) ? getEditSubtaskHTML(subcategory) : '';
 
         renderEditTaskData(id, title, description, date, prio, subtaskHTML);
@@ -395,15 +368,28 @@ async function ShowEditOverlay(id) {
 }
 
 
+
+/**
+ * Renders the task data in the edit overlay.
+ * @param {string} id - The ID of the task.
+ * @param {string} taskTitle - The title of the task.
+ * @param {string} taskDescription - The description of the task.
+ * @param {string} taskDueDate - The due date of the task.
+ * @param {string} taskPriority - The priority of the task.
+ * @param {string} subtaskHTML - The HTML for the subtasks.
+ * Ensure correct rendering before setting priority background
+ * Assign the generated HTML or an empty string if there are no subtasks
+ * Set the priority icon
+ */
 function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPriority, subtaskHTML) {
     document.getElementById('task-title').value = taskTitle;
     document.getElementById('at-description').value = taskDescription;
     document.getElementById('task-due-date').value = taskDueDate;
 
-    // Assign the generated HTML or an empty string if there are no subtasks
+    
     document.getElementById('added-subcategories').innerHTML = subtaskHTML;
 
-    // Set the priority icon
+    
     const priorityIcon = getPriorityIcon(taskPriority);
     const priorityIconElement = document.getElementById('priority-icon');
 
@@ -411,12 +397,16 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
         priorityIconElement.src = priorityIcon;
     }
 
-    // Ensure correct rendering before setting priority background
+    
     requestAnimationFrame(() => {
         setBackgroundColorPrio(taskPriority);
     });
 }
 
+/**
+ * Gets the selected priority level for a task.
+ * @returns {string} The selected priority ('urgent', 'medium', or 'low').
+ */
 function getSelectedPriority() {
     const priorityElements = document.querySelectorAll('.at-prio-item');
     for (const element of priorityElements) {
@@ -428,42 +418,84 @@ function getSelectedPriority() {
             return 'low';
         }
     }
-    return 'low'; // Default-Wert, falls keine Priorität gefunden wird
-}
-function getEditSubtaskHTML(editSubtask) {
-    let subtaskHTML = ''
-    for (let i = 0; i < editSubtask.length; i++) {
-        let choosedSubcategorie = editSubtask[i];
-        subtaskHTML += /*html*/`
-    <div class="choosed-subcategorie-container">
-        <input class="choosed-subcategory-input" value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
-        <div class="choosed-subcategorie-btn-container">
-            <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit-${i}">
-            <div class="small-border-container"></div>
-            <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
-        </div>
-        <div class="choosed-subcategorie-btn-container-active-field">
-            <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
-            <div class="small-border-container-gray"></div>
-            <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
-        </div>
-    </div>`
-    }
-    return subtaskHTML
+    return 'low'; 
 }
 
+/**
+ * Searches for tasks based on the input and filters them in the UI.
+ * Select the containers for each category
+ * Clear any existing "no results" messages
+ * Track if matches are found for each section
+ * Find the parent section of the card
+ * Check each section and add "no results" message if needed
+ */
 function searchTasks() {
     let searchInput = document.getElementById('searchInput').value.toLowerCase();
     let taskCards = document.querySelectorAll('.card');
+
+    
+    let toDoContainer = document.getElementById('toDo');
+    let progressContainer = document.getElementById('progress');
+    let feedbackContainer = document.getElementById('feedback');
+    let doneContainer = document.getElementById('done');
+
+    
+    removeExistingNoResultsMessages();
+
+    
+    let matchesFound = {
+        toDo: false,
+        progress: false,
+        feedback: false,
+        done: false
+    };
 
     taskCards.forEach(card => {
         let taskTitle = card.querySelector('.cardTitle').textContent.toLowerCase();
         let taskDescription = card.querySelector('.cardContext').textContent.toLowerCase();
 
+        
+        let parentSection = card.closest('#toDo, #progress, #feedback, #done');
+
         if (taskTitle.includes(searchInput) || taskDescription.includes(searchInput)) {
-            card.style.display = 'block'; // Zeige die Karte an, wenn sie mit der Suche übereinstimmt
+            card.style.display = 'block'; 
+
+            
+            if (parentSection) {
+                if (parentSection.id === 'toDo') matchesFound.toDo = true;
+                if (parentSection.id === 'progress') matchesFound.progress = true;
+                if (parentSection.id === 'feedback') matchesFound.feedback = true;
+                if (parentSection.id === 'done') matchesFound.done = true;
+            }
         } else {
-            card.style.display = 'none'; // Verstecke die Karte, wenn sie nicht mit der Suche übereinstimmt
+            card.style.display = 'none'; 
         }
     });
+
+    
+    if (!matchesFound.toDo) addNoResultsMessage(toDoContainer);
+    if (!matchesFound.progress) addNoResultsMessage(progressContainer);
+    if (!matchesFound.feedback) addNoResultsMessage(feedbackContainer);
+    if (!matchesFound.done) addNoResultsMessage(doneContainer);
+}
+
+/**
+ * Removes any existing "no results" messages from the task containers.
+ */
+function removeExistingNoResultsMessages() {
+    document.querySelectorAll('.no-results-message').forEach(message => message.remove());
+}
+
+/**
+ * Adds a "no results" message to a specific container if no matching tasks are found.
+ * @param {HTMLElement} container - The container element to which the message will be added.
+ */
+function addNoResultsMessage(container) {
+    if (container) {
+        // Create a new message element
+        let noResultsMessage = document.createElement('div');
+        noResultsMessage.classList.add('no-results-message');
+        noResultsMessage.textContent = 'No matching tasks found';
+        container.appendChild(noResultsMessage);
+    }
 }

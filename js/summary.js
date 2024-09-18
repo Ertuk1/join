@@ -11,9 +11,15 @@ async function summeryInit() {
     checkResposive();
 }
 
-function redirectToBoard() {
-    window.location.href = "board.html";
+function redirectToBoard(sectionId) {
+  if (sectionId) {
+     
+      window.location.href = `board.html#${sectionId}`;
+  } else {
+      
+      window.location.href = "board.html";
   }
+}
 
 function updateGreeting() {
   let greetingText = document.getElementById('greetingText');

@@ -11,37 +11,43 @@ async function addTaskInit() {
     await includeHTML();
     await loadDataContacts();
     await renderAssignedToContacts();
-    setupDropdownToggle(); 
+    setupDropdownToggle();
     showAvailableContacts();
     showCategoryList();
     showInitials();
+    setupContactSearchPlaceholder();
+    setBackgroundColorPrio('medium');
 }
 
 function setupDropdownToggle() {
     const selectedElement = document.querySelector('.select-selected');
     const dropdownContainer = document.getElementById('at-contact-container');
 
-    selectedElement.addEventListener('click', function () {
+    // Toggle dropdown when the select is clicked
+    selectedElement.addEventListener('click', function (event) {
+        event.stopPropagation();  // Prevent click from propagating and triggering the document click listener
         this.classList.toggle('select-arrow-active');
         dropdownContainer.classList.toggle('select-hide');
     });
-    
-    document.addEventListener('click', function(event) {
-        if (!event.target.closest('.custom-select')) {
+
+    // Handle outside clicks to close the dropdown
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.custom-select') && !event.target.closest('.select-items')) {
             dropdownContainer.classList.add('select-hide');
             selectedElement.classList.remove('select-arrow-active');
         }
     });
 }
 
+
 async function renderAssignedToContacts() {
     let contentCollection = document.getElementsByClassName('select-items');
-    
+
     // Iteriere über die HTMLCollection, um jedes Element zu bearbeiten
     for (let j = 0; j < contentCollection.length; j++) {
         let content = contentCollection[j];
         content.innerHTML = '';  // Leere den Inhalt des Containers
-        
+
         for (let i = 0; i < contacts.length; i++) {
             const contactName = contacts[i].name;
             let initials = contacts[i].initials;
@@ -49,74 +55,112 @@ async function renderAssignedToContacts() {
             let id = contacts[i].id;
 
             // Generiere HTML für jeden Kontakt
-            content.innerHTML += generateAssignedContactsHTML(initials, contactName, i, color, id);
+            content.innerHTML += generateAssignedContactsHTML(initials, contactName, id, color);
         }
     }
 }
 
+function filterContacts() {
+    const searchInput = document.getElementById('contact-search'); // Corrected to use 'id' instead of 'class'
+    if (!searchInput) {
+        console.error('Element mit der ID "contact-search" wurde nicht gefunden.');
+        return;
+    }
 
+    const searchValue = searchInput.value.toLowerCase();
+    const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(searchValue));
 
-function generateAssignedContactsHTML(initials, contactName, i, color, id) {
-    return /*html*/`
-    <div onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')">
-        <div class="at-contact-layout">
-            <div class="at-contact-name-container">
-                <div id="at-shortcut${i}" class="at-contact-shortcut-layout" style="background-color: ${color};">
-                    <div class="at-contact-shortcut">${initials}</div>
-                </div>
-                <div class="at-contact-name">${contactName}</div>
-            </div>
-            <label class="at-label-checkbox">
-                <input data-contact-id="${id}" data-contact-color="${color}" data-contact-initials="${initials}" onclick="addContactToTask('${initials}', ${i}, '${color}', '${id}')" type="checkbox">
-                <span class="at-checkmark"></span>
-            </label>
-        </div>
-    </div>`;
+    const contactContainer = document.getElementById('at-contact-container'); // Ensure correct container is used
+    if (!contactContainer) {
+        console.error('Element mit der ID "at-contact-container" wurde nicht gefunden.');
+        return;
+    }
+
+    contactContainer.innerHTML = ''; // Clear the previous results
+
+    filteredContacts.forEach(contact => {
+        // Generate the contact HTML
+        contactContainer.innerHTML += generateAssignedContactsHTML(contact.initials, contact.name, contact.id, contact.profileColor);
+    });
+
+    // After filtering, update the checkbox states
+    filteredContacts.forEach(contact => {
+        updateCheckboxState(contact.id);
+    });
 }
 
-function addContactToTask(initials, i, colors, id) {
+
+function addContactToTask(initials, id, color) {
+    // Überprüfe, ob der Kontakt bereits in der Liste ist
     let index = choosedContacts.findIndex(contact => contact.id === id);
+
     if (index === -1) {
+        // Kontakt ist noch nicht ausgewählt, füge ihn hinzu
         choosedContacts.push({
             id: id,
             initial: initials,
-            color: colors,
+            color: color,
         });
-    } else {
-        choosedContacts.splice(index, 1);
     }
-    showChoosedContacts();
+
+    showChoosedContacts(); // Zeige die ausgewählten Kontakte an
+    updateCheckboxState(id); // Aktualisiere den Zustand der Checkboxen
 }
+
+function removeContactFromTask(id) {
+    // Entferne den Kontakt aus der Liste der ausgewählten Kontakte
+    choosedContacts = choosedContacts.filter(contact => contact.id !== id);
+
+    showChoosedContacts(); // Zeige die ausgewählten Kontakte an
+    updateCheckboxState(id); // Aktualisiere den Zustand der Checkboxen
+}
+
+
+function updateCheckboxState(contactId) {
+    const checkboxes = document.querySelectorAll(`input[data-contact-id="${contactId}"]`);
+    checkboxes.forEach(checkbox => {
+        // Ensure the checkbox reflects the selection state
+        checkbox.checked = choosedContacts.some(contact => contact.id === contactId);
+    });
+}
+
 
 function showChoosedContacts() {
     let content = document.getElementById('at-selected-contacts');
-    content.innerHTML = '';
+    content.innerHTML = '';  // Leere den Bereich, bevor du neue Inhalte hinzufügst
+    
     for (let i = 0; i < choosedContacts.length; i++) {
         let contact = choosedContacts[i].initial;
         let color = choosedContacts[i].color;
-        content.innerHTML += `<div class="at-choosed-contact-shortcut" id="at-choosed-shortcut${i}"><div class="at-contact-shortcut">${contact}</div></div>`;
+        
+        // Zeige ausgewählte Kontakte mit ihren Farben und Initialen an
+        content.innerHTML += `<div class="at-choosed-contact-shortcut" id="at-choosed-shortcut${i}">
+                                <div class="at-contact-shortcut">${contact}</div>
+                              </div>`;
+        
+        // Setze den Hintergrund für die Kontakte
         let backgroundColor = document.getElementById(`at-choosed-shortcut${i}`);
         backgroundColor.style.backgroundColor = color;
-
     }
 }
 
-async function showAvailableContacts() {
-    let customSelects = document.querySelectorAll('.custom-select');
 
-    customSelects.forEach(function (select) {
-        let selectSelected = select.querySelector('.select-selected');
-        let selectItems = select.querySelector('.select-items');
-        let options = selectItems.querySelectorAll('.at-contact-layout');
+function showAvailableContacts() {
+    const customSelects = document.querySelectorAll('.custom-select');
+
+    customSelects.forEach(select => {
+        const selectSelected = select.querySelector('.select-selected');
+        const selectItems = select.querySelector('.select-items');
+        const options = selectItems.querySelectorAll('.at-contact-layout');
         
-        // Verstecke die Kontaktliste standardmäßig
+        // Hide the contact list by default
         selectItems.style.display = 'none';
 
-        // Initialisiere das Anzeigen der Kontaktliste und das Auswählen von Kontakten
-        showContactList(selectSelected, selectItems);
+        // Handle showing contact list and selection
+        showContactList(selectSelected, selectItems, customSelects);
         chooseContactFromList(options);
 
-        // Schließe die Liste, wenn außerhalb geklickt wird
+        // Close the list if clicked outside the dropdown
         window.addEventListener('click', function (event) {
             if (!select.contains(event.target)) {
                 selectItems.style.display = 'none';
@@ -127,37 +171,87 @@ async function showAvailableContacts() {
     });
 }
 
-function showContactList(selectSelected, selectItems) {
-    selectSelected.addEventListener('click', function (event) {
-        event.stopPropagation();
+function toggleCheckbox(contactId) {
+    const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
 
-        // Toggle-Logik für das Dropdown
-        const isVisible = selectItems.style.display === 'block';
-        
-        // Schließe alle anderen geöffneten Dropdowns
-        document.querySelectorAll('.select-items').forEach(function (item) {
-            item.style.display = 'none';
+    if (!checkbox) return;
+
+    // Toggle checkbox state
+    checkbox.checked = !checkbox.checked;
+
+    // Find the contact by ID
+    const selectedContact = contacts.find(contact => contact.id === contactId);
+
+    // Find the closest parent with the class 'at-contact-layout'
+    const contactLayout = checkbox.closest('.at-contact-layout');
+
+    // Add or remove the contact from the selected list based on checkbox state
+    if (checkbox.checked) {
+        addContactToTask(selectedContact.initials, contactId, selectedContact.profileColor);
+
+        // Change the background color if checked
+        if (contactLayout) {
+            contactLayout.style.backgroundColor = '#2a3647e0';
+            contactLayout.style.color = 'white'
+        }
+    } else {
+        removeContactFromTask(contactId);
+
+        // Remove the background color if unchecked
+        if (contactLayout) {
+            contactLayout.style.backgroundColor = '';
+            contactLayout.style.color = 'black'
+        }
+    }
+}
+
+
+
+function showContactList(selectSelected, selectItems, customSelects) {
+    selectSelected.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevents closing the dropdown on this click
+        customSelects.forEach(function (s) {
+            s.querySelector('.select-items').style.display = 'none'; // Hide other dropdowns
         });
 
-        // Toggle das aktuelle Dropdown
-        selectItems.style.display = isVisible ? 'none' : 'block';
-
-        // Zeige und verstecke die Icons entsprechend
-        if (isVisible) {
-            document.getElementById('open-contact-list').classList.remove('d-none');
-            document.getElementById('close-contact-list').classList.add('d-none');
+        // Toggle the current dropdown
+        if (selectItems.style.display === 'block') {
+            selectItems.style.display = 'none';
         } else {
+            selectItems.style.display = 'block';
+        }
+
+        // Toggle the icons accordingly
+        if (selectItems.style.display === 'block') {
             document.getElementById('open-contact-list').classList.add('d-none');
             document.getElementById('close-contact-list').classList.remove('d-none');
+        } else {
+            document.getElementById('open-contact-list').classList.remove('d-none');
+            document.getElementById('close-contact-list').classList.add('d-none');
+        }
+    });
+
+    // Close the dropdown when clicking outside of it
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.custom-select') && !event.target.closest('.select-items')) {
+            selectItems.style.display = 'none';
+            document.getElementById('open-contact-list').classList.remove('d-none');
+            document.getElementById('close-contact-list').classList.add('d-none');
         }
     });
 }
 
+
 function chooseContactFromList(options) {
-    options.forEach(function (option) {
+    options.forEach(option => {
         option.addEventListener('click', function (event) {
-            let checkbox = option.querySelector('input[type="checkbox"]');
+            event.stopPropagation(); // Keep the dropdown open when selecting
+            const checkbox = option.querySelector('input[type="checkbox"]');
+            const contactId = option.querySelector('input').dataset.contactId;
+
+            // Toggle the checkbox and update the selected contacts
             checkbox.checked = !checkbox.checked;
+            toggleCheckbox(contactId);
         });
     });
 }
@@ -224,26 +318,30 @@ function showCategoryList() {
 }
 
 function showCategoryDropdown(selectSelected, selectItems) {
-    selectSelected.addEventListener('click', function () {
+    selectSelected.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevents the event from closing the dropdown immediately
+        // Toggle dropdown visibility
         if (selectItems.style.display === 'block') {
             selectItems.style.display = 'none';
-            let openIcon = document.getElementById('open-category-list');
-            let closeIcon = document.getElementById('close-category-list');
-            if (openIcon && closeIcon) {
-                openIcon.classList.remove('d-none');
-                closeIcon.classList.add('d-none');
-            }
+            document.getElementById('open-category-list').classList.remove('d-none');
+            document.getElementById('close-category-list').classList.add('d-none');
         } else {
             selectItems.style.display = 'block';
-            let openIcon = document.getElementById('open-category-list');
-            let closeIcon = document.getElementById('close-category-list');
-            if (openIcon && closeIcon) {
-                openIcon.classList.add('d-none');
-                closeIcon.classList.remove('d-none');
-            }
+            document.getElementById('open-category-list').classList.add('d-none');
+            document.getElementById('close-category-list').classList.remove('d-none');
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('.custom-category-select')) {
+            selectItems.style.display = 'none';
+            document.getElementById('open-category-list').classList.remove('d-none');
+            document.getElementById('close-category-list').classList.add('d-none');
         }
     });
 }
+
 
 function clearCategoryDropdown() {
     let customSelects = document.querySelectorAll('.custom-category-select');
@@ -445,5 +543,30 @@ function goToBoard() {
         window.location.href = 'board.html';
     }, 2000);
 }
+
+function setupContactSearchPlaceholder() {
+    const searchInput = document.getElementById('contact-search');
+    const originalPlaceholder = document.getElementById('original-placeholder');
+
+    if (!searchInput || !originalPlaceholder) {
+        console.error('Elemente "contact-search" oder "original-placeholder" wurden nicht gefunden.');
+        return;
+    }
+
+    // Event-Listener für "focus"
+    searchInput.addEventListener('focus', function() {
+        originalPlaceholder.style.display = 'none'; // Verstecke den Platzhalter beim Fokus
+    });
+
+    // Event-Listener für "blur"
+    searchInput.addEventListener('blur', function() {
+        if (this.value === '') {
+            originalPlaceholder.style.display = 'block'; // Zeige den Platzhalter wieder, wenn das Eingabefeld leer ist
+        }
+    });
+}
+
+
+
 
 

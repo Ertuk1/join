@@ -9,12 +9,14 @@
         <div class="at-input-headlines">Assigned to</div>
         <div class="custom-select fs16">
             <div class="select-selected">
-                <div>Select contacts to assign</div>
+                <div id="original-placeholder">Select contacts to assign</div>
+                <input type="text" class="inputClass" id="contact-search" placeholder="" oninput="filterContacts()">
                 <img id="open-contact-list" src="assets/img/arrow_drop_down_open.png">
                 <img id="close-contact-list" class="d-none" src="assets/img/arrow_drop_down_close.png">
             </div>
             <div id="at-contact-container" class="select-items select-hide"></div>
         </div>
+        
         <div id="at-selected-contacts"></div>
     </div>
     <div id="input-border-container" class="input-border-container"></div>
@@ -49,7 +51,7 @@
                 <img id="open-category-list" src="assets/img/arrow_drop_down_open.png">
                 <img id="close-category-list" class="d-none" src="assets/img/arrow_drop_down_close.png">
             </div>
-            <div id="at-category-container" class="select-category-items select-hide">
+            <div id="at-category-container" class="select-category-items">
                 <div class="at-contact-layout">
                     <div class="at-contact-name">Technical Task</div>
                 </div>
