@@ -272,7 +272,7 @@ async function ShowEditOverlay(id) {
         element.style.display = 'block';
 
         // Remove all elements with the specified classes
-        const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay');
+        const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay, .dateDiv, .prioDiv, .overlayTitle');
         elementsToRemove.forEach(element => {
             element.remove(); // Removes the element from the DOM
         });
