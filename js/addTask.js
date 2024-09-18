@@ -16,6 +16,7 @@ async function addTaskInit() {
     showCategoryList();
     showInitials();
     setupContactSearchPlaceholder();
+    setBackgroundColorPrio('medium');
 }
 
 function setupDropdownToggle() {
