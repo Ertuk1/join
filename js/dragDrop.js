@@ -1,57 +1,99 @@
+/**
+ * @type {string|null} - The ID of the currently dragged element.
+ */
 let currentDraggedElement = null;
+
+/**
+ * @type {number|null} - The initial X coordinate when dragging starts.
+ */
 let initialX = null;
+
+/**
+ * @type {number|null} - The initial Y coordinate when dragging starts.
+ */
 let initialY = null;
+
+/**
+ * @type {boolean} - Flag to indicate if an element is currently being dragged.
+ */
 let isDragging = false;
+
+/**
+ * @type {HTMLElement|null} - The visual clone of the dragged element.
+ */
 let dragClone = null;
 
+
+/**
+ * Initializes event listeners for scrolling containers once the DOM is loaded.
+ * Get the container's dimensions and position
+ * Adjust these values to control the scrolling speed and sensitivity
+ * Calculate mouse position relative to the container
+ * Mouse is within the left margin, scroll left or right
+ */
 document.addEventListener('DOMContentLoaded', () => {
     // Select all .taskContent elements
     const scrollContainers = document.querySelectorAll('.taskContent');
 
-    // Adjust these values to control the scrolling speed and sensitivity
-    const scrollSpeed = 5; // Higher value means faster scrolling
-    const scrollMargin = 0.3; // Portion of the container width to trigger scrolling (e.g., 0.2 means 20% from edges)
+
+    const scrollSpeed = 5;
+    const scrollMargin = 0.3;
 
     scrollContainers.forEach(container => {
         container.addEventListener('mousemove', (event) => {
-            // Get the container's dimensions and position
+
             const rect = container.getBoundingClientRect();
             const containerWidth = rect.width;
             const containerLeft = rect.left;
 
-            // Calculate mouse position relative to the container
+
             const mouseX = event.clientX - containerLeft;
 
-            // Calculate the margins for scrolling
+
             const leftMargin = containerWidth * scrollMargin;
             const rightMargin = containerWidth * (1 - scrollMargin);
 
             if (mouseX < leftMargin) {
-                // Mouse is within the left margin, scroll left
+
                 container.scrollLeft -= scrollSpeed * (leftMargin - mouseX) / leftMargin;
             } else if (mouseX > rightMargin) {
-                // Mouse is within the right margin, scroll right
+
                 container.scrollLeft += scrollSpeed * (mouseX - rightMargin) / (containerWidth - rightMargin);
             }
         });
     });
 });
 
-
+/**
+ * Stops the propagation of the event to parent elements.
+ * @param {Event} event - The event to stop propagation for.
+ */
 function stopPropagation(event) {
     event.stopPropagation();
 }
-// Function to handle the dragging start
+/**
+ * Sets the ID of the task that is currently being dragged.
+ * @param {string} taskId - The ID of the task being dragged.
+ */
 function startDragging(taskId) {
     currentDraggedElement = taskId;
 }
 
-// Function to allow dropping by preventing the default behavior
+/**
+ * Allows dropping by preventing the default behavior of the event.
+ * @param {DragEvent} event - The drag event.
+ */
 function allowDrop(event) {
     event.preventDefault();
 }
 
-// Function to handle dropping
+/**
+ * Handles the drop event by appending the dragged task to the drop zone and updating its status.
+ * @async
+ * @param {DragEvent} event - The drag event.
+ * Append the task to the drop zone
+ * Re-render tasks to reflect changes
+ */
 async function drop(event) {
     event.preventDefault(); // Prevent default drop behavior
 
@@ -64,27 +106,32 @@ async function drop(event) {
         return;
     }
 
-    // Append the task to the drop zone
     dropZone.appendChild(taskElement);
 
-    // Update the task's status based on the drop zone ID
     let newStatus = dropZone.id;
     let task = tasks.find(t => t.id === currentDraggedElement);
 
     if (task) {
         task.status = newStatus;
         await changeTask(`/task/${currentDraggedElement}/status`, task.status);
-        await loadDataTask(); // Reload tasks from backend
-        renderTasks(); // Re-render tasks to reflect changes
+        await loadDataTask();
+        renderTasks();
     } else {
         console.error('Task data not found for id:', currentDraggedElement);
     }
 }
 
+/**
+ * Handles the drop event on mobile devices by appending the dragged task to the drop zone and updating its status.
+ * @async
+ * @param {TouchEvent} event - The touch event.
+ * Get touch coordinates
+ * Update the task's status based on the drop zone ID
+ * Re-render tasks to reflect changes
+ */
 async function dropMobile(event) {
-  /*   event.preventDefault(); // Prevent default drop behavior */
 
-    // Get touch coordinates
+
     let touch = event.changedTouches[0];
     let dropZone = document.elementFromPoint(touch.clientX, touch.clientY).closest('.taskContent');
 
@@ -99,33 +146,36 @@ async function dropMobile(event) {
         return;
     }
 
-    // Append the task to the drop zone
+
     dropZone.appendChild(taskElement);
 
-    // Update the task's status based on the drop zone ID
+
     let newStatus = dropZone.id;
     let task = tasks.find(t => t.id === currentDraggedElement);
 
     if (task) {
         task.status = newStatus;
         await changeTask(`/task/${currentDraggedElement}/status`, task.status);
-        await loadDataTask(); // Reload tasks from backend
-        renderTasks(); // Re-render tasks to reflect changes
+        await loadDataTask();
+        renderTasks();
     } else {
         console.error('Task data not found for id:', currentDraggedElement);
     }
 }
 
-
+/**
+ * Handles the start of a touch event by setting the dragged element and creating a visual clone.
+ * @param {TouchEvent} event - The touch event.
+ */
 document.addEventListener('touchstart', (event) => {
     const card = event.target.closest('.card');
     if (card) {
-        currentDraggedElement = card.dataset.id; // Set the current dragged element
+        currentDraggedElement = card.dataset.id;
         initialX = event.touches[0].clientX;
         initialY = event.touches[0].clientY;
-        isDragging = false; // Reset dragging state
+        isDragging = false;
 
-        // Create a visual clone of the dragged element
+
         dragClone = card.cloneNode(true);
         dragClone.style.position = 'absolute';
         dragClone.style.pointerEvents = 'none';
@@ -133,6 +183,13 @@ document.addEventListener('touchstart', (event) => {
     }
 }, { passive: true });
 
+/**
+ * Handles the movement of a touch event by updating the visual clone's position and determining if dragging is in progress.
+ * @param {TouchEvent} event - The touch event.
+ *  Horizontal movement detected, let the user scroll 
+ *  Vertical movement detected, start dragging Prevent scrolling
+ *  Update the clone's position to follow the touch
+ */
 document.addEventListener('touchmove', (event) => {
     if (initialX === null || initialY === null) return;
 
@@ -143,33 +200,39 @@ document.addEventListener('touchmove', (event) => {
     let diffY = currentY - initialY;
 
     if (Math.abs(diffX) > Math.abs(diffY)) {
-        // Horizontal movement detected, let the user scroll
+
         isDragging = false;
     } else {
-        // Vertical movement detected, start dragging
-        event.preventDefault(); // Prevent scrolling
+        // 
+        event.preventDefault(); 
         isDragging = true;
 
         if (dragClone) {
-            // Update the clone's position to follow the touch
+            
             dragClone.style.left = `${currentX}px`;
             dragClone.style.top = `${currentY}px`;
         }
     }
 }, { passive: false });
 
+/**
+ * Handles the end of a touch event by dropping the task if dragging was in progress and removing the visual clone.
+ * @param {TouchEvent} event - The touch event.
+ * Remove the clone
+ * Reset initial positions
+ */
 document.addEventListener('touchend', async (event) => {
     if (isDragging) {
         await dropMobile(event);
     }
 
-    // Remove the clone
+    
     if (dragClone) {
         document.body.removeChild(dragClone);
         dragClone = null;
     }
 
-    // Reset initial positions
+    
     initialX = null;
     initialY = null;
     isDragging = false;
