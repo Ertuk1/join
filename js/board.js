@@ -101,15 +101,15 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
 
     // Use the template function to get the HTML string
     const templateHTML = getOverlayTemplate(
-        taskTitle, 
-        taskDescription, 
-        taskDueDate, 
-        taskPriority, 
-        taskPriorityIcon, 
-        taskType, 
-        taskTypeBackgroundColor, 
-        assigneeOverlayContent, 
-        subtaskHTML, 
+        taskTitle,
+        taskDescription,
+        taskDueDate,
+        taskPriority,
+        taskPriorityIcon,
+        taskType,
+        taskTypeBackgroundColor,
+        assigneeOverlayContent,
+        subtaskHTML,
         id
     );
 
@@ -181,7 +181,7 @@ function on() {
 function clearEditTaskOverlayContent() {
     // Wähle alle Elemente aus, deren ID 'edit-task-overlay' enthält
     const overlayContainers = document.querySelectorAll('[id*="edit-task-overlay"]');
-    
+
     overlayContainers.forEach(container => {
         // Leere den gesamten Inhalt jedes ausgewählten Containers
         container.innerHTML = '';
@@ -211,11 +211,11 @@ function off() {
 }
 
 async function showOverlay(status = 'toDo') {
-    
+
     await addTaskInit();
     addTaskOverlay.style.display = 'block';
     document.getElementById('addTaskOverlay').dataset.status = status;
-  
+
 }
 
 function offAddTask() {
@@ -254,7 +254,7 @@ async function ShowEditOverlay(id) {
     const task = tasks.find(task => task.id === id);
 
     if (task) {
-        const { title, description, date, prio, subcategory } = task;
+        const { title, description, date, prio, subcategory, assignedTo } = task;
         subcategoriesChoosed = [...subcategory];
 
         await addTaskInit();
@@ -280,6 +280,28 @@ async function ShowEditOverlay(id) {
         const saveButton = document.querySelector('.board-task-edit-btn');
         saveButton.addEventListener('click', () => saveTaskChanges(id));
 
+        // Debug: Log assigned contacts and available checkboxes
+        const checkboxes = document.querySelectorAll('input[data-contact-id]');
+ 
+
+        // Check assigned contacts and update checkboxes
+        const assignedContacts = assignedTo || []; // Use assignedTo from task
+        assignedContacts.forEach(contact => {
+            // If assignedTo is an array of objects, extract the id
+            const contactId = contact.id || contact; // Use contact.id if it exists, otherwise use contact directly
+
+            const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
+            if (checkbox) {
+                checkbox.checked = true; // Mark the checkbox as checked
+                const contactLayout = checkbox.closest('.at-contact-layout'); // Use .closest() to find the parent element
+                if (contactLayout) {
+                    contactLayout.style.backgroundColor = '#2a3647e0';
+                    contactLayout.style.color = 'white';
+                }
+            } else {
+                console.warn(`Checkbox with ID ${contactId} not found.`);
+            }
+        });
         // Generate the subtask HTML if the task has subcategories
         const subtaskHTML = Array.isArray(subcategory) ? getEditSubtaskHTML(subcategory) : '';
 
@@ -288,6 +310,7 @@ async function ShowEditOverlay(id) {
         console.error('Task not found');
     }
 }
+
 
 
 
@@ -312,6 +335,7 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
         setBackgroundColorPrio(taskPriority);
     });
 }
+
 
 function getSelectedPriority() {
     const priorityElements = document.querySelectorAll('.at-prio-item');
@@ -351,7 +375,7 @@ function searchTasks() {
     taskCards.forEach(card => {
         let taskTitle = card.querySelector('.cardTitle').textContent.toLowerCase();
         let taskDescription = card.querySelector('.cardContext').textContent.toLowerCase();
-        
+
         // Find the parent section of the card
         let parentSection = card.closest('#toDo, #progress, #feedback, #done');
 
