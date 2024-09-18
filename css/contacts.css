@@ -1178,7 +1178,7 @@ body {
     }
 
     .inputBox {
-        width: 240px;
+        width: 220px !important;
     }
 
     #createContactButton {
