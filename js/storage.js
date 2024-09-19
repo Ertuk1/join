@@ -1,9 +1,32 @@
-const BASE_URL =
-  "https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/";
+/**
+ * The base URL for the Firebase Realtime Database.
+ * @type {string}
+ */
+const BASE_URL = "https://join-323f5-default-rtdb.europe-west1.firebasedatabase.app/";
+
+/**
+ * An array to store contact data.
+ * @type {Array}
+ */
 let contacts = [];
+
+/**
+ * An array to store user data.
+ * @type {Array}
+ */
 let users = [];
+
+/**
+ * An array to store task data.
+ * @type {Array}
+ */
 let tasks = [];
 
+/**
+ * Adds a new task to the database.
+ * @async
+ * @function addTask
+ */
 async function addTask() {
   if (!checkRequiredInput()) {
     return;
@@ -32,6 +55,11 @@ async function addTask() {
   goToBoard();
 }
 
+/**
+ * Adds a new task to the board.
+ * @async
+ * @function addTaskBoard
+ */
 async function addTaskBoard() {
   if (!checkRequiredInput()) {
     return;
@@ -59,6 +87,12 @@ async function addTaskBoard() {
   goToBoard();
 }
 
+/**
+ * Loads task data from the database.
+ * @async
+ * @function loadDataTask
+ * @param {string} [path="/task"] - The path to fetch task data from.
+ */
 async function loadDataTask(path = "/task") {
   let response = await fetch(BASE_URL + path + ".json");
   let responseToJson = await response.json();
@@ -85,7 +119,14 @@ async function loadDataTask(path = "/task") {
   }
 }
 
-
+/**
+ * Posts a new task to the database.
+ * @async
+ * @function postTask
+ * @param {string} path - The path to post the task data to.
+ * @param {Object} task - The task data to be posted.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function postTask(path, task) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "POST",
@@ -96,6 +137,15 @@ async function postTask(path, task) {
   });
   return (responseToJson = await response.json());
 }
+
+/**
+ * Changes an existing task in the database.
+ * @async
+ * @function changeTask
+ * @param {string} path - The path to update the task data.
+ * @param {Object} task - The updated task data.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 
 async function changeTask(path, task) {
   let response = await fetch(BASE_URL + path + ".json", {
@@ -108,8 +158,14 @@ async function changeTask(path, task) {
   return (responseToJson = await response.json());
 }
 
-
-
+/**
+ * Changes an existing contact in the database.
+ * @async
+ * @function changeContact
+ * @param {string} [path=""] - The path to update the contact data.
+ * @param {Object} [data={}] - The updated contact data.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function changeContact(path = "", data = {}) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "PUT",
@@ -121,6 +177,14 @@ async function changeContact(path = "", data = {}) {
   return response.json();
 }
 
+/**
+ * Posts a new contact to the database.
+ * @async
+ * @function postContact
+ * @param {string} path - The path to post the contact data to.
+ * @param {Object} newContact - The new contact data to be posted.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function postContact(path, newContact) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "POST",
@@ -132,7 +196,13 @@ async function postContact(path, newContact) {
   return (responseToJson = await response.json());
 }
 
-
+/**
+ * Deletes contact data from the database.
+ * @async
+ * @function deleteDataContact
+ * @param {string} [path=""] - The path to delete the contact data from.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function deleteDataContact(path = "") {
   let response = await fetch(BASE_URL + path + ".json", {
       method: "DELETE",
@@ -140,6 +210,12 @@ async function deleteDataContact(path = "") {
   return responseToJson = await response.json();
 }
 
+/**
+ * Deletes a contact from the database and updates the UI.
+ * @async
+ * @function deleteContact
+ * @param {string} contact - The path or identifier of the contact to be deleted.
+ */
 async function deleteContact(contact) {
   await deleteDataContact(contact);
   await loadDataContacts();
@@ -147,6 +223,12 @@ async function deleteContact(contact) {
   document.getElementById('viewContact').innerHTML = '';
 }
 
+/**
+ * Loads contact data from the database.
+ * @async
+ * @function loadDataContacts
+ * @param {string} [path="/contacts"] - The path to fetch contact data from.
+ */
 async function loadDataContacts(path = "/contacts") {
   let response = await fetch(BASE_URL + path + ".json");
   responseToJson = await response.json();
@@ -165,11 +247,23 @@ async function loadDataContacts(path = "/contacts") {
   }
 }
 
+/**
+ * Fetches user data from the database.
+ * @async
+ * @function fetchUserData
+ * @param {string} path - The path to fetch user data from.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function fetchUserData(path) {
   let response = await fetch(BASE_URL + path + ".json");
   return (responseToJson = await response.json());
 }
 
+/**
+ * Loads user data from the database.
+ * @async
+ * @function loadUserData
+ */
 async function loadUserData() {
   let userResponse = await fetchUserData("users");
   let userKeysArray = Object.keys(userResponse);
@@ -184,6 +278,14 @@ async function loadUserData() {
   }
 }
 
+/**
+ * Posts a new user to the database.
+ * @async
+ * @function postUserData
+ * @param {string} path - The path to post the user data to.
+ * @param {Object} newUser - The new user data to be posted.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function postUserData(path, newUser) {
   let response = await fetch(BASE_URL + path + ".json", {
     method: "POST",
@@ -195,17 +297,25 @@ async function postUserData(path, newUser) {
   return (responseToJson = await response.json());
 }
 
-async function deleteTask(id) {
-    
+/**
+ * Deletes a task from the database and updates the UI.
+ * @async
+ * @function deleteTask
+ * @param {string} id - The ID of the task to be deleted.
+ */
+async function deleteTask(id) {   
     await deleteDataTask(`/task/${id}`);
-
-    
     await loadDataTask();
-
-    
     renderTasks();
 }
 
+/**
+ * Deletes task data from the database.
+ * @async
+ * @function deleteDataTask
+ * @param {string} path - The path to delete the task data from.
+ * @returns {Promise<Object>} The response data from the server.
+ */
 async function deleteDataTask(path) {
     let response = await fetch(BASE_URL + path + ".json", {
         method: "DELETE"
@@ -213,6 +323,12 @@ async function deleteDataTask(path) {
     return response.json();
 }
 
+/**
+ * Saves changes made to a task in the database and updates the UI.
+ * @async
+ * @function saveTaskChanges
+ * @param {string} id - The ID of the task to be updated.
+ */
 async function saveTaskChanges(id) {
   await loadDataTask(); // Call loadDataTask to populate the tasks array
   

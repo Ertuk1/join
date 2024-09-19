@@ -1,11 +1,25 @@
+/**
+ * Parses the current user data from the session storage.
+ * @type {Object}
+ */
 let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 
+/**
+ * Initializes the template by including HTML and loading data.
+ * @async
+ * @function initTemplate
+ */
 async function initTemplate() {
     await includeHTML();
     await loadDataContacts();
     showInitials();
 }
 
+/**
+ * Includes HTML files into the current document.
+ * @async
+ * @function includeHTML
+ */
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
@@ -21,16 +35,27 @@ async function includeHTML() {
     currentPage();
 }
 
-
+/**
+ * Navigates back to the previous page in the browser history.
+ * @function goBack
+ */
 function goBack() {
   window.history.back();
 }
 
+/**
+ * Toggles the visibility of the sub-menu.
+ * @function toggleSubMenu
+ */
 function toggleSubMenu() {
   let element = document.getElementById('subMenu');
   element.classList.toggle('open');
 }
 
+/**
+ * Highlights the current page in the navigation menu.
+ * @function currentPage
+ */
 function currentPage() {
   let pageMap = {
     'summary.html': 'summaryMenu',
@@ -57,7 +82,10 @@ function currentPage() {
   }
 }
 
-
+/**
+ * Displays the user's initials in the user icon(Top-right corner).
+ * @function showInitials
+ */
 function showInitials() {
   let userIcon = document.getElementById('userIcon');
 
@@ -80,11 +108,19 @@ function showInitials() {
   }
 }
 
-
+/**
+ * Clears the current user data from the session storage.
+ * @function clearStorage
+ */
 function clearStorage() {
   sessionStorage.removeItem("currentUser");
 }
 
+/**
+ * Logs out the user by deleting their contact data and redirecting to the index page.
+ * @async
+ * @function logout
+ */
 async function logout() {
   for (let i = 0; i < contacts.length; i++){
       let contact = contacts[i];
@@ -96,6 +132,21 @@ async function logout() {
    window.location.href = "/index.html";
 }
 
+/**
+ * Generates the HTML template for a task card.
+ * @function getTaskTemplate
+ * @param {Object} toDo - The task object.
+ * @param {number} i - The index of the task.
+ * @param {string} taskTypeBackgroundColor - The background color for the task type label.
+ * @param {string} taskType - The task type.
+ * @param {string} taskAssignee - The HTML for the assigned contacts.
+ * @param {string} taskPriorityIcon - The URL of the priority icon.
+ * @param {string} completedSubtasks - The number of completed subtasks.
+ * @param {Array} editSubtask - The array of subtasks.
+ * @param {string} id - The ID of the task.
+ * @param {string} subtaskHTML - The HTML for the subtasks.
+ * @returns {string} The HTML template for the task card.
+ */
 function getTaskTemplate(toDo, i, taskTypeBackgroundColor, taskType, taskAssignee, taskPriorityIcon, completedSubtasks, editSubtask, id, subtaskHTML) {
   return `
       <div class="card" draggable="true" ondragstart="startDragging('${id}')" data-id="${id}">
@@ -125,6 +176,12 @@ function getTaskTemplate(toDo, i, taskTypeBackgroundColor, taskType, taskAssigne
       </div>`;
 }
 
+/**
+ * Generates the HTML for the subtask inputs.
+ * @function getEditSubtaskHTML
+ * @param {Array} editSubtask - The array of subtasks.
+ * @returns {string} The HTML for the subtask inputs.
+ */
 function getEditSubtaskHTML(editSubtask) {
   let subtaskHTML = ''
   for (let i = 0; i < editSubtask.length; i++) {
@@ -147,6 +204,10 @@ function getEditSubtaskHTML(editSubtask) {
   return subtaskHTML
 }
 
+/**
+ * Checks if any task section is empty and displays a "No tasks" message.
+ * @function checkIfEmpty
+ */
 function checkIfEmpty() {
   let toDo = document.getElementById('toDo');
   let progress = document.getElementById('progress');
@@ -167,6 +228,15 @@ function checkIfEmpty() {
   }
 }
 
+/**
+ * Generates the HTML for an assigned contact.
+ * @function generateAssignedContactsHTML
+ * @param {string} initials - The initials of the contact.
+ * @param {string} contactName - The name of the contact.
+ * @param {string} id - The ID of the contact.
+ * @param {string} color - The color of the contact's profile picture.
+ * @returns {string} The HTML for the assigned contact.
+ */
 function generateAssignedContactsHTML(initials, contactName, id, color) {
   return `
       <div class="at-contact-layout" onclick="toggleCheckbox('${id}')">
@@ -183,6 +253,13 @@ function generateAssignedContactsHTML(initials, contactName, id, color) {
       </div>`;
 }
 
+/**
+ * Generates the HTML template for a contact view.
+ * @function getContactViewTemplate
+ * @param {Object} contact - The contact object.
+ * @param {number} i - The index of the contact.
+ * @returns {string} The HTML template for the contact view.
+ */
 function getContactViewTemplate(contact, i) {
   return `
       <div class="profileName">
@@ -219,6 +296,13 @@ function getContactViewTemplate(contact, i) {
   `;
 }
 
+/**
+ * Generates the HTML template for a responsive contact view.
+ * @function getResponsiveContactTemplate
+ * @param {Object} contact - The contact object.
+ * @param {number} i - The index of the contact.
+ * @returns {string} The HTML template for the responsive contact view.
+ */
 function getResponsiveContactTemplate(contact, i) {
   return `
       <div onclick="closeEditDiv()">
@@ -260,6 +344,13 @@ function getResponsiveContactTemplate(contact, i) {
   `;
 }
 
+/**
+ * Generates the HTML template for editing a contact.
+ * @function getEditContactTemplate
+ * @param {Object} contact - The contact object.
+ * @param {number} i - The index of the contact.
+ * @returns {string} The HTML template for editing a contact.
+ */
 function getEditContactTemplate(contact, i) {
   return `
       <div id="closeAddContactDiv"><img onclick="cancelEditContact()" id="addNewContactCloseButton" src="/assets/img/Close.png" alt="close"></div>
@@ -293,6 +384,21 @@ function getEditContactTemplate(contact, i) {
   `;
 }
 
+/**
+ * Generates the HTML template for the task overlay.
+ * @function getOverlayTemplate
+ * @param {string} taskTitle - The title of the task.
+ * @param {string} taskDescription - The description of the task.
+ * @param {string} taskDueDate - The due date of the task.
+ * @param {string} taskPriority - The priority of the task.
+ * @param {string} taskPriorityIcon - The URL of the priority icon.
+ * @param {string} taskType - The type of the task.
+ * @param {string} taskTypeBackgroundColor - The background color for the task type label.
+ * @param {string} assigneeOverlayContent - The HTML for the assigned contacts.
+ * @param {string} subtaskHTML - The HTML for the subtasks.
+ * @param {string} id - The ID of the task.
+ * @returns {string} The HTML template for the task overlay.
+ */
 function getOverlayTemplate(taskTitle, taskDescription, taskDueDate, taskPriority, taskPriorityIcon, taskType, taskTypeBackgroundColor, assigneeOverlayContent, subtaskHTML, id) {
   return `
       <section id="edit-task-overlay${id}" class="edit-task-overlay d-none">
