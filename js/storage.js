@@ -330,14 +330,14 @@ async function deleteDataTask(path) {
  * @param {string} id - The ID of the task to be updated.
  */
 async function saveTaskChanges(id) {
-  await loadDataTask(); // Call loadDataTask to populate the tasks array
+  await loadDataTask(); 
   
 
   const taskTitle = document.getElementById('task-title').value.trim() || 'Untitled';
   const taskDescription = document.getElementById('at-description').value.trim() || 'No description';
   const taskDueDate = document.getElementById('task-due-date').value || new Date().toISOString().split('T')[0];
 
-  // Überprüfen und setzen der Priorität
+  
   let taskPriority;
   const urgentElement = document.querySelector('.at-bg-urgent');
   const mediumElement = document.querySelector('.at-bg-medium');
@@ -350,10 +350,10 @@ async function saveTaskChanges(id) {
   } else if (lowElement) {
     taskPriority = 'low';
   } else {
-    taskPriority = 'low'; // Standardwert
+    taskPriority = 'low'; 
   }
 
-  // Retrieve existing task data
+  
   let existingTask;
   for (const task of tasks) {
     if (task.id === id) {
@@ -362,7 +362,7 @@ async function saveTaskChanges(id) {
     }
   }
 
-  // Get the updated subcategories from the edit overlay
+  
   const subcategories = Array.from(document.querySelectorAll('.choosed-subcategory-input')).map(input => input.value) || [];
   const assignedToContacts = Array.from(document.querySelectorAll('.at-label-checkbox input[type="checkbox"]:checked')).map(input => {
     const contactId = input.getAttribute('data-contact-id');
@@ -377,9 +377,9 @@ async function saveTaskChanges(id) {
     description: taskDescription,
     date: taskDueDate,
     prio: taskPriority,
-    subcategory: subcategories.length > 0 ? subcategories : existingTask.subcategory, // Use the updated subcategories if they exist, otherwise use the existing ones
+    subcategory: subcategories.length > 0 ? subcategories : existingTask.subcategory,
     assignedTo: assignedToContacts.length > 0 ? assignedToContacts : existingTask.assignedTo, 
-    status: existingTask.status, // Use the existing status
+    status: existingTask.status, 
     category: existingTask.category,
     completedSubtasks: existingTask.completedSubtasks,
   };
@@ -387,14 +387,14 @@ async function saveTaskChanges(id) {
   
 
   try {
-    // Überprüfen, was an das Backend gesendet wird
+    
     await changeTask(`/task/${id}`, updatedTask);
 
-    // Überprüfen, ob die Aufgabe nach dem Speichern korrekt neu geladen wird
+    
     await loadDataTask();
     renderTasks();
     subcategoriesChoosed = [];
-    // Schließen des Overlays
+    
     off();
   } catch (error) {
     console.error('Fehler beim Speichern der Änderungen:', error);

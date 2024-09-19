@@ -1,4 +1,7 @@
-
+/**
+ * Array of beautiful colors used for profile backgrounds.
+ * @type {string[]}
+ */
 let beautifulColors = [
     'rgb(255, 46, 46)', 'rgb(255, 161, 46)', 'rgb(255, 238, 46)', 'rgb(51, 224, 42)', 'rgb(42, 203, 224)',
     'rgb(42, 115, 224)', 'rgb(139, 42, 224)', 'rgb(218, 42, 224)', 'rgb(232, 58, 133)', 'rgb(232, 58, 58)',
@@ -6,6 +9,13 @@ let beautifulColors = [
 
 let alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+/**
+ * Initializes the contact management system.
+ * Includes HTML, shows initials, loads contacts, and renders them.
+ * @async
+ * @function
+ * @returns {Promise<void>}
+ */
 async function contactInit() {
     await includeHTML();
     showInitials();
@@ -13,10 +23,21 @@ async function contactInit() {
     renderContacts();
 }
 
+/**
+ * Renders the contact list by calling createContactList.
+ * @function
+ * @returns {void}
+ */
 function renderContacts() {
     createContactList();
 }
 
+/**
+ * Creates a list of contacts and renders them in the DOM.
+ * @function
+ * @param {number|null} [newContactIndex=null] - Index of the new contact to mark as active.
+ * @returns {void}
+ */
 function createContactList(newContactIndex = null) {
     const contactList = document.getElementById('contact-list');
     contactList.innerHTML = '';
@@ -80,7 +101,12 @@ function createContactList(newContactIndex = null) {
     }
 }
 
-// Hilfsfunktion zum Extrahieren des ersten Buchstabens des Vornamens und Nachnamens
+/**
+ * Extracts initials from a given name.
+ * @function
+ * @param {string} name - Full name of the contact.
+ * @returns {string} - Initials extracted from the name.
+ */
 function extractInitials(name) {
     const names = name.split(' ');
     let initial = '';
@@ -90,6 +116,12 @@ function extractInitials(name) {
     return initial;
 }
 
+/**
+ * Validates and adds a new contact to the list.
+ * @async
+ * @function
+ * @returns {Promise<void>}
+ */
 async function getNewContact() {
     let name = document.getElementById('fullName');
     let email = document.getElementById('emailAdress');
@@ -132,7 +164,12 @@ async function getNewContact() {
 }
 
 
-// Funktion, die beim Klicken auf den Kontakt oder Kontaktinformationen aufgerufen wird
+/**
+ * Handles click events on a contact to show their details.
+ * @function
+ * @param {number} i - Index of the contact in the contacts array.
+ * @returns {void}
+ */
 function contactClickHandler(i) {
     let contact = contacts[i];
     if (window.innerWidth < 1300) {
@@ -143,6 +180,13 @@ function contactClickHandler(i) {
     }
 }
 
+/**
+ * Opens the contact editing interface in a responsive layout.
+ * @function
+ * @param {Object} contact - Contact object.
+ * @param {number} i - Index of the contact in the contacts array.
+ * @returns {void}
+ */
 function editContactResponsive(contact, i) {
     document.getElementById('contactListContent').classList.add('d-none');
     document.getElementById('contactContent').classList.remove('d-noneResp');
@@ -152,6 +196,12 @@ function editContactResponsive(contact, i) {
     contactSection.innerHTML = getResponsiveContactTemplate(contact, i);
 }
 
+/**
+ * Shows the editing div with a sliding animation.
+ * @function
+ * @param {number} i - Index of the contact in the contacts array.
+ * @returns {void}
+ */
 function showEditDiv(i) {
     let editDivResp = document.getElementById('editDivResp');
     setTimeout(() => {
@@ -160,6 +210,11 @@ function showEditDiv(i) {
 
 }
 
+/**
+ * Closes the editing div with a sliding animation.
+ * @function
+ * @returns {void}
+ */
 function closeEditDiv() {
     let editDivResp = document.getElementById('editDivResp');
     setTimeout(() => {
@@ -167,6 +222,11 @@ function closeEditDiv() {
     }, 10);
 }
 
+/**
+ * Closes the responsive contact editing interface.
+ * @function
+ * @returns {void}
+ */
 function closeEditResponsive() {
      // Entferne die 'active' Klasse von allen Kontakten
      const allContacts = document.querySelectorAll('.contact');
@@ -177,6 +237,11 @@ function closeEditResponsive() {
     document.getElementById('addContactResp').classList.remove('d-noneResp');
 }
 
+/**
+ * Shows a success message when a contact is successfully added.
+ * @function
+ * @returns {void}
+ */
 function slideSuccessfullyContact() {
     let container = document.getElementById('successfullyContainer');
     let successfully = document.getElementById('successfully');
@@ -188,6 +253,13 @@ function slideSuccessfullyContact() {
     }, 1000);
 }
 
+/**
+ * Opens the contact editing interface.
+ * @async
+ * @function
+ * @param {number} i - Index of the contact in the contacts array.
+ * @returns {Promise<void>}
+ */
 async function showEditContact(i) {
     let contact = contacts[i];
     let name = contact.name;

@@ -335,11 +335,11 @@ async function ShowEditOverlay(id) {
             element.remove(); 
         });
 
-        // Get the HTML for the assigned contacts using getTaskAssignee
+        
         const taskAssigneeHTML = getTaskAssignee(assignedTo);
 
-        // Find the appropriate container to display the assigned contacts
-        const assigneeContainer = document.getElementById('at-selected-contacts'); // Replace with your specific container class or ID
+        
+        const assigneeContainer = document.getElementById('at-selected-contacts');
         if (assigneeContainer) {
             assigneeContainer.innerHTML = taskAssigneeHTML;
         } else {
