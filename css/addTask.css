@@ -623,14 +623,14 @@ body {
 .small-border-container {
     height: 14px;
     width: 0px;
-    border: 1px solid white;
+    border: 1px solid #d1d1d18a;
     margin-left: 6px;
 }
 
 .small-border-container-gray {
     height: 14px;
     width: 0px;
-    border: 1px solid #D1D1D1;
+    border: 1px solid #d1d1d18a;
     margin-left: 6px;
 }
 
@@ -671,9 +671,7 @@ body {
     cursor: pointer;
 }
 
-.choosed-subcategorie-btn-container {
-    display: none;
-}
+
 
 .choosed-subcategorie-container:hover>.choosed-subcategorie-btn-container {
     display: flex;
