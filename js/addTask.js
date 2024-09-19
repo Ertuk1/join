@@ -332,12 +332,10 @@ function showCategoryDropdown(selectSelected, selectItems) {
         // Toggle dropdown visibility
         if (selectItems.style.display === 'block') {
             selectItems.style.display = 'none';
-            document.getElementById('open-category-list').classList.remove('d-none');
-            document.getElementById('close-category-list').classList.add('d-none');
+
         } else {
             selectItems.style.display = 'block';
-            document.getElementById('open-category-list').classList.add('d-none');
-            document.getElementById('close-category-list').classList.remove('d-none');
+
         }
     });
 
