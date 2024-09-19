@@ -308,10 +308,8 @@ function getPriorityIcon(priority) {
  * Generate the subtask HTML if the task has subcategories
  */
 async function ShowEditOverlay(id) {
-    
     await loadDataTask();
 
-    
     const task = tasks.find(task => task.id === id);
 
     if (task) {
@@ -332,18 +330,27 @@ async function ShowEditOverlay(id) {
         var element = document.querySelector('.right-left-container');
         element.style.display = 'block';
 
-        
         const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay, .dateDiv, .prioDiv, .overlayTitle');
         elementsToRemove.forEach(element => {
             element.remove(); 
         });
+
+        // Get the HTML for the assigned contacts using getTaskAssignee
+        const taskAssigneeHTML = getTaskAssignee(assignedTo);
+
+        // Find the appropriate container to display the assigned contacts
+        const assigneeContainer = document.getElementById('at-selected-contacts'); // Replace with your specific container class or ID
+        if (assigneeContainer) {
+            assigneeContainer.innerHTML = taskAssigneeHTML;
+        } else {
+            console.warn('Assignee container not found.');
+        }
 
         const saveButton = document.querySelector('.board-task-edit-btn');
         saveButton.addEventListener('click', () => saveTaskChanges(id));
 
         const assignedContacts = assignedTo || []; 
         assignedContacts.forEach(contact => {
-           
             const contactId = contact.id || contact; 
 
             const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
@@ -366,6 +373,7 @@ async function ShowEditOverlay(id) {
         console.error('Task not found');
     }
 }
+
 
 
 

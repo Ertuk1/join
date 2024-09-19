@@ -451,6 +451,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     height: 45px;
+    z-index: 0;
 }
 
 .at-choosed-contact-shortcut {
