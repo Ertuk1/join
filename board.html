@@ -76,8 +76,8 @@
         <div onclick="off()" id="overlay">
             <div class="overlayContent" onclick="stopPropagation(event)"></div>
         </div>
-        <div onclick="offAddTask()" id="addTaskOverlay" class="overlay">
-            <div class="overlayContentAddTask overlayContentAddTask-template">
+        <div onclick="offAddTask();stopPropagation(event)" id="addTaskOverlay" class="overlay">
+            <div onclick="stopPropagation(event)" class="overlayContentAddTask overlayContentAddTask-template">
                 <div class="innerOverlay">                
                 <div onclick="offAddTask()" class="closeButtonDiv"><img class="closeButtonAdd"
                         src="./assets/img/Close.png" alt=""></div>
