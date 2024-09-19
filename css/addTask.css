@@ -1313,6 +1313,7 @@ body {
         width: 300px !important;
         padding-left: 1px !important;
         padding-right: 1px !important;
+        margin: auto;
     }
 
     .input-container-bordHTML-headline {
