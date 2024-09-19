@@ -343,8 +343,6 @@ function showCategoryDropdown(selectSelected, selectItems) {
     document.addEventListener('click', function (event) {
         if (!event.target.closest('.custom-category-select')) {
             selectItems.style.display = 'none';
-            document.getElementById('open-category-list').classList.remove('d-none');
-            document.getElementById('close-category-list').classList.add('d-none');
         }
     });
 }
