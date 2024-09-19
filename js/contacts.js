@@ -259,7 +259,7 @@ function cancelAddContact() {
         addNewContact.style.display = "none";
         document.getElementById('blurBackground').classList.add('d-none');
     }, 10);
-    closeEditDiv();
+    
 }
 
 function cancelEditContact() {
