@@ -660,7 +660,7 @@ body {
     position: absolute;
     display: flex;
     top: 10px;
-    right: 25px;
+    right: 15px;
     z-index: 10;
 }
 
@@ -688,7 +688,7 @@ body {
     position: absolute;
     display: none;
     top: 10px;
-    right: 25px;
+    right: 15px;
 }
 
 .choosed-subcategorie-btn-container-active-field img {
@@ -708,6 +708,15 @@ body {
 
 .choosed-subcategorie-container:hover>.choosed-subcategory-input:focus {
     background-color: white;
+}
+
+.choosed-subcategory-input{
+    
+    height: 50px; /* Set the height to 50 pixels */
+    box-sizing: border-box; /* Include padding and border in the height */
+    padding: 10px; /* Example padding */
+    border: 2px solid #ccc; /* Example border */
+    
 }
 
 .at-btn-container {

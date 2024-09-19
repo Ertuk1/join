@@ -94,17 +94,23 @@ async function getNewContact() {
     let name = document.getElementById('fullName');
     let email = document.getElementById('emailAdress');
     let phone = document.getElementById('phoneNumber');
+    let alertMessage = document.getElementById('addNewContactAlert');
+    
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    
     if (name.value == '' || email.value == '' || phone.value == '') {
-        document.getElementById('addNewContactAlert').innerHTML = '';
-        document.getElementById('addNewContactAlert').innerHTML = '<p>the fields must be filled</p>';
+        alertMessage.innerHTML = '<p>The fields must be filled.</p>';
+    } else if (!emailPattern.test(email.value)) {
+        alertMessage.innerHTML = '<p>Please enter a valid email address.</p>';
     } else {
-        const colorIndx = Math.floor(Math.random() * beautifulColors.length); // Zufälliger Index für Farbe
+        const colorIndx = Math.floor(Math.random() * beautifulColors.length);
         const color = beautifulColors[colorIndx];
-        const initialien = extractInitials(name.value);
+        const initials = extractInitials(name.value);
         const newContact = {
             mail: email.value,
             name: name.value,
-            initials: initialien,
+            initials: initials,
             phone: phone.value,
             profileColor: color,
         };
@@ -113,13 +119,18 @@ async function getNewContact() {
         const newContactIndex = contacts.length - 1;
         createContactList(newContactIndex);
         contactClickHandler(newContactIndex);
+
+
         name.value = '';
         email.value = '';
         phone.value = '';
+        alertMessage.innerHTML = ''; 
+
         cancelAddContact();
         slideSuccessfullyContact();
     }
 }
+
 
 // Funktion, die beim Klicken auf den Kontakt oder Kontaktinformationen aufgerufen wird
 function contactClickHandler(i) {
