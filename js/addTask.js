@@ -7,6 +7,9 @@ let choosedContacts = [];
 let taskPrio = '';
 let task = [];
 
+/**
+ * Initializes all components of the addtask.html.
+ */
 async function addTaskInit() {
     await includeHTML();
     await loadDataContacts();
@@ -19,18 +22,20 @@ async function addTaskInit() {
     setBackgroundColorPrio('medium');
 }
 
+/**
+ * Creates the dropdown menus at the task creation process.
+ * 
+ */
 function setupDropdownToggle() {
     const selectedElement = document.querySelector('.select-selected');
     const dropdownContainer = document.getElementById('at-contact-container');
 
-    // Toggle dropdown when the select is clicked
     selectedElement.addEventListener('click', function (event) {
-        event.stopPropagation();  // Prevent click from propagating and triggering the document click listener
+        event.stopPropagation();
         this.classList.toggle('select-arrow-active');
         dropdownContainer.classList.toggle('select-hide');
     });
 
-    // Handle outside clicks to close the dropdown
     document.addEventListener('click', function (event) {
         if (!event.target.closest('.custom-select') && !event.target.closest('.select-items')) {
             dropdownContainer.classList.add('select-hide');
@@ -39,14 +44,16 @@ function setupDropdownToggle() {
     });
 }
 
-
+/**
+ * Creates all possible contacts within the task creation process.
+ * 
+ */
 async function renderAssignedToContacts() {
     let contentCollection = document.getElementsByClassName('select-items');
 
-    // Iteriere über die HTMLCollection, um jedes Element zu bearbeiten
     for (let j = 0; j < contentCollection.length; j++) {
         let content = contentCollection[j];
-        content.innerHTML = '';  // Leere den Inhalt des Containers
+        content.innerHTML = '';
 
         for (let i = 0; i < contacts.length; i++) {
             const contactName = contacts[i].name;
@@ -54,14 +61,20 @@ async function renderAssignedToContacts() {
             let color = contacts[i].profileColor;
             let id = contacts[i].id;
 
-            // Generiere HTML für jeden Kontakt
+
             content.innerHTML += generateAssignedContactsHTML(initials, contactName, id, color);
         }
     }
 }
 
+
+/**
+ * Search function to find a specific contact.
+ * 
+ * @returns {string} -  error message or result of the search.
+ */
 function filterContacts() {
-    const searchInput = document.getElementById('contact-search'); // Corrected to use 'id' instead of 'class'
+    const searchInput = document.getElementById('contact-search');
     if (!searchInput) {
         console.error('Element mit der ID "contact-search" wurde nicht gefunden.');
         return;
@@ -69,69 +82,74 @@ function filterContacts() {
 
     const searchValue = searchInput.value.toLowerCase();
     const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(searchValue));
-
-    const contactContainer = document.getElementById('at-contact-container'); // Ensure correct container is used
+    const contactContainer = document.getElementById('at-contact-container');
     if (!contactContainer) {
         console.error('Element mit der ID "at-contact-container" wurde nicht gefunden.');
         return;
     }
 
-    contactContainer.innerHTML = ''; // Clear the previous results
-
+    contactContainer.innerHTML = '';
     filteredContacts.forEach(contact => {
-        // Generate the contact HTML
         contactContainer.innerHTML += generateAssignedContactsHTML(contact.initials, contact.name, contact.id, contact.profileColor);
     });
-
-    // After filtering, update the checkbox states
     filteredContacts.forEach(contact => {
         updateCheckboxState(contact.id);
     });
 }
 
-
+/**
+ * This functions adds one or more contacts to a task. 
+ * 
+ * @param {string} initials - initial of the contact
+ * @param {string} id - id of the task
+ * @param {string} color - background color of the contact initials
+ */
 function addContactToTask(initials, id, color) {
-    // Überprüfe, ob der Kontakt bereits in der Liste ist
     let index = choosedContacts.findIndex(contact => contact.id === id);
 
     if (index === -1) {
-        // Kontakt ist noch nicht ausgewählt, füge ihn hinzu
         choosedContacts.push({
             id: id,
             initial: initials,
             color: color,
         });
     }
-
-    showChoosedContacts(); // Zeige die ausgewählten Kontakte an
-    updateCheckboxState(id); // Aktualisiere den Zustand der Checkboxen
+    showChoosedContacts();
+    updateCheckboxState(id);
 }
 
+/**
+ * Removes Contact from a task. 
+ * 
+ * @param {string} id - ID of an task.
+ */
 function removeContactFromTask(id) {
-    // Entferne den Kontakt aus der Liste der ausgewählten Kontakte
     choosedContacts = choosedContacts.filter(contact => contact.id !== id);
-
-    showChoosedContacts(); // Zeige die ausgewählten Kontakte an
-    updateCheckboxState(id); // Aktualisiere den Zustand der Checkboxen
+    showChoosedContacts();
+    updateCheckboxState(id);
 }
 
-
+/**
+ * Updates the status of a contact / checkbox.
+ * 
+ * @param {string} contactId - ID of the contact
+ */
 function updateCheckboxState(contactId) {
     const checkboxes = document.querySelectorAll(`input[data-contact-id="${contactId}"]`);
     checkboxes.forEach(checkbox => {
-        // Ensure the checkbox reflects the selection state
         checkbox.checked = choosedContacts.some(contact => contact.id === contactId);
     });
 }
 
-
+/**
+ * This function shows all assigend contacts to a task. 
+ * 
+ */
 function showChoosedContacts() {
     let content = document.getElementById('at-selected-contacts');
-    content.innerHTML = ''; 
-    
-    let maxVisibleContacts = 4; // Maximum number of contacts to display
+    content.innerHTML = '';
+    let maxVisibleContacts = 4;
 
-    // Display up to 4 contacts
     for (let i = 0; i < choosedContacts.length && i < maxVisibleContacts; i++) {
         let contact = choosedContacts[i].initial;
         let color = choosedContacts[i].color;
@@ -144,7 +162,6 @@ function showChoosedContacts() {
         backgroundColor.style.backgroundColor = color;
     }
 
-    // If there are more than 4 contacts, display the count of the remaining contacts
     if (choosedContacts.length > maxVisibleContacts) {
         let remainingCount = choosedContacts.length - maxVisibleContacts;
         content.innerHTML += `<div class="at-choosed-contact-shortcut" style="background-color: rgb(218, 42, 224);">
@@ -154,6 +171,10 @@ function showChoosedContacts() {
 }
 
 
+/**
+ * This function shows all available contacts.
+ * 
+ */
 function showAvailableContacts() {
     const customSelects = document.querySelectorAll('.custom-select');
 
@@ -161,15 +182,11 @@ function showAvailableContacts() {
         const selectSelected = select.querySelector('.select-selected');
         const selectItems = select.querySelector('.select-items');
         const options = selectItems.querySelectorAll('.at-contact-layout');
-        
-        // Hide the contact list by default
         selectItems.style.display = 'none';
 
-        // Handle showing contact list and selection
         showContactList(selectSelected, selectItems, customSelects);
         chooseContactFromList(options);
 
-        // Close the list if clicked outside the dropdown
         window.addEventListener('click', function (event) {
             if (!select.contains(event.target)) {
                 selectItems.style.display = 'none';
@@ -180,25 +197,23 @@ function showAvailableContacts() {
     });
 }
 
+/**
+ * This is a function to toggle the checkbox of a contact. 
+ * 
+ * @param {string} contactId - ID of the contact
+ */
 function toggleCheckbox(contactId) {
     const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
 
     if (!checkbox) return;
 
-    // Toggle checkbox state
     checkbox.checked = !checkbox.checked;
-
-    // Find the contact by ID
     const selectedContact = contacts.find(contact => contact.id === contactId);
-
-    // Find the closest parent with the class 'at-contact-layout'
     const contactLayout = checkbox.closest('.at-contact-layout');
 
-    // Add or remove the contact from the selected list based on checkbox state
     if (checkbox.checked) {
         addContactToTask(selectedContact.initials, contactId, selectedContact.profileColor);
 
-        // Change the background color if checked
         if (contactLayout) {
             contactLayout.style.backgroundColor = '#2a3647e0';
             contactLayout.style.color = 'white'
@@ -206,7 +221,6 @@ function toggleCheckbox(contactId) {
     } else {
         removeContactFromTask(contactId);
 
-        // Remove the background color if unchecked
         if (contactLayout) {
             contactLayout.style.backgroundColor = '';
             contactLayout.style.color = 'black'
@@ -215,22 +229,26 @@ function toggleCheckbox(contactId) {
 }
 
 
-
+/**
+ * Opens the dropdown menu with all availabe contacts. 
+ * 
+ * @param {string} selectSelected - div container within the dropdown menu
+ * @param {string} selectItems - div container within the dropdown menu
+ * @param {string} customSelects - div container within the dropdown menu
+ */
 function showContactList(selectSelected, selectItems, customSelects) {
     selectSelected.addEventListener('click', function (event) {
-        event.stopPropagation(); // Prevents closing the dropdown on this click
+        event.stopPropagation(); 
         customSelects.forEach(function (s) {
-            s.querySelector('.select-items').style.display = 'none'; // Hide other dropdowns
+            s.querySelector('.select-items').style.display = 'none';
         });
 
-        // Toggle the current dropdown
         if (selectItems.style.display === 'block') {
             selectItems.style.display = 'none';
         } else {
             selectItems.style.display = 'block';
         }
 
-        // Toggle the icons accordingly
         if (selectItems.style.display === 'block') {
             document.getElementById('open-contact-list').classList.add('d-none');
             document.getElementById('close-contact-list').classList.remove('d-none');
@@ -240,7 +258,6 @@ function showContactList(selectSelected, selectItems, customSelects) {
         }
     });
 
-    // Close the dropdown when clicking outside of it
     document.addEventListener('click', function (event) {
         if (!event.target.closest('.custom-select') && !event.target.closest('.select-items')) {
             selectItems.style.display = 'none';
@@ -250,21 +267,28 @@ function showContactList(selectSelected, selectItems, customSelects) {
     });
 }
 
-
+/**
+ * This is function is used to choose a specific contact from the list. 
+ * 
+ * @param {*} options - An available contact.
+ */
 function chooseContactFromList(options) {
     options.forEach(option => {
         option.addEventListener('click', function (event) {
-            event.stopPropagation(); // Keep the dropdown open when selecting
+            event.stopPropagation(); 
             const checkbox = option.querySelector('input[type="checkbox"]');
             const contactId = option.querySelector('input').dataset.contactId;
-
-            // Toggle the checkbox and update the selected contacts
             checkbox.checked = !checkbox.checked;
             toggleCheckbox(contactId);
         });
     });
 }
 
+/**
+ * This function sets the backgroundcolor of the priority of the task.
+ * 
+ * @param {string} prio - priority of the task
+ */
 function setBackgroundColorPrio(prio) {
     let prioStatus = document.getElementById(prio);
     let prioImgDeactive = document.getElementById(`${prio}-img-deactive`);
@@ -280,18 +304,39 @@ function setBackgroundColorPrio(prio) {
     }
 }
 
+/**
+ * This function adds the backgroundcolor to the task. 
+ * 
+ * @param {string} prio - priority of the task.
+ * @param {string} prioStatus - status of the task
+ * @param {string} prioImgDeactive - deactivated status
+ * @param {string} prioImgActive - activated status
+ */
 function addBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive) {
     prioStatus.classList.add(`at-bg-${prio}`);
     prioImgDeactive.style.display = 'none';
     prioImgActive.style.display = 'block';
 }
 
+/**
+ * This function removes the backgroundcolor to the task. 
+ * 
+ * @param {string} prio - priority of the task.
+ * @param {string} prioStatus - status of the task
+ * @param {string} prioImgDeactive - deactivated status
+ * @param {string} prioImgActive - activated status
+ */
 function removeBackgroundColor(prio, prioStatus, prioImgDeactive, prioImgActive) {
     prioStatus.classList.remove(`at-bg-${prio}`);
     prioImgDeactive.style.display = 'block';
     prioImgActive.style.display = 'none';
 }
 
+/**
+ * This function resets the not choosen priorites. 
+ * 
+ * @param {string} selectedPrio - the seleceted priority of a task
+ */
 function resetOtherPriorities(selectedPrio) {
     const priorities = ['urgent', 'medium', 'low'];
     priorities.forEach(prio => {
@@ -304,6 +349,10 @@ function resetOtherPriorities(selectedPrio) {
     });
 }
 
+/**
+ * This function shows the available category items of a task. 
+ * 
+ */
 function showCategoryList() {
     let customSelects = document.querySelectorAll('.custom-category-select');
     customSelects.forEach(function (select) {
@@ -326,10 +375,15 @@ function showCategoryList() {
     });
 }
 
+/**
+ * This function shows the dropdown menü of the available categories.
+ * 
+ * @param {string} selectSelected - div container of a 
+ * @param {string} selectItems - div container of a 
+ */
 function showCategoryDropdown(selectSelected, selectItems) {
     selectSelected.addEventListener('click', function (event) {
-        event.stopPropagation(); // Prevents the event from closing the dropdown immediately
-        // Toggle dropdown visibility
+        event.stopPropagation(); 
         if (selectItems.style.display === 'block') {
             selectItems.style.display = 'none';
 
@@ -339,7 +393,6 @@ function showCategoryDropdown(selectSelected, selectItems) {
         }
     });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', function (event) {
         if (!event.target.closest('.custom-category-select')) {
             selectItems.style.display = 'none';
@@ -347,7 +400,9 @@ function showCategoryDropdown(selectSelected, selectItems) {
     });
 }
 
-
+/**
+ * This functions clears and close the dropdown of the category menu.
+ */
 function clearCategoryDropdown() {
     let customSelects = document.querySelectorAll('.custom-category-select');
     customSelects.forEach(function (select) {
@@ -366,6 +421,13 @@ function clearCategoryDropdown() {
     });
 }
 
+/**
+ * This function assigne a category to a task. 
+ * 
+ * @param {string} options - available categories
+ * @param {*} selectSelected - div container of a dropdown
+ * @param {*} selectItems - div container of a dropdown
+ */
 function chooseCategoryFromList(options, selectSelected, selectItems) {
     options.forEach(function (option) {
         option.addEventListener('click', function () {
@@ -378,6 +440,10 @@ function chooseCategoryFromList(options, selectSelected, selectItems) {
     });
 }
 
+/**
+ * This function checks the status of all required input fields.
+ * 
+ */
 function checkRequiredInput() {
     let isTitleValid = checkIfTitleEmpty();
     let isDateValid = checkIfDateEmpty();
@@ -400,6 +466,10 @@ function checkIfTitleEmpty() {
     }
 }
 
+/**
+ * This function checks the status of the date field.
+ * 
+ */
 function checkIfDateEmpty() {
     let date = document.getElementById('task-due-date');
 
@@ -415,6 +485,10 @@ function checkIfDateEmpty() {
     }
 }
 
+/**
+ * This function checks the status of the category dropdown. 
+ *
+ */
 function checkIfCategoryEmpty() {
     let category = document.getElementById('category-input');
     if (categoryChoosedIndex === 'false') {
@@ -430,6 +504,10 @@ function checkIfCategoryEmpty() {
     }
 }
 
+/**
+ * This function enable the subcategory section. 
+ * 
+ */
 function activateSubcategory() {
     let inputField = document.getElementById('add-subcategory');
     if (document.getElementById('at-subcategory-clear').classList.contains('d-none')) {
@@ -448,12 +526,20 @@ function activateSubcategory() {
     });
 }
 
+/**
+ * This function clears the input field at the subcategory section. 
+ * @param {*} event - 
+ */
 function clearInputSubcategory(event) {
     let inputField = document.getElementById('add-subcategory');
     event.stopPropagation();
     inputField.value = '';
 }
 
+/**
+ * This function renders all added subcategories of a task.
+ * 
+ */
 function renderSubcategory() {
     let content = document.getElementById('added-subcategories');
     content.innerHTML = '';
@@ -504,21 +590,39 @@ function renderSubcategory() {
     }
 }
 
+/**
+ * This function removes all subcategories. 
+ * 
+ */
 function removeAllSubcategory() {
     subcategoriesChoosed.splice(subcategoriesChoosed.length);
     renderSubcategory();
 }
 
+/**
+ * This function activate the current input field.
+ * 
+ * @param {string} inputId - ID of the input field / subcategorie
+ */
 function focusInput(inputId) {
     document.getElementById(inputId).focus();
 }
 
+/**
+ * This function remove the specific subcategorie.
+ * 
+ * @param {string} i - ID of the subcategorie.
+ */
 function removeSubcategory(i) {
     subcategoriesChoosed.splice(i, 1);
     subtaskCompleted.splice(i, 1);
     renderSubcategory();
 }
 
+/**
+ * This functions clears the task formular.
+ * 
+ */
 function clearTask() {
     let title = document.getElementById('task-title');
     let description = document.getElementById('at-description');
@@ -539,6 +643,10 @@ function clearTask() {
     resetOtherPriorities('reset');
 }
 
+/**
+ * This function forwared the user to the board html after the creation of a task. 
+ * 
+ */
 function goToBoard() {
     let bgAddedNote = document.getElementById('bg-task-added-note');
     bgAddedNote.style.zIndex = 100;
@@ -549,6 +657,11 @@ function goToBoard() {
     }, 2000);
 }
 
+/**
+ * This function setup the contact search placeholder.
+ * 
+ */
+
 function setupContactSearchPlaceholder() {
     const searchInput = document.getElementById('contact-search');
     const originalPlaceholder = document.getElementById('original-placeholder');
@@ -558,15 +671,13 @@ function setupContactSearchPlaceholder() {
         return;
     }
 
-    // Event-Listener für "focus"
-    searchInput.addEventListener('focus', function() {
-        originalPlaceholder.style.display = 'none'; // Verstecke den Platzhalter beim Fokus
+    searchInput.addEventListener('focus', function () {
+        originalPlaceholder.style.display = 'none'; 
     });
 
-    // Event-Listener für "blur"
-    searchInput.addEventListener('blur', function() {
+    searchInput.addEventListener('blur', function () {
         if (this.value === '') {
-            originalPlaceholder.style.display = 'block'; // Zeige den Platzhalter wieder, wenn das Eingabefeld leer ist
+            originalPlaceholder.style.display = 'block';
         }
     });
 }
