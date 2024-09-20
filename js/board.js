@@ -255,6 +255,7 @@ function off() {
     overlayContent.classList.add("slide-out-content");
     overlay.classList.add("fade-out-overlay");
     subcategoriesChoosed = [];
+    choosedContacts = [];
 }
 
 /**
@@ -327,64 +328,79 @@ async function ShowEditOverlay(id) {
     if (task) {
         const { title, description, date, prio, subcategory, assignedTo } = task;
         subcategoriesChoosed = [...subcategory];
+        choosedContacts = [... assignedTo];
 
-        await addTaskInit();
-        document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
-        document.getElementById(`edit-main-input-container${id}`).classList.remove('main-input-container');
-        document.getElementById(`edit-main-input-container${id}`).classList.add('edit-main-input-container');
-        document.getElementById('input-border-container').classList.add('d-none');
-        document.getElementById('at-alert-description').classList.add('d-none');
-        document.getElementById('at-btn-container').classList.add('d-none');
-        document.getElementById('category-headline').classList.add('d-none');
-        document.getElementById('category-input').classList.add('d-none');
-        document.getElementById('at-subcategory-open').classList.add('d-none');
-        document.getElementById('editDiv').classList.add('d-none');
-        var element = document.querySelector('.right-left-container');
-        element.style.display = 'block';
+        await initializeEditTask(id);
+        hideAddTaskElements();
+        clearTaskEditOverlay();
 
-        const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay, .dateDiv, .prioDiv, .overlayTitle');
-        elementsToRemove.forEach(element => {
-            element.remove(); 
-        });
-
-        
         const taskAssigneeHTML = getTaskAssignee(assignedTo);
+        updateAssigneeContainer(taskAssigneeHTML);
+        setupSaveButton(id);
 
-        
-        const assigneeContainer = document.getElementById('at-selected-contacts');
-        if (assigneeContainer) {
-            assigneeContainer.innerHTML = taskAssigneeHTML;
-        } else {
-            console.warn('Assignee container not found.');
-        }
-
-        const saveButton = document.querySelector('.board-task-edit-btn');
-        saveButton.addEventListener('click', () => saveTaskChanges(id));
-
-        const assignedContacts = assignedTo || []; 
-        assignedContacts.forEach(contact => {
-            const contactId = contact.id || contact; 
-
-            const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
-            if (checkbox) {
-                checkbox.checked = true; 
-                const contactLayout = checkbox.closest('.at-contact-layout');
-                if (contactLayout) {
-                    contactLayout.style.backgroundColor = '#2a3647e0';
-                    contactLayout.style.color = 'white';
-                }
-            } else {
-                console.warn(`Checkbox with ID ${contactId} not found.`);
-            }
-        });
-        
+        checkAssignedContacts(assignedTo);
         const subtaskHTML = Array.isArray(subcategory) ? getEditSubtaskHTML(subcategory) : '';
-
         renderEditTaskData(id, title, description, date, prio, subtaskHTML);
     } else {
         console.error('Task not found');
     }
 }
+
+async function initializeEditTask(id) {
+    await addTaskInit();
+    document.getElementById(`edit-task-overlay${id}`).classList.remove('d-none');
+    const mainInputContainer = document.getElementById(`edit-main-input-container${id}`);
+    mainInputContainer.classList.remove('main-input-container');
+    mainInputContainer.classList.add('edit-main-input-container');
+    document.querySelector('.right-left-container').style.display = 'block';
+}
+
+function hideAddTaskElements() {
+    const elementsToHide = [
+        'input-border-container', 'at-alert-description', 'at-btn-container',
+        'category-headline', 'category-input', 'at-subcategory-open', 'editDiv'
+    ];
+    elementsToHide.forEach(id => document.getElementById(id)?.classList.add('d-none'));
+}
+
+function clearTaskEditOverlay() {
+    const elementsToRemove = document.querySelectorAll('.contactOverlay, .contactDiv, .subtaskOverlay, .checkBoxDiv, .subtasksOverlay, .dateDiv, .prioDiv, .overlayTitle');
+    elementsToRemove.forEach(element => element.remove());
+}
+
+function updateAssigneeContainer(taskAssigneeHTML) {
+    const assigneeContainer = document.getElementById('at-selected-contacts');
+    if (assigneeContainer) {
+        assigneeContainer.innerHTML = taskAssigneeHTML;
+    } else {
+        console.warn('Assignee container not found.');
+    }
+}
+
+function setupSaveButton(id) {
+    const saveButton = document.querySelector('.board-task-edit-btn');
+    saveButton.addEventListener('click', () => saveTaskChanges(id));
+}
+
+function checkAssignedContacts(assignedTo) {
+    const assignedContacts = assignedTo || [];
+    assignedContacts.forEach(contact => {
+        const contactId = contact.id || contact;
+        const checkbox = document.querySelector(`input[data-contact-id="${contactId}"]`);
+
+        if (checkbox) {
+            checkbox.checked = true;
+            const contactLayout = checkbox.closest('.at-contact-layout');
+            if (contactLayout) {
+                contactLayout.style.backgroundColor = '#2a3647e0';
+                contactLayout.style.color = 'white';
+            }
+        } else {
+            console.warn(`Checkbox with ID ${contactId} not found.`);
+        }
+    });
+}
+
 
 
 
@@ -405,18 +421,14 @@ function renderEditTaskData(id, taskTitle, taskDescription, taskDueDate, taskPri
     document.getElementById('task-title').value = taskTitle;
     document.getElementById('at-description').value = taskDescription;
     document.getElementById('task-due-date').value = taskDueDate;
-
-    
     document.getElementById('added-subcategories').innerHTML = subtaskHTML;
 
-    
     const priorityIcon = getPriorityIcon(taskPriority);
     const priorityIconElement = document.getElementById('priority-icon');
 
     if (priorityIconElement && priorityIcon) {
         priorityIconElement.src = priorityIcon;
     }
-
     
     requestAnimationFrame(() => {
         setBackgroundColorPrio(taskPriority);
@@ -441,78 +453,70 @@ function getSelectedPriority() {
     return 'low'; 
 }
 
-/**
- * Searches for tasks based on the input and filters them in the UI.
- * Select the containers for each category
- * Clear any existing "no results" messages
- * Track if matches are found for each section
- * Find the parent section of the card
- * Check each section and add "no results" message if needed
- */
 function searchTasks() {
-    let searchInput = document.getElementById('searchInput').value.toLowerCase();
-    let taskCards = document.querySelectorAll('.card');
-
-    
-    let toDoContainer = document.getElementById('toDo');
-    let progressContainer = document.getElementById('progress');
-    let feedbackContainer = document.getElementById('feedback');
-    let doneContainer = document.getElementById('done');
-
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const taskCards = document.querySelectorAll('.card');
+    const containers = getContainers();
     
     removeExistingNoResultsMessages();
+    removeNoTasksMessages();
 
-    
-    let matchesFound = {
-        toDo: false,
-        progress: false,
-        feedback: false,
-        done: false
-    };
+    const matchesFound = { toDo: false, progress: false, feedback: false, done: false };
+    taskCards.forEach(card => updateCardDisplay(card, searchInput, matchesFound));
 
-    taskCards.forEach(card => {
-        let taskTitle = card.querySelector('.cardTitle').textContent.toLowerCase();
-        let taskDescription = card.querySelector('.cardContext').textContent.toLowerCase();
-
-        
-        let parentSection = card.closest('#toDo, #progress, #feedback, #done');
-
-        if (taskTitle.includes(searchInput) || taskDescription.includes(searchInput)) {
-            card.style.display = 'block'; 
-
-            
-            if (parentSection) {
-                if (parentSection.id === 'toDo') matchesFound.toDo = true;
-                if (parentSection.id === 'progress') matchesFound.progress = true;
-                if (parentSection.id === 'feedback') matchesFound.feedback = true;
-                if (parentSection.id === 'done') matchesFound.done = true;
-            }
-        } else {
-            card.style.display = 'none'; 
-        }
+    Object.keys(matchesFound).forEach(key => {
+        if (!matchesFound[key]) addNoResultsMessage(containers[key]);
     });
 
+    if (!searchInput) {
+        removeExistingNoResultsMessages(); 
+        checkIfEmpty(); 
+    }
+}
+
+function getContainers() {
+    return {
+        toDo: document.getElementById('toDo'),
+        progress: document.getElementById('progress'),
+        feedback: document.getElementById('feedback'),
+        done: document.getElementById('done')
+    };
+}
+
+function updateCardDisplay(card, input, matches) {
+    const title = card.querySelector('.cardTitle').textContent.toLowerCase();
+    const description = card.querySelector('.cardContext').textContent.toLowerCase();
+    const parentSection = card.closest('#toDo, #progress, #feedback, #done');
     
-    if (!matchesFound.toDo) addNoResultsMessage(toDoContainer);
-    if (!matchesFound.progress) addNoResultsMessage(progressContainer);
-    if (!matchesFound.feedback) addNoResultsMessage(feedbackContainer);
-    if (!matchesFound.done) addNoResultsMessage(doneContainer);
+    if (title.includes(input) || description.includes(input)) {
+        card.style.display = 'block'; 
+        if (parentSection) matches[parentSection.id] = true;
+    } else {
+        card.style.display = 'none'; 
+    }
+}
+
+
+/**
+ * Entfernt alle existierenden "noTasks"-Nachrichten aus den Task-Containern.
+ */
+function removeNoTasksMessages() {
+    document.querySelectorAll('.noTasks').forEach(message => message.remove());
 }
 
 /**
- * Removes any existing "no results" messages from the task containers.
+ * Entfernt alle existierenden "no results"-Nachrichten aus den Task-Containern.
  */
 function removeExistingNoResultsMessages() {
     document.querySelectorAll('.no-results-message').forEach(message => message.remove());
 }
 
 /**
- * Adds a "no results" message to a specific container if no matching tasks are found.
- * @param {HTMLElement} container - The container element to which the message will be added.
+ * Fügt eine "no results"-Nachricht zu einem bestimmten Container hinzu, wenn keine passenden Aufgaben gefunden wurden.
+ * @param {HTMLElement} container - Das Container-Element, zu dem die Nachricht hinzugefügt wird.
  */
 function addNoResultsMessage(container) {
     if (container) {
-        // Create a new message element
         let noResultsMessage = document.createElement('div');
         noResultsMessage.classList.add('no-results-message');
         noResultsMessage.textContent = 'No matching tasks found';

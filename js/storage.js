@@ -394,6 +394,7 @@ async function saveTaskChanges(id) {
     await loadDataTask();
     renderTasks();
     subcategoriesChoosed = [];
+    choosedContacts = [];
     
     off();
   } catch (error) {
