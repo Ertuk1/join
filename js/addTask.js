@@ -222,7 +222,7 @@ function toggleCheckbox(contactId) {
         removeContactFromTask(contactId);
 
         if (contactLayout) {
-            contactLayout.style.backgroundColor = '';
+            contactLayout.style.backgroundColor = 'white';
             contactLayout.style.color = 'black'
         }
     }

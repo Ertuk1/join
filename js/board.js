@@ -15,45 +15,54 @@ async function initBoard() {
  * Ensure columns display empty messages if needed
  */
 function renderTasks() {
-    const columns = {
+    const columns = getColumns();
+    clearColumns(columns);
+
+    tasks.forEach((task, i) => {
+        let newTask = createTaskElement(task, i);
+        let targetColumn = columns[task.status] || columns.toDo;
+        targetColumn.appendChild(newTask);
+        updateProgressBarForTask(task, i);
+    });
+
+    checkIfEmpty();
+}
+
+function getColumns() {
+    return {
         toDo: document.getElementById('toDo'),
         progress: document.getElementById('progress'),
         feedback: document.getElementById('feedback'),
         done: document.getElementById('done')
     };
+}
 
-    
+function clearColumns(columns) {
     Object.values(columns).forEach(column => column.innerHTML = '');
+}
 
-    tasks.forEach((task, i) => {
-        const { id, subcategory, completedSubtasks, assignedTo, category, prio, status } = task;
+function createTaskElement(task, index) {
+    const { id, subcategory, completedSubtasks, assignedTo, category, prio, status } = task;
+    let subtaskHTML = getSubtask(task);
+    let editSubtask = getEditSubtaskHTML(subcategory);
+    let completedCount = completedSubtasks.filter(completed => completed === 'true').length;
+    let taskAssignee = getTaskAssignee(assignedTo);
+    let taskPriorityIcon = getPriorityIcon(prio);
+    let taskTypeBackgroundColor = category === 'User Story' ? '#1FD7C1' : '';
 
-        let subtaskHTML = getSubtask(task);
-        let editSubtask = getEditSubtaskHTML(subcategory);
-        let completedCount = completedSubtasks.filter(completed => completed === 'true').length;
-        let taskAssignee = getTaskAssignee(assignedTo);
-        let taskPriorityIcon = getPriorityIcon(prio);
-        let taskTypeBackgroundColor = category === 'User Story' ? '#1FD7C1' : '';
-
-        
-        let newTask = document.createElement('div');
-        newTask.innerHTML = getTaskTemplate(task, i, taskTypeBackgroundColor, category, taskAssignee, taskPriorityIcon, completedCount, editSubtask, id, subtaskHTML);
-
-        
-        newTask.addEventListener('click', event => {
-            event.stopPropagation();
-            showOverlay1(task.title, task.description, task.date, prio, assignedTo, category, subtaskHTML, id, editSubtask);
-        });
-
-        
-        let targetColumn = columns[status] || columns.toDo;
-        targetColumn.appendChild(newTask);
-
-        
-        updateProgressBar(completedCount, subcategory.length, i);
+    let newTask = document.createElement('div');
+    newTask.innerHTML = getTaskTemplate(task, index, taskTypeBackgroundColor, category, taskAssignee, taskPriorityIcon, completedCount, editSubtask, id, subtaskHTML);
+    newTask.addEventListener('click', event => {
+        event.stopPropagation();
+        showOverlay1(task.title, task.description, task.date, prio, assignedTo, category, subtaskHTML, id, editSubtask);
     });
 
-    checkIfEmpty(); 
+    return newTask;
+}
+
+function updateProgressBarForTask(task, index) {
+    let completedCount = task.completedSubtasks.filter(completed => completed === 'true').length;
+    updateProgressBar(completedCount, task.subcategory.length, index);
 }
 
 /**
@@ -97,42 +106,45 @@ async function showOverlay1(taskTitle, taskDescription, taskDueDate, taskPriorit
     const overlayContent = document.querySelector(".overlayContent");
 
     let taskPriorityIcon = getPriorityIcon(taskPriority);
-    let taskTypeBackgroundColor = taskType === 'User Story' ? '#1FD7C1' : '';
-    let assigneeOverlayContent = Array.isArray(taskAssignees) && taskAssignees.length > 0
-        ? taskAssignees.map(assignee => {
-            let contact = contacts.find(contact => contact.id === assignee.id);
-            return contact ? `
-                <div class="contactDiv">
-                    <span class="contactCard" style="background-color: ${assignee.color};"> ${assignee.initial}</span>
-                    <span class="contactName">${contact.name}</span>
-                </div>
-            ` : '';
-        }).join('')
-        : '';
+    let taskTypeBackgroundColor = getTaskTypeBackgroundColor(taskType);
+    let assigneeOverlayContent = getAssigneeOverlayContent(taskAssignees);
 
-    // Use the template function to get the HTML string
-    const templateHTML = getOverlayTemplate(
-        taskTitle,
-        taskDescription,
-        taskDueDate,
-        taskPriority,
-        taskPriorityIcon,
-        taskType,
-        taskTypeBackgroundColor,
-        assigneeOverlayContent,
-        subtaskHTML,
-        id
-    );
+    const templateHTML = getOverlayTemplate(taskTitle,taskDescription,taskDueDate,taskPriority,taskPriorityIcon,taskType,taskTypeBackgroundColor,assigneeOverlayContent,subtaskHTML,id);
 
-    // Insert the generated HTML into the overlay content
-    overlayContent.innerHTML = templateHTML;
-
-    overlay.style.display = "flex";
-    overlayContent.style.transform = "translateX(0)";
-    overlayContent.style.opacity = "1";
+    updateOverlayContent(overlayContent, templateHTML);
+    await displayOverlay(overlay, overlayContent);
     await includeHTML();
     showInitials();
 }
+
+function getTaskTypeBackgroundColor(taskType) {
+    return taskType === 'User Story' ? '#1FD7C1' : '';
+}
+
+function getAssigneeOverlayContent(taskAssignees) {
+    if (!Array.isArray(taskAssignees) || taskAssignees.length === 0) return '';
+    
+    return taskAssignees.map(assignee => {
+        let contact = contacts.find(contact => contact.id === assignee.id);
+        return contact ? `
+            <div class="contactDiv">
+                <span class="contactCard" style="background-color: ${assignee.color};"> ${assignee.initial}</span>
+                <span class="contactName">${contact.name}</span>
+            </div>
+        ` : '';
+    }).join('');
+}
+
+function updateOverlayContent(overlayContent, templateHTML) {
+    overlayContent.innerHTML = templateHTML;
+}
+
+async function displayOverlay(overlay, overlayContent) {
+    overlay.style.display = "flex";
+    overlayContent.style.transform = "translateX(0)";
+    overlayContent.style.opacity = "1";
+}
+
 
 /**
  * Generates the HTML for the subtasks of a task.
