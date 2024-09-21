@@ -588,3 +588,8 @@ content: url('../assets/img/Property\ 1=Variant2.png');
 .overflow-hidden {
     overflow: hidden;
 }
+
+.highlight {
+    border: 2px dashed #627ae6;
+    background-color: rgb(167, 173, 255);
+}

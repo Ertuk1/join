@@ -23,41 +23,29 @@ let isDragging = false;
  */
 let dragClone = null;
 
+/**
+ * @type {HTMLElement|null} - The current highlighted drop zone.
+ */
+let highlightedDropZone = null;
 
 /**
  * Initializes event listeners for scrolling containers once the DOM is loaded.
- * Get the container's dimensions and position
- * Adjust these values to control the scrolling speed and sensitivity
- * Calculate mouse position relative to the container
- * Mouse is within the left margin, scroll left or right
  */
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all .taskContent elements
     const scrollContainers = document.querySelectorAll('.taskContent');
-
-
     const scrollSpeed = 5;
     const scrollMargin = 0.3;
-
     scrollContainers.forEach(container => {
         container.addEventListener('mousemove', (event) => {
-
             const rect = container.getBoundingClientRect();
             const containerWidth = rect.width;
             const containerLeft = rect.left;
-
-
             const mouseX = event.clientX - containerLeft;
-
-
             const leftMargin = containerWidth * scrollMargin;
             const rightMargin = containerWidth * (1 - scrollMargin);
-
             if (mouseX < leftMargin) {
-
                 container.scrollLeft -= scrollSpeed * (leftMargin - mouseX) / leftMargin;
             } else if (mouseX > rightMargin) {
-
                 container.scrollLeft += scrollSpeed * (mouseX - rightMargin) / (containerWidth - rightMargin);
             }
         });
@@ -78,39 +66,45 @@ function stopPropagation(event) {
 function startDragging(taskId) {
     currentDraggedElement = taskId;
 }
-
 /**
  * Allows dropping by preventing the default behavior of the event.
+ * Adds highlight to the drop zone.
  * @param {DragEvent} event - The drag event.
  */
 function allowDrop(event) {
     event.preventDefault();
+    let dropZone = event.target.closest('.taskContent');
+    if (dropZone && highlightedDropZone !== dropZone) {
+        if (highlightedDropZone) {
+            highlightedDropZone.classList.remove('highlight');
+        }
+        dropZone.classList.add('highlight');
+        highlightedDropZone = dropZone;
+    }
 }
 
 /**
  * Handles the drop event by appending the dragged task to the drop zone and updating its status.
+ * Removes highlight from the drop zone.
  * @async
  * @param {DragEvent} event - The drag event.
- * Append the task to the drop zone
- * Re-render tasks to reflect changes
  */
 async function drop(event) {
     event.preventDefault(); // Prevent default drop behavior
-
     let dropZone = event.target.closest('.taskContent'); // Identify the drop zone
     if (!dropZone) return;
-
+    if (highlightedDropZone) {
+        highlightedDropZone.classList.remove('highlight');
+        highlightedDropZone = null;
+    }
     let taskElement = document.querySelector(`[data-id="${currentDraggedElement}"]`);
     if (!taskElement) {
         console.error('Task element not found with id:', currentDraggedElement);
         return;
     }
-
     dropZone.appendChild(taskElement);
-
     let newStatus = dropZone.id;
     let task = tasks.find(t => t.id === currentDraggedElement);
-
     if (task) {
         task.status = newStatus;
         await changeTask(`/task/${currentDraggedElement}/status`, task.status);
@@ -123,36 +117,31 @@ async function drop(event) {
 
 /**
  * Handles the drop event on mobile devices by appending the dragged task to the drop zone and updating its status.
+ * Removes highlight from the drop zone.
  * @async
  * @param {TouchEvent} event - The touch event.
- * Get touch coordinates
- * Update the task's status based on the drop zone ID
- * Re-render tasks to reflect changes
  */
 async function dropMobile(event) {
-
-
     let touch = event.changedTouches[0];
     let dropZone = document.elementFromPoint(touch.clientX, touch.clientY).closest('.taskContent');
-
     if (!dropZone) {
         console.error('Drop zone not found');
+        highlightedDropZone.classList.remove('highlight');
+        highlightedDropZone = null;
         return;
     }
-
+    if (highlightedDropZone) {
+        highlightedDropZone.classList.remove('highlight');
+        highlightedDropZone = null;
+    }
     let taskElement = document.querySelector(`[data-id="${currentDraggedElement}"]`);
     if (!taskElement) {
         console.error('Task element not found with id:', currentDraggedElement);
         return;
     }
-
-
     dropZone.appendChild(taskElement);
-
-
     let newStatus = dropZone.id;
     let task = tasks.find(t => t.id === currentDraggedElement);
-
     if (task) {
         task.status = newStatus;
         await changeTask(`/task/${currentDraggedElement}/status`, task.status);
@@ -174,8 +163,6 @@ document.addEventListener('touchstart', (event) => {
         initialX = event.touches[0].clientX;
         initialY = event.touches[0].clientY;
         isDragging = false;
-
-
         dragClone = card.cloneNode(true);
         dragClone.style.position = 'absolute';
         dragClone.style.pointerEvents = 'none';
@@ -185,42 +172,27 @@ document.addEventListener('touchstart', (event) => {
 
 /**
  * Handles the movement of a touch event by updating the visual clone's position and determining if dragging is in progress.
+ * Highlights the current drop zone.
  * @param {TouchEvent} event - The touch event.
- *  Horizontal movement detected, let the user scroll 
- *  Vertical movement detected, start dragging Prevent scrolling
- *  Update the clone's position to follow the touch
- *  Prevent scrolling when dragging, only if the event is cancelable
  */
 document.addEventListener('touchmove', (event) => {
     if (initialX === null || initialY === null) return;
-
     let currentX = event.touches[0].clientX;
     let currentY = event.touches[0].clientY;
-
     let diffX = currentX - initialX;
     let diffY = currentY - initialY;
-
     if (Math.abs(diffX) > Math.abs(diffY)) {
-
         isDragging = false;
-
         if (dragClone) {
             document.body.removeChild(dragClone);
             dragClone = null;
         }
-        
         currentDraggedElement = null;
     } else {
-        
         if (!event.cancelable) return;
-
-        event.preventDefault(); 
-
-        
+        event.preventDefault();
         if (!isDragging) {
             isDragging = true;
-
-            
             if (dragClone === null) {
                 const card = document.querySelector(`[data-id="${currentDraggedElement}"]`);
                 if (card) {
@@ -231,37 +203,47 @@ document.addEventListener('touchmove', (event) => {
                 }
             }
         }
-
-        
         if (dragClone) {
             dragClone.style.left = `${currentX}px`;
             dragClone.style.top = `${currentY}px`;
         }
+        let touch = event.touches[0];
+        let dropZone = document.elementFromPoint(touch.clientX, touch.clientY).closest('.taskContent');
+        if (dropZone && dropZone !== highlightedDropZone) {
+            if (highlightedDropZone) {
+                highlightedDropZone.classList.remove('highlight');
+            }
+            dropZone.classList.add('highlight');
+            highlightedDropZone = dropZone;
+        }
     }
 }, { passive: false });
-
-
-
 
 /**
  * Handles the end of a touch event by dropping the task if dragging was in progress and removing the visual clone.
  * @param {TouchEvent} event - The touch event.
- * Remove the clone
- * Reset initial positions
  */
 document.addEventListener('touchend', async (event) => {
     if (isDragging) {
         await dropMobile(event);
     }
-
-    
     if (dragClone) {
         document.body.removeChild(dragClone);
         dragClone = null;
     }
-
-    
     initialX = null;
     initialY = null;
     isDragging = false;
 }, { passive: true });
+
+/**
+ * Removes highlight when the dragged element leaves the drop zone.
+ */
+document.querySelectorAll('.taskContent').forEach(zone => {
+    zone.addEventListener('dragleave', () => {
+        if (highlightedDropZone) {
+            highlightedDropZone.classList.remove('highlight');
+            highlightedDropZone = null;
+        }
+    });
+});
