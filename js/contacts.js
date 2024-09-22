@@ -214,7 +214,19 @@ function showEditDiv(i) {
     setTimeout(() => {
         editDivResp.style.right = '6px';
     }, 10);
+    document.addEventListener('click', outsideClickListener);
+    function outsideClickListener(event) {
+        // Check if the click is outside of the editDivResp
+        if (!editDivResp.contains(event.target)) {
+            closeEditDiv(); // Call the function to close the div
+            removeOutsideClickListener(); // Remove the event listener after the div is closed
+        }
+    }
 
+function removeOutsideClickListener() {
+        // Remove the event listener
+        document.removeEventListener('click', outsideClickListener);
+    }
 }
 
 /**
@@ -222,12 +234,12 @@ function showEditDiv(i) {
  * @function
  * @returns {void}
  */
-/* function closeEditDiv() {
+ function closeEditDiv() {
     let editDivResp = document.getElementById('editDivResp');
     setTimeout(() => {
         editDivResp.style.right = '-200px';
     }, 10);
-} */
+} 
 
 /**
  * Closes the responsive contact editing interface.
@@ -344,32 +356,38 @@ async function editContactToArray(i) {
 function showAddContact() {
     document.getElementById('addNewContactAlert').innerHTML = '';
     document.getElementById('blurBackground').classList.remove('d-none');
-    addNewContact.style.display = "flex";
+    let addNewContact = document.getElementById('addNewContact');
+    addNewContact.style.display = "flex"; // Ensure it's visible before starting the animation
     setTimeout(() => {
-        addNewContact.style.right = "0";
-        addNewContact.style.bottom = "0";
+        addNewContact.style.right = "0";  // Slide into view from right
+        addNewContact.style.bottom = "0"; // Slide up into view from bottom
     }, 10);
 }
+
 
 function cancelAddContact() {
+    let addNewContact = document.getElementById('addNewContact');
+    addNewContact.style.right = "-6000px";  // Slide out to the right
+    addNewContact.style.bottom = "-6000px"; // Slide down off screen
     setTimeout(() => {
-        addNewContact.style.right = "-6000px";
-        addNewContact.style.bottom = "-6000px";
-        addNewContact.style.display = "none";
+        addNewContact.style.display = "none"; // Hide after sliding completes
         document.getElementById('blurBackground').classList.add('d-none');
-    }, 10);
-    
+    }, 800); // Delay matches the transition duration (0.5s)
 }
+
 
 function cancelEditContact() {
+    closeEditContact(); // Trigger the sliding animation
     setTimeout(() => {
-        editContact.style.right = "-6000px";
-        editContact.style.bottom = "-6000px";
-        editContact.style.display = "none";
+        let editContact = document.getElementById('editContact');
+        editContact.style.display = "none"; // Hide after sliding completes
         document.getElementById('blurBackgroundEdit').classList.add('d-none');
-    }, 10);
-    
+    }, 800); // Delay to match transition duration
 }
 
 
-
+function closeEditContact() {
+    let editContact = document.getElementById('editContact');
+    editContact.style.right = "-6000px"; // Start sliding animation
+    editContact.style.bottom = "-6000px"; // Slide down
+}

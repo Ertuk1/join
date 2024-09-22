@@ -368,7 +368,7 @@ body {
     bottom: 0;
     left: 0;
     right: -6000px;
-    transition: all 0.5s;
+    transition: all 0.8s;
     margin: auto;
     flex-direction: row;
     width: 1112px !important;
@@ -377,13 +377,14 @@ body {
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
     z-index: 1001;
     background-color: white;
+    transition: all 0.8s ease;
 }
 
 
 
 .slide-right {
-    -webkit-animation: slide-right 250ms ease-in-out;
-    animation: slide-right 250ms ease-in-out;
+    transform: translateX(100%); /* Slide out to the right */
+    opacity: 0; /* Fade out */
 }
 
 .profileDivContact {
@@ -740,7 +741,7 @@ body {
     bottom: 0;
     left: 0;
     right: -6000px;
-    transition: all 0.5s;
+    transition: all 0.8s;
     margin: auto;
     width: 1112px;
     height: 592px;
@@ -750,6 +751,14 @@ body {
     flex-direction: row;
     z-index: 1001;
     background-color: white;
+    transition: all 0.5s ease;
+    transform: translateX(0); /* Initially, no movement */
+    opacity: 1; /* Initially visible */
+}
+
+#editContact.slide-right {
+    right: 6px; /* Adjust this value to control the final position */
+    bottom: 6px; /* Adjust this value to control the final position */
 }
 
 #editContactButton {
@@ -1024,6 +1033,7 @@ body {
         justify-content: center;
         align-items: center;
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        cursor: pointer;
     }
 
     #oneContactResp {
