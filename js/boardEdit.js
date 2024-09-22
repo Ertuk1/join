@@ -36,6 +36,7 @@ async function ShowEditOverlay(id) {
 
     if (task) {
         const { title, description, date, prio, subcategory, assignedTo } = task;
+        choosedContacts = []
         subcategoriesChoosed = [...subcategory];
         choosedContacts = [... assignedTo];
 
