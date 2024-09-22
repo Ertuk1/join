@@ -197,6 +197,25 @@ async function postContact(path, newContact) {
 }
 
 /**
+ * Updates an existing contact in the database.
+ * @async
+ * @function updateContact
+ * @param {string} path - The path including the contact's unique ID to update the data.
+ * @param {Object} updatedContact - The contact data to be updated.
+ * @returns {Promise<Object>} The response data from the server.
+ */
+async function updateContact(path, updatedContact) {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "PUT", // Use PATCH or PUT for updates
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedContact),
+  });
+  return await response.json();
+}
+
+/**
  * Deletes contact data from the database.
  * @async
  * @function deleteDataContact

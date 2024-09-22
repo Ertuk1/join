@@ -305,7 +305,7 @@ function getContactViewTemplate(contact, i) {
  */
 function getResponsiveContactTemplate(contact, i) {
   return `
-      <div onclick="closeEditDiv()">
+      <div>
           <div class="profileName">
               <div class="profilePictureContact" id="pictureViewContact" style="background-color: ${contact.profileColor}">${contact.initials}</div>
               <div class="nameEditBox">
@@ -325,7 +325,7 @@ function getResponsiveContactTemplate(contact, i) {
           <div class="contactInformation">
               <p>Contact Information</p>
           </div>
-          <div class="showOneContact" onclick="closeEditDiv()">
+          <div class="showOneContact">
               <div class="showOneContactInfo">
                   <h3>Email</h3>
                   <a id="emailFromContact" href="mailto:${contact.mail}">${contact.mail}</a>
@@ -377,7 +377,7 @@ function getEditContactTemplate(contact, i) {
               <div id="addNewContactAlertedit"></div>
               <div id="btnDiv">
                   <button onclick="cancelEditContact(); deleteDataContact('/contacts/${contact.id}')" id="cancelButtonContact">Delete<img id="cancelIcon" src="./assets/img/cancel(x).png" alt=""></button>
-                  <button onclick="editContactToArray(${i}), deleteDataContact('/contacts/${contact.id}')" id="editContactButton">Save<img src="./assets/img/check.png" alt=""></button>
+                  <button onclick="editContactToArray(${i})" id="editContactButton">Save<img src="./assets/img/check.png" alt=""></button>
               </div>
           </div>
       </div>

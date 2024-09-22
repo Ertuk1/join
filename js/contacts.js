@@ -321,7 +321,7 @@ async function editContactToArray(i) {
     } else {
         let myName = isItYou ? name.value + ' (You)' : name.value;
 
-        const newContact = {
+        const updatedContact = {
             "name": myName,
             "mail": email.value,
             "phone": phone.value,
@@ -329,7 +329,7 @@ async function editContactToArray(i) {
             "initials": initial
         };
 
-        await postContact("/contacts", newContact);
+        await updateContact("/contacts/" + contact.id, updatedContact);
         await loadDataContacts();
         contactClickHandler(contacts.length - 1);
 
