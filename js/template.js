@@ -374,7 +374,7 @@ function getEditContactTemplate(contact, i) {
                       <img src="/assets/img/call.png">
                   </div>
               </div>
-              <div id="addNewContactAlert"></div>
+              <div id="addNewContactAlertedit"></div>
               <div id="btnDiv">
                   <button onclick="cancelEditContact(); deleteDataContact('/contacts/${contact.id}')" id="cancelButtonContact">Delete<img id="cancelIcon" src="./assets/img/cancel(x).png" alt=""></button>
                   <button onclick="editContactToArray(${i}), deleteDataContact('/contacts/${contact.id}')" id="editContactButton">Save<img src="./assets/img/check.png" alt=""></button>

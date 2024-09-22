@@ -1141,9 +1141,9 @@ body {
 
 @media (max-width: 500px) {
     #contactListContent {
-        width: 315px !important;
-        padding-left: 5px !important;
-        padding-right: 5px !important;
+        width: 100% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
     }
 
     .letter-heading {
@@ -1260,4 +1260,15 @@ body {
     #editContact {
         width: 300px !important;
     }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+    appearance: none;
 }

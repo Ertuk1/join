@@ -129,12 +129,19 @@ async function getNewContact() {
     let alertMessage = document.getElementById('addNewContactAlert');
     
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phonePattern = /^\d{11,}$/; // Regex to check for at least 11 digits
 
-    
-    if (name.value == '' || email.value == '' || phone.value == '') {
+    // Split name by spaces and check if there are at least two words
+    let nameParts = name.value.trim().split(' ');
+
+    if (name.value === '' || email.value === '' || phone.value === '') {
         alertMessage.innerHTML = '<p>The fields must be filled.</p>';
+    } else if (nameParts.length < 2) {
+        alertMessage.innerHTML = '<p>Please enter both a first and last name.</p>';
     } else if (!emailPattern.test(email.value)) {
         alertMessage.innerHTML = '<p>Please enter a valid email address.</p>';
+    } else if (!phonePattern.test(phone.value)) {
+        alertMessage.innerHTML = '<p style="color: red;">Phone number must be at least 11 digits long.</p>';
     } else {
         const colorIndx = Math.floor(Math.random() * beautifulColors.length);
         const color = beautifulColors[colorIndx];
@@ -152,7 +159,6 @@ async function getNewContact() {
         createContactList(newContactIndex);
         contactClickHandler(newContactIndex);
 
-
         name.value = '';
         email.value = '';
         phone.value = '';
@@ -162,6 +168,7 @@ async function getNewContact() {
         slideSuccessfullyContact();
     }
 }
+
 
 
 /**
@@ -215,12 +222,12 @@ function showEditDiv(i) {
  * @function
  * @returns {void}
  */
-function closeEditDiv() {
+/* function closeEditDiv() {
     let editDivResp = document.getElementById('editDivResp');
     setTimeout(() => {
         editDivResp.style.right = '-200px';
     }, 10);
-}
+} */
 
 /**
  * Closes the responsive contact editing interface.
@@ -294,24 +301,44 @@ async function editContactToArray(i) {
     let name = document.getElementById('editName');
     let email = document.getElementById('editEmail');
     let phone = document.getElementById('editPhone');
+    let alertMessage = document.getElementById('addNewContactAlertedit');
     const initial = extractInitials(name.value);
 
-    let myName = isItYou ? name.value + ' (You)' : name.value;
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phonePattern = /^\d{11,}$/; // Regex to check for at least 11 digits
 
-    const newContact = {
-        "name": myName,
-        "mail": email.value,
-        "phone": phone.value,
-        "profileColor": contact.profileColor,
-        "initials": initial
-    };
+    // Split name by spaces and check if there are at least two words
+    let nameParts = name.value.trim().split(' ');
 
-    await postContact("/contacts", newContact);
-    await loadDataContacts();
-    contactClickHandler(contacts.length - 1);
-    cancelEditContact();
-    createContactList();
+    if (name.value === '') {
+        alertMessage.innerHTML = '<p style="color: red;">Please enter both a first and last name.</p>';
+    } else if (nameParts.length < 2) {
+        alertMessage.innerHTML = '<p style="color: red;">Please enter both a first and last name.</p>';
+    } else if (!emailPattern.test(email.value)) {
+        alertMessage.innerHTML = '<p style="color: red;">Please enter a valid email address.</p>';
+    } else if (!phonePattern.test(phone.value)) {
+        alertMessage.innerHTML = '<p style="color: red;">Phone number must be at least 11 digits long.</p>';
+    } else {
+        let myName = isItYou ? name.value + ' (You)' : name.value;
+
+        const newContact = {
+            "name": myName,
+            "mail": email.value,
+            "phone": phone.value,
+            "profileColor": contact.profileColor,
+            "initials": initial
+        };
+
+        await postContact("/contacts", newContact);
+        await loadDataContacts();
+        contactClickHandler(contacts.length - 1);
+
+        alertMessage.innerHTML = ''; // Clear alert message
+        cancelEditContact();
+        createContactList();
+    }
 }
+
 
 // Öffnet die Box 'Add new Contact'
 function showAddContact() {
@@ -341,7 +368,7 @@ function cancelEditContact() {
         editContact.style.display = "none";
         document.getElementById('blurBackgroundEdit').classList.add('d-none');
     }, 10);
-    closeEditDiv();
+    
 }
 
 
