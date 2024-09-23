@@ -377,3 +377,27 @@ function addNoResultsMessage(container) {
         container.appendChild(noResultsMessage);
     }
 }
+
+/**
+ * Checks if any task section is empty and displays a "No tasks" message.
+ * @function checkIfEmpty
+ */
+function checkIfEmpty() {
+    let toDo = document.getElementById('toDo');
+    let progress = document.getElementById('progress');
+    let feedback = document.getElementById('feedback');
+    let done = document.getElementById('done');
+  
+    if (progress.innerHTML.trim() === "") {
+        progress.innerHTML = `<div class="noTasks"><span class="noTaskText">Nothing in progress</span></div>`;
+    }
+    if (toDo.innerHTML.trim() === "") {
+        toDo.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks To do</span></div>`;
+    }
+    if (feedback.innerHTML.trim() === "") {
+        feedback.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks awaiting feedback</span></div>`;
+    }
+    if (done.innerHTML.trim() === "") {
+        done.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
+    }
+  }

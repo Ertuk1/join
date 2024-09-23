@@ -181,3 +181,13 @@ function getSelectedPriority() {
     }
     return 'low'; 
 }
+
+/**
+ * Generates the HTML for the subtask inputs.
+ * @function getEditSubtaskHTML
+ * @param {Array} editSubtask - The array of subtasks.
+ * @returns {string} The HTML for the subtask inputs.
+ */
+function getEditSubtaskHTML(editSubtask) {
+    return editSubtask.map((subcategory, index) => generateSubtaskHTML(subcategory, index)).join('');
+}

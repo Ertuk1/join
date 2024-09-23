@@ -67,9 +67,7 @@ function currentPage() {
     'legalNoticeNoLogin.html': 'legalNoticeNoLoginMenu',
     'privacyPolicyNoLogin.html': 'privacyPolicyNoLoginMenu'
   };
-
   let currentPageName = window.location.href.split('/').pop();
-
   let targetIds = pageMap[currentPageName];
   if (targetIds) {
     let targetElements = Array.isArray(targetIds) ? targetIds : [targetIds];
@@ -122,12 +120,6 @@ function clearStorage() {
  * @function logout
  */
 async function logout() {
-  for (let i = 0; i < contacts.length; i++){
-      let contact = contacts[i];
-      if (contact.name.endsWith("(You)")) {
-      await deleteDataContact(`/contacts/${contact.id}`);
-   } 
-  }
    clearStorage();
    window.location.href = "/index.html";
 }
@@ -174,58 +166,6 @@ function getTaskTemplate(toDo, i, taskTypeBackgroundColor, taskType, taskAssigne
               </div>
           </div>
       </div>`;
-}
-
-/**
- * Generates the HTML for the subtask inputs.
- * @function getEditSubtaskHTML
- * @param {Array} editSubtask - The array of subtasks.
- * @returns {string} The HTML for the subtask inputs.
- */
-function getEditSubtaskHTML(editSubtask) {
-  let subtaskHTML = ''
-  for (let i = 0; i < editSubtask.length; i++) {
-      let choosedSubcategorie = editSubtask[i];
-      subtaskHTML += /*html*/`
-  <div class="choosed-subcategorie-container">
-      <input class="choosed-subcategory-input" value="${choosedSubcategorie}" id="choosed-subcategory-${i}">
-      <div class="choosed-subcategorie-btn-container">
-          <img onclick="focusInput('choosed-subcategory-${i}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png" id="at-choosed-subcategory-edit-${i}">
-          <div class="small-border-container"></div>
-          <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-${i}">
-      </div>
-      <div class="choosed-subcategorie-btn-container-active-field">
-          <img onclick="removeSubcategory(${i})" class="at-choosed-subcategory-delete" src="assets/img/delete.png" id="at-choosed-subcategory-delete-active-${i}">
-          <div class="small-border-container-gray"></div>
-          <img class="at-choosed-subcategory-check" src="assets/img/checkOkDarrk.png" id="at-choosed-subcategory-check-active-${i}">
-      </div>
-  </div>`
-  }
-  return subtaskHTML
-}
-
-/**
- * Checks if any task section is empty and displays a "No tasks" message.
- * @function checkIfEmpty
- */
-function checkIfEmpty() {
-  let toDo = document.getElementById('toDo');
-  let progress = document.getElementById('progress');
-  let feedback = document.getElementById('feedback');
-  let done = document.getElementById('done');
-
-  if (progress.innerHTML.trim() === "") {
-      progress.innerHTML = `<div class="noTasks"><span class="noTaskText">Nothing in progress</span></div>`;
-  }
-  if (toDo.innerHTML.trim() === "") {
-      toDo.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks To do</span></div>`;
-  }
-  if (feedback.innerHTML.trim() === "") {
-      feedback.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks awaiting feedback</span></div>`;
-  }
-  if (done.innerHTML.trim() === "") {
-      done.innerHTML = `<div class="noTasks"><span class="noTaskText">No tasks done</span></div>`;
-  }
 }
 
 /**
