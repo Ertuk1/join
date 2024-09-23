@@ -21,7 +21,7 @@ function getChoosedContactsHTML(maxVisibleContacts) {
 function getSubcategoryTemplate(subcategory, index) {
     return `
     <div class="choosed-subcategorie-container">
-        <input class="choosed-subcategory-input" value="${subcategory}" id="choosed-subcategory-${index}">
+        <input oninput="checkSubcategoryInputs()" class="choosed-subcategory-input" value="${subcategory}" id="choosed-subcategory-${index}">
         <div class="choosed-subcategorie-btn-container">
             <img onclick="focusInput('choosed-subcategory-${index}')" class="at-choosed-subcategory-edit" src="assets/img/editDark.png">
             <div class="small-border-container"></div>
