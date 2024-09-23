@@ -38,68 +38,84 @@ function renderContacts() {
  * @param {number|null} [newContactIndex=null] - Index of the new contact to mark as active.
  * @returns {void}
  */
+/**
+ * Creates a list of contacts and renders them in the DOM.
+ * @function
+ * @param {number|null} [newContactIndex=null] - Index of the new contact to mark as active.
+ * @returns {void}
+ */
 function createContactList(newContactIndex = null) {
     const contactList = document.getElementById('contact-list');
     contactList.innerHTML = '';
-    const seenContacts = new Set(); // Set zum Nachverfolgen der bereits hinzugefügten Kontakte
-
-    for (let j = 0; j < alphabet.length; j++) {
-        const letter = alphabet[j];
-        let letterAdded = false; // Flag, um zu überprüfen, ob der Buchstabe hinzugefügt wurde
-
-        for (let i = 0; i < contacts.length; i++) {
-            const contact = contacts[i];
+    const seenContacts = new Set();
+    alphabet.forEach(letter => {
+        let letterAdded = false;
+        contacts.forEach((contact, i) => {
             const initials = contact.initials;
             const firstLetter = initials.charAt(0).toUpperCase();
-
             if (firstLetter === letter && !seenContacts.has(contact.name)) {
                 if (!letterAdded) {
-                    const letterHeading = document.createElement('div');
-                    letterHeading.textContent = firstLetter;
-                    letterHeading.classList.add('letter-heading');
-                    contactList.appendChild(letterHeading);
+                    addLetterHeading(contactList, letter);
                     letterAdded = true;
                 }
-
-                const contactItem = document.createElement('div');
-                contactItem.classList.add('contact');
-                if (i === newContactIndex) {
-                    contactItem.classList.add('active'); // Markiere den neuen Kontakt als aktiv
-                }
-                const profileColor = contact['profileColor'];
-                const profilePicture = document.createElement('div');
-                profilePicture.classList.add('profile-picture');
-                profilePicture.style.backgroundColor = profileColor;
-                profilePicture.textContent = initials;
-                contactItem.appendChild(profilePicture);
-
-                const contactDetails = document.createElement('div');
-                contactDetails.classList.add('oneContact');
-                contactDetails.innerHTML = `
-                      <h2>${contact.name}</h2>
-                      <p class="blueColor">${contact.mail}</p>
-                  `;
-                contactItem.appendChild(contactDetails);
-                contactList.appendChild(contactItem);
-
-                // Füge dem Kontakt und den Kontaktinformationen einen Click-Event-Listener hinzu
-                contactItem.onclick = function () {
-                    // Entferne die 'active' Klasse von allen Kontakten
-                    const allContacts = document.querySelectorAll('.contact');
-                    allContacts.forEach(c => c.classList.remove('active'));
-
-                    // Füge die 'active' Klasse zum geklickten Kontakt hinzu
-                    contactItem.classList.add('active');
-
-                    // Rufe die Kontaktinformationen mit dem aktuellen Kontakt ab
-                    contactClickHandler(i);
-                };
-
-                seenContacts.add(contact.name); // Kontakt als gesehen markieren
+                addContactItem(contactList, contact, i, newContactIndex);
+                seenContacts.add(contact.name);
             }
-        }
-    }
+        });
+    });
 }
+
+/**
+ * Adds a letter heading to the contact list.
+ * @param {HTMLElement} contactList - The element to append the heading to.
+ * @param {string} letter - The letter to display as a heading.
+ */
+function addLetterHeading(contactList, letter) {
+    const letterHeading = document.createElement('div');
+    letterHeading.textContent = letter;
+    letterHeading.classList.add('letter-heading');
+    contactList.appendChild(letterHeading);
+}
+
+/**
+ * Adds a contact item to the contact list.
+ * @function
+ * @param {HTMLElement} contactList - The element to append the contact item to.
+ * @param {Object} contact - The contact object containing details.
+ * @param {number} index - The index of the contact in the contacts array.
+ * @param {number|null} newContactIndex - Index of the new contact to mark as active.
+ * @returns {void}
+ */
+function addContactItem(contactList, contact, index, newContactIndex) {
+    const contactItem = document.createElement('div');
+    contactItem.classList.add('contact');
+    if (index === newContactIndex) contactItem.classList.add('active');
+    const profilePicture = document.createElement('div');
+    profilePicture.classList.add('profile-picture');
+    profilePicture.style.backgroundColor = contact.profileColor;
+    profilePicture.textContent = contact.initials;
+    contactItem.appendChild(profilePicture);
+    contactItem.innerHTML += `
+        <div class="oneContact">
+            <h2>${contact.name}</h2>
+            <p class="blueColor">${contact.mail}</p>
+        </div>
+    `;
+    contactItem.onclick = () => handleContactClick(contactItem, index);
+    contactList.appendChild(contactItem);
+}
+
+/**
+ * Handles click events on a contact to show their details.
+ * @param {HTMLElement} contactItem - The clicked contact item.
+ * @param {number} index - Index of the contact in the contacts array.
+ */
+function handleContactClick(contactItem, index) {
+    document.querySelectorAll('.contact').forEach(c => c.classList.remove('active'));
+    contactItem.classList.add('active');
+    contactClickHandler(index);
+}
+
 
 /**
  * Extracts initials from a given name.
@@ -123,52 +139,27 @@ function extractInitials(name) {
  * @returns {Promise<void>}
  */
 async function getNewContact() {
-    let name = document.getElementById('fullName');
-    let email = document.getElementById('emailAdress');
-    let phone = document.getElementById('phoneNumber');
-    let alertMessage = document.getElementById('addNewContactAlert');
-    
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let phonePattern = /^\d{11,}$/; // Regex to check for at least 11 digits
+    const { value: nameValue } = document.getElementById('fullName');
+    const { value: emailValue } = document.getElementById('emailAdress');
+    const { value: phoneValue } = document.getElementById('phoneNumber');
+    const alertMessage = document.getElementById('addNewContactAlert');
 
-    // Split name by spaces and check if there are at least two words
-    let nameParts = name.value.trim().split(' ');
+    const validationError = validateContact(nameValue, emailValue, phoneValue, alertMessage);
+    if (validationError) return alertMessage.innerHTML = validationError;
 
-    if (name.value === '' || email.value === '' || phone.value === '') {
-        alertMessage.innerHTML = '<p>The fields must be filled.</p>';
-    } else if (nameParts.length < 2) {
-        alertMessage.innerHTML = '<p>Please enter both a first and last name.</p>';
-    } else if (!emailPattern.test(email.value)) {
-        alertMessage.innerHTML = '<p>Please enter a valid email address.</p>';
-    } else if (!phonePattern.test(phone.value)) {
-        alertMessage.innerHTML = '<p style="color: red;">Phone number must be at least 11 digits long.</p>';
-    } else {
-        const colorIndx = Math.floor(Math.random() * beautifulColors.length);
-        const color = beautifulColors[colorIndx];
-        const initials = extractInitials(name.value);
-        const newContact = {
-            mail: email.value,
-            name: name.value,
-            initials: initials,
-            phone: phone.value,
-            profileColor: color,
-        };
-        await postContact("/contacts", newContact);
-        await loadDataContacts();
-        const newContactIndex = contacts.length - 1;
-        createContactList(newContactIndex);
-        contactClickHandler(newContactIndex);
+    const color = beautifulColors[Math.floor(Math.random() * beautifulColors.length)];
+    const initials = extractInitials(nameValue);
+    const newContact = createContactObject(nameValue, emailValue, phoneValue, initials, color);
 
-        name.value = '';
-        email.value = '';
-        phone.value = '';
-        alertMessage.innerHTML = ''; 
-
-        cancelAddContact();
-        slideSuccessfullyContact();
-    }
+    await postContact("/contacts", newContact);
+    await loadDataContacts();
+    const newContactIndex = contacts.length - 1;
+    createContactList(newContactIndex);
+    contactClickHandler(newContactIndex);
+    clearFields('add');
+    cancelAddContact();
+    slideSuccessfullyContact();
 }
-
 
 
 /**
@@ -280,79 +271,93 @@ function slideSuccessfullyContact() {
  * @returns {Promise<void>}
  */
 async function showEditContact(i) {
-    let contact = contacts[i];
-    let name = contact.name;
-    isItYou = name.includes('(You)');
-    let displayName = isItYou ? name.substr(0, name.length - 12) : name;
-
-    const color = contact['profileColor'];
-
-    document.getElementById('editContactSecondSection').innerHTML = '';
+    const contact = contacts[i];
+    const displayName = contact.name.replace(/\s*\(You\)$/, '');
+    const color = contact.profileColor;
+    document.getElementById('editContactSecondSection').innerHTML = editContactHTML(i);
     document.getElementById('blurBackgroundEdit').classList.remove('d-none');
     editContact.style.display = "flex";
     setTimeout(() => {
-        editContact.style.bottom = "0";
+        editContact.style.bottom = "0"; 
         editContact.style.right = "0";
     }, 10);
-    document.getElementById('editContactSecondSection').innerHTML = editContactHTML(i);
-    document.getElementById('editName').value = displayName;
-    document.getElementById('editEmail').value = contact.mail;
-    document.getElementById('editPhone').value = contact.phone;
+    ['editName', 'editEmail', 'editPhone'].forEach((id, idx) => 
+        document.getElementById(id).value = [displayName, contact.mail, contact.phone][idx]);
     document.getElementById('initialsEditContact').style.backgroundColor = color;
     document.getElementById('initialsText').innerHTML = contact.initials;
-    // closeEditResponsive();
 }
 
+/**
+ * Returns the HTML template for editing a contact.
+ * @param {number} i - Index of the contact.
+ * @returns {string} - HTML template for the contact.
+ */
 function editContactHTML(i) {
     let contact = contacts[i];
     return getEditContactTemplate(contact, i);
 }
 
+/**
+ * Validates and updates a contact in the array.
+ * @param {number} i - Index of the contact to edit.
+ * @returns {Promise<void>}
+ */
 async function editContactToArray(i) {
-    let contact = contacts[i];
-    let name = document.getElementById('editName');
-    let email = document.getElementById('editEmail');
-    let phone = document.getElementById('editPhone');
-    let alertMessage = document.getElementById('addNewContactAlertedit');
-    const initial = extractInitials(name.value);
-
-    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    let phonePattern = /^\d{11,}$/; // Regex to check for at least 11 digits
-
-    // Split name by spaces and check if there are at least two words
-    let nameParts = name.value.trim().split(' ');
-
-    if (name.value === '') {
-        alertMessage.innerHTML = '<p style="color: red;">Please enter both a first and last name.</p>';
-    } else if (nameParts.length < 2) {
-        alertMessage.innerHTML = '<p style="color: red;">Please enter both a first and last name.</p>';
-    } else if (!emailPattern.test(email.value)) {
-        alertMessage.innerHTML = '<p style="color: red;">Please enter a valid email address.</p>';
-    } else if (!phonePattern.test(phone.value)) {
-        alertMessage.innerHTML = '<p style="color: red;">Phone number must be at least 11 digits long.</p>';
-    } else {
-        let myName = isItYou ? name.value + ' (You)' : name.value;
-
-        const updatedContact = {
-            "name": myName,
-            "mail": email.value,
-            "phone": phone.value,
-            "profileColor": contact.profileColor,
-            "initials": initial
-        };
-
-        await updateContact("/contacts/" + contact.id, updatedContact);
-        await loadDataContacts();
-        contactClickHandler(contacts.length - 1);
-
-        alertMessage.innerHTML = ''; // Clear alert message
-        cancelEditContact();
-        createContactList();
-    }
+    const { value: nameValue } = document.getElementById('editName');
+    const { value: emailValue } = document.getElementById('editEmail');
+    const { value: phoneValue } = document.getElementById('editPhone');
+    const alertMessage = document.getElementById('addNewContactAlertedit');
+    const validationError = validateContact(nameValue, emailValue, phoneValue, alertMessage);
+    if (validationError) return alertMessage.innerHTML = validationError;
+    const initials = extractInitials(nameValue);
+    const updatedContact = createContactObject(nameValue, emailValue, phoneValue, initials, contacts[i].profileColor);
+    await updateContact(`/contacts/${contacts[i].id}`, updatedContact);
+    await loadDataContacts();
+    contactClickHandler(contacts.length - 1);
+    clearFields('edit');
+    cancelEditContact();
+    createContactList();
 }
 
 
-// Öffnet die Box 'Add new Contact'
+/**
+ * Validates contact input fields.
+ * @param {HTMLElement} alertMessage - Element to display error messages.
+ * @returns {string|null} - Error message or null if valid.
+ */
+function validateContact(name, email, phone, alertMessage) {
+    const nameParts = name.trim().split(' ');
+    if (nameParts.length < 2) return '<p>Please enter both a first and last name.</p>';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return '<p>Please enter a valid email address.</p>';
+    if (!/^\d{11,}$/.test(phone)) return '<p style="color: red;">Phone number must be at least 11 digits long.</p>';
+    return null;
+}
+/**
+ * Creates a contact object.
+ * @returns {Object} - Contact object.
+ */
+function createContactObject(name, email, phone, initials, profileColor) {
+    return {
+        name: name,
+        mail: email,
+        phone: phone,
+        profileColor: profileColor,
+        initials: initials
+    };
+}
+
+/**
+ * Clears input fields based on the action type.
+ * @param {string} action - Type of action (edit/add).
+ */
+function clearFields(action) {
+    const fields = action === 'edit' ? ['editName', 'editEmail', 'editPhone'] : ['fullName', 'emailAdress', 'phoneNumber'];
+    fields.forEach(id => document.getElementById(id).value = '');
+}
+
+/**
+ * Shows the "Add New Contact" dialog.
+ */
 function showAddContact() {
     document.getElementById('addNewContactAlert').innerHTML = '';
     document.getElementById('blurBackground').classList.remove('d-none');
@@ -364,7 +369,9 @@ function showAddContact() {
     }, 10);
 }
 
-
+/**
+ * Cancels adding a new contact and hides the dialog.
+ */
 function cancelAddContact() {
     let addNewContact = document.getElementById('addNewContact');
     addNewContact.style.right = "-6000px";  // Slide out to the right
@@ -375,7 +382,9 @@ function cancelAddContact() {
     }, 800); // Delay matches the transition duration (0.5s)
 }
 
-
+/**
+ * Cancels editing a contact and hides the dialog.
+ */
 function cancelEditContact() {
     closeEditContact(); // Trigger the sliding animation
     setTimeout(() => {
@@ -385,7 +394,9 @@ function cancelEditContact() {
     }, 800); // Delay to match transition duration
 }
 
-
+/**
+ * Closes the contact editing dialog with a sliding animation.
+ */
 function closeEditContact() {
     let editContact = document.getElementById('editContact');
     editContact.style.right = "-6000px"; // Start sliding animation
