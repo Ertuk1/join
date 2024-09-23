@@ -147,18 +147,24 @@ function checkIfTitleEmpty() {
  */
 function checkIfDateEmpty() {
     let date = document.getElementById('task-due-date');
+    let currentDate = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
 
     if (date.value === '') {
         document.getElementById('at-alert-due-date').classList.remove('d-none');
         date.style.borderColor = '#FF8190';
         return false;
-    }
-    else {
+    } else if (date.value < currentDate) {
+        document.getElementById('at-alert-due-date').textContent = 'Date cannot be in the past';
+        document.getElementById('at-alert-due-date').classList.remove('d-none');
+        date.style.borderColor = '#FF8190';
+        return false;
+    } else {
         document.getElementById('at-alert-due-date').classList.add('d-none');
         date.style.borderColor = '';
         return true;
     }
 }
+
 
 /**
  * This function checks the status of the category dropdown. 

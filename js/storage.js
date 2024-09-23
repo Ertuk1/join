@@ -350,74 +350,63 @@ async function deleteDataTask(path) {
  */
 async function saveTaskChanges(id) {
   await loadDataTask(); 
-  
-
-  const taskTitle = document.getElementById('task-title').value.trim() || 'Untitled';
-  const taskDescription = document.getElementById('at-description').value.trim() || 'No description';
-  const taskDueDate = document.getElementById('task-due-date').value || new Date().toISOString().split('T')[0];
-
-  
-  let taskPriority;
-  const urgentElement = document.querySelector('.at-bg-urgent');
-  const mediumElement = document.querySelector('.at-bg-medium');
-  const lowElement = document.querySelector('.at-bg-low');
-
-  if (urgentElement) {
-    taskPriority = 'urgent';
-  } else if (mediumElement) {
-    taskPriority = 'medium';
-  } else if (lowElement) {
-    taskPriority = 'low';
-  } else {
-    taskPriority = 'low'; 
-  }
-
-  
-  let existingTask;
-  for (const task of tasks) {
-    if (task.id === id) {
-      existingTask = task;
-      break;
-    }
-  }
-
-  
-  const subcategories = Array.from(document.querySelectorAll('.choosed-subcategory-input')).map(input => input.value) || [];
-  const assignedToContacts = Array.from(document.querySelectorAll('.at-label-checkbox input[type="checkbox"]:checked')).map(input => {
-    const contactId = input.getAttribute('data-contact-id');
-    const contactColor = input.getAttribute('data-contact-color');
-    const contactInitials = input.getAttribute('data-contact-initials');
-    return { id: contactId, color: contactColor, initial: contactInitials };
-  });
-  
-
+  const task = getTaskDetails(id);
   const updatedTask = {
-    title: taskTitle,
-    description: taskDescription,
-    date: taskDueDate,
-    prio: taskPriority,
-    subcategory: subcategories.length > 0 ? subcategories : existingTask.subcategory,
-    assignedTo: assignedToContacts.length > 0 ? assignedToContacts : existingTask.assignedTo, 
-    status: existingTask.status, 
-    category: existingTask.category,
-    completedSubtasks: existingTask.completedSubtasks,
+    title: task.title || 'Untitled',
+    description: task.description || 'No description',
+    date: task.dueDate || new Date().toISOString().split('T')[0],
+    prio: getTaskPriority(),
+    subcategory: getSubcategories() || task.existing.subcategory,
+    assignedTo: getAssignedContacts() || task.existing.assignedTo,
+    status: task.existing.status, 
+    category: task.existing.category,
+    completedSubtasks: task.existing.completedSubtasks,
   };
+  off()
+  await saveUpdatedTask(id, updatedTask);
+}
 
-  
-
+async function saveUpdatedTask(id, updatedTask) {
   try {
-    
     await changeTask(`/task/${id}`, updatedTask);
-
-    
     await loadDataTask();
     renderTasks();
-    subcategoriesChoosed = [];
-    choosedContacts = [];
-    
-    off();
+    clearEditTaskOverlayContent();
   } catch (error) {
     console.error('Fehler beim Speichern der Änderungen:', error);
   }
-  clearEditTaskOverlayContent()
+}
+
+function getTaskDetails(id) {
+  const existingTask = tasks.find(task => task.id === id);
+  return {
+    title: document.getElementById('task-title').value.trim(),
+    description: document.getElementById('at-description').value.trim(),
+    dueDate: document.getElementById('task-due-date').value,
+    existing: existingTask,
+  };
+}
+
+function getTaskPriority() {
+  const priorities = ['urgent', 'medium', 'low'];
+  return priorities.find((prio) => document.querySelector(`.at-bg-${prio}`)) || 'low';
+}
+
+function getSubcategories() {
+  return Array.from(document.querySelectorAll('.choosed-subcategory-input')).map(input => input.value);
+}
+
+function getAssignedContacts() {
+  const assignedContacts = new Set();
+  
+  Array.from(document.querySelectorAll('.at-label-checkbox input[type="checkbox"]:checked')).forEach(input => {
+    const contact = {
+      id: input.getAttribute('data-contact-id'),
+      color: input.getAttribute('data-contact-color'),
+      initial: input.getAttribute('data-contact-initials'),
+    };
+    assignedContacts.add(JSON.stringify(contact)); // Use JSON.stringify to store as a string
+  });
+
+  return Array.from(assignedContacts).map(contact => JSON.parse(contact)); // Convert back to objects
 }
