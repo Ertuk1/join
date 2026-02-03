@@ -12,7 +12,7 @@ Description
 
 Assigned urgency (High / Mid / Low)
 
-Category or assignee (optional, if implemented)
+Category or assignee 
 
 📌 Kanban Workflow
 Drag & drop tasks between:
